@@ -609,3 +609,13 @@ section { position: relative; }
 .media-txt h3 { font-family: var(--font-display); margin-bottom: .5rem; font-size: 1.25rem; }
 .media-txt p { font-family: var(--font-body); color: var(--text-soft); font-size: 1rem; line-height: 1.7; }
 @media (max-width: 720px) { .media, .media.rev { grid-template-columns: 1fr; } .media.rev .media-img { order: 0; } .stat-cards { grid-template-columns: 1fr 1fr; } }
+
+/* Kimdir portre hero'su (uzun) + ürün logosu */
+.article-hero.tall { height: 440px; }
+.article-hero.tall img { object-position: center 20%; }
+.product-logo { height: 40px; width: auto; margin-bottom: 14px; display: block; }
+
+/* Dil geçişi (TR/EN) */
+.lang-switch { display: inline-grid; place-items: center; min-width: 42px; height: 42px; padding: 0 12px; border-radius: var(--radius-pill); border: 1px solid var(--border); color: var(--text-soft); font-family: var(--font-display); font-weight: 600; font-size: .85rem; letter-spacing: .02em; background: var(--surface); transition: var(--t-fast); }
+.lang-switch:hover { color: var(--brand-700); border-color: var(--brand-600); transform: translateY(-1px); }
+[data-theme="dark"] .lang-switch:hover { color: var(--brand-500); }

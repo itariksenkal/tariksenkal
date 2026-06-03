@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trustworthy AI in law: how do we prevent hallucination? — İsmail Tarık Şenkal</title>
+  <meta name="description" content="What is AI hallucination in law, why is it dangerous, and how can it be prevented? Drawing on the Mata v. Avianca case and Stanford's research, we examine a trustworthy architecture built on RAG (grounding in sources), citation, verification and human oversight, along with the framework set by the TBB, bar associations and CEPEJ." />
+  <link rel="canonical" href="https://tariksenkal.com/en/posts/hukukta-guvenilir-yapay-zeka.html" />
+  <link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/hukukta-guvenilir-yapay-zeka.html" />
+  <meta name="theme-color" content="#7CB342" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Trustworthy AI in law: how do we prevent hallucination? — İsmail Tarık Şenkal" />
+  <meta property="og:description" content="What is AI hallucination in law, why is it dangerous, and how can it be prevented? Drawing on the Mata v. Avianca case and Stanford's research, we examine a trustworthy architecture built on RAG (grounding in sources), citation, verification and human oversight, along with the framework set by the TBB, bar associations and CEPEJ." />
+  <meta property="og:url" content="https://tariksenkal.com/en/posts/hukukta-guvenilir-yapay-zeka.html" />
+  <meta property="og:image" content="https://tariksenkal.com/image/hero-guven.jpg" />
+  <link rel="icon" type="image/png" href="../../image/hatsontech_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+  <div class="progress"></div>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Home">
+        <img src="../../image/hatsontech_logo.png" alt="HatsonTech" />
+        <span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">About</a>
+        <a href="../index.html#ne-yapiyor">What I Do</a>
+        <a href="../index.html#uzmanlik">Expertise</a>
+        <a href="../blog.html">Articles</a>
+        <a href="../index.html#iletisim">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../posts/hukukta-guvenilir-yapay-zeka.html" aria-label="Türkçe">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <article>
+    <div class="wrap narrow article-head">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> <span>/</span>
+        <a href="../blog.html">Articles</a> <span>/</span>
+        <span>Technology</span>
+      </div>
+      <span class="tag">Technology</span>
+      <h1>Trustworthy AI in law: how do we prevent hallucination?</h1>
+      <div class="article-meta">
+        <div class="author">
+          <span class="ava">TŞ</span>
+          <div>
+            <div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div>
+            <div>HatsonTech · Co-Founder</div>
+          </div>
+        </div>
+        <span>· 9 min read</span>
+      </div>
+    </div>
+
+    <div class="wrap narrow"><div class="article-hero"><img src="../../image/hero-guven.jpg" alt="Trustworthy AI in law: how do we prevent hallucination?"></div></div>
+
+    <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+      <div class="prose">
+<p class="lead-p">The most insidious flaw of artificial intelligence is its inability to say it doesn't know. When a large language model cannot find an answer, it usually doesn't stay silent; on the contrary, it "makes something up" in flawless prose and with a tone of utter confidence. We call this hallucination. In most fields it is an annoying defect. In law, it is a professional catastrophe.</p>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#bolum-1">"Confident but wrong": what is hallucination?</a></li>
+    <li><a href="#bolum-2">A cautionary case: Mata v. Avianca and six fake precedents</a></li>
+    <li><a href="#bolum-3">Not an isolated accident, but an epidemic</a></li>
+    <li><a href="#bolum-4">Why is it intolerable in law?</a></li>
+    <li><a href="#bolum-5">The myth that "law-specific tools don't hallucinate"</a></li>
+    <li><a href="#bolum-6">The solution architecture: grounding, sourcing and verification</a></li>
+    <li><a href="#bolum-7">Human oversight: the lawyer is always the one ultimately responsible</a></li>
+    <li><a href="#bolum-8">The Turkish context: the TBB, bar associations and the ethical framework</a></li>
+    <li><a href="#bolum-9">A practical checklist</a></li>
+    <li><a href="#bolum-10">Conclusion: Trust = Accuracy + Traceability</a></li>
+  </ol>
+</div>
+
+<h2 id="bolum-1">"Confident but wrong": what is hallucination?</h2>
+<p>A <a href="buyuk-dil-modeli-nedir.html">large language model (LLM)</a> is not really a "knowledge base"; it is a statistical engine that predicts <em>what the next word should be</em> by looking at the patterns it has learned from enormous piles of text. That is why it writes so fluently. But for the very same reason it has no ability to verify the truth: when you ask it for the number of a Court of Cassation (Yargıtay) decision, it does not recall a real decision, it merely generates "what a real decision number ought to look like."</p>
+<p>That is precisely what hallucination is: the model producing content that does not actually exist yet is coherent enough to seem convincing. In a legal context, hallucination typically appears in three forms:</p>
+<ul>
+  <li><strong>Citing a non-existent case:</strong> fabricating a case that was never filed, complete with name, number and date.</li>
+  <li><strong>A fake quotation from a real case:</strong> attributing to an existing decision a sentence that never appears in it.</li>
+  <li><strong>False support:</strong> a genuine quotation that does not actually support the legal proposition being advanced, or even contradicts it.</li>
+</ul>
+<blockquote>The danger lies not in the model being wrong, but in its being persuasive enough to conceal that it is wrong.</blockquote>
+
+<h2 id="bolum-2">A cautionary case: Mata v. Avianca and six fake precedents</h2>
+<p>The event that explained this problem to the world most clearly is the <strong>Mata v. Avianca</strong> case, heard in 2023 before the U.S. District Court for the Southern District of New York (case no. 1:22-cv-01461). The plaintiff's attorneys used ChatGPT while preparing a brief. The brief they submitted cited <strong>six separate precedent decisions</strong>. The problem was this: none of these decisions were real; all six were entirely fabricated.</p>
+<p>In his explanation to the court, one of the attorneys said he had treated ChatGPT almost like a "super search engine," assuming the system would only return real decisions. By the time the truth came out, it was too late: when the opposing party could not find the decisions cited in the brief in any database, the matter was brought before the judge.</p>
+<p>In his ruling of 22 June 2023, Judge P. Kevin Castel found that the attorneys had acted in bad faith. He imposed a monetary sanction under Rule 11 of the Federal Rules of Civil Procedure and required the attorneys to send corrective letters to the real judges who had been listed as authors of the fake decisions.</p>
+
+<div class="stat-cards">
+  <div class="sc"><div class="n">6</div><div class="l">entirely fabricated precedents</div></div>
+  <div class="sc"><div class="n">$5,000</div><div class="l">monetary sanction (FRCP Rule 11)</div></div>
+  <div class="sc"><div class="n">2023</div><div class="l">S.D.N.Y. · No. 1:22-cv-01461</div></div>
+</div>
+
+<div class="callout"><strong>The real lesson:</strong> the source of the error was not the AI, but blind reliance on it. The attorneys never once verified the output against an independent source. The hallucination was inevitable; skipping verification, however, was a choice.</div>
+
+<h2 id="bolum-3">Not an isolated accident, but an epidemic</h2>
+<p>We could easily have dismissed Mata v. Avianca as "the unfortunate mistake of two inexperienced attorneys." Unfortunately, subsequent developments showed that this was not an exception but the first major sign of a rising trend. In mid-2025, legal researcher Damien Charlotin made public a global database, spanning many countries, that compiles court decisions involving AI hallucinations.</p>
+<p>The trajectory of the number of cases added to this database is striking in itself: while two or three cases were being added per day in the autumn of 2025, toward the end of the year this rose to five or six cases per day, with the total record reaching a figure expressed in the hundreds. In other words, the problem did not subside; on the contrary, it accelerated as AI tools became more widespread. This is proof that the issue has ceased to be a matter of individual carelessness and turned into a structural risk for the profession.</p>
+
+<h2 id="bolum-4">Why is it intolerable in law?</h2>
+<p>A made-up sentence in a marketing text can be corrected, causing embarrassment at most. In law, however, every piece of information submitted to the court is a commitment. Here three fundamental duties come into play:</p>
+<ul>
+  <li><strong>Accuracy:</strong> the truthfulness of content entering the file is not negotiable; a single fake citation destroys the credibility of the entire brief.</li>
+  <li><strong>The duty of candor:</strong> a lawyer has a duty of candor toward the court; submitting information whose accuracy has not been checked undermines this duty.</li>
+  <li><strong>Client trust:</strong> the client entrusts the fate of their life or their business to the lawyer. This trust is incompatible with copying an AI output into the file unchecked.</li>
+</ul>
+<p>Moreover, this responsibility cannot be delegated. Even if the misuse is unintentional, the person responsible for the accuracy of the content submitted to the file is the lawyer, not the tool. The American Bar Association (ABA) underscored this principle when it published its first formal ethics opinion on the use of generative AI in July 2024: the tool changed, but the owner of the responsibility did not.</p>
+
+<h2 id="bolum-5">The myth that "law-specific tools don't hallucinate"</h2>
+<p>Many legal professionals reasonably think: "General-purpose chatbots may make things up, but law-specific commercial tools fed with real case law do not." This reassuring assumption is, unfortunately, not entirely correct.</p>
+<p>A comprehensive study conducted by Stanford University's RegLab and HAI teams and published in the <em>Journal of Empirical Legal Studies</em> in 2025 put the industry's leading tools under the microscope. The result was sobering: even these source-based (RAG-based) commercial tools still produced hallucinations in a significant share of queries. The study's headline was that legal research models hallucinated in <strong>at least one of every six queries</strong>.</p>
+
+<table class="cmp-table">
+  <thead>
+    <tr><th>Tool</th><th>Approach</th><th>Measured hallucination rate (Stanford, 2025)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>General-purpose chatbots</td><td class="no">Pure LLM, not grounded in sources</td><td class="no">Very high</td></tr>
+    <tr><td>Lexis+ AI</td><td class="yes">✓ RAG-based</td><td>~17%</td></tr>
+    <tr><td>Westlaw AI-Assisted Research</td><td class="yes">✓ RAG-based</td><td>~33%</td></tr>
+  </tbody>
+</table>
+<p>The lesson to draw from this is not "don't use these tools." On the contrary: RAG <strong>greatly reduces hallucination, but does not eliminate it.</strong> The "law-specific" label is not a guarantee of accuracy, but a step taken in the right direction. That is why expert oversight cannot be negotiable, even with the most advanced tool.</p>
+
+<h2 id="bolum-6">The solution architecture: grounding, sourcing and verification</h2>
+<p>The way to manage hallucination runs not through a single magic button, but through overlapping layers of defense. The foundation of this architecture is <a href="rag-nedir.html">RAG (retrieval-augmented generation)</a>.</p>
+<p>The logic of RAG is simple: the model does not write the answer directly "from memory." It first <em>retrieves</em> the relevant text from a real source (legislation, case law, or a document uploaded by the user), then produces its answer by <em>grounding</em> it in that text. In this way the output rests not on the model's imagination but on the real document placed before it. There is a critical condition to this: the retrieval step itself must be accurate; if the wrong document is retrieved, the answer built on top of it will also be wrong.</p>
+
+<div class="media">
+  <div class="media-img"><img src="../../image/shot-arama.png" alt="Hukuki yapay zeka aracında kaynağa demirlenmiş, atıflı arama sonucu ekranı"></div>
+  <div class="media-txt">
+    <h3>Grounding + citation</h3>
+    <p>In a well-designed legal tool, every answer is linked to the real decision or legislative provision it relies on. With a single click, the user can go to the source and verify the text with their own eyes. The ability to answer the question "Where did you find this?" instantly is the strongest practical shield against hallucination.</p>
+  </div>
+</div>
+
+<p>In this architecture, three layers work together:</p>
+<ol>
+  <li><strong>Grounding in sources (RAG):</strong> the answer rests on the retrieved real document, not on the model's guess.</li>
+  <li><strong>Citation:</strong> every claim is presented with a traceable reference; the user sees the source directly.</li>
+  <li><strong>The verification layer:</strong> the system checks whether the cited reference actually exists and whether it supports the proposition.</li>
+</ol>
+
+<h2 id="bolum-7">Human oversight: the lawyer is always the one ultimately responsible</h2>
+<p>No matter how much we advance the technology, one fact does not change: AI is not a "super search engine." The fundamental mistake of the attorney in Mata v. Avianca was exactly this; he saw the tool as something it could never be. The correct mental model is this: AI is like an <em>intern</em> who is very fast but sometimes wrong. You do not sign off on its work without reviewing it.</p>
+<p>That is why even the most robust architecture "keeps the human in the loop" (human-in-the-loop). The tool provides speed and breadth; the one who assumes the final legal judgment, the context and the responsibility is the lawyer. At HatsonTech, we design our products with this philosophy too: our aim is not to replace the lawyer, but to offer them a foundation that is fast and in which the source is visible and auditable.</p>
+
+<h2 id="bolum-8">The Turkish context: the TBB, bar associations and the ethical framework</h2>
+<p>This debate is not abstract for Turkey. Because general-purpose models largely "do not know" Turkish law, they are especially prone to fabricating Court of Cassation (Yargıtay) decisions, legislative provisions and their numbers. This brings to the fore <a href="turkce-yapay-zeka.html">tools specific to Turkish law</a> that are fed with real case law and legislation.</p>
+<p>On the institutional front, there is movement too:</p>
+<ul>
+  <li><strong>The Union of Turkish Bar Associations (TBB):</strong> an "AI and Law R&amp;D Unit" was established within it. At the "AI and the Legal Profession Workshop" held on 14-15 February 2026, topics such as legislation and rules of the profession, AI literacy, client rights, accreditation and oversight, and the legal technology ecosystem were addressed.</li>
+  <li><strong>Bar association guides:</strong> the Ankara Bar Association published its "Guide to the Use of AI Tools in the Legal Profession." The guide is a reminder that the duties of confidentiality, diligence, personal performance and accountability set out in Attorneys' Act No. 1136 apply equally to the use of AI.</li>
+  <li><strong>The European framework:</strong> CEPEJ, the Council of Europe's commission for the efficiency of justice, set out five principles in its "Ethical Charter on the Use of Artificial Intelligence in Judicial Systems" of December 2018: respect for fundamental rights, non-discrimination, quality and security, transparency-impartiality-fairness, and user control. Turkey is a member of the Council of Europe, and this framework is of guiding significance.</li>
+</ul>
+<div class="callout"><strong>Tip:</strong> When evaluating a tool, don't only ask "how smart is it?"; ask "does it show its source, how does it protect productivity, and which legislation and case law is it fed with?" The right questions filter out hallucination risk as early as the contracting stage.</div>
+
+<h2 id="bolum-9">A practical checklist</h2>
+<p>Whichever tool you use, a simple discipline to apply before putting the output into the file prevents most disasters from the outset:</p>
+<ol>
+  <li><strong>Verify every citation against its source.</strong> Open the cited decision or provision yourself in an official or trustworthy database; check whether the number, parties and date match.</li>
+  <li><strong>Confirm that the quotation appears in the text.</strong> Is the sentence attributed to the decision really inside that decision?</li>
+  <li><strong>Question the support.</strong> Does the citation, even if genuine, really support the legal proposition you are advancing, or is it only superficially related to the topic?</li>
+  <li><strong>Check that it is current.</strong> The decision may have been overturned, the case law may have changed, or the legislation may have been repealed.</li>
+  <li><strong>Protect confidentiality.</strong> Do not enter client secrets and personal data into insecure general-purpose tools; know the data-processing terms.</li>
+  <li><strong>Take responsibility.</strong> You are the one who signs; "the AI said so" is not a defense.</li>
+</ol>
+
+<div class="takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>Hallucination is not a defect of the model but a natural consequence of how it works; it is managed by design, not eliminated by wishing.</li>
+    <li>Mata v. Avianca showed that the real risk is not AI, but trust without verification.</li>
+    <li>The Stanford findings revealed that even "law-specific" tools are not entirely immune to hallucination.</li>
+    <li>The solution is a stack: grounding in sources (RAG) + citation + verification + human oversight.</li>
+    <li>In Turkey, the framework of the TBB, the bar associations and CEPEJ is laying the groundwork for responsible use.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details>
+    <summary>A tool that uses RAG doesn't hallucinate, right?</summary>
+    <p>No. By grounding the answer in a real source, RAG greatly reduces hallucination, but does not eliminate it entirely. Stanford's 2025 study showed that even leading RAG-based commercial tools can hallucinate on a significant share of queries. That is why human oversight is essential.</p>
+  </details>
+  <details>
+    <summary>If I put a fake precedent into the file, who bears the responsibility?</summary>
+    <p>The lawyer. Even if the misuse is unintentional, the person responsible for the accuracy of the content submitted to the court is the lawyer. "The AI made it up" is not an excuse; in Mata v. Avianca the attorneys faced sanctions for precisely this reason.</p>
+  </details>
+  <details>
+    <summary>Can I use general-purpose chatbots for Turkish law?</summary>
+    <p>It is not advisable without great care. Because general-purpose models largely "do not know" Turkish legislation and case law, they are prone to fabricating article numbers and decisions. Tools specific to Turkish law that are fed with real case law and legislation and that cite their sources reduce this risk markedly.</p>
+  </details>
+  <details>
+    <summary>What should I look for when choosing a legal AI tool?</summary>
+    <p>Citation and traceability (is every answer linked to a real decision or provision?), the scope and currency of the data source it is fed with, data security and KVKK compliance, and the room it leaves for user control. There is no tool that guarantees accuracy; there are tools that make verification easier.</p>
+  </details>
+</div>
+
+<h2 id="bolum-10">Conclusion: Trust = Accuracy + Traceability</h2>
+<p>Trust in AI in law is not measured by how "smart" the model appears. It is measured by two things: whether what it says is <strong>accurate</strong>, and whether that accuracy is <strong>traceable</strong>. An answer that cannot show its source, however fluent, cannot bear a lawyer's signature.</p>
+<p>At HatsonTech, we look at the matter from exactly this angle. In <a href="caseon-nedir.html">Caseon</a> and MevzuatBot, the products we have developed since founding the company at Ankara ODTÜ Teknokent in 2024, we draw on real case law and legislation covering the four high judicial authorities (the Court of Cassation, the Council of State, the Constitutional Court and the Regional Courts of Justice); we ground our answers in these sources and make their citations visible. We process data in compliance with KVKK, with AES-256 encryption and on Google Cloud infrastructure, and we do not use user data in model training.</p>
+
+<hr />
+<p>AI is transforming the law; there is no point in denying it. But for this transformation to be healthy, it depends on our seeing the tool not as an "all-knowing oracle" but as "a fast assistant that needs to be supervised." If you are curious about the technical foundation of this architecture, you can take a look at the article <a href="rag-nedir.html">"What is RAG, and why does it matter?"</a>, and to see why an approach specific to Turkish is essential, the article <a href="turkce-yapay-zeka.html">"Why Turkish AI?"</a>.</p>
+
+      </div>
+
+      <div class="article-tags"><span class="tag">Technology</span><span class="tag">AI</span><span class="tag">Legal Tech</span></div>
+
+      <div class="author-box">
+        <span class="ava">TŞ</span>
+        <div>
+          <h4>İsmail Tarık Şenkal</h4>
+          <div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div>
+          <p>Engineer and entrepreneur building Turkish-focused AI products — the name behind HatsonTech and Caseon.</p>
+        </div>
+      </div>
+
+      <div class="post-nav">
+        <a href="emsal-karar-semantik-arama.html"><div class="dir">← Previous</div><div class="ttl">Finding precedent by meaning: semantic search in law</div></a>
+        <a class="next" href="kvkk-yapay-zeka-guvenligi.html"><div class="dir">Next →</div><div class="ttl">Legal data in the age of the KVKK: privacy and security in artificial intelligence</div></a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-bottom" style="border:none;margin:0;padding:0">
+        <span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span>
+        <span>Ankara · METU Technopark 🌿</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="icon-btn to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>
