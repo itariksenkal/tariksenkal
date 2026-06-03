@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVKK çağında hukuk verisi: yapay zekada gizlilik ve güvenlik — İsmail Tarık Şenkal</title>
+  <meta name="description" content="KVKK çağında hukuk verisini yapay zekayla güvenle kullanmanın çerçevesi: avukatlık sırrı, veri minimizasyonu, yurt dışına aktarım, &quot;veriniz modeli eğitmemeli&quot; ilkesi, AES-256 şifreleme ve hukuk bürosu için pratik kontrol listesi." />
+  <link rel="canonical" href="https://tariksenkal.com/posts/kvkk-yapay-zeka-guvenligi.html" />
+  <meta name="theme-color" content="#7CB342" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="KVKK çağında hukuk verisi: yapay zekada gizlilik ve güvenlik" />
+  <meta property="og:description" content="KVKK çağında hukuk verisini yapay zekayla güvenle kullanmanın çerçevesi: avukatlık sırrı, veri minimizasyonu, yurt dışına aktarım, &quot;veriniz modeli eğitmemeli&quot; ilkesi, AES-256 şifreleme ve hukuk bürosu için pratik kontrol listesi." />
+  <meta property="og:url" content="https://tariksenkal.com/posts/kvkk-yapay-zeka-guvenligi.html" />
+  <meta property="og:image" content="https://tariksenkal.com/image/hero-kvkk.jpg" />
+  <link rel="icon" type="image/png" href="../image/hatsontech_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="progress"></div>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Ana sayfa">
+        <img src="../image/hatsontech_logo.png" alt="HatsonTech" />
+        <span>Tarık Şenkal<small>HatsonTech · Kurucu Ortak</small></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">Kimdir</a>
+        <a href="../index.html#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../index.html#uzmanlik">Uzmanlık</a>
+        <a href="../blog.html">Yazılar</a>
+        <a href="../index.html#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Temayı değiştir">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menü">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <article>
+    <div class="wrap narrow article-head">
+      <div class="breadcrumb">
+        <a href="../index.html">Ana sayfa</a> <span>/</span>
+        <a href="../blog.html">Yazılar</a> <span>/</span>
+        <span>Güvenlik</span>
+      </div>
+      <span class="tag">Güvenlik</span>
+      <h1>KVKK çağında hukuk verisi: yapay zekada gizlilik ve güvenlik</h1>
+      <div class="article-meta">
+        <div class="author">
+          <span class="ava">TŞ</span>
+          <div>
+            <div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div>
+            <div>HatsonTech · Kurucu Ortak</div>
+          </div>
+        </div>
+        <span>· 10 dakika okuma</span>
+      </div>
+    </div>
+
+    <div class="wrap narrow"><div class="article-hero"><img src="../image/hero-kvkk.jpg" alt="KVKK çağında hukuk verisi: yapay zekada gizlilik ve güvenlik"></div></div>
+
+    <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+      <div class="prose">
+<p class="lead-p">Bir avukatın elindeki dosya, sıradan bir veri yığını değildir. İçinde bir boşanmanın kırılgan ayrıntıları, bir şirketin geleceğini belirleyecek bir sözleşme taslağı ya da henüz açıklanmamış bir savunma stratejisi olabilir. Yapay zeka bu verileri saniyeler içinde işleyebilecek güce ulaştı; ama asıl soru şu: O veriyi makineye verirken müvekkilin sırrını da teslim etmiş olur muyuz?</p>
+
+<p>Biz HatsonTech'da hukuk için yapay zeka geliştirirken bu soruyu hiçbir zaman ikinci plana atmadık. Çünkü hukukta veri en hassas varlıktır ve onu korumak teknik bir tercih değil, mesleki ve yasal bir zorunluluktur. Bu yazıda, müvekkil sırrından KVKK'nın somut yükümlülüklerine, şifrelemeden "verinin model eğitiminde kullanılmaması" ilkesine kadar, hukuk verisini yapay zeka çağında güvenle kullanmanın çerçevesini kuruyoruz.</p>
+
+<div class="article-hero v5"><span>Gizlilik &amp; Güvenlik</span></div>
+
+<div class="toc">
+  <h4>İçindekiler</h4>
+  <ol>
+    <li><a href="#bolum-1">Hukukta veri neden en hassas varlık?</a></li>
+    <li><a href="#bolum-2">Avukatlık sırrı: süresiz ve devredilemez bir yük</a></li>
+    <li><a href="#bolum-3">KVKK'nın temel ilkeleri ve veri güvenliği</a></li>
+    <li><a href="#bolum-4">Yurt dışına aktarım: veri nereye gidiyor?</a></li>
+    <li><a href="#bolum-5">Kritik ilke: veriniz modeli eğitmemeli</a></li>
+    <li><a href="#bolum-6">Teknik korumalar: şifreleme ve güvenli altyapı</a></li>
+    <li><a href="#bolum-7">Gerçek dünya uyarısı: halüsinasyon ve ayrıcalığın kaybı</a></li>
+    <li><a href="#bolum-8">Hukuk bürosu için kontrol listesi</a></li>
+  </ol>
+</div>
+
+<h2 id="bolum-1">Hukukta veri neden en hassas varlık?</h2>
+<p>Çoğu sektörde "veri güvenliği" bir itibar ve uyum meselesidir. Hukukta ise bunun ötesine geçer: Verinin sızması bir davayı kaybettirebilir, bir insanın hayatını altüst edebilir, hatta avukatın mesleğini riske atabilir. Müvekkil, avukatına en mahrem bilgilerini bir güven ilişkisi içinde aktarır. Bu güvenin karşılığı yalnızca iyi bir savunma değil; o bilginin sır olarak kalacağına dair kesin bir taahhüttür.</p>
+
+<p>Dijitalleşme bu denklemi hem kolaylaştırdı hem de tehlikeli hale getirdi. Bir zamanlar kilitli bir dolapta duran dosya, bugün bulutta, e-postada, mesajlaşma uygulamalarında ve giderek artan biçimde yapay zeka araçlarında dolaşıyor. Her yeni dijital durak, sızıntı için yeni bir kapı demek. Yapay zeka bu zincire eklendiğinde, soru "veriyi kullanmalı mıyız?" değil, "nasıl güvenle kullanırız?" hâline gelir.</p>
+
+<blockquote>Bir avukat için en büyük teknolojik risk, yapay zekayı kullanmamak değil; onu körü körüne kullanmaktır.</blockquote>
+
+<h2 id="bolum-2">Avukatlık sırrı: süresiz ve devredilemez bir yük</h2>
+<p>Türk hukukunda avukatın sır saklama yükümlülüğü bir nezaket kuralı değil, yasal bir borçtur. Avukatlık Kanunu'nun 36. maddesi, avukatların görevleri dolayısıyla öğrendikleri her şeyi açığa vurmasını yasaklar. Bu yükümlülüğün üç özelliği, yapay zeka söz konusu olduğunda kritik önem taşır:</p>
+
+<ul>
+  <li><strong>Kapsamı geniştir.</strong> Yalnızca müvekkilin sözlü beyanlarını değil; belgeleri, yazışmaları ve dava dolayısıyla öğrenilen tüm bilgileri içerir.</li>
+  <li><strong>Süresizdir.</strong> Dava bittiğinde, hatta müvekkille ilişki sona erdiğinde sır ortadan kalkmaz; yükümlülük ömür boyu sürer.</li>
+  <li><strong>Yardımcı personeli de kapsar.</strong> Sekreterinden stajyerine, büroda çalışan herkes bu gizlilik çemberinin içindedir.</li>
+</ul>
+
+<p>İşte tam da bu noktada sorun başlıyor. Bir müvekkil belgesini, dikkatsizce seçilmiş bir yapay zeka aracına "şunu özetle" diyerek yapıştırdığınızda, o veriyi büronun gizlilik çemberinin dışına çıkarmış olabilirsiniz. Eğer araç o veriyi saklıyor, üçüncü taraflarla paylaşıyor ya da kendi modelini eğitmek için kullanıyorsa, bu teknik bir ayrıntı değil; potansiyel bir sır ihlalidir. Yardımcı personeli gizlilik çemberine dahil eden mantık, kullandığınız teknolojik araçları da aynı titizlikle değerlendirmenizi gerektirir.</p>
+
+<h2 id="bolum-3">KVKK'nın temel ilkeleri ve veri güvenliği</h2>
+<p>Avukatlık sırrı meslek hukukundan gelir; KVKK ise herkesi bağlayan genel bir çerçevedir. 6698 sayılı Kişisel Verilerin Korunması Kanunu, kişisel veri işleyen herkese somut yükümlülükler getirir ve bir hukuk bürosu, en yoğun kişisel veri işleyen yapılardan biridir.</p>
+
+<h3>4. madde: işlemenin temel ilkeleri</h3>
+<p>Kanunun 4. maddesi, her veri işleme faaliyetinin uyması gereken çıpaları belirler. Yapay zeka kullanırken bu ilkeleri bir kontrol listesi gibi okumak gerekir:</p>
+<ul>
+  <li><strong>Hukuka ve dürüstlük kurallarına uygunluk:</strong> Veriyi işlerken ilgili kişiyi şaşırtacak, beklentisini aşacak bir kullanım olmamalı.</li>
+  <li><strong>Doğru ve güncel olma:</strong> Yanlış veriyle beslenen bir model, yanlış sonuç üretir.</li>
+  <li><strong>Belirli, açık ve meşru amaç:</strong> Veriyi neden işlediğinizi baştan tanımlamalısınız.</li>
+  <li><strong>Amaçla sınırlılık ve ölçülülük (veri minimizasyonu):</strong> Bu, yapay zeka için belki de en hayati ilkedir. Bir özet için yalnızca dilekçenin hukuki gerekçesi yeterliyse, müvekkilin kimlik numarasını, adresini ve tüm kişisel ayrıntılarını araca yüklemenin hiçbir gereği yoktur.</li>
+  <li><strong>Süreyle sınırlılık:</strong> Veri, gerektiği süreden fazla saklanmamalı.</li>
+</ul>
+
+<div class="callout">
+  <strong>İpucu:</strong> Bir belgeyi yapay zekaya vermeden önce kendinize sorun: "Bu görev için bu verinin tamamı gerçekten gerekli mi?" Çoğu zaman cevap "hayır" olur. Kişisel ayrıntıları maskelemek, minimizasyon ilkesini uygulamanın en pratik yoludur.</div>
+
+<h3>12. madde: veri güvenliği yükümlülüğü</h3>
+<p>KVKK'nın 12. maddesi, veri sorumlusuna uygun güvenlik düzeyini sağlamak için gerekli teknik ve idari tedbirleri alma görevini yükler. Kurul'un yayımladığı rehberler bu soyut ifadeyi somutlaştırır: Durağan ve yedeklenen verilerin güçlü algoritmalarla (örneğin AES-256 ile) şifrelenmesi ve şifreleme anahtarlarının HSM gibi güvenli ortamlarda saklanması önerilir. Pratikte bu, şifrelemeyi neredeyse zorunlu kılar.</p>
+
+<p>Bir de işin ağır tarafı var: Bir veri ihlali yaşanırsa, ihlalin tespitinden itibaren <strong>72 saat</strong> içinde Kişisel Verileri Koruma Kurulu'na bildirim yapılması gerekir. Geç bildirim, idari para cezasına yol açar. 2024 düzenlemeleriyle birlikte ihlal ve standart sözleşme bildirim yükümlülüklerine ilişkin cezalar, her yıl yeniden değerleme oranıyla güncellenen ciddi tutarlara ulaşmıştır.</p>
+
+<div class="stat-cards">
+  <div class="sc"><div class="n">72 saat</div><div class="l">veri ihlalinin Kurul'a bildirimi için azami süre</div></div>
+  <div class="sc"><div class="n">AES-256</div><div class="l">durağan veri için önerilen şifreleme standardı</div></div>
+  <div class="sc"><div class="n">4. madde</div><div class="l">veri minimizasyonu dahil temel işleme ilkeleri</div></div>
+</div>
+
+<h3>Açık rıza ve aydınlatma</h3>
+<p>KVKK, açık rızayı "belirli bir konuya ilişkin, bilgilendirilmeye dayanan ve özgür iradeyle açıklanan rıza" olarak tanımlar. Yani müvekkile, verisinin yapay zeka destekli süreçlerde işlenebileceğini açıkça anlatmadan alınan bir "tamam" hukuken zayıftır. Üstelik Kurul, açık rıza metni ile aydınlatma metninin ayrı ayrı düzenlenmesini ister; ikisini tek bir paragrafta birleştirmek doğru bir uygulama değildir.</p>
+
+<h2 id="bolum-4">Yurt dışına aktarım: veri nereye gidiyor?</h2>
+<p>Çoğu avukatın gözden kaçırdığı en kritik nokta budur. Bir müvekkil belgesini "analiz için" bir yapay zeka aracına yüklemek, çoğu zaman o verinin yurt dışındaki (genellikle ABD'deki) sunuculara aktarılması anlamına gelir. KVKK açısından bu, sıradan bir işlem değil, "yurt dışına veri aktarımı"dır ve kendine özgü kuralları vardır.</p>
+
+<p>İyi haber şu ki 2024 reformu bu konuda daha net bir zemin getirdi. 10.07.2024 tarihli Yönetmelik ve 04.06.2024 tarihli Kurul kararıyla kabul edilen <strong>standart sözleşmeler</strong>, belirli koşullarda aktarım için hukuki bir dayanak sunuyor. Ancak burada da bir yükümlülük var: Standart sözleşmenin imzalanmasından itibaren beş iş günü içinde Kurum'a bildirimde bulunmak gerekiyor. Yani "aracı açtım, belgeyi yükledim" kolaylığının arkasında, ihmal edildiğinde cezaya dönüşebilecek bir uyum süreci yatıyor.</p>
+
+<p>Bu durum, yapay zeka aracı seçerken verinin nerede işlendiğini ve nerede saklandığını sormanın neden hayati olduğunu gösteriyor. <a href="hatsontech-nedir.html">HatsonTech'da</a> altyapımızı Google Cloud üzerinde kurarken ve KVKK uyumunu tasarımın merkezine alırken, tam da bu soruların cevabını baştan vermeyi hedefledik.</p>
+
+<h2 id="bolum-5">Kritik ilke: veriniz modeli eğitmemeli</h2>
+<p>Hukuk verisi söz konusu olduğunda en kritik tek ilke budur: Sizin verdiğiniz veri, asla aracın yapay zeka modelini eğitmek için kullanılmamalı. Çünkü bir model bir veriyle eğitildiğinde, o veri modelin "hafızasına" sızabilir ve teorik olarak başka bir kullanıcının karşısına çıkabilir. Müvekkil sırrı için bu, kabul edilemez bir senaryodur.</p>
+
+<p>Neyse ki ciddi kurumsal sağlayıcılar bu gerçeği kabul etmiş durumda. Birkaç somut örnek:</p>
+<ul>
+  <li><strong>OpenAI</strong>, 1 Mart 2023'ten itibaren API üzerinden gelen veriyi (açık bir opt-in olmadıkça) model eğitiminde kullanmadığını taahhüt ediyor; girdi ve çıktılar varsayılan olarak 30 gün sonra siliniyor ve uygun kurumsal kullanım için "Sıfır Veri Saklama" (Zero Data Retention, ZDR) seçeneği sunuluyor.</li>
+  <li><strong>Anthropic</strong>, ticari ve kurumsal katmanlarda müşteri verisini varsayılan olarak model eğitiminde kullanmıyor; 14 Eylül 2025'ten itibaren standart API log saklama süresini 30 günden 7 güne indirdi ve uygun müşteriler için ZDR seçeneği sunuyor.</li>
+</ul>
+
+<p>Dikkat edilmesi gereken ayrım şu: Bu güvenceler genellikle <strong>kurumsal ve API katmanları</strong> için geçerlidir. Aynı aracın halka açık, ücretsiz tüketici sürümünde aynı koruma çoğu zaman bulunmaz. Avukatlar için en sık yapılan hata da burada gizli: Ücretsiz bir sohbet penceresine müvekkil belgesi yapıştırmak, doğru kurumsal sözleşmeyle korunan bir API çağrısı yapmakla aynı şey değildir.</p>
+
+<table class="cmp-table">
+  <thead>
+    <tr><th>Boyut</th><th>Halka açık ücretsiz sürüm</th><th>Kurumsal / KVKK uyumlu çözüm</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Veri model eğitiminde kullanılır mı?</td><td class="no">Çoğu zaman evet (varsayılan)</td><td class="yes">✓ Hayır, taahhüt altında</td></tr>
+    <tr><td>Saklama süresi</td><td class="no">Belirsiz / uzun</td><td class="yes">✓ Kısa veya sıfır (ZDR)</td></tr>
+    <tr><td>Yurt dışı aktarım dayanağı</td><td class="no">Genellikle yok</td><td class="yes">✓ Standart sözleşme / uyum</td></tr>
+    <tr><td>Şifreleme ve erişim kontrolü</td><td class="no">Sınırlı şeffaflık</td><td class="yes">✓ AES-256, loglama, erişim yönetimi</td></tr>
+    <tr><td>Müvekkil sırrına uygunluk</td><td class="no">Riskli</td><td class="yes">✓ Tasarımdan itibaren</td></tr>
+  </tbody>
+</table>
+
+<p>Avrupa cephesinde de yön aynı. EDPB'nin 17 Aralık 2024 tarihli 28/2024 sayılı Görüşü, GDPR'ın temel ilkelerinin yapay zeka modellerine de uygulandığını teyit ediyor; bir modelin "anonim" sayılabilmesi için hem bireylerin doğrudan tanımlanması hem de kişisel verinin sorgularla geri çıkarılması olasılığının önemsiz düzeyde olması gerektiğini vurguluyor. Kısacası "yapay zeka kullanıyoruz" demek, veri koruma yükümlülüklerinden muaf olmak anlamına gelmiyor.</p>
+
+<h2 id="bolum-6">Teknik korumalar: şifreleme ve güvenli altyapı</h2>
+<p>İlkeler önemli; ama onları ayakta tutan şey teknik altyapıdır. Güvenilir bir hukuk yapay zekası çözümünde aranması gereken temel korumalar şunlardır:</p>
+
+<ul>
+  <li><strong>Durağan ve aktarımdaki verinin şifrelenmesi.</strong> Google Cloud gibi olgun bulut platformlarında depolanan tüm veri otomatik olarak AES-256 ile şifrelenir; aktarımdaki veri ise TLS ile korunur. NIST, AES-256'yı uzun süreli kullanım için öneriyor.</li>
+  <li><strong>Anahtar yönetimi.</strong> Şifreleme kadar, şifreleme anahtarlarının nasıl saklandığı da önemlidir. Anahtarların HSM veya KMS gibi yönetilen, güvenli sistemlerde tutulması esastır.</li>
+  <li><strong>Erişim kontrolü ve loglama.</strong> Veriye kimin, ne zaman eriştiği kayıt altına alınmalı; yetkiler "bilmesi gereken" ilkesine göre sınırlanmalıdır.</li>
+</ul>
+
+<p>Biz HatsonTech'da bu katmanların hepsini bir tercih değil, bir zemin olarak ele alıyoruz: Google Cloud altyapısı, AES-256 şifreleme, KVKK uyumu ve en önemlisi kullanıcı verisinin model eğitiminde kullanılmaması. <a href="caseon-nedir.html">Caseon</a> ve MevzuatBot ürünlerimizi; dört yüksek mahkemenin (Yargıtay, Danıştay, Anayasa Mahkemesi ve Bölge Adliye Mahkemeleri) içtihatlarıyla çalışacak şekilde tasarlarken, güvenliği sonradan eklenen bir özellik değil, mimarinin temeli olarak gördük.</p>
+
+<h2 id="bolum-7">Gerçek dünya uyarısı: halüsinasyon ve ayrıcalığın kaybı</h2>
+<p>Gizlilik, hukuk yapay zekasındaki tek risk değil. İki tehlike aslında iç içe geçer: bilginin sızması ve bilginin uydurulması.</p>
+
+<p>İkincisinin en ünlü örneği, artık hukuk dünyasında bir ders niteliği taşıyan <strong>Mata v. Avianca</strong> davasıdır (S.D.N.Y., 2023). Müvekkilin avukatları, ChatGPT'nin uydurduğu (yani gerçekte var olmayan) sahte içtihatları mahkemeye sunmuştu. Yargıç P. Kevin Castel, durumu tespit edince davayı reddetti ve avukatlara 5.000 ABD doları para cezası verdi. Bu vaka, yapay zekanın ürettiği hiçbir hukuki çıktının insan denetiminden geçmeden kullanılamayacağını çarpıcı biçimde gösteriyor.</p>
+
+<p>Gizlilik tarafında ise Amerikan Barolar Birliği'nin (ABA) 29 Temmuz 2024 tarihli 512 sayılı Resmî Görüşü dikkat çekici bir uyarı içeriyor: Halka açık üretken yapay zeka sistemleri, kendilerine girilen verileri eğitim verisi olarak saklayabilir. Bu nedenle ayrıcalıklı (privileged) içeriğin böyle bir sisteme girilmesi, üçüncü kişiye ifşa sayılarak avukat-müvekkil ayrıcalığının kaybına yol açabilir. Türk hukukundaki avukatlık sırrı yükümlülüğüyle birlikte düşünüldüğünde mesaj nettir: Yanlış aracı seçmek, yalnızca bir veri sızıntısı değil, mesleki bir gizlilik kaybı da doğurabilir.</p>
+
+<div class="takeaways">
+  <h4>Öne çıkanlar</h4>
+  <ul>
+    <li>Avukatlık sırrı süresizdir, geniştir ve yardımcı personeli kapsar; kullandığınız yapay zeka aracını da aynı çemberin içinde değerlendirin.</li>
+    <li>KVKK m.4'ün kalbi veri minimizasyonudur: araca yalnızca görev için gerçekten gereken veriyi verin.</li>
+    <li>Veriyi yapay zekaya yüklemek çoğu zaman yurt dışına aktarımdır; standart sözleşme ve bildirim yükümlülüğünü ihmal etmeyin.</li>
+    <li>En kritik ilke, verinizin model eğitiminde kullanılmamasıdır. Ücretsiz tüketici sürümleri ile kurumsal/ZDR katmanlarını birbirine karıştırmayın.</li>
+    <li>AES-256 şifreleme, anahtar yönetimi ve erişim loglaması bir lüks değil, asgari zemindir.</li>
+    <li>Hiçbir yapay zeka çıktısı insan denetiminden geçmeden kullanılmamalı; Mata v. Avianca bunun bedelini gösterdi.</li>
+  </ul>
+</div>
+
+<h2 id="bolum-8">Hukuk bürosu için kontrol listesi</h2>
+<p>Tüm bu çerçeveyi, bir avukatın masasının kenarında tutabileceği pratik bir listeye indirgeyelim. Bir müvekkil verisini yapay zekayla işlemeden önce:</p>
+<ol>
+  <li><strong>Doğru aracı seçtiniz mi?</strong> Halka açık ücretsiz bir sohbet penceresi değil, kurumsal güvenceleri olan bir çözüm mü kullanıyorsunuz?</li>
+  <li><strong>Veri model eğitiminde kullanılmıyor mu?</strong> Sağlayıcı bu taahhüdü açıkça veriyor mu; ZDR ya da kısa saklama mevcut mu?</li>
+  <li><strong>Açık rıza ve aydınlatma tamam mı?</strong> Müvekkil, verisinin yapay zeka destekli süreçlerde işleneceğinden haberdar mı?</li>
+  <li><strong>Minimizasyon uygulandı mı?</strong> Yalnızca gerekli veriyi mi verdiniz; gereksiz kişisel ayrıntıları maskelediniz mi?</li>
+  <li><strong>Aktarım şifreli ve uyumlu mu?</strong> Veri AES-256/TLS ile korunuyor, yurt dışı aktarım hukuki bir dayanağa oturuyor mu?</li>
+  <li><strong>İnsan denetimi var mı?</strong> Çıktıyı, özellikle de içtihat ve mevzuat atıflarını, sunmadan önce bir hukukçu doğruladı mı?</li>
+</ol>
+
+<div class="faq">
+  <details>
+    <summary>Müvekkil belgesini ChatGPT'ye yapıştırmak avukatlık sırrı ihlali midir?</summary>
+    <p>Halka açık, ücretsiz bir sürüm söz konusuysa bu ciddi bir risktir. ABA'nın 512 sayılı Görüşü, ayrıcalıklı içeriğin böyle sistemlere girilmesinin üçüncü kişiye ifşa sayılabileceğini ve ayrıcalığın kaybına yol açabileceğini vurgular. Türk hukukundaki Avukatlık Kanunu m.36 yükümlülüğüyle birlikte, doğru güvenceleri olmayan bir araca müvekkil verisi vermek sır ihlali boyutuna ulaşabilir.</p>
+  </details>
+  <details>
+    <summary>Yapay zeka kullanırsam KVKK'ya göre yurt dışına veri mi aktarmış olurum?</summary>
+    <p>Çoğu durumda evet. Veri genellikle yurt dışındaki sunucularda işlenir. 2024 reformuyla gelen standart sözleşmeler bunun için hukuki bir zemin sunar; ancak sözleşmenin imzasından itibaren beş iş günü içinde Kurum'a bildirim yapma yükümlülüğü vardır. Bu nedenle aracın verinizi nerede işlediğini bilmek şarttır.</p>
+  </details>
+  <details>
+    <summary>Verimin model eğitiminde kullanılıp kullanılmadığını nasıl anlarım?</summary>
+    <p>Sağlayıcının gizlilik ve kurumsal koşullarına bakın. OpenAI, API verisini (opt-in olmadıkça) Mart 2023'ten beri eğitimde kullanmadığını; Anthropic ise ticari katmanlarda müşteri verisini varsayılan olarak eğitimde kullanmadığını taahhüt ediyor. Sıfır Veri Saklama (ZDR) gibi seçenekler ek güvence sağlar. Yine de bu güvenceler genellikle kurumsal/API katmanları içindir, ücretsiz sürümler için değil.</p>
+  </details>
+  <details>
+    <summary>Yapay zekanın uydurduğu içtihatlardan nasıl korunurum?</summary>
+    <p>Tek güvenilir yol insan denetimidir. Mata v. Avianca davasında avukatlar, yapay zekanın uydurduğu sahte kararları doğrulamadan mahkemeye sundukları için para cezasına çarptırıldı. Çözümün bir parçası da <a href="rag-nedir.html">RAG</a> gibi cevapları gerçek belgelere dayandıran yöntemler kullanmaktır; ama hiçbir teknik yöntem, bir hukukçunun son kontrolünün yerini tutmaz.</p>
+  </details>
+</div>
+
+<hr />
+<p>Yapay zeka, hukuk pratiğini hızlandıran olağanüstü bir araç. Ama hukukta hız, hiçbir zaman güvenin önüne geçemez. Doğru aracı seçmek, verinizi minimize etmek, şifreli ve uyumlu bir altyapı kullanmak ve her çıktıyı bir hukukçunun gözünden geçirmek; işte yapay zekayı bir risk olmaktan çıkarıp gerçek bir meslektaşa dönüştüren adımlar bunlardır. Biz HatsonTech'da hukuk için yapay zekayı tam da bu anlayışla, gizliliği tasarımın merkezine koyarak geliştiriyoruz. Konuya yeni başlıyorsanız, temel kavramlar için <a href="buyuk-dil-modeli-nedir.html">büyük dil modeli nedir</a> ve <a href="turkce-yapay-zeka.html">neden Türkçe yapay zeka</a> yazılarımız iyi bir başlangıç olacaktır.</p>
+      </div>
+
+      <div class="article-tags"><span class="tag">Güvenlik</span><span class="tag">Yapay Zeka</span><span class="tag">Hukuk Teknolojisi</span></div>
+
+      <div class="author-box">
+        <span class="ava">TŞ</span>
+        <div>
+          <h4>İsmail Tarık Şenkal</h4>
+          <div class="role">HatsonTech Teknoloji A.Ş. · Kurucu Ortak</div>
+          <p>Türkçe'ye odaklı yapay zeka ürünleri geliştiren mühendis ve girişimci. HatsonTech ve Caseon'ın arkasındaki isim.</p>
+        </div>
+      </div>
+
+      <div class="post-nav">
+        <a href="hukukta-guvenilir-yapay-zeka.html">
+          <div class="dir">← Önceki</div>
+          <div class="ttl">Hukukta güvenilir yapay zeka: halüsinasyonu nasıl önleriz?</div>
+        </a>
+        <a class="next" href="uyap-hukuk-teknolojisi-gelecek.html">
+          <div class="dir">Sıradaki →</div>
+          <div class="ttl">UYAP'tan yapay zekaya: Türkiye'de hukuk teknolojisinin geleceği</div>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-bottom" style="border:none;margin:0;padding:0">
+        <span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span>
+        <span>Ankara · ODTÜ Teknokent 🌿</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="icon-btn to-top" aria-label="Yukarı çık">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>
