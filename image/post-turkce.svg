@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Türkçe yapay zeka — dil dalgaları ve Anadolu motifi">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10210b"/><stop offset="1" stop-color="#0a0f08"/></linearGradient>
+    <radialGradient id="glow" cx="40%" cy="50%" r="58%"><stop offset="0" stop-color="#8BC34A" stop-opacity=".30"/><stop offset="1" stop-color="#8BC34A" stop-opacity="0"/></radialGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#aed581"/><stop offset="1" stop-color="#0E9D8C"/></linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.5" fill="#fff" opacity=".05"/></pattern>
+    <filter id="b" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <!-- dil dalgaları -->
+  <g fill="none" stroke="url(#acc)" stroke-width="2.6" opacity=".7">
+    <path d="M120 250 Q200 190 280 250 T440 250 T600 250 T760 250"/>
+    <path d="M120 337 Q210 250 300 337 T480 337 T660 337 T840 337" stroke-width="3"/>
+    <path d="M120 424 Q200 484 280 424 T440 424 T600 424 T760 424"/>
+  </g>
+  <!-- 8 köşeli Anadolu yıldızı -->
+  <g transform="translate(940 337)" stroke="url(#acc)" fill="none" stroke-width="2.6">
+    <polygon points="0,-130 38,-38 130,0 38,38 0,130 -38,38 -130,0 -38,-38" opacity=".9"/>
+    <polygon points="0,-80 23,-23 80,0 23,23 0,80 -23,23 -80,0 -23,-23" opacity=".55"/>
+    <circle r="14" fill="url(#acc)" stroke="none" filter="url(#b)"/><circle r="9" fill="url(#acc)" stroke="none"/>
+  </g>
+  <g fill="url(#acc)"><circle cx="280" cy="250" r="6"/><circle cx="480" cy="337" r="7"/><circle cx="280" cy="424" r="6"/><circle cx="660" cy="337" r="6"/></g>
+</svg>

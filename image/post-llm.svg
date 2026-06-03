@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Büyük dil modeli — sinir ağı">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e1b22"/><stop offset="1" stop-color="#0a0f08"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#0E9D8C" stop-opacity=".30"/><stop offset="1" stop-color="#0E9D8C" stop-opacity="0"/></radialGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#aed581"/><stop offset="1" stop-color="#39b6c9"/></linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.5" fill="#fff" opacity=".05"/></pattern>
+    <filter id="b" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <g transform="translate(600 338)">
+    <!-- kenarlar -->
+    <g stroke="url(#acc)" stroke-width="1.6" opacity=".45" fill="none">
+      <line x1="0" y1="0" x2="330" y2="0"/><line x1="0" y1="0" x2="233" y2="141"/><line x1="0" y1="0" x2="0" y2="200"/><line x1="0" y1="0" x2="-233" y2="141"/><line x1="0" y1="0" x2="-330" y2="0"/><line x1="0" y1="0" x2="-233" y2="-141"/><line x1="0" y1="0" x2="0" y2="-200"/><line x1="0" y1="0" x2="233" y2="-141"/>
+      <path d="M330 0 L233 141 L0 200 L-233 141 L-330 0 L-233 -141 L0 -200 L233 -141 Z"/>
+    </g>
+    <!-- merkez orb -->
+    <circle r="46" fill="url(#acc)" filter="url(#b)"/><circle r="30" fill="url(#acc)"/>
+    <!-- çevre düğümler -->
+    <g fill="url(#acc)">
+      <circle cx="330" cy="0" r="11"/><circle cx="233" cy="141" r="10"/><circle cx="0" cy="200" r="11"/><circle cx="-233" cy="141" r="10"/><circle cx="-330" cy="0" r="11"/><circle cx="-233" cy="-141" r="10"/><circle cx="0" cy="-200" r="11"/><circle cx="233" cy="-141" r="10"/>
+    </g>
+    <g fill="#fff" opacity=".55"><circle cx="420" cy="-80" r="3"/><circle cx="-420" cy="80" r="3"/><circle cx="120" cy="-260" r="2.5"/><circle cx="-120" cy="260" r="2.5"/></g>
+  </g>
+</svg>
