@@ -50,4 +50,6 @@
   <url><loc>https://tariksenkal.com/en/posts/open-source-llms/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tariksenkal.com/en/posts/llm-evaluation/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tariksenkal.com/en/posts/mlops-ai-to-production/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tariksenkal.com/gizlilik/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://tariksenkal.com/en/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
