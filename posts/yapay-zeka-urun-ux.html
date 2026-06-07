@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yapay Zeka Ürünlerinde Kullanıcı Deneyimi (AI UX): Belirsizlikten Güvene — İsmail Tarık Şenkal</title>
+<meta name="description" content="Yapay zeka ürünlerinde kullanıcı deneyimi nasıl tasarlanır? Belirsizliği yönetmek, kaynak gösterme, geri bildirim, hatada zarafet ve güven inşası için pratik rehber." />
+<link rel="canonical" href="https://tariksenkal.com/posts/yapay-zeka-urun-ux.html" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/yapay-zeka-urun-ux.html" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Yapay Zeka Ürünlerinde Kullanıcı Deneyimi (AI UX): Belirsizlikten Güvene" /><meta property="og:description" content="Yapay zeka ürünlerinde kullanıcı deneyimi nasıl tasarlanır? Belirsizliği yönetmek, kaynak gösterme, geri bildirim, hatada zarafet ve güven inşası için pratik rehber." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-10.jpg" />
+<link rel="icon" type="image/png" href="../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Home"><img src="../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">Kimdir</a>
+        <a href="../index.html#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../index.html#uzmanlik">Uzmanlık</a>
+        <a href="../blog.html">Yazılar</a>
+        <a href="../index.html#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../en/posts/yapay-zeka-urun-ux.html">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../index.html">Ana sayfa</a> <span>/</span>
+        <a href="../blog.html">Yazılar</a> <span>/</span>
+        <span>Ürün</span></div>
+    <span class="tag">Ürün</span>
+    <h1>Yapay Zeka Ürünlerinde Kullanıcı Deneyimi (AI UX): Belirsizlikten Güvene</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 7 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../image/bimg-10.jpg" alt="Yapay Zeka Ürünlerinde Kullanıcı Deneyimi (AI UX): Belirsizlikten Güvene"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Yapay zeka ürünlerinin en zor kısmı modeli eğitmek değil; çoğu zaman onu insanın güvenebileceği bir deneyime dönüştürmektir. Çünkü klasik yazılım "doğru" ya da "yanlış" çalışır; yapay zeka ise "büyük ihtimalle doğru" çalışır. Bu belirsizliği saklamaya çalışan ürünler güveni kaybeder; onu dürüstçe yöneten ürünler ise kazanır. Bu yazıda AI ürünlerinde kullanıcı deneyimini beş eksende ele alıyoruz: belirsizliği yönetmek, kaynak göstermek, geri bildirim toplamak, hatada zarafet ve uzun vadeli güven inşası.</p>
+
+<div class="toc">
+  <h4>İçindekiler</h4>
+  <ol>
+    <li><a href="#b1">AI UX neden farklıdır?</a></li>
+    <li><a href="#b2">Belirsizliği yönetmek</a></li>
+    <li><a href="#b3">Kaynak gösterme ve izlenebilirlik</a></li>
+    <li><a href="#b4">Geri bildirim döngüsü</a></li>
+    <li><a href="#b5">Hata halinde zarafet</a></li>
+    <li><a href="#b6">Güven inşası</a></li>
+    <li><a href="#b7">Pratik kontrol listesi</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">AI UX neden farklıdır?</h2>
+<p>Klasik bir yazılımda bir düğmeye basarsınız, hep aynı sonuç gelir. Hesap makinesine "2+2" yazarsınız; her seferinde "4" görürsünüz. Kullanıcı bu öngörülebilirliğe güvenir. Yapay zeka ürünlerinde ise aynı soruyu iki kez sorduğunuzda biraz farklı iki cevap alabilirsiniz. Model bir "kesinlik makinesi" değil, bir "olasılık motoru"dur.</p>
+<p>Bunu bir hesap makinesi ile deneyimli ama bazen yanılan bir uzman arasındaki farka benzetebiliriz. Hesap makinesinden şüphe etmezsiniz; uzmana ise "emin misin?" diye sorar, gerekçesini istersiniz. AI UX'in görevi tam da budur: kullanıcının ürünle, bir hesap makinesine değil, hatasız olmayan bir uzmana davranır gibi sağlıklı bir ilişki kurmasını sağlamak.</p>
+<blockquote>İyi AI deneyimi, modelin mükemmel olduğunu iddia etmez; ne zaman güvenileceğini, ne zaman kontrol edileceğini kullanıcıya açıkça öğretir.</blockquote>
+<p>Bu yüzden AI UX'te tasarladığımız şey yalnızca ekran değil; modelin sınırlarını, belirsizliğini ve hata olasılığını kullanıcıya dürüstçe iletmenin yoludur. Geri kalan her şey bu temelin üzerine kurulur.</p>
+
+<h2 id="b2">Belirsizliği yönetmek</h2>
+<p>Model her zaman aynı ölçüde emin değildir. Bazı cevaplarında çok güçlü sinyallere dayanır; bazılarında ise neredeyse tahmin yürütür. Sorun şu: model bunu tonuyla belli etmez. Aynı kendinden emin cümleyle hem doğru hem yanlış bir şey söyleyebilir. Bu yüzden belirsizliği <em>arayüzün</em> görünür kılması gerekir.</p>
+<p>Hava durumu uygulamalarını düşünün. "Yarın yağmur yağacak" demezler; "%70 yağmur ihtimali" derler. Bu küçük fark kullanıcıya karar payı bırakır: şemsiye alır ama plan iptal etmez. AI ürünlerinde de amaç budur — kesinlik taklidi yapmak değil, güven düzeyini dürüstçe göstermek.</p>
+<ul>
+  <li><strong>Güven sinyali verin:</strong> Düşük güvenli cevaplarda "Bundan tam emin değilim, kontrol edin" gibi bir uyarı gösterin.</li>
+  <li><strong>Alternatif sunun:</strong> Tek bir kesin cevap yerine, uygun olduğunda birkaç olası seçenek sunmak belirsizliği dürüstçe aktarır.</li>
+  <li><strong>Kapsamı belirtin:</strong> Modelin bilgisinin hangi tarihe kadar geçerli olduğunu veya hangi kaynaklara dayandığını açıkça yazın.</li>
+  <li><strong>Abartmayın:</strong> Her cümleye yüzde eklemek de kullanıcıyı yorar. Belirsizlik sinyalini riskin yüksek olduğu yerlerde öne çıkarın.</li>
+</ul>
+<div class="callout"><strong>İpucu:</strong> Belirsizliği iletmenin en kolay yolu dildir. "Kesinlikle" yerine "muhtemelen", "her zaman" yerine "çoğu durumda" gibi ifadeler, kullanıcıyı incelikle uyarır ve yanlış güveni azaltır.</div>
+
+<h2 id="b3">Kaynak gösterme ve izlenebilirlik</h2>
+<p>Bir cevabı doğrulanabilir kılmanın en güçlü yolu, onu nereden geldiğini göstermektir. Kaynaksız bir AI cevabı, imzasız bir not gibidir: doğru olabilir, ama güvenmek için kör inanç gerektirir. Atıf eklemek bu kör inancı, denetlenebilir bir güvene dönüştürür.</p>
+<p>Bunu akademik bir makale ile sohbet arasındaki farka benzetin. Bir arkadaşınız "okudum, böyleymiş" derse inanırsınız ama doğrulayamazsınız. Makale ise her iddianın yanına dipnot koyar; isterseniz gidip bakarsınız. İyi bir AI ürünü, kullanıcıya bu "gidip bakma" hakkını verir.</p>
+<pre><code>// Kaynaklı cevap üretimi (sözde kod)
+parcalar = belge_tabani.getir(soru, ust_k=4)
+
+cevap = model.uret(
+  baglam = parcalar,
+  kural  = "Her iddianın yanına [n] biçiminde atıf ekle; " +
+           "kaynakta yoksa uydurma, 'bulunamadı' de."
+)
+
+// Arayüzde her [n] atfını tıklanabilir kaynağa bağla
+for n, parca in enumerate(parcalar):
+    arayuz.kaynak_goster(n, parca.baslik, parca.url)</code></pre>
+<p>Üç noktaya dikkat: (1) Atıf gerçekten kaynağa bağlanmalı; süs olmamalı. (2) Kullanıcı tek tıkla orijinal metni görebilmeli. (3) Cevap kaynakta yoksa model bunu söyleyebilmeli. İzlenebilirlik, hukuk ve sağlık gibi yüksek riskli alanlarda tercih değil, zorunluluktur. Kaynağa demirlenmiş, atıf veren bir mimariyi pratikte nasıl uyguladığımızı <a href="caseon-nedir.html">Caseon</a> sayfamızda anlatıyoruz.</p>
+
+<h2 id="b4">Geri bildirim döngüsü</h2>
+<p>Yapay zeka ürünü ilk gün mükemmel olmaz; kullanıldıkça iyileşir. Bunun için kullanıcıdan sinyal toplamak gerekir. Ama geri bildirim mekanizması yük olmamalı; aksi hâlde kimse kullanmaz.</p>
+<ul>
+  <li><strong>Sürtünmeyi azaltın:</strong> Basit bir başparmak yukarı/aşağı bile, doldurulması zorunlu bir form yerine çok daha fazla veri toplar.</li>
+  <li><strong>Bağlamı yakalayın:</strong> Olumsuz geri bildirimde nedeni sorun ("yanlış", "eksik", "alakasız"); ham puan tek başına az şey söyler.</li>
+  <li><strong>Döngüyü kapatın:</strong> Kullanıcı geri bildiriminin bir işe yaradığını görmeli. "Teşekkürler, bunu iyileştirmek için kullanacağız" gibi küçük bir onay bile katılımı artırır.</li>
+  <li><strong>Pasif sinyalleri okuyun:</strong> Kullanıcının cevabı kopyalaması, yeniden üretmesi ya da hemen vazgeçmesi de değerli birer sinyaldir.</li>
+</ul>
+<blockquote>En iyi geri bildirim, kullanıcının fark etmeden verdiğidir. Açık geri bildirimi kolaylaştırın; örtük geri bildirimi ise sessizce ama dürüstçe ölçün.</blockquote>
+
+<h2 id="b5">Hata halinde zarafet</h2>
+<p>Yapay zeka hata yapacaktır; soru "yapacak mı" değil, "yaptığında ne olacak"tır. Kötü tasarlanmış bir ürün, hatayı kendinden emin bir tonla gizler; iyi tasarlanmış bir ürün ise hatayı zarafetle karşılar ve kullanıcıyı çıkmaza sokmaz.</p>
+<p>İyi bir garson örneğini düşünün: sipariş yanlış geldiğinde "ama menüde böyle yazıyordu" diye savunmaya geçmez; özür diler, hızlıca düzeltir ve size bir çözüm yolu sunar. Yapay zeka arayüzleri de aynı olgunluğu göstermelidir.</p>
+<pre><code>// Hatayı zarafetle karşılayan akış
+try:
+    cevap = model.uret(soru)
+    if cevap.guven &lt; esik:
+        arayuz.uyar("Bundan emin değilim — şunları kontrol edin…")
+except ZamanAsimi:
+    arayuz.goster("Cevap gecikti. Tekrar deneyin veya soruyu sadeleştirin.")
+except KaynakYok:
+    arayuz.goster("Bu konuda güvenilir kaynağım yok; uydurmamayı tercih ediyorum.")</code></pre>
+<ul>
+  <li><strong>Çıkış yolu bırakın:</strong> Her hata mesajı, kullanıcıya bir sonraki adımı söylemeli — tekrar dene, düzenle, insana bağlan.</li>
+  <li><strong>Suçlamayın:</strong> "Geçersiz girdi" demek yerine ne beklendiğini açıklayın.</li>
+  <li><strong>Geri alınabilir kılın:</strong> Yapay zekanın eylem aldığı yerlerde (dosya silme, e-posta gönderme) onay ve geri alma şarttır.</li>
+  <li><strong>Sessizce başarısız olmayın:</strong> Boş ya da yarım bir cevap, dürüst bir "bulamadım"dan daha zararlıdır.</li>
+</ul>
+
+<h2 id="b6">Güven inşası</h2>
+<p>Güven tek bir özellikle kazanılmaz; tutarlı küçük dürüstlüklerle, zaman içinde birikir. Yukarıdaki dört başlık aslında tek bir amaca hizmet eder: kullanıcının ürüne ne zaman güveneceğini, ne zaman temkinli olacağını öğrenmesi.</p>
+<p>Bunu yeni bir iş arkadaşıyla kurulan ilişkiye benzetebiliriz. İlk haftalarda her işini kontrol edersiniz. Tutarlı çıktıkça, "bilmiyorum" dediği yerlerde dürüst davrandıkça ve hatasını kabul ettikçe ona daha çok alan açarsınız. Aşırı vaat eden ama bazen büyük yanılan biri ise güveni hızla kaybeder.</p>
+<ul>
+  <li><strong>Az vaat edin, çok teslim edin:</strong> Modelin yeteneklerini abartmak ilk hayal kırıklığında güveni çökertir.</li>
+  <li><strong>Tutarlı olun:</strong> Aynı durumda benzer davranış, öngörülebilirlik ve dolayısıyla güven yaratır.</li>
+  <li><strong>Şeffaf olun:</strong> Ürünün ne yapabildiğini, neyi yapamadığını ve verinin nasıl kullanıldığını açıkça söyleyin.</li>
+  <li><strong>Kontrolü kullanıcıda bırakın:</strong> İnsanın son sözü söylediği bir akış, otomasyondan daha güven verir.</li>
+</ul>
+
+<h2 id="b7">Pratik kontrol listesi</h2>
+<ol>
+  <li>Belirsizliği <strong>dil ve görsel sinyallerle</strong> ilet; kesinlik taklidi yapma.</li>
+  <li>İddialara <strong>tıklanabilir kaynak</strong> bağla; izlenebilir cevap doğrulanabilir cevaptır.</li>
+  <li>Geri bildirimi <strong>sürtünmesiz</strong> topla ve döngüyü görünür biçimde kapat.</li>
+  <li>Her hata mesajına bir <strong>çıkış yolu</strong> koy; sessizce başarısız olma.</li>
+  <li>Yüksek riskli eylemlerde <strong>onay ve geri alma</strong> sun.</li>
+  <li><strong>Az vaat et, tutarlı davran;</strong> güven zamanla birikir.</li>
+</ol>
+
+<div class="takeaways">
+  <h4>Öne çıkanlar</h4>
+  <ul>
+    <li>Yapay zeka bir kesinlik makinesi değil olasılık motorudur; UX'in görevi bu gerçeği dürüstçe iletmektir.</li>
+    <li>Belirsizliği saklamak değil, görünür kılmak güven kazandırır.</li>
+    <li>Kaynak gösterme, kör inancı denetlenebilir güvene çevirir.</li>
+    <li>Geri bildirimi kolaylaştırın, hatayı zarafetle karşılayın, kullanıcıya her zaman bir çıkış yolu bırakın.</li>
+    <li>Güven tek özellikle değil, tutarlı küçük dürüstlüklerle zaman içinde inşa edilir.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details><summary>Belirsizliği göstermek kullanıcıyı korkutmaz mı?</summary><p>Aksine, dürüstçe iletilen belirsizlik güveni artırır. İnsanlar hata olasılığını duyduklarında daha dikkatli ama daha az hayal kırıklığına uğrar olurlar. Korkutan şey belirsizlik değil, gizlenen ve sonradan ortaya çıkan hatadır.</p></details>
+  <details><summary>Her cevaba kaynak eklemek zorunda mıyım?</summary><p>Hayır. Düşük riskli, yaratıcı veya genel görevlerde kaynak gereksizdir. Ama olgusal iddialar, hukuk, sağlık ve finans gibi alanlarda izlenebilirlik neredeyse zorunludur. Kararı görevin riskine göre verin.</p></details>
+  <details><summary>Kullanıcılar geri bildirim vermek istemiyorsa ne yapmalı?</summary><p>Açık geri bildirimi olabildiğince basitleştirin (tek tık) ve örtük sinyalleri okuyun: kopyalama, yeniden üretme, terk etme gibi davranışlar açık puanlardan daha fazla veri taşıyabilir.</p></details>
+</div>
+
+<hr>
+<p>Özetle: yapay zeka ürünlerinde kullanıcı deneyimi, modeli kusursuz göstermeye çalışmak değil; sınırlarını dürüstçe iletip kullanıcıyı sürecin ortağı yapmaktır. Belirsizliği görünür kıldığınızda, cevabı kaynağa bağladığınızda, geri bildirimi kolaylaştırıp hatayı zarafetle karşıladığınızda, ürün "her şeyi bilen ama bazen yanılan bir kutu" olmaktan çıkar; güvenilir bir yardımcıya dönüşür. Anahtar tek bir parlak özellik değil; üst üste binen küçük, dürüst tasarım kararlarıdır.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Ürün</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'ın arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="llm-gozlemlenebilirlik.html"><div class="dir">← Önceki</div><div class="ttl">LLM Gözlemlenebilirliği: İzleme, Loglama ve Değerlendirme Döngülerine Pratik Bir Bakış</div></a><a class="next" href="llm-nasil-calisir.html"><div class="dir">Sıradaki →</div><div class="ttl">Büyük Dil Modelleri (LLM) Nasıl Çalışır? Transformer Mimarisinin Sezgisel Anlatımı</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../gizlilik.html">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

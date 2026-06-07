@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tokens and Embeddings: How Does a Language Model &quot;See&quot; Text? — İsmail Tarık Şenkal</title>
 <meta name="description" content="An intuitive guide to tokenization, word pieces, and embedding vectors: how the meaning of text turns into numbers and coordinates inside a language model." />
-<link rel="canonical" href="https://tariksenkal.com/en/posts/token-ve-embedding.html" />
-<link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/token-ve-embedding.html" />
-<meta name="theme-color" content="#7CB342" />
-<meta property="og:type" content="article" /><meta property="og:title" content="Tokens and Embeddings: How Does a Language Model &quot;See&quot; Text?" /><meta property="og:description" content="An intuitive guide to tokenization, word pieces, and embedding vectors: how the meaning of text turns into numbers and coordinates inside a language model." /><meta property="og:image" content="https://tariksenkal.com/image/ai-t-02.svg" />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/token-ve-embedding.html" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/token-ve-embedding.html" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Tokens and Embeddings: How Does a Language Model &quot;See&quot; Text?" /><meta property="og:description" content="An intuitive guide to tokenization, word pieces, and embedding vectors: how the meaning of text turns into numbers and coordinates inside a language model." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-12.jpg" />
 <link rel="icon" type="image/png" href="../../image/hatsontech_logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -43,7 +40,7 @@
     <h1>Tokens and Embeddings: How Does a Language Model &quot;See&quot; Text?</h1>
     <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 8 min read</span></div>
   </div>
-  <div class="wrap narrow"><div class="article-hero"><img src="../../image/ai-t-02.svg" alt="Tokens and Embeddings: How Does a Language Model &quot;See&quot; Text?"></div></div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-12.jpg" alt="Tokens and Embeddings: How Does a Language Model &quot;See&quot; Text?"></div></div>
   <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
     <div class="prose">
 <p class="lead-p">A language model does not really "read" letters, words, or sentences. It works only with numbers. So how does a piece of text like "Hello world" turn into numbers inside an AI? This journey has two stops: <strong>tokenization</strong> and <strong>embedding</strong>. In this post we walk, end to end, through how the meaning of text gets translated into mathematics — using everyday analogies.</p>

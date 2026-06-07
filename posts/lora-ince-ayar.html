@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LoRA ve Verimli İnce Ayar (PEFT): Tüm Modeli Eğitmeden Uyarlama — İsmail Tarık Şenkal</title>
+<meta name="description" content="LoRA ve PEFT'i sezgisel olarak anlatıyoruz: tüm modeli eğitmeden, düşük ranklı küçük adaptörlerle uyarlama, bellek/maliyet avantajı ve pratik kullanım ipuçları." />
+<link rel="canonical" href="https://tariksenkal.com/posts/lora-ince-ayar.html" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/lora-ince-ayar.html" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="LoRA ve Verimli İnce Ayar (PEFT): Tüm Modeli Eğitmeden Uyarlama" /><meta property="og:description" content="LoRA ve PEFT'i sezgisel olarak anlatıyoruz: tüm modeli eğitmeden, düşük ranklı küçük adaptörlerle uyarlama, bellek/maliyet avantajı ve pratik kullanım ipuçları." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-04.jpg" />
+<link rel="icon" type="image/png" href="../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Home"><img src="../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">Kimdir</a>
+        <a href="../index.html#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../index.html#uzmanlik">Uzmanlık</a>
+        <a href="../blog.html">Yazılar</a>
+        <a href="../index.html#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../en/posts/lora-ince-ayar.html">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../index.html">Ana sayfa</a> <span>/</span>
+        <a href="../blog.html">Yazılar</a> <span>/</span>
+        <span>İnce Ayar</span></div>
+    <span class="tag">İnce Ayar</span>
+    <h1>LoRA ve Verimli İnce Ayar (PEFT): Tüm Modeli Eğitmeden Uyarlama</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 7 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../image/bimg-04.jpg" alt="LoRA ve Verimli İnce Ayar (PEFT): Tüm Modeli Eğitmeden Uyarlama"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Büyük bir dil modelini kendi göreviniz için uyarlamak istediğinizde ilk akla gelen yol, modeli baştan sona yeniden eğitmektir. Ama milyarlarca parametreyi güncellemek hem pahalı hem de yavaştır; çoğu ekip için pratikte imkânsızdır. LoRA (Low-Rank Adaptation) ve onun ait olduğu PEFT (Parameter-Efficient Fine-Tuning) ailesi tam burada devreye girer: modelin büyük gövdesine hiç dokunmadan, küçük ve ucuz “adaptör” parçaları eğiterek aynı uyarlamayı çok daha az bellek ve maliyetle yapmanızı sağlar. Bu yazıda LoRA’nın sezgisini, neden işe yaradığını ve pratikte nasıl kullanıldığını günlük analojilerle anlatıyoruz.</p>
+
+<div class="toc">
+  <h4>İçindekiler</h4>
+  <ol>
+    <li><a href="#b1">Sorun: tüm modeli eğitmek neden pahalı?</a></li>
+    <li><a href="#b2">PEFT nedir? Tek cümlede</a></li>
+    <li><a href="#b3">LoRA’nın sezgisi: düşük ranklı adaptörler</a></li>
+    <li><a href="#b4">Asetat analojisi</a></li>
+    <li><a href="#b5">Küçük bir kod örneği</a></li>
+    <li><a href="#b6">Bellek ve maliyet avantajı</a></li>
+    <li><a href="#b7">QLoRA: bir adım daha ileri</a></li>
+    <li><a href="#b8">Pratik kullanım ve ipuçları</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">Sorun: tüm modeli eğitmek neden pahalı?</h2>
+<p>Modern bir dil modeli milyarlarca parametre içerir. Bunların tamamını yeniden eğitmek (tam ince ayar) iki büyük yük getirir:</p>
+<ul>
+  <li><strong>Bellek:</strong> Eğitim sırasında yalnızca parametreleri değil; bunların gradyanlarını ve optimizasyon durumlarını (örneğin Adam’ın tuttuğu iki ek değeri) da bellekte tutmanız gerekir. Bu, kabaca model boyutunun birkaç katı GPU belleği demektir.</li>
+  <li><strong>Saklama ve yönetim:</strong> Her görev için modelin tam bir kopyasını saklarsınız. On farklı göreviniz varsa, on tane dev model dosyanız olur.</li>
+</ul>
+<blockquote>Tam ince ayarda zorluk, modeli “öğretmek” değil; onu eğitecek donanımı bulmak ve sonuçları yönetmektir.</blockquote>
+
+<h2 id="b2">PEFT nedir? Tek cümlede</h2>
+<p><strong>PEFT (Parameter-Efficient Fine-Tuning)</strong>, modelin parametrelerinin büyük çoğunluğunu dondurup yalnızca küçük bir bölümünü ya da eklenen küçük yeni parçaları eğitme yaklaşımıdır. Amaç, tam ince ayara yakın kaliteyi, onun maliyetinin küçük bir kısmıyla yakalamaktır.</p>
+<p>PEFT bir şemsiye terimdir; altında birden çok yöntem vardır (adaptör katmanları, prefix-tuning, prompt-tuning gibi). Bugün en yaygın ve pratik olanı ise <strong>LoRA</strong>’dır.</p>
+
+<h2 id="b3">LoRA’nın sezgisi: düşük ranklı adaptörler</h2>
+<p>LoRA’nın temel gözlemi şudur: bir modeli yeni bir göreve uyarlarken ağırlıklarda olması gereken <em>değişim</em>, aslında çok zengin bilgi taşımaz; “düşük ranklı” bir yapıyla iyi yaklaşılabilir. Yani büyük bir değişim matrisini, çok daha küçük iki matrisin çarpımı olarak temsil edebilirsiniz.</p>
+<p>Pratikte LoRA, mevcut bir ağırlık matrisi <code>W</code>’yi dondurur ve onun yanına iki küçük matris ekler: bir <code>A</code> (aşağı projeksiyon) ve bir <code>B</code> (yukarı projeksiyon). Eğitim sırasında yalnızca <code>A</code> ve <code>B</code> güncellenir. Modelin son davranışı, orijinal çıktı ile bu küçük eklentinin toplamıdır.</p>
+<p>Buradaki sihirli kelime <strong>rank (r)</strong>’dir. Eğer matris boyutu çok büyükse (örneğin 4096×4096), <code>A</code> ve <code>B</code>’yi yalnızca r=8 veya r=16 gibi küçük bir iç boyutla seçtiğinizde, eğitilen parametre sayısı milyarlardan birkaç milyona düşer.</p>
+<div class="callout"><strong>İpucu:</strong> Rank’i “ne kadar serbestlik tanıdığınız” olarak düşünün. Düşük rank daha az parametre ve daha hızlı eğitim demektir; çok düşük seçerseniz model yeni görevi öğrenmekte zorlanabilir. r=8–16 çoğu görev için sağlam bir başlangıçtır.</div>
+
+<h2 id="b4">Asetat analojisi</h2>
+<p>Eski bir ders kitabınız olduğunu düşünün. Kitap mükemmel basılmış ama içeriği genel. Siz bunu kendi dersinize uyarlamak istiyorsunuz. İki yolunuz var:</p>
+<ul>
+  <li><strong>Tam ince ayar:</strong> Kitabın her sayfasını silip baştan yazmak. Çok zaman ve mürekkep ister; üstelik artık herkesin elinde sizin kitabınız olur, orijinali kaybedersiniz.</li>
+  <li><strong>LoRA:</strong> Kitabın üzerine şeffaf bir <em>asetat</em> koyup notlarınızı oraya yazmak. Kitap aynen kalır; asetat küçüktür, ucuzdur, kolayca değiştirilebilir. Farklı dersler için farklı asetatlar hazırlarsınız ve hepsi aynı kitabın üzerinde çalışır.</li>
+</ul>
+<p>İşte LoRA adaptörleri o asetatlardır: küçük, taşınabilir ve aynı temel modelin üzerine takılıp çıkarılabilir.</p>
+
+<h2 id="b5">Küçük bir kod örneği</h2>
+<p>Aşağıdaki kavramsal Python örneği, LoRA’nın bir katmanı nasıl sardığını gösterir:</p>
+<pre><code>class LoRALinear:
+    def __init__(self, W, r):
+        self.W = W              # donmuş orijinal ağırlık (eğitilmez)
+        d_out, d_in = W.shape
+        self.A = randn(r, d_in) * 0.01   # küçük, eğitilir
+        self.B = zeros(d_out, r)         # küçük, eğitilir
+
+    def forward(self, x):
+        # Orijinal yol + düşük ranklı düzeltme
+        return x @ self.W.T + (x @ self.A.T) @ self.B.T
+
+# Eğitimde yalnızca A ve B'nin gradyanı hesaplanır;
+# milyarlarca parametre yerine yalnızca r * (d_in + d_out) parametre.</code></pre>
+<p>Dikkat edin: <code>B</code> sıfırla başlatılır, böylece eğitimin ilk anında adaptörün etkisi sıfırdır ve model orijinal davranışından sapmadan öğrenmeye başlar.</p>
+
+<h2 id="b6">Bellek ve maliyet avantajı</h2>
+<p>LoRA’nın getirisi yalnızca “daha az parametre” değildir; bu küçülme zincirleme avantajlar yaratır:</p>
+<ul>
+  <li><strong>Optimizasyon belleği düşer:</strong> Optimizasyon durumlarını yalnızca eğitilen küçük adaptörler için tutarsınız. Donmuş gövde için gradyan veya optimizatör durumu saklamanız gerekmez.</li>
+  <li><strong>Saklama küçülür:</strong> Bir görev için yalnızca adaptör ağırlıklarını saklarsınız; bunlar tam modelin yanında çok küçük dosyalardır. On görev için on dev model yerine, bir temel model ve on küçük adaptör tutarsınız.</li>
+  <li><strong>Dağıtım esnekliği:</strong> Aynı temel modeli bellekte tutup farklı adaptörleri anlık takıp çıkarabilirsiniz. Tek bir sunucu birden çok özelleştirilmiş davranışı sırayla sunabilir.</li>
+</ul>
+<blockquote>Özet: Donmuş gövde paylaşılır, asıl tasarruf eğitilen parçanın küçüklüğünden ve onun gradyan/optimizatör yükünün ortadan kalkmasından gelir.</blockquote>
+
+<h2 id="b7">QLoRA: bir adım daha ileri</h2>
+<p>LoRA tek başına güçlüdür, ama temel modelin kendisi yine de belleğe sığmak zorundadır. <strong>QLoRA</strong> burada devreye girer: temel modeli düşük hassasiyetli (nicemlenmiş, örneğin 4-bit) bir biçimde belleğe yükler, ardından bunun üzerine normal LoRA adaptörlerini eğitir.</p>
+<p>Sonuç, daha önce yalnızca büyük kümelerde mümkün olan model boyutlarının tek bir GPU’da uyarlanabilmesidir. Gövde nicemlenmiş ve dondurulmuş kalır; yalnızca küçük adaptörler tam hassasiyette eğitilir. Bu, “erişilebilir ince ayar” fikrini geniş kitlelere açan adımdı.</p>
+
+<h2 id="b8">Pratik kullanım ve ipuçları</h2>
+<p>LoRA’yı kendi projenizde uygularken birkaç pratik karar sizi bekler:</p>
+<ul>
+  <li><strong>Hangi katmanlara uygulanmalı?</strong> Yaygın yaklaşım, dikkat (attention) katmanlarının projeksiyon matrislerini hedeflemektir. Daha fazla katmanı hedeflemek genelde kaliteyi artırır, parametre sayısını yine de düşük tutar.</li>
+  <li><strong>Rank ve alpha:</strong> Rank kapasiteyi, <code>alpha</code> ise adaptörün ölçeğini belirler. Basit görevlerde düşük rank yeterlidir; karmaşık, üslup yoğun görevlerde rank’i artırmayı deneyin.</li>
+  <li><strong>Veri kalitesi her şeydir:</strong> LoRA, tam ince ayar gibi yine de iyi, temiz örneklerle çalışır. Az ama kaliteli veri, çok ama gürültülü veriden iyidir.</li>
+  <li><strong>Birleştirme (merge):</strong> Eğitim bittiğinde adaptörü temel modele kalıcı olarak kaynaştırabilir (ek çıkarım maliyeti olmaz) ya da ayrı tutup esnek bırakabilirsiniz.</li>
+</ul>
+<p>LoRA, ince ayarı küçük ekipler için erişilebilir kıldı. Tüm modeli eğitmek yerine küçük bir adaptör eğitmek, hem deneme hızını artırır hem de maliyeti düşürür; bu da daha çok denemek, daha hızlı öğrenmek demektir.</p>
+
+<div class="takeaways">
+  <h4>Öne çıkanlar</h4>
+  <ul>
+    <li>PEFT, modelin gövdesini dondurup yalnızca küçük parçaları eğiterek tam ince ayara yakın kaliteyi çok daha ucuza yakalar.</li>
+    <li>LoRA, ağırlık değişimini iki küçük matris (A ve B) ile düşük ranklı olarak temsil eder; eğitilen parametre sayısı milyarlardan milyonlara iner.</li>
+    <li>Asıl tasarruf yalnızca parametre sayısından değil, kaybolan gradyan ve optimizatör yükünden gelir.</li>
+    <li>Adaptörler küçük ve taşınabilirdir: bir temel model + birçok adaptör, birçok dev model dosyasından iyidir.</li>
+    <li>QLoRA, nicemlenmiş temel model üzerine LoRA ekleyerek büyük modelleri tek bir GPU’da uyarlanabilir kılar.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details>
+    <summary>LoRA tam ince ayar kadar iyi sonuç verir mi?</summary>
+    <p>Birçok pratik görevde sonuçlar tam ince ayara oldukça yakındır ve genellikle aradaki fark, getirdiği bellek/maliyet avantajının yanında küçük kalır. Yine de görev, veri ve seçilen rank’e bağlıdır; çok geniş kapsamlı yeniden eğitim gerektiren durumlarda tam ince ayar üstün olabilir.</p>
+  </details>
+  <details>
+    <summary>LoRA çıkarım (inference) hızını yavaşlatır mı?</summary>
+    <p>Adaptörü ayrı tutarsanız ek bir küçük hesaplama olur. Ama eğitimden sonra adaptörü temel modele birleştirebilirsiniz; bu durumda çıkarım, orijinal modelle aynı hızda çalışır.</p>
+  </details>
+  <details>
+    <summary>Rank değerini nasıl seçmeliyim?</summary>
+    <p>r=8 veya r=16 ile başlamak çoğu görev için sağlam bir başlangıçtır. Model yeni görevi yeterince öğrenemiyorsa rank’i artırın; gereğinden yüksek seçmek hem parametreyi hem de aşırı uyum (overfitting) riskini artırabilir.</p>
+  </details>
+</div>
+
+<hr />
+<p>LoRA ve PEFT, “güçlü modeller yalnızca büyük bütçeli ekiplerin işidir” fikrini büyük ölçüde kırdı. Doğru adaptör stratejisiyle küçük bir ekip bile bir modeli kendi alanına uyarlayabilir. Türkçe yapay zeka ürünlerinde verimli uyarlama yaklaşımlarını pratikte nasıl kullandığımızı merak ediyorsanız <a href="hatsontech-nedir.html">HatsonTech</a>’a göz atabilir; bu yöntemlerin hukuk alanındaki uygulamasını <a href="caseon-nedir.html">Caseon</a> üzerinden inceleyebilirsiniz.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">İnce Ayar</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'ın arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="model-damitma.html"><div class="dir">← Önceki</div><div class="ttl">Model Damıtma ve Küçük Modeller: Büyük Öğretmenden Küçük Öğrenciye Bilgi Aktarımı</div></a><a class="next" href="prompt-injection-guvenlik.html"><div class="dir">Sıradaki →</div><div class="ttl">Prompt Injection ve Jailbreak: Yapay Zeka Güvenliğinin Temelleri</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../gizlilik.html">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

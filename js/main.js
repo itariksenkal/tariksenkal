@@ -118,3 +118,38 @@
   }
   mount();
 })();
+
+/* Blog sayfalama (sayfa başına en fazla 9) */
+(function () {
+  var grid = document.querySelector(".posts-grid");
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll(".post-card"));
+  var per = 9;
+  if (cards.length <= per) return;
+  var pages = Math.ceil(cards.length / per), cur = 1;
+  var nav = document.createElement("div");
+  nav.className = "pagination";
+  grid.parentNode.insertBefore(nav, grid.nextSibling);
+  function up() { var y = grid.getBoundingClientRect().top + window.scrollY - 90; window.scrollTo({ top: y, behavior: "smooth" }); }
+  function render(scroll) {
+    cards.forEach(function (c, i) {
+      var show = i >= (cur - 1) * per && i < cur * per;
+      c.style.display = show ? "" : "none";
+      if (show) c.classList.add("in");
+    });
+    nav.innerHTML = "";
+    var prev = document.createElement("button"); prev.textContent = "‹"; prev.setAttribute("aria-label", "Önceki"); prev.disabled = cur === 1;
+    prev.addEventListener("click", function () { cur--; render(true); }); nav.appendChild(prev);
+    for (var p = 1; p <= pages; p++) {
+      (function (p) {
+        var b = document.createElement("button"); b.textContent = p;
+        if (p === cur) b.setAttribute("aria-current", "true");
+        b.addEventListener("click", function () { cur = p; render(true); }); nav.appendChild(b);
+      })(p);
+    }
+    var nx = document.createElement("button"); nx.textContent = "›"; nx.setAttribute("aria-label", "Sonraki"); nx.disabled = cur === pages;
+    nx.addEventListener("click", function () { cur++; render(true); }); nav.appendChild(nx);
+    if (scroll) up();
+  }
+  render(false);
+})();

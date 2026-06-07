@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması — İsmail Tarık Şenkal</title>
 <meta name="description" content="Vektör veritabanlarını sezgisel anlatan rehber: benzerlik araması, ANN ve HNSW algoritması, FAISS, pgvector ile Qdrant karşılaştırması ve ne zaman hangisini seçmelisiniz." />
-<link rel="canonical" href="https://tariksenkal.com/posts/vektor-veritabanlari.html" />
-<link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/vektor-veritabanlari.html" />
-<meta name="theme-color" content="#7CB342" />
-<meta property="og:type" content="article" /><meta property="og:title" content="Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması" /><meta property="og:description" content="Vektör veritabanlarını sezgisel anlatan rehber: benzerlik araması, ANN ve HNSW algoritması, FAISS, pgvector ile Qdrant karşılaştırması ve ne zaman hangisini seçmelisiniz." /><meta property="og:image" content="https://tariksenkal.com/image/ai-t-04.svg" />
+<link rel="canonical" href="https://tariksenkal.com/posts/vektor-veritabanlari.html" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/vektor-veritabanlari.html" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması" /><meta property="og:description" content="Vektör veritabanlarını sezgisel anlatan rehber: benzerlik araması, ANN ve HNSW algoritması, FAISS, pgvector ile Qdrant karşılaştırması ve ne zaman hangisini seçmelisiniz." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-14.jpg" />
 <link rel="icon" type="image/png" href="../image/hatsontech_logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -43,7 +40,7 @@
     <h1>Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması</h1>
     <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 5 dakika okuma</span></div>
   </div>
-  <div class="wrap narrow"><div class="article-hero"><img src="../image/ai-t-04.svg" alt="Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması"></div></div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../image/bimg-14.jpg" alt="Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması"></div></div>
   <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
     <div class="prose">
 <p class="lead-p">Bir kütüphanede "bu kitaba benzer bir şey istiyorum" dediğinizde, görevli ISBN numarasını sormaz; konuyu, tonu, hissi düşünür. Vektör veritabanları tam da bunu yapar: kelimelerin birebir eşleşmesini değil, <em>anlamların yakınlığını</em> arar. Bu rehberde benzerlik aramasının nasıl çalıştığını, HNSW gibi yaklaşık komşu algoritmalarını ve FAISS, pgvector ile Qdrant arasında ne zaman hangisini seçeceğinizi sezgisel olarak anlatıyorum.</p>

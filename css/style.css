@@ -630,3 +630,25 @@ section { position: relative; }
 .cookie-bar a { color: var(--brand-700); text-decoration: underline; }
 [data-theme="dark"] .cookie-bar a { color: var(--brand-500); }
 .cookie-bar .btn { padding: .5rem 1.1rem; font-size: .9rem; }
+
+/* Sayfalama */
+.pagination { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 40px 0 8px; }
+.pagination button { min-width: 42px; height: 42px; padding: 0 13px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: var(--surface); color: var(--text-soft); font-family: var(--font-display); font-weight: 600; font-size: .92rem; cursor: pointer; display: inline-grid; place-items: center; transition: var(--t-fast); }
+.pagination button:hover { border-color: var(--brand-600); color: var(--brand-700); transform: translateY(-1px); }
+.pagination button[aria-current="true"] { background: linear-gradient(135deg, var(--brand-600), var(--brand-700)); color: #fff; border-color: transparent; }
+.pagination button:disabled { opacity: .4; cursor: default; transform: none; }
+
+/* Geniş tablolar mobilde kaydırılabilir */
+.prose table { display: block; overflow-x: auto; white-space: nowrap; }
+
+/* Mobil ince ayarlar */
+@media (max-width: 560px) {
+  .cookie-bar { flex-direction: column; align-items: stretch; text-align: center; gap: 10px; left: 10px; right: 10px; bottom: 10px; padding: 14px 16px; }
+  .cookie-bar .btn { width: 100%; justify-content: center; }
+  .article-hero { height: 200px; }
+  .article-hero.tall { height: 300px; }
+  .prose { font-size: 1.05rem; }
+  .prose pre { font-size: .8rem; padding: 12px 14px; }
+  .hero-meta { gap: 1rem; }
+  .article-meta { font-size: .85rem; }
+}

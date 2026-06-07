@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LLM Gözlemlenebilirliği: İzleme, Loglama ve Değerlendirme Döngülerine Pratik Bir Bakış — İsmail Tarık Şenkal</title>
+<meta name="description" content="LLM tabanlı ürünlerde gözlemlenebilirliği ele alıyoruz: izleme (tracing), loglama, değerlendirme döngüleri ile üretimde kaliteyi koruma ve regresyonları erken yakalama." />
+<link rel="canonical" href="https://tariksenkal.com/posts/llm-gozlemlenebilirlik.html" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/llm-gozlemlenebilirlik.html" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="LLM Gözlemlenebilirliği: İzleme, Loglama ve Değerlendirme Döngülerine Pratik Bir Bakış" /><meta property="og:description" content="LLM tabanlı ürünlerde gözlemlenebilirliği ele alıyoruz: izleme (tracing), loglama, değerlendirme döngüleri ile üretimde kaliteyi koruma ve regresyonları erken yakalama." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-09.jpg" />
+<link rel="icon" type="image/png" href="../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Home"><img src="../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">Kimdir</a>
+        <a href="../index.html#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../index.html#uzmanlik">Uzmanlık</a>
+        <a href="../blog.html">Yazılar</a>
+        <a href="../index.html#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../en/posts/llm-gozlemlenebilirlik.html">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../index.html">Ana sayfa</a> <span>/</span>
+        <a href="../blog.html">Yazılar</a> <span>/</span>
+        <span>Gözlemlenebilirlik</span></div>
+    <span class="tag">Gözlemlenebilirlik</span>
+    <h1>LLM Gözlemlenebilirliği: İzleme, Loglama ve Değerlendirme Döngülerine Pratik Bir Bakış</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 7 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../image/bimg-09.jpg" alt="LLM Gözlemlenebilirliği: İzleme, Loglama ve Değerlendirme Döngülerine Pratik Bir Bakış"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Bir restoran mutfağını düşünün. Yemekler güzel görünüyor, müşteriler sipariş veriyor, ama mutfakta ne olup bittiğini görmüyorsanız bir gün neden herkesin tabağını yarım bıraktığını anlayamazsınız. LLM tabanlı bir ürün de tam olarak böyledir: model bir kutu, içeride dönen şeyler ise çoğu zaman karanlıkta kalır. Gözlemlenebilirlik (observability), o mutfağın camını açmaktır. Bu yazıda izlemeyi (tracing), loglamayı, değerlendirme döngülerini ve üretimde kaliteyi koruyup regresyonları yakalamayı sezgisel bir dille konuşacağız.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol>
+<li><a href="#b1">Gözlemlenebilirlik neden klasik yazılımdan farklı?</a></li>
+<li><a href="#b2">İzleme (tracing): isteğin yolculuğu</a></li>
+<li><a href="#b3">Loglama: neyi, ne kadar kaydetmeli?</a></li>
+<li><a href="#b4">Değerlendirme döngüleri (eval loops)</a></li>
+<li><a href="#b5">Üretimde kalite ve regresyon takibi</a></li>
+<li><a href="#b6">Küçük bir izleme örneği</a></li>
+</ol></div>
+
+<h2 id="b1">Gözlemlenebilirlik neden klasik yazılımdan farklı?</h2>
+<p>Geleneksel yazılımda bir fonksiyon aynı girdiye genelde aynı çıktıyı verir. Hata olursa bir <em>stack trace</em> görür, satırı bulur, düzeltirsiniz. LLM'lerde ise işler daha kaygandır: aynı soruya bugün farklı, yarın bambaşka bir cevap gelebilir. "Çöküyor mu, çökmüyor mu" sorusunun yerini "iyi mi, kötü mü" sorusu alır. Bu da ölçmesi zor, çünkü "iyi" özneldir.</p>
+<p>İşte bu yüzden LLM gözlemlenebilirliği üç katmanı birlikte ister: <strong>ne oldu</strong> (izleme), <strong>nasıl oldu</strong> (loglama) ve <strong>iyi miydi</strong> (değerlendirme). Biri eksikse, ya körsünüz ya da gördüğünüzü yorumlayamazsınız.</p>
+<blockquote>Klasik izleme size "sistem ayakta mı?" der. LLM gözlemlenebilirliği ise "sistem ayakta, peki söyledikleri doğru ve yararlı mı?" diye sorar. İkincisi çok daha zor, ama asıl önemli olan da odur.</blockquote>
+
+<h2 id="b2">İzleme (tracing): isteğin yolculuğu</h2>
+<p>Bir kullanıcı sorusu, modele varana kadar çoğu zaman tek bir adım değildir. Önce belge getirilir (retrieval), sonra istem (prompt) kurulur, belki bir araç çağrılır, model yanıt üretir, ardından bir doğrulama adımı çalışır. İzleme, bu zincirin her halkasını uçtan uca kaydetmektir; tıpkı bir kargonun deposundan kapınıza kadar her duraktan geçtiği gibi.</p>
+<p>İyi bir iz (trace) şu soruları yanıtlar: Hangi belgeler getirildi? Modele tam olarak hangi istem gitti? Hangi araç ne kadar sürede çalıştı? Token tüketimi nerede patladı? Gecikme (latency) hangi adımdan kaynaklandı? Bir cevap kötü çıktığında, suçun retrieval'da mı yoksa modelin kendisinde mi olduğunu ancak iz sayesinde ayırt edebilirsiniz.</p>
+<ul>
+<li><strong>Span:</strong> Zincirin tek bir adımı (örneğin "belge getirme" ya da "model çağrısı"). Başlangıç, bitiş ve girdi/çıktı bilgisi taşır.</li>
+<li><strong>Trace:</strong> Bir kullanıcı isteğine ait tüm span'lerin oluşturduğu ağaç. İsteğin tam hikâyesidir.</li>
+<li><strong>Metadata:</strong> Model adı, sürüm, sıcaklık (temperature), kullanıcı kimliği gibi bağlam etiketleri. Sonradan filtreleme için altın değerindedir.</li>
+</ul>
+<div class="callout"><strong>İpucu:</strong> Her trace'e bir sürüm etiketi (örneğin istem sürümü ve model adı) ekleyin. Bir gün kalite düştüğünde "hangi değişiklikten sonra?" sorusunun cevabı bu etiketlerde saklıdır.</div>
+
+<h2 id="b3">Loglama: neyi, ne kadar kaydetmeli?</h2>
+<p>Loglama, izlemenin daha ham ve esnek kuzenidir. İzleme yapılandırılmış bir ağaçken, log genelde "şu anda şunu yaptım" diyen serbest kayıtlardır. LLM dünyasında en kıymetli loglar şunları içerir: gönderilen tam istem, modelin ham yanıtı, kullanılan token sayıları, gecikme, hata mesajları ve varsa kullanıcı geri bildirimi (beğendi/beğenmedi).</p>
+<p>Ama burada iki tuzak var. Birincisi <strong>gizlilik</strong>: istemler ve yanıtlar kişisel veya hassas veri içerebilir. Kaydetmeden önce maskeleyin, anonimleştirin veya saklama süresini kısaltın. İkincisi <strong>gürültü</strong>: her şeyi kaydederseniz, önemli olanı bulmak samanlıkta iğne aramaya döner. Hangi alanların gerçekten gerektiğine baştan karar verin.</p>
+<blockquote>İyi log, gelecekteki kendinize yazdığınız bir mektuptur. Üç ay sonra bir şikâyet geldiğinde, o anki istemi ve yanıtı yeniden üretebiliyorsanız doğru loglamışsınız demektir.</blockquote>
+
+<h2 id="b4">Değerlendirme döngüleri (eval loops)</h2>
+<p>İzleme ve loglama "ne oldu"yu anlatır; değerlendirme ise "iyi miydi"yi ölçer. Bir değerlendirme döngüsü, modelin çıktısını bir kalite ölçütüne karşı sınamak ve bunu düzenli olarak tekrarlamaktır. Üç yaygın yaklaşım vardır:</p>
+<ol>
+<li><strong>Referanslı değerlendirme:</strong> Beklenen bir "altın cevap" varsa, modelin çıktısını onunla karşılaştırırsınız. Sınıflandırma veya çıkarım gibi net cevaplı görevler için idealdir.</li>
+<li><strong>Model-jüri (LLM-as-judge):</strong> Açık uçlu yanıtlarda tek bir doğru cevap olmadığında, bir başka modeli "hakem" olarak kullanıp çıktıyı belirli kriterlere göre puanlatırsınız. Hızlı ve ölçeklenebilir, ama jürinin de yanlılığı olabileceğini unutmayın.</li>
+<li><strong>İnsan değerlendirmesi:</strong> En güvenilir, ama en pahalı yöntem. Genelde örneklem üzerinde, model-jüriyi kalibre etmek için kullanılır.</li>
+</ol>
+<p>Buradaki anahtar kelime <em>döngü</em>. Değerlendirme tek seferlik bir sınav değildir; her istem değişikliğinde, her model güncellemesinde aynı test setini yeniden çalıştırırsınız. Buna sabit bir test seti (golden set) kurmak, yazılımdaki regresyon testlerinin LLM karşılığıdır.</p>
+<div class="callout"><strong>İpucu:</strong> Küçük başlayın. 30-50 iyi seçilmiş örnekten oluşan bir altın set, mükemmel olmaya çalışan ama hiç kurulamayan dev bir setten kat kat değerlidir. Seti zamanla, üretimden gelen gerçek hatalarla büyütün.</div>
+
+<h2 id="b5">Üretimde kalite ve regresyon takibi</h2>
+<p>Laboratuvarda iyi çalışan bir model, üretimde gerçek ve dağınık girdilerle karşılaşınca farklı davranabilir. Üretimde kalite takibi, sürekli bir nabız ölçümüdür. Şu sinyallere bakarsınız: kullanıcı geri bildirimleri, model-jüri puanlarının zaman içindeki seyri, gecikme ve maliyet eğrileri, "boş/alakasız cevap" oranları ve güvenlik filtrelerinin tetiklenme sıklığı.</p>
+<p><strong>Regresyon</strong>, daha önce çalışan bir şeyin bir değişiklikten sonra bozulmasıdır. LLM'lerde bu sinsi olabilir, çünkü değişiklik sizden gelmemiş olabilir: sağlayıcı modeli sessizce güncelleyebilir, bir istem ince ayarı beklenmedik yan etki yapabilir ya da kullanıcıların soru biçimi zamanla kayabilir (data drift). Bu yüzden altın setinizi düzenli aralıklarla otomatik çalıştırın ve puan bir eşiğin altına düşerse uyarı kurun.</p>
+<ul>
+<li><strong>Çevrimdışı eval:</strong> Yayına almadan önce, sabit test setiyle. "Bu değişiklik bir şey bozdu mu?" sorusunu yanıtlar.</li>
+<li><strong>Çevrimiçi izleme:</strong> Canlıda, gerçek trafikle. "Şu an gerçekte ne oluyor?" sorusunu yanıtlar.</li>
+<li><strong>Geri besleme:</strong> Üretimde yakalanan kötü örnekleri altın sete ekleyip döngüyü kapatın.</li>
+</ul>
+<blockquote>Sağlam bir kural: hiçbir istem veya model değişikliğini değerlendirme çalıştırmadan yayına almayın. Bir regresyon testi geçilmeden kod gönderilmediği gibi, bir eval geçilmeden istem de gönderilmemeli.</blockquote>
+
+<h2 id="b6">Küçük bir izleme örneği</h2>
+<p>Aşağıda, bir RAG zincirini izlemenin sözde-kod taslağı var. Amaç, her adımı ayrı bir span olarak kaydedip bir cevap kötü çıktığında nerede aksadığını görebilmek:</p>
+<pre><code># Bir kullanıcı isteğini uçtan uca izle
+with trace("soru-cevap", user_id=uid, prompt_version="v3") as t:
+
+    with t.span("retrieval") as s:
+        docs = retrieve(query)              # belgeleri getir
+        s.log(found=len(docs), query=query)
+
+    with t.span("model_call") as s:
+        prompt = build_prompt(query, docs)  # istemi kur
+        answer = model.generate(prompt)
+        s.log(tokens_in=count(prompt),
+              tokens_out=count(answer),
+              model="model-x")
+
+    with t.span("eval") as s:
+        score = judge(query, answer)        # model-jüri puanı
+        s.log(score=score)
+        if score &lt; 0.6:                     # eşik altıysa
+            alert("Düşük kalite cevap", trace_id=t.id)
+</code></pre>
+<p>Buradaki kilit nokta son span'deki eşik kontrolü: puan belli bir seviyenin altına düştüğünde otomatik bir uyarı tetikleniyor ve ilgili trace kimliğiyle birlikte saklanıyor. Böylece kötü cevabı sonradan açıp tüm yolculuğunu adım adım inceleyebilirsiniz; suç retrieval'da mı, istemde mi, modelde mi belli olur.</p>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>LLM gözlemlenebilirliği üç katmandır: <strong>izleme</strong> (ne oldu), <strong>loglama</strong> (nasıl oldu) ve <strong>değerlendirme</strong> (iyi miydi).</li>
+<li>İzleme, isteği span'lere bölerek hatanın retrieval'da mı yoksa modelde mi olduğunu ayırt etmenizi sağlar.</li>
+<li>Loglarken gizliliği koruyun ve gürültüye boğulmayın; üç ay sonra olayı yeniden üretebilmek hedeftir.</li>
+<li>Değerlendirme bir <em>döngüdür</em>: küçük bir altın setle başlayın, her değişiklikte yeniden çalıştırın, üretim hatalarıyla büyütün.</li>
+<li>Regresyonlar sessizce gelir; çevrimdışı eval'i yayın öncesi kapıya koyun, çevrimiçi izlemeyle canlıyı sürekli dinleyin.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>İzleme (tracing) ile loglama arasındaki fark nedir?</summary><p>Loglama, "şu an şunu yaptım" diyen serbest ve dağınık kayıtlardır. İzleme ise bir isteğin tüm adımlarını birbirine bağlı bir ağaç olarak yapılandırır. İzleme size bütünü ve adımlar arası ilişkiyi, log ise tekil olayların ham ayrıntısını verir; ikisi birlikte en güçlüdür.</p></details>
+<details><summary>Model-jüri (LLM-as-judge) güvenilir mi?</summary><p>Hızlı ve ölçeklenebilir olduğu için çok değerlidir, ama kusursuz değildir; jürinin de yanlılıkları olabilir. En iyi uygulama, model-jüriyi küçük bir insan değerlendirmesiyle kalibre etmek ve onu tek karar mercii değil, bir erken uyarı sistemi olarak görmektir.</p></details>
+<details><summary>Üretimde regresyonu nasıl erkenden yakalarım?</summary><p>Sabit bir altın test setini düzenli aralıklarla otomatik çalıştırın ve puan bir eşiğin altına düştüğünde uyarı kurun. Ayrıca model sağlayıcısının sürüm değişikliklerini ve kullanıcı sorularındaki kaymayı (drift) izleyin; regresyon çoğu zaman sizin değil, ortamın değişmesinden gelir.</p></details>
+</div>
+
+<hr>
+<p>Özetle, LLM gözlemlenebilirliği bir lüks değil, üretime alınmış her yapay zeka ürününün temel altyapısıdır. İzleme, loglama ve değerlendirme döngülerini birlikte kurduğunuzda, modelinizi karanlık bir kutu olmaktan çıkarıp güvenle yönetebileceğiniz şeffaf bir sisteme dönüştürürsünüz. Gözlemlenebilir, ölçülebilir ve güvenilir yapay zeka çözümleri kurmayı planlıyorsanız, <a href="hatsontech-nedir.html">HatsonTech</a> ekibi bu yapıyı sizinle birlikte tasarlamaktan memnuniyet duyar.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Gözlemlenebilirlik</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'ın arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="rlhf-nedir.html"><div class="dir">← Önceki</div><div class="ttl">RLHF ve Model Hizalama: Yardımsever ve Güvenli Modeller, Ödül Modeli ve DPO</div></a><a class="next" href="yapay-zeka-urun-ux.html"><div class="dir">Sıradaki →</div><div class="ttl">Yapay Zeka Ürünlerinde Kullanıcı Deneyimi (AI UX): Belirsizlikten Güvene</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../gizlilik.html">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

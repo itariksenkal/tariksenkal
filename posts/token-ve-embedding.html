@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Token ve Embedding: Bir Dil Modeli Metni Nasıl &quot;Görür&quot;? — İsmail Tarık Şenkal</title>
 <meta name="description" content="Tokenizasyon, kelime parçaları ve embedding vektörleri sezgisel anlatımla: metnin anlamı bir dil modelinin içinde nasıl sayıya ve koordinata dönüşür?" />
-<link rel="canonical" href="https://tariksenkal.com/posts/token-ve-embedding.html" />
-<link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/token-ve-embedding.html" />
-<meta name="theme-color" content="#7CB342" />
-<meta property="og:type" content="article" /><meta property="og:title" content="Token ve Embedding: Bir Dil Modeli Metni Nasıl &quot;Görür&quot;?" /><meta property="og:description" content="Tokenizasyon, kelime parçaları ve embedding vektörleri sezgisel anlatımla: metnin anlamı bir dil modelinin içinde nasıl sayıya ve koordinata dönüşür?" /><meta property="og:image" content="https://tariksenkal.com/image/ai-t-02.svg" />
+<link rel="canonical" href="https://tariksenkal.com/posts/token-ve-embedding.html" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/token-ve-embedding.html" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Token ve Embedding: Bir Dil Modeli Metni Nasıl &quot;Görür&quot;?" /><meta property="og:description" content="Tokenizasyon, kelime parçaları ve embedding vektörleri sezgisel anlatımla: metnin anlamı bir dil modelinin içinde nasıl sayıya ve koordinata dönüşür?" /><meta property="og:image" content="https://tariksenkal.com/image/bimg-12.jpg" />
 <link rel="icon" type="image/png" href="../image/hatsontech_logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -43,7 +40,7 @@
     <h1>Token ve Embedding: Bir Dil Modeli Metni Nasıl &quot;Görür&quot;?</h1>
     <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 6 dakika okuma</span></div>
   </div>
-  <div class="wrap narrow"><div class="article-hero"><img src="../image/ai-t-02.svg" alt="Token ve Embedding: Bir Dil Modeli Metni Nasıl &quot;Görür&quot;?"></div></div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../image/bimg-12.jpg" alt="Token ve Embedding: Bir Dil Modeli Metni Nasıl &quot;Görür&quot;?"></div></div>
   <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
     <div class="prose">
 <p class="lead-p">Bir dil modeli aslında harfleri, kelimeleri ya da cümleleri "okumaz". O, yalnızca sayılarla çalışır. Peki "Merhaba dünya" gibi bir metin, bir yapay zekânın içinde nasıl sayıya dönüşür? İşte bu yolculuğun iki durağı var: <strong>tokenizasyon</strong> ve <strong>embedding</strong>. Bu yazıda, metnin anlamının nasıl matematiğe çevrildiğini günlük analojilerle, baştan sona anlatıyoruz.</p>
