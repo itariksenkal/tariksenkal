@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Function Calling and Structured Output: Turning the Model into a Reliable Component — İsmail Tarık Şenkal</title>
+<meta name="description" content="Function calling and structured output turn a language model from a free-text chatter into a component you can wire into your systems with confidence. We explain JSON generation, schema enforcement, and robust integration practices with intuitive examples." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/fonksiyon-cagirma/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/fonksiyon-cagirma/" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Function Calling and Structured Output: Turning the Model into a Reliable Component" /><meta property="og:description" content="Function calling and structured output turn a language model from a free-text chatter into a component you can wire into your systems with confidence. We explain JSON generation, schema enforcement, and robust integration practices with intuitive examples." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-06.jpg" />
+<link rel="icon" type="image/png" href="../../../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img src="../../../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">About</a>
+        <a href="../../#ne-yapiyor">What I Do</a>
+        <a href="../../#uzmanlik">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#iletisim">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/fonksiyon-cagirma/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Integration</span></div>
+    <span class="tag">Integration</span>
+    <h1>Function Calling and Structured Output: Turning the Model into a Reliable Component</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 8 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-06.jpg" alt="Function Calling and Structured Output: Turning the Model into a Reliable Component"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<div class="prose">
+<p class="lead-p">When you used to ask a language model "What's the weather in Istanbul?", it would answer with a paragraph of prose, even though all you wanted were the two pieces of information needed to call a weather API: city and unit. Function calling (tool calling) and structured output turn the model from a chatty conversationalist into a component that plugs cleanly into your software. In this post we explain, intuitively, how the model produces JSON, how we enforce a schema, and how to make the integration reliable.</p>
+
+<div class="toc"><h4>Contents</h4><ol>
+<li><a href="#b1">The problem: free text doesn't talk to machines</a></li>
+<li><a href="#b2">How function calling works</a></li>
+<li><a href="#b3">The schema: a form you hand the model</a></li>
+<li><a href="#b4">Enforcing the schema: asking nicely vs. imposing the rule</a></li>
+<li><a href="#b5">Practices for reliable integration</a></li>
+<li><a href="#b6">Common mistakes</a></li>
+</ol></div>
+
+<h2 id="b1">The problem: free text doesn't talk to machines</h2>
+<p>Humans love ambiguity; software doesn't. The sentence "Set up a meeting around three tomorrow" is clear to a person but meaningless to a calendar API. What the API needs is concrete: a start time, a duration, attendees. So a free-form sentence has to be turned into a data structure the machine can consume directly.</p>
+<p>This is exactly where function calling steps in. You steer the model: "understand this sentence and fill in this template." The model no longer writes prose; it produces a <em>call intent</em>: which function, with which arguments.</p>
+
+<blockquote>Function calling isn't about the model reading data from your code; it's about your code reading data from the model. The direction reverses.</blockquote>
+
+<h2 id="b2">How function calling works</h2>
+<p>Think of the flow as a restaurant. You (the application) hand the menu (the list of available tools) to the waiter (the model). The customer (the user) orders in natural language: "Something spicy, cooked rare." The waiter translates that wish into a ticket the kitchen understands: <code>{dish: "meatballs", spicy: true, doneness: "rare"}</code>. The kitchen (your code) reads the ticket, prepares the food, and the waiter brings the result back to the table.</p>
+<p>Technically, the steps are:</p>
+<ol>
+<li>The application sends the model the user message plus <strong>tool definitions</strong> (name, description, parameter schema).</li>
+<li>Instead of replying directly, the model returns a <strong>tool call</strong>: a function name and JSON arguments.</li>
+<li>The application <strong>actually executes</strong> that call (hits the API, queries the database).</li>
+<li>The result is fed back to the model, which summarizes it in natural language or proceeds to the next step.</li>
+</ol>
+<p>The crucial point: the model itself does not execute the function. It merely says "I want to call this function with these arguments." Execution stays entirely under your control, which matters for security and auditability.</p>
+
+<h2 id="b3">The schema: a form you hand the model</h2>
+<p>A schema is a blank form you give the model. A well-designed form dramatically raises the odds it gets filled in correctly. Most providers use <strong>JSON Schema</strong> to describe parameters. Below is a simple definition of a weather tool:</p>
+
+<pre><code>{
+  "name": "get_weather",
+  "description": "Returns the current weather for a given city.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "city":  { "type": "string", "description": "e.g. Istanbul" },
+      "unit":  { "type": "string", "enum": ["celsius", "fahrenheit"] }
+    },
+    "required": ["city"]
+  }
+}</code></pre>
+
+<p>Every detail here sends a signal to the model. The <code>description</code> fields help the model understand when and how to use the tool; don't skip them. With <code>enum</code> you constrain valid values, so the model can't invent free text like "centigrade." And <code>required</code> declares which fields are mandatory.</p>
+
+<div class="callout"><strong>Tip:</strong> Write description fields like documentation, not like keywords. Instead of "city name," writing "the city to query weather for; if the country is ambiguous, default to Turkey" makes it far easier for the model to decide correctly.</p></div>
+
+<h2 id="b4">Enforcing the schema: asking nicely vs. imposing the rule</h2>
+<p>There are two distinct levels of guarantee when handing a schema to a model, and conflating them is the source of most bugs.</p>
+<h3>1. A verbal request (via the prompt)</h3>
+<p>You can tell the model "please respond in this JSON format." This often works, but it is not a guarantee. The model sometimes adds explanatory text, forgets a comma, or drops a field. This approach is fine for quick prototypes; for production it is fragile.</p>
+<h3>2. Structural enforcement (constrained decoding)</h3>
+<p>Many modern providers <em>constrain</em> the output against the schema at generation time. That is, as the model picks each token, options that would break the schema are eliminated up front. The result: JSON that conforms to the schema grammatically. This is usually called "structured output," "JSON mode," or, for tool calls, "tool use."</p>
+<p>An important distinction: structural enforcement guarantees the <em>form</em>, not the <em>meaning</em>. The model can hand you valid JSON whose city name is still wrong. The schema blocks an invalid date format; it does not block February 30th. Keep formal validity and logical correctness separate.</p>
+
+<blockquote>A schema answers "what may be written in this box," not "is what's written correct." The second question is still your job.</blockquote>
+
+<h2 id="b5">Practices for reliable integration</h2>
+<p>When moving function calling into production, a few principles keep the system from being fragile:</p>
+<ul>
+<li><strong>Always validate the output.</strong> Even when the model produces JSON, re-validate it against the schema in your own code (e.g. Pydantic, Zod). Trust the model, but verify.</li>
+<li><strong>Treat arguments as if they came from a user.</strong> A file path, SQL fragment, or command the model generates must be sanitized before it is run. The model can be steered by indirect instructions from a malicious user.</li>
+<li><strong>Feed errors back to the model.</strong> If a call fails (missing field, API error), pass the error message back and ask it to retry. It often corrects itself on the second attempt.</li>
+<li><strong>Keep the number of tools manageable.</strong> Offer dozens of tools and the model gets confused about which to pick. If needed, filter tools by context and present a subset.</li>
+<li><strong>Idempotency and confirmation.</strong> For irreversible actions like money transfers, ask for user confirmation rather than executing the model's call directly.</li>
+</ul>
+
+<pre><code># Pseudocode: a safe execution loop
+call = model.respond(message, tools)
+if call.type == "tool_call":
+    data = schema.validate(call.arguments)   # format + type check
+    if not data.valid:
+        model.feedback(data.error)           # tell the model to retry
+    else:
+        result = safe_execute(call.name, data)
+        model.continue(result)</code></pre>
+
+<div class="callout"><strong>Tip:</strong> Log tool calls and their results. When something goes wrong, you can only answer "why did the model pick that argument?" by looking at the raw call record.</p></div>
+
+<h2 id="b6">Common mistakes</h2>
+<p>The traps you see most often in the field: leaving tool descriptions blank (the model can't tell when to use it); mistaking formal validity for correctness; executing the model's call without question; and defining a single, gigantic "do-everything" tool. Instead, design narrowly scoped, well-described, validated tools.</p>
+<p>This discipline is also the foundation of agent-based systems. Every interaction an LLM agent has with the outside world is, in fact, a tool call. If you'd like to look at this topic from a broader angle, see the <a href="../hatsontech-nedir/">HatsonTech</a> team's writing on AI integration.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>Function calling moves the model from free text to machine-readable data; the direction shifts from user to code.</li>
+<li>The model does not execute the function; it only produces a call intent. Execution stays under your control.</li>
+<li>Well-written schema descriptions (<code>description</code>, <code>enum</code>, <code>required</code>) directly affect output quality.</li>
+<li>Structural enforcement guarantees form, not meaning; always validate the output on your side.</li>
+<li>Treat model arguments like untrusted user input; sanitize, confirm, and log.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Are structured output and function calling the same thing?</summary><p>Close relatives, but not identical. Structured output is making the model's response conform to a specific JSON schema. Function calling is the model expressing an intent to call a tool with specific arguments; those arguments are themselves a special case of structured output. So function calling combines structured output with an action.</p></details>
+<details><summary>If schema enforcement exists, why is validation still needed?</summary><p>Because enforcement only guarantees the form. Values that fit the schema but are logically wrong (a nonexistent product code, a birth date in the future) can still be produced. Also, behavior can differ when the provider or model changes; your own validation is insurance against that uncertainty.</p></details>
+<details><summary>Does offering many tools tire the model out?</summary><p>Yes. As the number of tools grows, the model struggles to pick the right one and the context window swells. The practical fix is to pre-filter tools by user intent, group them logically, and give each a clear, distinctive description.</p></details>
+</div>
+
+<hr>
+</div>
+    </div>
+    <div class="article-tags"><span class="tag">Integration</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../prompt-injection-guvenlik/"><div class="dir">← Previous</div><div class="ttl">Prompt Injection and Jailbreaks: The Foundations of AI Security</div></a><a class="next" href="../llm-maliyet-optimizasyonu/"><div class="dir">Next →</div><div class="ttl">LLM Cost Optimization: Cutting the Bill with Tokens, Caching, Model Choice, and RAG</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

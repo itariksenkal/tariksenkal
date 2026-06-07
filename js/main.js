@@ -100,7 +100,7 @@
 (function () {
   try { if (localStorage.getItem("ck-ok")) return; } catch (e) {}
   var p = location.pathname, en = p.indexOf("/en/") !== -1, inPosts = /\/posts\//.test(p);
-  var policy = (inPosts ? "../" : "") + (en ? "privacy.html" : "gizlilik.html");
+  var policy = en ? "/en/privacy/" : "/gizlilik/";
   var txt = en ? "We use only essential cookies and local storage to improve your experience."
               : "Deneyiminizi iyileştirmek için yalnızca gerekli çerezler ve yerel depolama kullanılır.";
   var more = en ? "Cookie Policy" : "Çerez Politikası";

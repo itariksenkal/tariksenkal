@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RLHF and Model Alignment: Helpful and Safe Models, the Reward Model, and DPO — İsmail Tarık Şenkal</title>
+<meta name="description" content="Why and how do we make a model &quot;helpful and safe&quot;? We explain the three steps of RLHF, the reward model, and the simpler alternative DPO using everyday analogies." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/rlhf-nedir/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/rlhf-nedir/" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="RLHF and Model Alignment: Helpful and Safe Models, the Reward Model, and DPO" /><meta property="og:description" content="Why and how do we make a model &quot;helpful and safe&quot;? We explain the three steps of RLHF, the reward model, and the simpler alternative DPO using everyday analogies." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-08.jpg" />
+<link rel="icon" type="image/png" href="../../../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img src="../../../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">About</a>
+        <a href="../../#ne-yapiyor">What I Do</a>
+        <a href="../../#uzmanlik">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#iletisim">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/rlhf-nedir/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Alignment</span></div>
+    <span class="tag">Alignment</span>
+    <h1>RLHF and Model Alignment: Helpful and Safe Models, the Reward Model, and DPO</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 10 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-08.jpg" alt="RLHF and Model Alignment: Helpful and Safe Models, the Reward Model, and DPO"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">A raw language model is like a genius who has read the entire internet but never learned any manners: it knows a great deal, yet it doesn't know when to stay quiet, which request is dangerous, or how to actually <em>answer</em> a question helpfully. The fine-tuning layer that makes a model "helpful and safe" is what we call <strong>alignment</strong>. In this article we'll explore alignment intuitively, explaining why and how RLHF (reinforcement learning from human feedback) works, the role of the reward model, and a newer, simpler alternative called DPO, using everyday analogies.</p>
+
+<div class="toc"><h4>Contents</h4><ol>
+<li><a href="#b1">Why alignment? Knowing vs. behaving</a></li>
+<li><a href="#b2">RLHF in three steps</a></li>
+<li><a href="#b3">The reward model: turning taste into a number</a></li>
+<li><a href="#b4">Reinforcement: chasing the reward</a></li>
+<li><a href="#b5">DPO: a shortcut without a reward model</a></li>
+<li><a href="#b6">Limits and things to watch for</a></li>
+</ol></div>
+
+<h2 id="b1">Why alignment? Knowing vs. behaving</h2>
+<p>The pretraining of a language model rests on one simple objective: given a piece of text, predict the next word. This objective is surprisingly powerful; through it the model learns grammar, facts, style, and even a degree of reasoning. But the objective has a blind spot: the model learns to produce the <em>most likely</em> continuation, not the <em>most helpful</em> or <em>safest</em> one.</p>
+<p>As a result, a raw model tends to respond to a request like "Tell me how to build a bomb" by following the patterns it saw online — because to it, this is merely "completing the text." Likewise, instead of answering a question it might list five similar questions, because that's how forum threads look in its training data.</p>
+<blockquote>Knowing and behaving are different things. A raw model <em>knows</em> a lot; alignment teaches it how to <em>behave</em>.</blockquote>
+<p>The goal of alignment is often summed up in three words: <strong>helpful, honest, and harmless</strong>. Helpful means serving the user's real intent; honest means not making things up when it doesn't know; harmless means politely declining requests that would cause harm. RLHF is a way not of "telling" the model these three values, but of <em>showing</em> them through examples.</p>
+
+<h2 id="b2">RLHF in three steps</h2>
+<p>We can liken RLHF to bringing an apprentice up to mastery. First you show them a few good examples, then you evaluate what they do and give feedback, and finally you help them internalize that feedback so they can do good work on their own. RLHF consists, roughly, of these three stages:</p>
+<ol>
+<li><strong>Supervised fine-tuning (SFT):</strong> human-written example question–answer pairs show the model "this is what a good answer looks like." This is like showing the apprentice a few masterful examples.</li>
+<li><strong>Reward model training:</strong> humans compare two answers to the same question and mark which is better. From these preferences, a separate model is learned that turns the sense of "a good answer" into a number.</li>
+<li><strong>Reinforcement learning:</strong> the main model is nudged, little by little, toward producing answers that score high with the reward model.</li>
+</ol>
+<p>The crucial point is this: in the second step, humans are not asked to <em>write answers from scratch</em>; they are only asked to <em>compare</em>. Saying which of two answers is better is far easier and more consistent than writing a perfect answer up front. Much of RLHF's practical genius lies in this simplification.</p>
+
+<h2 id="b3">The reward model: turning taste into a number</h2>
+<p>Suppose you had thousands of answer pairs rated by humans. But during training the model will produce hundreds of answers per second; asking a human about each one is impossible. This is where the <strong>reward model</strong> fills the gap: a model that learns human preferences and can give a "how good is this" score even to a new, unseen answer.</p>
+<p>The reward model doesn't define "helpfulness" with a formula; instead, by looking at which answer humans chose, it arrives at an <em>implicit</em> estimate of taste. Like a restaurant critic who develops a palate by tasting thousands of dishes, without knowing the rules by heart.</p>
+<pre><code># A reward model learns from human preference (conceptual)
+# Data: two answers to the same request + the human's choice
+
+example = {
+  "request":  "Suggest ways to reduce stress.",
+  "answer_A": "Regular sleep, short walks, breathing exercises...",
+  "answer_B": "I don't know, look it up online.",
+  "choice":   "A"   # the human preferred A
+}
+
+# Goal: the reward model R should score the preferred answer higher
+#   R(request, answer_A) > R(request, answer_B)
+# Training tries to satisfy this inequality across all pairs.
+</code></pre>
+<div class="callout"><strong>Tip:</strong> A reward model is only as good as the human preferences that trained it. If the labeling guidelines are vague or the labelers hold different values, the model inherits that inconsistency exactly. The "garbage in, garbage out" rule applies here too.</div>
+
+<h2 id="b4">Reinforcement: chasing the reward</h2>
+<p>We now have a reward model that can score any answer. In the final step we tune the main language model toward producing answers that raise that score. This is classic reinforcement learning: the model "tries" an answer, the reward model "gives" a score, and the model updates itself based on that score. The most widely used algorithm has been PPO (Proximal Policy Optimization).</p>
+<p>But there's a hidden danger here: the model may find ways to <em>fool</em> the reward model without actually being good. This is called <strong>reward hacking</strong>. For example, the model might notice that the reward model likes long, polite answers, and start producing empty-but-needlessly-long, overly courteous text.</p>
+<blockquote>If a student learns the tricks of the exam instead of truly learning, the grade goes up but knowledge does not. Reward hacking is exactly that.</blockquote>
+<p>That's why a balancing force is added to training: the model is penalized for drifting too far from its initial (SFT) state. This way, while chasing the reward, the model also stays "itself," its language doesn't degrade, and it doesn't veer into strange shortcuts. In practice this is a careful balance between raising the reward and staying faithful to the original behavior.</p>
+
+<h2 id="b5">DPO: a shortcut without a reward model</h2>
+<p>RLHF is powerful but cumbersome: training a separate reward model and then running a reinforcement loop that can be unstable is expensive, both in time and in engineering. <strong>DPO (Direct Preference Optimization)</strong> is a newer method proposed to shorten much of this process.</p>
+<p>DPO's core idea is surprisingly elegant: you use the human preference data (A is better than B) directly to train the model itself. Instead of training a separate reward model and then chasing it with reinforcement, you train the model in a single step to "raise the probability of the preferred answer and lower the probability of the non-preferred one."</p>
+<pre><code># The intuition behind DPO (conceptual)
+# Each example: a request + preferred (winner) + non-preferred (loser) answer
+
+for (request, winner, loser) in preference_data:
+    # push the winner's probability up, the loser's down
+    # but don't drift too far from the reference model (balance term)
+    loss = -log_sigmoid(
+        beta * ( logp(winner) - logp_ref(winner)
+               - logp(loser)  + logp_ref(loser) )
+    )
+    update_model(loss)
+</code></pre>
+<p>The difference is this: in RLHF, preferences are first "distilled" into a reward model, which is then chased. DPO turns preferences directly into a training loss; the reward model disappears, and the instability of the reinforcement loop is largely reduced. Fewer moving parts means fewer points of failure.</p>
+<p>This doesn't mean DPO is always better. Keeping the reward model separate offers some flexibility, and at very large scales and for complex objectives, classic RLHF may still be preferred. Think of DPO as a simple, robust alternative that is sufficient in most situations.</p>
+
+<h2 id="b6">Limits and things to watch for</h2>
+<p>Alignment is not a magic wand; it doesn't make a model flawless or neutral. It's worth keeping a few realities in mind:</p>
+<ul>
+<li><strong>Human preferences are subjective:</strong> "a good answer" varies by culture, context, and person. The model inherits the values of the labeler group that trained it; those values don't always represent everyone.</li>
+<li><strong>Risk of over-caution:</strong> a model that leans too hard into harmlessness may needlessly refuse requests that are actually harmless. A constant balance between helpfulness and safety is required.</li>
+<li><strong>Alignment doesn't guarantee truth:</strong> a model can learn to produce answers that "sound right," which isn't always the same as being <em>actually correct</em>. Hallucination decreases after alignment but doesn't disappear.</li>
+<li><strong>Reward hacking is always lurking:</strong> whatever method you use, the metric you optimize is a flawed proxy for the real goal; the model can find the gaps.</li>
+</ul>
+<div class="callout"><strong>Tip:</strong> When you put an aligned model into your own product, test the model's refusal and acceptance boundaries against your specific use case. General alignment is a good start, but domain-specific safety rules often call for an extra layer.</div>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>A raw model knows a lot but doesn't know how to behave; alignment fills that gap with examples.</li>
+<li>RLHF has three steps: supervised fine-tuning, reward model, reinforcement.</li>
+<li>Humans are asked to compare two answers, not write one; this is both easier and more consistent.</li>
+<li>Reward hacking is a real risk; the model can fool the score without truly being good.</li>
+<li>DPO skips the reward model and the reinforcement loop, turning preferences directly into training; it's simpler and more stable.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Are RLHF and fine-tuning the same thing?</summary><p>Not quite. Classic fine-tuning shows the model examples of "this is the right answer" (supervised learning). RLHF uses human <em>preferences</em>: it learns which answer is better than another. RLHF's first step is itself a fine-tuning; it then adds a preference-based layer on top.</p></details>
+<details><summary>Does DPO completely replace RLHF?</summary><p>In many practical scenarios DPO is simpler and sufficient, which is why it caught on. But there are very large and complex alignment goals where the flexibility of a separate reward model is valuable. It's best to see the two not as rivals but as two roads to the same destination.</p></details>
+<details><summary>Why does an aligned model still make mistakes?</summary><p>Because alignment shapes behavior; it doesn't perfect knowledge. The model learns to produce answers that "sound right," which sometimes doesn't match reality (hallucination). Also, the reward being optimized is a flawed proxy for the real goal, and the model can find those gaps.</p></details>
+</div>
+
+<hr>
+<p>In short, alignment transforms a raw model from a being that "knows everything but doesn't know how to behave" into a genuinely helpful and safe assistant. RLHF does this with human preferences; DPO reaches the same goal by a simpler route. In both cases, one thing sits at the heart of the work: accurate, consistent human feedback that reflects your values. If you're considering designing a safe, fit-for-purpose AI layer for your own product, the <a href="../hatsontech-nedir/">HatsonTech</a> team would be glad to weigh these decisions with you.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Alignment</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../llm-maliyet-optimizasyonu/"><div class="dir">← Previous</div><div class="ttl">LLM Cost Optimization: Cutting the Bill with Tokens, Caching, Model Choice, and RAG</div></a><a class="next" href="../llm-gozlemlenebilirlik/"><div class="dir">Next →</div><div class="ttl">LLM Observability: A Practical Look at Tracing, Logging, and Evaluation Loops</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

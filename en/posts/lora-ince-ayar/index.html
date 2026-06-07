@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LoRA and Efficient Fine-Tuning (PEFT): Adapting a Model Without Training the Whole Thing — İsmail Tarık Şenkal</title>
+<meta name="description" content="An intuitive guide to LoRA and PEFT: adapting a model without training all of it, using small low-rank adapters, the memory/cost advantage, and practical usage tips." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/lora-ince-ayar/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/lora-ince-ayar/" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="LoRA and Efficient Fine-Tuning (PEFT): Adapting a Model Without Training the Whole Thing" /><meta property="og:description" content="An intuitive guide to LoRA and PEFT: adapting a model without training all of it, using small low-rank adapters, the memory/cost advantage, and practical usage tips." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-04.jpg" />
+<link rel="icon" type="image/png" href="../../../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img src="../../../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">About</a>
+        <a href="../../#ne-yapiyor">What I Do</a>
+        <a href="../../#uzmanlik">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#iletisim">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/lora-ince-ayar/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Fine-tuning</span></div>
+    <span class="tag">Fine-tuning</span>
+    <h1>LoRA and Efficient Fine-Tuning (PEFT): Adapting a Model Without Training the Whole Thing</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 8 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-04.jpg" alt="LoRA and Efficient Fine-Tuning (PEFT): Adapting a Model Without Training the Whole Thing"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">When you want to adapt a large language model to your own task, the obvious path is to retrain it end to end. But updating billions of parameters is both expensive and slow; for most teams it is simply out of reach. This is exactly where LoRA (Low-Rank Adaptation) and the broader PEFT (Parameter-Efficient Fine-Tuning) family come in: without ever touching the model’s large body, you train small, cheap “adapter” parts and achieve the same adaptation with far less memory and cost. In this post we explain the intuition behind LoRA, why it works, and how it is used in practice, with everyday analogies.</p>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#b1">The problem: why is training the whole model expensive?</a></li>
+    <li><a href="#b2">What is PEFT? In one sentence</a></li>
+    <li><a href="#b3">The intuition behind LoRA: low-rank adapters</a></li>
+    <li><a href="#b4">The transparency-sheet analogy</a></li>
+    <li><a href="#b5">A short code example</a></li>
+    <li><a href="#b6">The memory and cost advantage</a></li>
+    <li><a href="#b7">QLoRA: one step further</a></li>
+    <li><a href="#b8">Practical use and tips</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">The problem: why is training the whole model expensive?</h2>
+<p>A modern language model holds billions of parameters. Retraining all of them (full fine-tuning) brings two heavy burdens:</p>
+<ul>
+  <li><strong>Memory:</strong> During training you must keep not only the parameters but also their gradients and optimizer states (for example the two extra values Adam tracks) in memory. That amounts to roughly several times the model’s size in GPU memory.</li>
+  <li><strong>Storage and management:</strong> You store a full copy of the model for every task. If you have ten tasks, you have ten giant model files.</li>
+</ul>
+<blockquote>In full fine-tuning, the hard part is not “teaching” the model; it is finding the hardware to train it and managing the results.</blockquote>
+
+<h2 id="b2">What is PEFT? In one sentence</h2>
+<p><strong>PEFT (Parameter-Efficient Fine-Tuning)</strong> is the approach of freezing the vast majority of a model’s parameters and training only a small subset, or small new parts added on top. The goal is to reach quality close to full fine-tuning at a small fraction of its cost.</p>
+<p>PEFT is an umbrella term covering several methods (adapter layers, prefix-tuning, prompt-tuning, and others). The most common and practical one today is <strong>LoRA</strong>.</p>
+
+<h2 id="b3">The intuition behind LoRA: low-rank adapters</h2>
+<p>LoRA’s core observation is this: when you adapt a model to a new task, the <em>change</em> that the weights need does not actually carry very rich information; it can be approximated well with a “low-rank” structure. In other words, you can represent a large change matrix as the product of two much smaller matrices.</p>
+<p>In practice, LoRA freezes an existing weight matrix <code>W</code> and adds two small matrices next to it: an <code>A</code> (down-projection) and a <code>B</code> (up-projection). During training, only <code>A</code> and <code>B</code> are updated. The model’s final behavior is the sum of the original output and this small add-on.</p>
+<p>The magic word here is <strong>rank (r)</strong>. If the matrix size is very large (say 4096×4096), choosing <code>A</code> and <code>B</code> with only a small inner dimension such as r=8 or r=16 drops the number of trained parameters from billions to a few million.</p>
+<div class="callout"><strong>Tip:</strong> Think of rank as “how much freedom you grant.” Lower rank means fewer parameters and faster training; choose it too low and the model may struggle to learn the new task. r=8–16 is a solid starting point for most tasks.</div>
+
+<h2 id="b4">The transparency-sheet analogy</h2>
+<p>Imagine you have an old textbook. It is beautifully printed, but its content is generic. You want to adapt it to your own class. You have two options:</p>
+<ul>
+  <li><strong>Full fine-tuning:</strong> Erase every page and rewrite the whole book. It takes enormous time and ink; worse, your version replaces everyone’s copy and you lose the original.</li>
+  <li><strong>LoRA:</strong> Lay a transparent <em>overlay sheet</em> on top of the book and write your notes there. The book stays intact; the overlay is small, cheap, and easy to swap. You prepare a different overlay for each class, all working on top of the same book.</li>
+</ul>
+<p>LoRA adapters are exactly those overlays: small, portable, and snap-on/snap-off over the same base model.</p>
+
+<h2 id="b5">A short code example</h2>
+<p>The conceptual Python example below shows how LoRA wraps a layer:</p>
+<pre><code>class LoRALinear:
+    def __init__(self, W, r):
+        self.W = W              # frozen original weight (not trained)
+        d_out, d_in = W.shape
+        self.A = randn(r, d_in) * 0.01   # small, trainable
+        self.B = zeros(d_out, r)         # small, trainable
+
+    def forward(self, x):
+        # Original path + low-rank correction
+        return x @ self.W.T + (x @ self.A.T) @ self.B.T
+
+# In training only A and B receive gradients;
+# instead of billions of parameters, just r * (d_in + d_out).</code></pre>
+<p>Note that <code>B</code> is initialized to zero, so at the very start of training the adapter’s effect is zero and the model begins learning without drifting from its original behavior.</p>
+
+<h2 id="b6">The memory and cost advantage</h2>
+<p>LoRA’s payoff is not just “fewer parameters”; that shrinkage creates a chain of advantages:</p>
+<ul>
+  <li><strong>Optimizer memory drops:</strong> You keep optimizer states only for the small trained adapters. For the frozen body you need to store neither gradients nor optimizer state.</li>
+  <li><strong>Storage shrinks:</strong> For a task you store only the adapter weights, which are tiny files next to the full model. Instead of ten giant models for ten tasks, you keep one base model and ten small adapters.</li>
+  <li><strong>Deployment flexibility:</strong> You can keep the same base model in memory and swap different adapters in and out on the fly. A single server can serve many specialized behaviors in turn.</li>
+</ul>
+<blockquote>In short: the frozen body is shared, and the real savings come from the small size of the trained part and the disappearance of its gradient/optimizer burden.</blockquote>
+
+<h2 id="b7">QLoRA: one step further</h2>
+<p>LoRA is powerful on its own, but the base model itself still has to fit in memory. This is where <strong>QLoRA</strong> comes in: it loads the base model in a low-precision (quantized, for example 4-bit) form, then trains ordinary LoRA adapters on top of it.</p>
+<p>The result is that model sizes previously feasible only on large clusters can be adapted on a single GPU. The body stays quantized and frozen; only the small adapters are trained at full precision. This was the step that opened the idea of “accessible fine-tuning” to a wide audience.</p>
+
+<h2 id="b8">Practical use and tips</h2>
+<p>When you apply LoRA in your own project, a few practical decisions await you:</p>
+<ul>
+  <li><strong>Which layers should it target?</strong> A common approach is to target the projection matrices of the attention layers. Targeting more layers usually improves quality while still keeping the parameter count low.</li>
+  <li><strong>Rank and alpha:</strong> Rank sets the capacity, while <code>alpha</code> sets the adapter’s scale. Low rank suffices for simple tasks; for complex, style-heavy tasks, try increasing the rank.</li>
+  <li><strong>Data quality is everything:</strong> Like full fine-tuning, LoRA still works on good, clean examples. A little high-quality data beats a lot of noisy data.</li>
+  <li><strong>Merging:</strong> Once training is done you can permanently merge the adapter into the base model (no extra inference cost), or keep it separate to stay flexible.</li>
+</ul>
+<p>LoRA made fine-tuning accessible to small teams. Training a small adapter instead of the whole model both speeds up experimentation and lowers cost, which means more experiments and faster learning.</p>
+
+<div class="takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>PEFT freezes the model’s body and trains only small parts, reaching near-full-fine-tuning quality at a fraction of the cost.</li>
+    <li>LoRA represents the weight change in low-rank form via two small matrices (A and B); trained parameters drop from billions to millions.</li>
+    <li>The real savings come not just from parameter count but from the vanished gradient and optimizer burden.</li>
+    <li>Adapters are small and portable: one base model + many adapters beats many giant model files.</li>
+    <li>QLoRA adds LoRA on top of a quantized base model, making large models adaptable on a single GPU.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details>
+    <summary>Does LoRA perform as well as full fine-tuning?</summary>
+    <p>On many practical tasks the results are quite close to full fine-tuning, and the gap is usually small next to the memory/cost advantage it brings. Still, it depends on the task, the data, and the chosen rank; in cases that require very broad retraining, full fine-tuning may come out ahead.</p>
+  </details>
+  <details>
+    <summary>Does LoRA slow down inference?</summary>
+    <p>If you keep the adapter separate, there is a small extra computation. But after training you can merge the adapter into the base model, in which case inference runs at the same speed as the original model.</p>
+  </details>
+  <details>
+    <summary>How should I choose the rank value?</summary>
+    <p>Starting with r=8 or r=16 is a solid baseline for most tasks. If the model cannot learn the new task well enough, raise the rank; choosing it higher than necessary can increase both parameter count and the risk of overfitting.</p>
+  </details>
+</div>
+
+<hr />
+<p>LoRA and PEFT have largely broken the idea that “powerful models are only for teams with big budgets.” With the right adapter strategy, even a small team can adapt a model to its own domain. If you are curious how we use efficient adaptation in Turkish AI products in practice, take a look at <a href="../hatsontech-nedir/">HatsonTech</a>; you can explore how these methods apply in the legal domain through <a href="../caseon-nedir/">Caseon</a>.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Fine-tuning</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../model-damitma/"><div class="dir">← Previous</div><div class="ttl">Knowledge Distillation and Small Models: Transferring Knowledge from a Large Teacher to a Small Student</div></a><a class="next" href="../prompt-injection-guvenlik/"><div class="dir">Next →</div><div class="ttl">Prompt Injection and Jailbreaks: The Foundations of AI Security</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>
