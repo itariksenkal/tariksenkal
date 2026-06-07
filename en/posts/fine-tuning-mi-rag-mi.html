@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fine-tuning, RAG, or Prompt? When to Use Each Approach — İsmail Tarık Şenkal</title>
+<meta name="description" content="We compare fine-tuning, RAG, and prompting on cost, freshness, and accuracy. Which one should you pick and when? Includes a practical decision table." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/fine-tuning-mi-rag-mi.html" />
+<link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/fine-tuning-mi-rag-mi.html" />
+<meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Fine-tuning, RAG, or Prompt? When to Use Each Approach" /><meta property="og:description" content="We compare fine-tuning, RAG, and prompting on cost, freshness, and accuracy. Which one should you pick and when? Includes a practical decision table." /><meta property="og:image" content="https://tariksenkal.com/image/ai-t-06.svg" />
+<link rel="icon" type="image/png" href="../../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Home"><img src="../../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">About</a>
+        <a href="../index.html#ne-yapiyor">What I Do</a>
+        <a href="../index.html#uzmanlik">Expertise</a>
+        <a href="../blog.html">Articles</a>
+        <a href="../index.html#iletisim">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../posts/fine-tuning-mi-rag-mi.html">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../index.html">Home</a> <span>/</span>
+        <a href="../blog.html">Articles</a> <span>/</span>
+        <span>Decision</span></div>
+    <span class="tag">Decision</span>
+    <h1>Fine-tuning, RAG, or Prompt? When to Use Each Approach</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 6 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/ai-t-06.svg" alt="Fine-tuning, RAG, or Prompt? When to Use Each Approach"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">One of the first questions on any AI project is: “Should we train the model on our own data (fine-tuning), feed it knowledge from outside (RAG), or just write a good instruction (prompt)?” All three are valid, but picking the wrong one can cost you months and a serious budget. In this post we compare the three approaches with everyday analogies along the axes of cost, freshness, and accuracy, and close with a quick decision table.</p>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#b1">Three approaches in one sentence</a></li>
+    <li><a href="#b2">The exam-student analogy</a></li>
+    <li><a href="#b3">Comparison by cost</a></li>
+    <li><a href="#b4">Comparison by freshness</a></li>
+    <li><a href="#b5">Comparison by accuracy</a></li>
+    <li><a href="#b6">A decision flow (pseudocode)</a></li>
+    <li><a href="#b7">Decision table</a></li>
+    <li><a href="#b8">Using them together</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">Three approaches in one sentence</h2>
+<p>These three intimidating concepts really come down to <em>when</em> you give the model its knowledge:</p>
+<ul>
+  <li><strong>Prompt (prompt engineering):</strong> You supply the instructions and examples <em>at question time</em>. You never touch the model’s weights.</li>
+  <li><strong>RAG (Retrieval-Augmented Generation):</strong> Just before the model answers, you <em>retrieve</em> relevant documents from a database and add them to the request. Knowledge stays external, fresh, and editable.</li>
+  <li><strong>Fine-tuning:</strong> You retrain the model on your own examples; knowledge and behavior are baked into the model’s <em>weights</em>.</li>
+</ul>
+<blockquote>Rule of thumb: prompts shape behavior, RAG keeps knowledge fresh, fine-tuning makes tone and format permanent.</blockquote>
+
+<h2 id="b2">The exam-student analogy</h2>
+<p>Imagine preparing a student for an exam:</p>
+<ul>
+  <li><strong>Prompt</strong> is like wording the exam question clearly: “Answer in three bullet points and a formal tone.” Good direction alone often produces surprisingly strong results.</li>
+  <li><strong>RAG</strong> is like an open-book exam: the student doesn’t memorize everything; they flip to the relevant page and read from it. When the book is updated, the answer updates too.</li>
+  <li><strong>Fine-tuning</strong> is like a months-long course: the student internalizes the subject and builds reflexes. But if the curriculum changes, they have to take the course again.</li>
+</ul>
+<div class="callout"><strong>Tip:</strong> A common mistake is starting with the most expensive path (fine-tuning). Push the prompt first, then add RAG; consider fine-tuning only once a measurable need appears.</div>
+
+<h2 id="b3">Comparison by cost</h2>
+<p>Think of cost in two buckets: <strong>setup (one-time)</strong> and <strong>runtime (per request).</strong></p>
+<ul>
+  <li><strong>Prompt:</strong> Setup cost is near zero. The one caveat is that long instructions consume tokens on every request and can bloat the prompt.</li>
+  <li><strong>RAG:</strong> Moderate setup: you need chunking, embeddings, and a vector database. At runtime each request gets a bit longer, since retrieved documents are appended.</li>
+  <li><strong>Fine-tuning:</strong> Highest setup cost: it needs quality labeled data, training time, and expertise. In return it can shorten the prompt at runtime, which sometimes lowers the cost per request.</li>
+</ul>
+
+<h2 id="b4">Comparison by freshness</h2>
+<p>How often does your knowledge change? This question alone often decides the answer.</p>
+<ul>
+  <li><strong>RAG wins clearly here:</strong> adding a new document is as easy as indexing it; no retraining required. It’s ideal for fast-changing content like price lists, regulations, and product docs.</li>
+  <li><strong>Fine-tuning is static:</strong> the knowledge you bake in is “frozen.” When it changes, you need a new training round, which means delay and cost.</li>
+  <li><strong>Prompt</strong> is instant and current as long as you place the knowledge in the request by hand; it doesn’t scale to large knowledge bases.</li>
+</ul>
+
+<h2 id="b5">Comparison by accuracy</h2>
+<p>Accuracy isn’t one thing; you have to ask “which kind of accuracy?”</p>
+<ul>
+  <li>For <strong>factual accuracy and citations</strong>, RAG is strong: answers are grounded in real documents and can be attributed, which reduces the risk of hallucination.</li>
+  <li>For <strong>tone, format, and domain-specific behavior</strong>, fine-tuning is strong: it makes the model respond consistently, every time, with the right terminology.</li>
+  <li><strong>Prompting</strong> can also reach high accuracy, but consistency depends on the quality of the instruction and may waver on complex tasks.</li>
+</ul>
+<blockquote>In short: “what it says” is usually RAG’s job; “how it says it” is usually fine-tuning’s job.</blockquote>
+
+<h2 id="b6">A decision flow (pseudocode)</h2>
+<p>The simple pseudocode below captures the right ordering for most projects:</p>
+<pre><code>def choose_approach(task):
+    # Step 1: Try the cheapest path first
+    if good_prompt_is_enough(task):
+        return "Prompt"
+
+    # Step 2: Is knowledge external and changing?
+    if needs_external_knowledge(task) or knowledge_changes_often(task):
+        solution = "RAG"
+        # Add it if tone/format is still inconsistent
+        if tone_is_inconsistent(task):
+            solution += " + Fine-tuning"
+        return solution
+
+    # Step 3: Fixed, deep, tone-heavy behavior
+    if has_large_labeled_data(task) and tone_is_critical(task):
+        return "Fine-tuning"
+
+    return "Prompt"  # when in doubt, the simplest option</code></pre>
+
+<h2 id="b7">Decision table</h2>
+<p>For quick reference:</p>
+<ul>
+  <li><strong>Knowledge changes often →</strong> RAG</li>
+  <li><strong>Sources/citations required →</strong> RAG</li>
+  <li><strong>Limited budget, fast start →</strong> Prompt</li>
+  <li><strong>Consistent tone/format/terminology →</strong> Fine-tuning</li>
+  <li><strong>Very narrow, repetitive, fixed task →</strong> Fine-tuning</li>
+  <li><strong>Broad, fresh knowledge base + consistent tone →</strong> RAG + Fine-tuning</li>
+  <li><strong>Unclear or prototype stage →</strong> Prompt (then RAG)</li>
+</ul>
+
+<h2 id="b8">Using them together</h2>
+<p>These three aren’t competitors; they’re layers. A mature system usually uses all of them: it sets behavior with a clear <strong>prompt</strong>, grounds the answer in current documents with <strong>RAG</strong>, and, where needed, makes the domain-specific tone permanent with <strong>fine-tuning</strong>. In a field like law that is both time-sensitive and terminology-sensitive, for example, RAG’s freshness and fine-tuning’s consistency complement each other.</p>
+
+<div class="takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>Prompts shape behavior, RAG keeps knowledge fresh, fine-tuning makes tone permanent.</li>
+    <li>Start from the cheapest: prompt first, then RAG, fine-tuning last.</li>
+    <li>If knowledge changes often or you need sources, RAG is almost always the right call.</li>
+    <li>Fine-tuning is strong for teaching tone and format, not primarily knowledge.</li>
+    <li>Mature systems use all three together; they are layers, not rivals.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details>
+    <summary>If I use RAG, do I never need fine-tuning?</summary>
+    <p>In most knowledge-heavy scenarios RAG alone is enough. You truly need fine-tuning when it’s not the <em>content</em> of the answer but its <em>form</em> (tone, format, terminology) that stays inconsistent.</p>
+  </details>
+  <details>
+    <summary>Doesn’t fine-tuning teach the model new, up-to-date knowledge?</summary>
+    <p>It can, but the knowledge is “frozen.” When content changes you need to retrain. The cheaper, faster way to keep changing knowledge fresh is RAG.</p>
+  </details>
+  <details>
+    <summary>What’s the most sensible starting point for a small team?</summary>
+    <p>Almost always start with the prompt; add RAG when you hit a measurable limit. Consider fine-tuning only once a clear, recurring need emerges, since it carries the highest setup cost and demands the most expertise.</p>
+  </details>
+</div>
+
+<hr />
+<p>The right approach depends on your project’s problem; often the answer isn’t “one of the three” but “all of them, in the right order.” If you’re curious how we put a RAG architecture that grounds answers in real documents into practice, take a look at the approach of <a href="hatsontech-nedir.html">HatsonTech</a>, which builds Turkish-focused AI products, and see its application in law through <a href="caseon-nedir.html">Caseon</a>.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Decision</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="prompt-muhendisligi.html"><div class="dir">← Previous</div><div class="ttl">Prompt Engineering: Practical Techniques with Real Examples</div></a><a class="next" href="llm-halusinasyon-azaltma.html"><div class="dir">Next →</div><div class="ttl">LLM Hallucinations: Why They Happen and How to Reduce Them</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../privacy.html">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

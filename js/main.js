@@ -95,3 +95,26 @@
   }, { passive: true });
   onScrollProgress();
 })();
+
+/* Çerez bildirimi (basit, kalıcı kapatma) */
+(function () {
+  try { if (localStorage.getItem("ck-ok")) return; } catch (e) {}
+  var p = location.pathname, en = p.indexOf("/en/") !== -1, inPosts = /\/posts\//.test(p);
+  var policy = (inPosts ? "../" : "") + (en ? "privacy.html" : "gizlilik.html");
+  var txt = en ? "We use only essential cookies and local storage to improve your experience."
+              : "Deneyiminizi iyileştirmek için yalnızca gerekli çerezler ve yerel depolama kullanılır.";
+  var more = en ? "Cookie Policy" : "Çerez Politikası";
+  var ok = en ? "Got it" : "Tamam";
+  function mount() {
+    if (!document.body) { setTimeout(mount, 50); return; }
+    var bar = document.createElement("div");
+    bar.className = "cookie-bar";
+    bar.innerHTML = '<span>' + txt + ' <a href="' + policy + '">' + more + '</a></span>';
+    var b = document.createElement("button");
+    b.className = "btn btn-primary"; b.type = "button"; b.textContent = ok;
+    b.addEventListener("click", function () { try { localStorage.setItem("ck-ok", "1"); } catch (e) {} bar.remove(); });
+    bar.appendChild(b);
+    document.body.appendChild(bar);
+  }
+  mount();
+})();

@@ -619,3 +619,14 @@ section { position: relative; }
 .lang-switch { display: inline-grid; place-items: center; min-width: 42px; height: 42px; padding: 0 12px; border-radius: var(--radius-pill); border: 1px solid var(--border); color: var(--text-soft); font-family: var(--font-display); font-weight: 600; font-size: .85rem; letter-spacing: .02em; background: var(--surface); transition: var(--t-fast); }
 .lang-switch:hover { color: var(--brand-700); border-color: var(--brand-600); transform: translateY(-1px); }
 [data-theme="dark"] .lang-switch:hover { color: var(--brand-500); }
+
+/* Kod blokları (Medium tarzı yazılar) */
+.prose pre { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; overflow-x: auto; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .86rem; line-height: 1.6; margin: 1.6rem 0; color: var(--text); }
+.prose :not(pre) > code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background: color-mix(in srgb, var(--brand-500) 14%, transparent); padding: .12em .4em; border-radius: 6px; }
+.prose pre code { background: none; padding: 0; }
+
+/* Çerez bildirimi */
+.cookie-bar { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 300; max-width: 780px; margin-inline: auto; display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-lg); border-radius: var(--radius); padding: 14px 18px; font-size: .92rem; color: var(--text-soft); }
+.cookie-bar a { color: var(--brand-700); text-decoration: underline; }
+[data-theme="dark"] .cookie-bar a { color: var(--brand-500); }
+.cookie-bar .btn { padding: .5rem 1.1rem; font-size: .9rem; }

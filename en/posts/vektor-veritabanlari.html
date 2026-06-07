@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vector Databases Guide: Similarity Search, HNSW, and FAISS / pgvector / Qdrant Compared — İsmail Tarık Şenkal</title>
+<meta name="description" content="An intuitive guide to vector databases: similarity search, ANN and the HNSW algorithm, a FAISS vs pgvector vs Qdrant comparison, and when to choose each one." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/vektor-veritabanlari.html" />
+<link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/vektor-veritabanlari.html" />
+<meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Vector Databases Guide: Similarity Search, HNSW, and FAISS / pgvector / Qdrant Compared" /><meta property="og:description" content="An intuitive guide to vector databases: similarity search, ANN and the HNSW algorithm, a FAISS vs pgvector vs Qdrant comparison, and when to choose each one." /><meta property="og:image" content="https://tariksenkal.com/image/ai-t-04.svg" />
+<link rel="icon" type="image/png" href="../../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Home"><img src="../../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html#hakkinda">About</a>
+        <a href="../index.html#ne-yapiyor">What I Do</a>
+        <a href="../index.html#uzmanlik">Expertise</a>
+        <a href="../blog.html">Articles</a>
+        <a href="../index.html#iletisim">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../posts/vektor-veritabanlari.html">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../index.html">Home</a> <span>/</span>
+        <a href="../blog.html">Articles</a> <span>/</span>
+        <span>Infrastructure</span></div>
+    <span class="tag">Infrastructure</span>
+    <h1>Vector Databases Guide: Similarity Search, HNSW, and FAISS / pgvector / Qdrant Compared</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 6 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/ai-t-04.svg" alt="Vector Databases Guide: Similarity Search, HNSW, and FAISS / pgvector / Qdrant Compared"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">When you walk into a library and say "I want something like this book," the librarian doesn't ask for the ISBN; they think about the topic, the tone, the feeling. That is exactly what vector databases do: they search not for exact word matches but for the <em>closeness of meaning</em>. In this guide I'll explain, intuitively, how similarity search works, what approximate-neighbor algorithms like HNSW do, and when to reach for FAISS, pgvector, or Qdrant.</p>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#b1">What is a vector, and why similarity search?</a></li>
+    <li><a href="#b2">Distance metrics: how closeness is measured</a></li>
+    <li><a href="#b3">ANN and HNSW: the secret behind the speed</a></li>
+    <li><a href="#b4">FAISS vs pgvector vs Qdrant</a></li>
+    <li><a href="#b5">When to use which?</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">1. What is a vector, and why similarity search?</h2>
+<p>An embedding model turns a piece of text, an image, or a sound into a list of numbers — a <strong>vector</strong>. That vector is like the "meaning coordinates" of the content. Similar items land close to each other in a high-dimensional space. "Dog" sits near "cat," while "dog" is far from "accounting."</p>
+<p>A traditional database query looks for exact matches: <code>WHERE title = 'dog'</code>. A vector search instead says "the 10 records closest in meaning." This is the heart of modern search, recommendation systems, and especially RAG (retrieval-augmented generation) architectures.</p>
+<blockquote>Key idea: a vector database is a tool for finding nearest neighbors on a "map of meaning" — not a classic B-tree index.</blockquote>
+
+<h2 id="b2">2. Distance metrics: how closeness is measured</h2>
+<p>We measure how "similar" two vectors are with a distance (or similarity) metric. The three most common are:</p>
+<ul>
+  <li><strong>Cosine similarity:</strong> looks at the angle between two vectors — it cares about direction, not magnitude. It's the most common choice for text embeddings.</li>
+  <li><strong>Euclidean distance (L2):</strong> the straight-line distance between two points. Intuitive; the most natural answer to "how far apart are they?"</li>
+  <li><strong>Dot product:</strong> accounts for both direction and magnitude together; some recommendation models are trained for it.</li>
+</ul>
+<p>By analogy: cosine asks "are they facing the same way?", while Euclidean asks "how physically close are they?" Which metric you use depends on how the embedding model was trained; matching the metric the model recommends is a good default rule.</p>
+
+<h2 id="b3">3. ANN and HNSW: the secret behind the speed</h2>
+<p>If you have a million vectors, finding the 10 closest to your query by computing the distance to every single one (brute force) is correct but slow. This is where <strong>approximate nearest neighbor</strong> (ANN) algorithms come in: in exchange for a tiny accuracy trade-off, they buy you enormous speed.</p>
+<p>The most popular ANN method today is <strong>HNSW</strong> (Hierarchical Navigable Small World). Think of HNSW as a flight network: the top layer only has major hub airports (long, intercontinental hops); as you descend, more local flights appear. The search begins at the top, sparse layer, gets roughly close to the target, then drops to lower layers to fine-tune. You reach the destination fast, without visiting every point.</p>
+<div class="callout"><strong>Tip:</strong> two HNSW settings are critical: <code>M</code> (number of neighbors per node; affects memory and accuracy) and <code>ef</code> (the breadth of the walk at query time; the speed–accuracy trade-off). Raising <code>ef</code> improves accuracy but slows the query.</div>
+<p>A simplified flow looks like this:</p>
+<pre><code>function ann_search(query_vector, k):
+    entry = entry_node_in_top_layer
+    # descend from the top layers, getting roughly close
+    for layer in top_to_bottom:
+        entry = find_closest_in_layer(entry, query_vector)
+    # fine search in the bottom layer with breadth ef
+    candidates = priority_queue(size = ef)
+    expand(candidates, entry, query_vector)
+    return candidates.top_k(k)   # the k nearest neighbors</code></pre>
+<p>Other families exist too: <strong>IVF</strong> (partitions the vector space into clusters and scans only the relevant ones) and <strong>PQ</strong> (Product Quantization — compresses vectors to shrink memory). In practice these are often combined (e.g., IVF+PQ).</p>
+
+<h2 id="b4">4. FAISS vs pgvector vs Qdrant</h2>
+<p>The difference between these three popular tools really hides in the question of "what they are":</p>
+<ul>
+  <li><strong>FAISS</strong> is a <em>library</em>, not a database. Built by Meta, this C++/Python tool offers very high-performance ANN indexes with strong GPU support. But you add the "database" features yourself — persistence, filtering, a network API, authentication.</li>
+  <li><strong>pgvector</strong> is an <em>extension</em> for PostgreSQL. It lets you store vectors right next to your relational data, so you can filter and JOIN them with SQL. It supports HNSW and IVFFlat indexes. If you already run Postgres, the added infrastructure cost is nearly zero.</li>
+  <li><strong>Qdrant</strong> is a <em>vector database</em> designed for vectors end to end, written in Rust. It ships with an HNSW index, rich payload filtering, clustering/distributed operation, and REST/gRPC APIs. It's built for those targeting large scale and operational maturity.</li>
+</ul>
+<p>A rough positioning:</p>
+<table>
+  <thead><tr><th>Feature</th><th>FAISS</th><th>pgvector</th><th>Qdrant</th></tr></thead>
+  <tbody>
+    <tr><td>Type</td><td>Library</td><td>Postgres extension</td><td>Standalone DBMS</td></tr>
+    <tr><td>Index</td><td>HNSW, IVF, PQ…</td><td>HNSW, IVFFlat</td><td>HNSW</td></tr>
+    <tr><td>Metadata filtering</td><td>Limited</td><td>Full SQL</td><td>Rich payload</td></tr>
+    <tr><td>Network API</td><td>None (embedded)</td><td>Via SQL</td><td>REST + gRPC</td></tr>
+    <tr><td>GPU</td><td>Strong</td><td>None</td><td>Limited</td></tr>
+  </tbody>
+</table>
+
+<h2 id="b5">5. When to use which?</h2>
+<ul>
+  <li><strong>Choose pgvector</strong> if you already use PostgreSQL, your data volume is moderate, and you want to keep vectors in one place alongside your relational data. This is the lowest operational overhead.</li>
+  <li><strong>Choose Qdrant</strong> if you want a full-featured vector service with large scale, fast filtered searches, horizontal scaling, and a ready-made API.</li>
+  <li><strong>Choose FAISS</strong> if you're willing to build your own layer for maximum performance and flexibility, want to leverage GPUs, or are working in a research/prototype setting.</li>
+</ul>
+<div class="callout"><strong>Tip:</strong> the "right" choice usually depends less on technical superiority and more on your team's operational capacity. The fastest index is no better than one you can't maintain.</div>
+
+<div class="takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>Vector search looks for closeness of meaning, not exact matches.</li>
+    <li>The metric (cosine/Euclidean/dot product) depends on the embedding model.</li>
+    <li>HNSW is the dominant ANN method, trading a tiny bit of accuracy for big speed.</li>
+    <li>FAISS is a library, pgvector a Postgres extension, Qdrant a standalone vector DBMS.</li>
+    <li>The choice is shaped by your scale and operational capacity; the tool you can sustain wins, not the flashiest one.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details><summary>Does a vector database replace a normal database?</summary><p>No. Most systems use both: a relational/document database holds the source data, while the vector layer does semantic search. Solutions like pgvector merge the two into a single engine.</p></details>
+  <details><summary>Is HNSW always the best choice?</summary><p>It's an excellent default in most cases, but its memory consumption is high. In very large, memory-constrained scenarios, compressed methods like IVF+PQ can be more suitable.</p></details>
+  <details><summary>Doesn't approximate search return wrong results?</summary><p>"Approximate" means it may occasionally miss one of the best neighbors. In practice recall can be tuned to the 95–99% range; parameters like <code>ef</code> let you set the accuracy–speed balance yourself.</p></details>
+</div>
+
+<hr>
+<p>Choosing a vector database is an architectural decision, not just a tool pick: weigh your scale, your team's operational capacity, and your existing stack together. If you're curious how we approach decisions like these when moving semantic search and RAG systems into production, take a look at <a href="hatsontech-nedir.html">HatsonTech</a>'s approach.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Infrastructure</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="rag-nedir-nasil-kurulur.html"><div class="dir">← Previous</div><div class="ttl">What Is RAG and How to Build It End to End: A Practical Architecture Guide</div></a><a class="next" href="prompt-muhendisligi.html"><div class="dir">Next →</div><div class="ttl">Prompt Engineering: Practical Techniques with Real Examples</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../privacy.html">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>
