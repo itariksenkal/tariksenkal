@@ -46,6 +46,37 @@
     });
   }
 
+  /* ---- Bölüm bağlantıları: yumuşak kaydır, adres çubuğunda # bırakma --- */
+  function sectionOffset() { return (nav ? nav.offsetHeight : 68) + 14; }
+  function scrollToId(id, smooth) {
+    var el = document.getElementById(id);
+    if (!el) return false;
+    var y = el.getBoundingClientRect().top + window.scrollY - sectionOffset();
+    window.scrollTo({ top: y < 0 ? 0 : y, behavior: smooth ? "smooth" : "auto" });
+    return true;
+  }
+  /* Aynı sayfadaki çapalar: kaydır ama URL'ye # ekleme. */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href").slice(1);
+      if (!id || !document.getElementById(id)) return;
+      e.preventDefault();
+      if (nav) nav.classList.remove("open");
+      scrollToId(id, true);
+    });
+  });
+  /* Başka sayfadan #bölüm ile gelindiyse: kaydır, sonra # işaretini adresten sil. */
+  if (location.hash.length > 1) {
+    var _hid = location.hash.slice(1);
+    var _clean = function () {
+      if (scrollToId(_hid, false) && window.history && history.replaceState) {
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+    };
+    if (document.readyState === "complete") _clean();
+    else window.addEventListener("load", _clean);
+  }
+
   /* ---- Yıl ----------------------------------------------------------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();
