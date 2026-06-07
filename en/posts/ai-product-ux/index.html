@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>User Experience in AI Products (AI UX): From Uncertainty to Trust — İsmail Tarık Şenkal</title>
+<meta name="description" content="How do you design user experience for AI products? A practical guide to managing uncertainty, citing sources, feedback, graceful failure, and building trust." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/ai-product-ux/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/yapay-zeka-urun-ux/" /><meta name="theme-color" content="#7CB342" />
+<meta property="og:type" content="article" /><meta property="og:title" content="User Experience in AI Products (AI UX): From Uncertainty to Trust" /><meta property="og:description" content="How do you design user experience for AI products? A practical guide to managing uncertainty, citing sources, feedback, graceful failure, and building trust." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-10.jpg" />
+<link rel="icon" type="image/png" href="../../../image/hatsontech_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css" />
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img src="../../../image/hatsontech_logo.png" alt="HatsonTech" /><span>Tarık Şenkal<small>HatsonTech · Co-Founder</small></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/yapay-zeka-urun-ux/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Product</span></div>
+    <span class="tag">Product</span>
+    <h1>User Experience in AI Products (AI UX): From Uncertainty to Trust</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 9 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-10.jpg" alt="User Experience in AI Products (AI UX): From Uncertainty to Trust"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">The hardest part of an AI product is rarely training the model; it is turning that model into an experience a human can trust. Classic software works "right" or "wrong"; AI works "probably right." Products that try to hide this uncertainty lose trust, while products that manage it honestly earn it. In this post we look at user experience for AI products along five axes: managing uncertainty, citing sources, collecting feedback, failing gracefully, and building long-term trust.</p>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#b1">Why is AI UX different?</a></li>
+    <li><a href="#b2">Managing uncertainty</a></li>
+    <li><a href="#b3">Citing sources and traceability</a></li>
+    <li><a href="#b4">The feedback loop</a></li>
+    <li><a href="#b5">Failing gracefully</a></li>
+    <li><a href="#b6">Building trust</a></li>
+    <li><a href="#b7">Practical checklist</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">Why is AI UX different?</h2>
+<p>In classic software you press a button and always get the same result. Type "2+2" into a calculator and you see "4" every single time. Users rely on that predictability. In AI products, ask the same question twice and you may get two slightly different answers. The model is not a "certainty machine" but a "probability engine."</p>
+<p>Think of the difference between a calculator and an experienced expert who is occasionally wrong. You never doubt the calculator; but you ask the expert "are you sure?" and want their reasoning. That is exactly the job of AI UX: to help the user build a healthy relationship with the product, treating it not like a calculator but like an expert who is not infallible.</p>
+<blockquote>A good AI experience never claims the model is perfect; it openly teaches the user when to trust it and when to double-check.</blockquote>
+<p>That is why what we design in AI UX is not just a screen; it is the way we honestly communicate the model's limits, uncertainty, and chance of error to the user. Everything else is built on that foundation.</p>
+
+<h2 id="b2">Managing uncertainty</h2>
+<p>The model is not equally confident every time. Some answers rest on very strong signals; others are little more than a guess. The problem is that the model doesn't reveal this in its tone. It can say something true and something false in the same confident sentence. So it is the <em>interface</em> that must make uncertainty visible.</p>
+<p>Think of weather apps. They don't say "it will rain tomorrow"; they say "70% chance of rain." That small difference leaves the user room to decide: take an umbrella but don't cancel your plans. The goal in AI products is the same — not to fake certainty, but to show the level of confidence honestly.</p>
+<ul>
+  <li><strong>Signal confidence:</strong> On low-confidence answers, show a note like "I'm not fully sure about this, please verify."</li>
+  <li><strong>Offer alternatives:</strong> Instead of one definitive answer, offering a few plausible options when appropriate conveys uncertainty honestly.</li>
+  <li><strong>State the scope:</strong> Clearly note how current the model's knowledge is, or which sources it draws on.</li>
+  <li><strong>Don't overdo it:</strong> Slapping a percentage on every sentence also tires the user. Surface the uncertainty signal where the risk is high.</li>
+</ul>
+<div class="callout"><strong>Tip:</strong> The easiest way to convey uncertainty is language. Phrases like "probably" instead of "definitely," or "in most cases" instead of "always," gently warn the user and reduce false confidence.</div>
+
+<h2 id="b3">Citing sources and traceability</h2>
+<p>The most powerful way to make an answer verifiable is to show where it came from. An AI answer without a source is like an unsigned note: it may be correct, but trusting it requires blind faith. Adding citations turns that blind faith into auditable trust.</p>
+<p>Compare an academic paper with casual conversation. If a friend says "I read it, that's how it is," you believe them but can't verify. A paper, on the other hand, puts a footnote next to each claim; you can go and check if you want. A good AI product gives the user that "go and check" right.</p>
+<pre><code>// Generating a cited answer (pseudocode)
+chunks = doc_store.retrieve(question, top_k=4)
+
+answer = model.generate(
+  context = chunks,
+  rule    = "Add a citation as [n] next to each claim; " +
+            "if it's not in the source, don't invent it, say 'not found'."
+)
+
+// In the UI, link each [n] citation to a clickable source
+for n, chunk in enumerate(chunks):
+    ui.show_source(n, chunk.title, chunk.url)</code></pre>
+<p>Three things to watch: (1) The citation must actually link to the source; it shouldn't be decorative. (2) The user should see the original text in one click. (3) If the answer isn't in the source, the model should be able to say so. Traceability is not a preference but a requirement in high-stakes domains like law and health. We describe how we apply a grounded, citing architecture in practice on our <a href="../what-is-caseon/">Caseon</a> page.</p>
+
+<h2 id="b4">The feedback loop</h2>
+<p>An AI product isn't perfect on day one; it improves as it's used. That requires collecting signal from users. But the feedback mechanism must not be a burden, or no one will use it.</p>
+<ul>
+  <li><strong>Reduce friction:</strong> Even a simple thumbs up/down collects far more data than a mandatory form.</li>
+  <li><strong>Capture context:</strong> On negative feedback, ask why ("wrong," "incomplete," "irrelevant"); a raw score alone says little.</li>
+  <li><strong>Close the loop:</strong> The user should see that their feedback mattered. Even a small acknowledgment like "Thanks, we'll use this to improve" increases participation.</li>
+  <li><strong>Read passive signals:</strong> The user copying an answer, regenerating it, or abandoning it immediately are all valuable signals too.</li>
+</ul>
+<blockquote>The best feedback is what the user gives without noticing. Make explicit feedback easy; measure implicit feedback quietly but honestly.</blockquote>
+
+<h2 id="b5">Failing gracefully</h2>
+<p>AI will make mistakes; the question is not "will it" but "what happens when it does." A badly designed product hides the error in a confident tone; a well-designed one meets the error gracefully and never leaves the user at a dead end.</p>
+<p>Think of a good waiter: when an order comes out wrong, they don't get defensive with "but that's what the menu said"; they apologize, fix it quickly, and offer you a way forward. AI interfaces should show the same maturity.</p>
+<pre><code>// A flow that meets errors gracefully
+try:
+    answer = model.generate(question)
+    if answer.confidence &lt; threshold:
+        ui.warn("I'm not sure about this — please check the following…")
+except Timeout:
+    ui.show("The answer is delayed. Try again or simplify the question.")
+except NoSource:
+    ui.show("I have no reliable source on this; I'd rather not make one up.")</code></pre>
+<ul>
+  <li><strong>Leave an exit:</strong> Every error message should tell the user the next step — retry, edit, or reach a human.</li>
+  <li><strong>Don't blame:</strong> Instead of "invalid input," explain what was expected.</li>
+  <li><strong>Make it reversible:</strong> Where the AI takes action (deleting a file, sending an email), confirmation and undo are essential.</li>
+  <li><strong>Don't fail silently:</strong> An empty or half answer is more harmful than an honest "I couldn't find it."</li>
+</ul>
+
+<h2 id="b6">Building trust</h2>
+<p>Trust isn't won with a single feature; it accumulates over time through consistent small acts of honesty. The four sections above actually serve one purpose: helping the user learn when to trust the product and when to be cautious.</p>
+<p>Think of it like the relationship with a new colleague. In the first weeks you check all their work. As they prove consistent, act honestly where they say "I don't know," and admit their mistakes, you give them more room. Someone who over-promises but occasionally gets it badly wrong loses trust fast.</p>
+<ul>
+  <li><strong>Under-promise, over-deliver:</strong> Overstating the model's abilities collapses trust at the first disappointment.</li>
+  <li><strong>Be consistent:</strong> Similar behavior in the same situation creates predictability and therefore trust.</li>
+  <li><strong>Be transparent:</strong> State clearly what the product can do, what it can't, and how data is used.</li>
+  <li><strong>Keep control with the user:</strong> A flow where the human has the final say feels safer than automation.</li>
+</ul>
+
+<h2 id="b7">Practical checklist</h2>
+<ol>
+  <li>Convey uncertainty with <strong>language and visual signals</strong>; don't fake certainty.</li>
+  <li>Link claims to <strong>clickable sources</strong>; a traceable answer is a verifiable answer.</li>
+  <li>Collect feedback <strong>friction-free</strong> and visibly close the loop.</li>
+  <li>Put an <strong>exit path</strong> in every error message; never fail silently.</li>
+  <li>Offer <strong>confirmation and undo</strong> for high-stakes actions.</li>
+  <li><strong>Under-promise, stay consistent;</strong> trust accumulates over time.</li>
+</ol>
+
+<div class="takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>AI is a probability engine, not a certainty machine; the job of UX is to convey that reality honestly.</li>
+    <li>Making uncertainty visible, rather than hiding it, builds trust.</li>
+    <li>Citing sources turns blind faith into auditable trust.</li>
+    <li>Make feedback easy, meet errors gracefully, and always leave the user an exit path.</li>
+    <li>Trust is built not by one feature but by consistent small acts of honesty over time.</li>
+  </ul>
+</div>
+
+<div class="faq">
+  <details><summary>Won't showing uncertainty scare the user?</summary><p>On the contrary, honestly conveyed uncertainty increases trust. When people hear there's a chance of error, they become more careful but less disappointed. What scares users isn't uncertainty; it's a hidden error that surfaces later.</p></details>
+  <details><summary>Do I have to add a source to every answer?</summary><p>No. Sources are unnecessary for low-stakes, creative, or general tasks. But for factual claims and domains like law, health, and finance, traceability is nearly mandatory. Make the call based on the task's risk.</p></details>
+  <details><summary>What if users don't want to give feedback?</summary><p>Make explicit feedback as simple as possible (one click) and read implicit signals: behaviors like copying, regenerating, and abandoning can carry more data than explicit ratings.</p></details>
+</div>
+
+<hr>
+<p>In short: user experience in AI products isn't about making the model look flawless; it's about honestly conveying its limits and making the user a partner in the process. When you make uncertainty visible, link the answer to a source, ease feedback, and meet errors gracefully, the product stops being "a box that knows everything but is sometimes wrong" and becomes a trustworthy assistant. The key is not one brilliant feature but a stack of small, honest design decisions.</p>
+
+    </div>
+    <div class="article-tags"><span class="tag">Product</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">HatsonTech Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../llm-observability/"><div class="dir">← Previous</div><div class="ttl">LLM Observability: A Practical Look at Tracing, Logging, and Evaluation Loops</div></a><a class="next" href="../how-llms-work/"><div class="dir">Next →</div><div class="ttl">How Do Large Language Models (LLMs) Work? An Intuitive Guide to the Transformer Architecture</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>
