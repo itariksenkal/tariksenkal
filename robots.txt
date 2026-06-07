@@ -1,4 +1,122 @@
+# robots.txt — Generative Engine Optimization (GEO) icin optimize edilmistir
+# Amac: Hem klasik arama motorlari hem de yapay zeka / uretken motorlar
+# tarafindan MAKSIMUM duzeyde taranmak ve KAYNAK GOSTERILEREK (citation) alinmak.
+# Politika: Hicbir sey engellenmez. Tum site herkese aciktir.
+# Not: Crawl-delay YOK (hizli ve tam tarama istiyoruz). Disallow YOK.
+
+# Varsayilan: tum botlara tum site acik.
 User-agent: *
 Allow: /
 
+# === OpenAI (ChatGPT) ===
+# OAI-SearchBot: ChatGPT web aramasini besler, citation icin EN onemli bot.
+# ChatGPT-User: kullanici sorusunda canli sayfa cekme + kaynak linki.
+# GPTBot: model egitimi; uzun vadeli AI gorunurlugu icin acik birakildi.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+Allow: /
+
+# === Anthropic (Claude) ===
+# Claude-User: kullanici sorusunda canli sayfa cekme + atif (en yuksek deger).
+# Claude-SearchBot: Claude web aramasi icin indeksleme.
+# ClaudeBot: model egitimi. anthropic-ai / Claude-Web: eski tokenlar (geri uyumluluk).
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: anthropic-ai
+User-agent: Claude-Web
+Allow: /
+
+# === Perplexity ===
+# PerplexityBot: indeksleme; Perplexity-User: kullanici tetikli canli cekme + atif.
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+# === Google (Arama + Gemini / AI Overviews) ===
+# Googlebot arama indeksi ayni zamanda AI Overviews / AI Mode'u besler.
+# Google-Extended: Gemini egitimi/grounding kontrolu — GEO icin acik.
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-Video
+User-agent: Googlebot-News
+User-agent: Storebot-Google
+User-agent: Google-InspectionTool
+User-agent: GoogleOther
+User-agent: GoogleOther-Image
+User-agent: GoogleOther-Video
+User-agent: Google-Extended
+User-agent: Google-CloudVertexBot
+Allow: /
+
+# === Apple (Spotlight / Siri / Safari / Apple Intelligence) ===
+# Applebot: arama; Applebot-Extended: Apple Intelligence egitim izni — GEO icin acik.
+User-agent: Applebot
+User-agent: Applebot-Extended
+Allow: /
+
+# === Microsoft (Bing + Copilot) ===
+# bingbot: hem Bing aramasi hem Copilot/Bing AI atiflarini besleyen TEK crawler.
+# Diger tokenlar: reklam, eski ve medya/onizleme crawlerlari (geri uyumluluk).
+User-agent: bingbot
+User-agent: adidxbot
+User-agent: msnbot
+User-agent: msnbot-media
+User-agent: BingPreview
+Allow: /
+
+# === Common Crawl ===
+# CCBot: cogu LLM egitim veri setini besleyen arsiv — model bilgisinin temeli.
+User-agent: CCBot
+Allow: /
+
+# === Meta (Llama / Meta AI) ===
+# meta-externalagent: AI egitimi; meta-webindexer: Meta AI arama kalitesi/atif;
+# meta-externalfetcher: kullanici tetikli cekme; facebookexternalhit: zengin onizleme;
+# meta-externalads: reklam/is urunleri; FacebookBot: eski token (geri uyumluluk).
+User-agent: meta-externalagent
+User-agent: meta-webindexer
+User-agent: meta-externalfetcher
+User-agent: facebookexternalhit
+User-agent: meta-externalads
+User-agent: FacebookBot
+Allow: /
+
+# === Amazon (Alexa+ / Rufus) ===
+# Amazonbot: urun/AI; Amzn-SearchBot: indeksleme; Amzn-User: kullanici tetikli cekme.
+User-agent: Amazonbot
+User-agent: Amzn-SearchBot
+User-agent: Amzn-User
+Allow: /
+
+# === Mistral (Le Chat / Vibe) ===
+# MistralAI-User: kullanici tetikli cekme + atif; MistralAI-Index: indeksleme.
+User-agent: MistralAI-User
+User-agent: MistralAI-Index
+Allow: /
+
+# === DuckDuckGo (DuckAssist) ===
+# DuckAssistBot: AI yanitlari icin canli cekme; kaynaklari belirgin sekilde gosterir.
+User-agent: DuckAssistBot
+Allow: /
+
+# === You.com ===
+# YouBot: You.com AI aramasini besleyen indeksleme crawleri.
+User-agent: YouBot
+Allow: /
+
+# === Cohere ===
+# cohere-training-data-crawler: model egitimi; cohere-ai: olasi kullanici tetikli cekme.
+User-agent: cohere-training-data-crawler
+User-agent: cohere-ai
+Allow: /
+
+# === ByteDance (Doubao / Lark) ===
+# Bytespider: maksimum erisim icin acik birakildi. Not: robots.txt'e her zaman
+# uymadigi bildirildi; gerekirse IP/WAF seviyesinde sinirlandirin.
+User-agent: Bytespider
+Allow: /
+
+# Site haritasi
 Sitemap: https://tariksenkal.com/sitemap.xml
