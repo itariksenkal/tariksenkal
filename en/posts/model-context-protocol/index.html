@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MCP (Model Context Protocol): A Common Language for AI Tooling — İsmail Tarık Şenkal</title>
+<meta name="description" content="MCP gives models a standard interface to tools and data sources. The client-server model, the N-times-M problem, security boundaries and practical use." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/model-context-protocol/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/mcp-model-baglam-protokolu/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="MCP (Model Context Protocol): A Common Language for AI Tooling" /><meta property="og:description" content="MCP gives models a standard interface to tools and data sources. The client-server model, the N-times-M problem, security boundaries and practical use." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-16.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "MCP (Model Context Protocol): A Common Language for AI Tooling",
+    "description": "MCP gives models a standard interface to tools and data sources. The client-server model, the N-times-M problem, security boundaries and practical use.",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://tariksenkal.com/en/posts/model-context-protocol/" },
+    "datePublished": "2026-08-09",
+    "dateModified": "2026-08-09",
+    "author": {
+      "@type": "Person",
+      "name": "İsmail Tarık Şenkal",
+      "url": "https://tariksenkal.com/",
+      "worksFor": { "@type": "Organization", "name": "Hatson Teknoloji A.Ş.", "url": "https://hatsontech.com/" }
+    },
+    "publisher": { "@type": "Organization", "name": "Hatson Teknoloji A.Ş.", "url": "https://hatsontech.com/" },
+    "image": "https://tariksenkal.com/image/bimg-16.jpg",
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>İsmail Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/mcp-model-baglam-protokolu/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Tooling</span></div>
+    <span class="tag">Tooling</span>
+    <h1>MCP (Model Context Protocol): A Common Language for AI Tooling</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 6 min read</span><span>· <time datetime="2026-08-09">Last updated: 9 August 2026</time></span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-16.jpg" alt="MCP (Model Context Protocol): A Common Language for AI Tooling"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Every time you want to connect a model to your own data, you do the same work: you write a connector. Decide to use a different model, and you write it again. The <strong>Model Context Protocol</strong> is a shared interface aimed at removing that repetition.</p>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#b1">The problem it solves</a></li>
+    <li><a href="#b2">How it works</a></li>
+    <li><a href="#b3">What it exposes</a></li>
+    <li><a href="#b4">Security boundaries</a></li>
+    <li><a href="#b5">When to use it</a></li>
+    <li><a href="#b6">Frequently asked questions</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">The problem it solves</h2>
+<p>This is the N-times-M problem: with N models and M data sources, the number of connectors you need is their product. Every new tool must be wired to every model separately. A shared protocol turns that product into a sum: each source is written once as a server, and each model becomes a client once.</p>
+
+<h2 id="b2">How it works</h2>
+<p>The architecture rests on a client-server split. An <strong>MCP server</strong> exposes a specific capability — a filesystem, a database, an API. The application hosting the model acts as a <strong>client</strong>, connects to that server, discovers which capabilities exist, and invokes them when needed.</p>
+<p>Discoverability is the key point: the client learns at runtime which tools a server offers and which parameters they expect. Adding a new capability therefore does not require changing client code.</p>
+
+<div class="callout">
+  <strong>An analogy:</strong> using one connection standard instead of carrying a separate cable for every device. Both the device and the cable can change; the interface stays fixed.
+</div>
+
+<h2 id="b3">What it exposes</h2>
+<ul>
+  <li><strong>Tools:</strong> actions the model can invoke — run a query, read a file, create a record.</li>
+  <li><strong>Resources:</strong> data the model can read — documents, schemas, configuration.</li>
+  <li><strong>Prompts:</strong> reusable, prepared instructions.</li>
+</ul>
+
+<h2 id="b4">Security boundaries</h2>
+<p>Giving a model tools means giving it authority. Three rules matter most in practice: servers should run with the narrowest permission that actually works, irreversible actions should require approval, and tool output must never be treated as trusted instruction.</p>
+<p>That last point matters: a document arriving from outside can carry text that looks like an instruction to the model. This is precisely the surface for an <a href="../prompt-injection-jailbreaks/">indirect prompt injection</a> attack.</p>
+
+<h2 id="b5">When to use it</h2>
+<table class="cmp-table">
+  <thead><tr><th>Situation</th><th>MCP</th></tr></thead>
+  <tbody>
+    <tr><td>One model, one tool</td><td class="no">An extra layer</td></tr>
+    <tr><td>Several sources, one application</td><td class="yes">Brings order</td></tr>
+    <tr><td>Sharing tools with other teams</td><td class="yes">The real payoff</td></tr>
+    <tr><td>Possibility of switching models</td><td class="yes">Reduces lock-in</td></tr>
+  </tbody>
+</table>
+
+<h2 id="b6">Frequently asked questions</h2>
+<div class="faq">
+  <details>
+    <summary>How does it differ from function calling?</summary>
+    <p>Function calling is how a model <em>requests</em> a tool. MCP is how that tool is <em>defined and served</em>. They complement rather than replace each other.</p>
+  </details>
+  <details>
+    <summary>Is there a performance cost?</summary>
+    <p>It adds a network hop. Negligible in most scenarios, though direct integration is faster for very high-frequency calls.</p>
+  </details>
+  <details>
+    <summary>How many tools should I define?</summary>
+    <p>Few. Dozens of tool definitions fill the context window and make selection harder for the model. Expose only the tools that task needs.</p>
+  </details>
+</div>
+
+<hr />
+<p>MCP is a practical standard that removes repeated integration work from the agent ecosystem. For more, see <a href="../function-calling-structured-output/">function calling</a> and <a href="../autonomous-agent-architectures/">autonomous agent architectures</a>.</p>
+      </div>
+      <div class="article-tags"><span class="tag">Tooling</span><span class="tag">AI</span></div>
+      <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products.</p></div></div>
+      <div class="post-nav"><a href="../reasoning-models-test-time-compute/"><div class="dir">← Previous</div><div class="ttl">Previous article</div></a><a class="next" href="../agent-evaluation/"><div class="dir">Next →</div><div class="ttl">Next article</div></a></div>
+    </div>
+  </article>
+    <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+    <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    <script src="../../../js/main.js"></script>
+  </body>
+  </html>

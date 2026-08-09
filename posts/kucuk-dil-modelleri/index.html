@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Küçük Dil Modelleri (SLM): Ne Zaman Büyük Modelden İyidir? — İsmail Tarık Şenkal</title>
+<meta name="description" content="Küçük dil modelleri yüksek frekanslı, dar kapsamlı işlerde büyük modellerden daha uygun olabilir. Gecikme, maliyet, cihazda çalışma, ince ayar ve gerçekçi sınırlar." />
+<link rel="canonical" href="https://tariksenkal.com/posts/kucuk-dil-modelleri/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/small-language-models/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Küçük Dil Modelleri (SLM): Ne Zaman Büyük Modelden İyidir?" /><meta property="og:description" content="Küçük dil modelleri yüksek frekanslı, dar kapsamlı işlerde büyük modellerden daha uygun olabilir. Gecikme, maliyet, cihazda çalışma, ince ayar ve gerçekçi sınırlar." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-13.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Küçük Dil Modelleri (SLM): Ne Zaman Büyük Modelden İyidir?",
+    "description": "Küçük dil modelleri yüksek frekanslı, dar kapsamlı işlerde büyük modellerden daha uygun olabilir. Gecikme, maliyet, cihazda çalışma, ince ayar ve gerçekçi sınırlar.",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://tariksenkal.com/posts/kucuk-dil-modelleri/" },
+    "datePublished": "2026-08-09",
+    "dateModified": "2026-08-09",
+    "author": {
+      "@type": "Person",
+      "name": "İsmail Tarık Şenkal",
+      "url": "https://tariksenkal.com/",
+      "worksFor": { "@type": "Organization", "name": "Hatson Teknoloji A.Ş.", "url": "https://hatsontech.com/" }
+    },
+    "publisher": { "@type": "Organization", "name": "Hatson Teknoloji A.Ş.", "url": "https://hatsontech.com/" },
+    "image": "https://tariksenkal.com/image/bimg-13.jpg",
+    "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Ana sayfa"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>İsmail Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/small-language-models/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Modeller</span></div>
+    <span class="tag">Modeller</span>
+    <h1>Küçük Dil Modelleri (SLM): Ne Zaman Büyük Modelden İyidir?</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 7 dakika okuma</span><span>· <time datetime="2026-08-09">Son güncelleme: 9 Ağustos 2026</time></span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-13.jpg" alt="Küçük Dil Modelleri (SLM): Ne Zaman Büyük Modelden İyidir?"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Yapay zeka tartışması uzun süre tek yönde ilerledi: daha büyük model, daha iyi sonuç. Üretimde çalışan ekipler ise başka bir gerçekle karşılaştı — çoğu görev, en güçlü modeli gerektirmiyor. <strong>Küçük dil modelleri</strong> tam da bu boşlukta, dar ve tekrarlayan işlerde ciddi avantaj sağlıyor.</p>
+
+<div class="toc">
+  <h4>İçindekiler</h4>
+  <ol>
+    <li><a href="#b1">Küçük ne demek</a></li>
+    <li><a href="#b2">Nerede kazanır</a></li>
+    <li><a href="#b3">İnce ayar farkı kapatır</a></li>
+    <li><a href="#b4">Cihazda çalışma</a></li>
+    <li><a href="#b5">Sınırları</a></li>
+    <li><a href="#b6">Sık sorulanlar</a></li>
+  </ol>
+</div>
+
+<h2 id="b1">Küçük ne demek</h2>
+<p>Kesin bir sınır yok; pratikte birkaç yüz milyon ile birkaç milyar parametre arasındaki modeller bu başlıkta anılıyor. Önemli olan sayı değil, sonuçları: tek bir GPU'ya, hatta bir dizüstü bilgisayara ya da telefona sığması, milisaniyeler mertebesinde yanıt vermesi ve çağrı başına maliyetinin ihmal edilebilir olması.</p>
+
+<h2 id="b2">Nerede kazanır</h2>
+<table class="cmp-table">
+  <thead><tr><th>Görev</th><th>Küçük model</th><th>Büyük model</th></tr></thead>
+  <tbody>
+    <tr><td>Sınıflandırma, etiketleme</td><td class="yes">Yeterli ve çok ucuz</td><td class="no">Aşırı</td></tr>
+    <tr><td>Bilgi çıkarımı, biçimlendirme</td><td class="yes">Güçlü</td><td class="no">Gereksiz maliyet</td></tr>
+    <tr><td>Yönlendirme, niyet tespiti</td><td class="yes">İdeal</td><td class="no">Gecikme yaratır</td></tr>
+    <tr><td>Çok adımlı akıl yürütme</td><td class="no">Zayıf</td><td class="yes">Gerekli</td></tr>
+    <tr><td>Geniş dünya bilgisi</td><td class="no">Sınırlı</td><td class="yes">Üstün</td></tr>
+  </tbody>
+</table>
+<p>Kalıp nettir: girdi dar ve çıktı yapılandırılmışsa küçük model genellikle yeterlidir. Açık uçlu akıl yürütme gerekiyorsa büyük model kaçınılmazdır.</p>
+
+<div class="callout">
+  <strong>Ajanlarda önemi:</strong> Bir ajan yüzlerce küçük karar verir. Bunların büyük çoğunluğu yönlendirme ve biçimlendirmedir. Bu adımları küçük modele almak, kaliteyi düşürmeden faturayı belirgin biçimde küçültür.
+</div>
+
+<h2 id="b3">İnce ayar farkı kapatır</h2>
+<p>Genel kıyaslamalarda küçük modeller geride kalır. Ama dar bir görev için birkaç bin iyi örnekle ince ayar yapıldığında, o görevde büyük bir genel modeli yakalayabilir ve geçebilirler. <a href="../lora-ince-ayar/">LoRA gibi verimli yöntemler</a> bunu birkaç saatlik bir işe indirdi.</p>
+<p>Buradaki asıl kazanç doğruluk değil, <em>öngörülebilirlik</em>tir: dar bir modelin nerede yanılacağını kestirmek çok daha kolaydır.</p>
+
+<h2 id="b4">Cihazda çalışma</h2>
+<p>Küçük modelin en belirgin üstünlüğü, veriyi hiç göndermeden çalışabilmesidir. Sağlık, hukuk ve kurumsal senaryolarda bu bir performans meselesi değil, bir uygunluk meselesidir. Ayrıca ağ gecikmesi ortadan kalkar ve çevrimdışı çalışma mümkün olur.</p>
+
+<h2 id="b5">Sınırları</h2>
+<p>Küçük modeller uzun bağlamda daha çabuk kaybolur, karmaşık talimat zincirlerini takip etmekte zorlanır ve nadir bilgi gerektiren sorularda daha sık uydurur. Bu yüzden pratik mimari genellikle karmadır: küçük model ilk hattı tutar, emin olamadığında büyük modele devreder.</p>
+
+<h2 id="b6">Sık sorulanlar</h2>
+<div class="faq">
+  <details>
+    <summary>Türkçe için küçük model yeterli mi?</summary>
+    <p>Göreve bağlı. Sınıflandırma ve çıkarım işlerinde evet; nüanslı üretim ve akıl yürütmede Türkçe verisi sınırlı küçük modeller zorlanabilir. Alan verisiyle ince ayar farkı kapatır.</p>
+  </details>
+  <details>
+    <summary>Nasıl karar veririm?</summary>
+    <p>Gerçek görev setinizde ölçün. Küçük modelin doğruluğu kabul edilebilir eşiğin üstündeyse, maliyet ve gecikme avantajı tartışmasızdır.</p>
+  </details>
+  <details>
+    <summary>Damıtma ile ilişkisi ne?</summary>
+    <p>Damıtma, küçük model üretmenin en yaygın yoludur: büyük model öğretmen olur, küçük model onun davranışını öğrenir.</p>
+  </details>
+</div>
+
+<hr />
+<p>Küçük modeller büyük modellerin yerini almıyor; onların yanına doğru katmanı ekliyor. Devamı için <a href="../model-damitma/">model damıtma</a> ve <a href="../acik-kaynak-llm/">açık kaynak LLM'ler</a> yazılarına bakabilirsiniz.</p>
+      </div>
+      <div class="article-tags"><span class="tag">Modeller</span><span class="tag">Yapay Zeka</span></div>
+      <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe'ye odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci.</p></div></div>
+      <div class="post-nav"><a href="../otonom-ajan-mimarileri/"><div class="dir">← Önceki</div><div class="ttl">Önceki yazı</div></a><a class="next" href="../model-yonlendirme-kademeleme/"><div class="dir">Sıradaki →</div><div class="ttl">Sonraki yazı</div></a></div>
+    </div>
+  </article>
+    <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+    <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    <script src="../../js/main.js"></script>
+  </body>
+  </html>
