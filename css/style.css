@@ -1,6 +1,6 @@
 /* ==========================================================================
    tariksenkal.com — Kişisel Blog & Portföy
-   İsmail Tarık Şenkal · HatsonTech Teknoloji A.Ş. Kurucu Ortağı
+   İsmail Tarık Şenkal · Hatson Teknoloji A.Ş. Kurucu Ortağı
    Modern, editöryel, açık/koyu temalı tek-stylesheet tasarım.
    ========================================================================== */
 
@@ -8,7 +8,7 @@
    1. Tema Değişkenleri (Design Tokens)
    -------------------------------------------------------------------------- */
 :root {
-  /* Marka — HatsonTech yeşil paleti */
+  /* Marka — yeşil palet */
   --brand:        #6BAe2e;
   --brand-600:    #7CB342;
   --brand-500:    #8BC34A;
@@ -180,7 +180,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav.scrolled { border-bottom-color: var(--border); background: color-mix(in srgb, var(--bg) 88%, transparent); }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; }
-.brand img { width: 30px; height: 30px; border-radius: 8px; }
+/* Marka logosu: Caseon lockup (451x141). Kare kırpma YOK — en/boy oranı korunur.
+   Açık temada siyah, koyu temada beyaz sürüm gösterilir. */
+.brand img { width: auto; height: 26px; border-radius: 0; display: block; }
+.brand .logo-dark { display: none; }
+[data-theme="dark"] .brand .logo-light { display: none; }
+[data-theme="dark"] .brand .logo-dark  { display: block; }
+@media (max-width: 420px) { .brand img { height: 22px; } }
 .brand b { color: var(--brand-700); }
 [data-theme="dark"] .brand b { color: var(--brand-500); }
 .brand small { display: block; font-family: var(--font-body); font-weight: 500; font-size: .68rem; color: var(--text-mut); letter-spacing: .04em; margin-top: -2px; }

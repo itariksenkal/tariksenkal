@@ -1,16 +1,16 @@
 # İsmail Tarık Şenkal
 
-> HatsonTech Teknoloji A.Ş. kurucu ortağı ve yapay zeka geliştiricisi; Türkçe odaklı yapay zeka ürünleri, özellikle Caseon hukuk teknolojisi platformu üzerine çalışır. — Co-founder of HatsonTech and an AI developer building Turkish-focused AI products, notably the Caseon legal-tech platform.
+> Hatson Teknoloji A.Ş. kurucu ortağı ve yapay zeka geliştiricisi; Türkçe odaklı yapay zeka ürünleri, özellikle Caseon hukuk teknolojisi platformu üzerine çalışır. — Co-founder of HatsonTech and an AI developer building Turkish-focused AI products, notably the Caseon legal-tech platform.
 
 Bu site İsmail Tarık Şenkal'ın kişisel blogudur; büyük dil modelleri (LLM), RAG, vektör veritabanları, prompt mühendisliği ve MLOps gibi uygulamalı yapay zeka konularını Türkçe ve İngilizce ele alır. — Personal site of İsmail Tarık Şenkal, covering applied AI — LLMs, RAG, vector databases, prompt engineering and MLOps — in Turkish and English.
 
-HatsonTech Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı yapay zeka Ar-Ge şirketi; amiral ürün Caseon (yapay zeka destekli hukuk teknolojisi platformu).
+Hatson Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı yapay zeka Ar-Ge şirketi; amiral ürün Caseon (yapay zeka destekli hukuk teknolojisi platformu).
 
 ## Hakkında / Background
-- [İsmail Tarık Şenkal kimdir?](https://tariksenkal.com/posts/tarik-senkal-kimdir/): İsmail Tarık Şenkal kimdir? HatsonTech Teknoloji A.Ş.'nin kurucu ortağı, Türkçe yapay zeka, büyük dil modelleri ve hukuk teknolojileri üzerine çalışan geliştirici ve girişimcinin hikâyesi.
+- [İsmail Tarık Şenkal kimdir?](https://tariksenkal.com/posts/tarik-senkal-kimdir/): İsmail Tarık Şenkal kimdir? Hatson Teknoloji A.Ş.'nin kurucu ortağı, Türkçe yapay zeka, büyük dil modelleri ve hukuk teknolojileri üzerine çalışan geliştirici ve girişimcinin hikâyesi.
 - [HatsonTech nasıl ortaya çıktı?](https://tariksenkal.com/posts/hatsontech-nedir/): HatsonTech nasıl ortaya çıktı? 2024'te Ankara ODTÜ Teknokent'te kurulan Türkçe yapay zeka girişiminin doğuş hikâyesi: hangi sorundan yola çıkıldı, neden kendi ürünlerini geliştiriyor?
-- [Caseon nedir?](https://tariksenkal.com/posts/caseon-nedir/): Caseon nedir? HatsonTech'ın amiral gemisi ürünü: avukatlar ve hukuk birimleri için içtihat araması, belge analizi ve akıllı hukuki asistanı bir araya getiren yapay zeka platformu.
-- [Who is İsmail Tarık Şenkal?](https://tariksenkal.com/en/posts/who-is-tarik-senkal/): Who is İsmail Tarık Şenkal? The story of the co-founder of HatsonTech Teknoloji A.Ş. — a developer and entrepreneur working on Turkish artificial intelligence, large language models, and legal technologies.
+- [Caseon nedir?](https://tariksenkal.com/posts/caseon-nedir/): Caseon nedir? HatsonTech'in amiral gemisi ürünü: avukatlar ve hukuk birimleri için içtihat araması, belge analizi ve akıllı hukuki asistanı bir araya getiren yapay zeka platformu.
+- [Who is İsmail Tarık Şenkal?](https://tariksenkal.com/en/posts/who-is-tarik-senkal/): Who is İsmail Tarık Şenkal? The story of the co-founder of Hatson Teknoloji A.Ş. — a developer and entrepreneur working on Turkish artificial intelligence, large language models, and legal technologies.
 - [How did HatsonTech come about?](https://tariksenkal.com/en/posts/what-is-hatsontech/): How did HatsonTech come about? The origin story of a Turkish AI startup founded in 2024 at ODTÜ Teknokent in Ankara: what problem it set out to solve, and why it builds its own products.
 - [What is Caseon?](https://tariksenkal.com/en/posts/what-is-caseon/): What is Caseon? HatsonTech's flagship product: an AI platform that brings together case-law search, document analysis and a smart legal assistant for lawyers and legal departments.
 
@@ -66,8 +66,8 @@ HatsonTech Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odakl�
 - [LinkedIn](https://www.linkedin.com/in/tar%C4%B1k-%C5%9Fenkal-776b98257?originalSubdomain=tr)
 - [GitHub](https://github.com/itariksenkal)
 - [E-posta / Email](mailto:itarik.senkal@hatsontech.com)
-- [HatsonTech](https://www.hatsontech.com)
-- [Caseon](https://www.caseon.com)
+- [HatsonTech](https://hatsontech.com)
+- [Caseon](https://caseon.ai)
 
 ## Optional
 - [Gizlilik Politikası (TR)](https://tariksenkal.com/gizlilik/)

@@ -1,7 +1,7 @@
 # tariksenkal.com — İsmail Tarık Şenkal · Kişisel Blog & Portföy
 
 Modern, açık/koyu temalı, tek sayfa + blog yapısında **statik** bir kişisel site.
-İsmail Tarık Şenkal'ı (HatsonTech Teknoloji A.Ş. kurucu ortağı) tanıtmak ve yapay zeka /
+İsmail Tarık Şenkal'ı (Hatson Teknoloji A.Ş. kurucu ortağı) tanıtmak ve yapay zeka /
 Türkçe NLP üzerine yazılar yayımlamak için tasarlandı.
 
 > **Slogan:** *Veriden zekâya, araştırmadan ürüne.*
@@ -38,7 +38,7 @@ tariksenkal/
 │   └── turkce-yapay-zeka.html
 ├── css/style.css              # Tüm stiller + tema sistemi
 ├── js/main.js                 # Tema, mobil menü, scroll-reveal, okuma çubuğu
-├── image/hatsontech_logo.png  # Logo / favicon
+├── image/caseon-lockup-black.svg  # Marka logosu (açık tema; koyu tema için -white)
 ├── CNAME                      # tariksenkal.com (GitHub Pages için)
 ├── robots.txt · sitemap.xml   # SEO
 └── README.md
@@ -49,7 +49,7 @@ tariksenkal/
 ## 🎨 Tasarım
 
 - **Tema:** Açık / koyu mod (sağ üstteki ☀️/🌙 düğmesi). Tercih `localStorage`'a kaydedilir, sistem tercihini de algılar.
-- **Renkler:** HatsonTech yeşili (`#7CB342`) ana aksan. Tüm renkler `css/style.css` içindeki `:root` ve `[data-theme="dark"]` bloklarında.
+- **Renkler:** Site yeşili (`#7CB342`) ana aksan. Tüm renkler `css/style.css` içindeki `:root` ve `[data-theme="dark"]` bloklarında.
 - **Tipografi:** Başlıklar **Sora**, gövde **Inter**, makale metni editöryel his için **Newsreader** (serif).
 - **Hareket:** Scroll ile beliren `reveal` animasyonları, okuma ilerleme çubuğu, yumuşak geçişler. `prefers-reduced-motion` desteklenir.
 
@@ -82,7 +82,7 @@ Aynı şekilde makalelerdeki `.ava` (yazar avatarı) baş harf yerine küçük b
 ## ⚠️ İçerik notu (önemli)
 
 Bu sitedeki **biyografik anlatım örnek/şablon niteliğindedir** ve doğrulanmış kamu kayıtlarına dayanan kısımlarla
-(HatsonTech kurucu ortaklığı, 2024 kuruluşu, ODTÜ Teknokent, Caseon/MevzuatBot, NLP/LLM odağı) birlikte yazılmıştır.
+(HatsonTech kurucu ortaklığı, 2024 kuruluşu, ODTÜ Teknokent, Caseon, NLP/LLM odağı) birlikte yazılmıştır.
 Eğitim geçmişi, tarihler ve kişisel detayları yayına almadan önce **gözden geçirip kişiselleştirin**. Özellikle:
 
 - `posts/tarik-senkal-kimdir.html` — eğitim/kariyer ayrıntıları
@@ -119,4 +119,4 @@ Netlify veya Vercel'e de klasörü sürükleyip bırakarak yayınlayabilirsiniz.
 
 ---
 
-© 2024–2026 İsmail Tarık Şenkal · HatsonTech Teknoloji A.Ş. · Ankara, ODTÜ Teknokent 🌿
+© 2024–2026 İsmail Tarık Şenkal · Hatson Teknoloji A.Ş. · Ankara, ODTÜ Teknokent 🌿
