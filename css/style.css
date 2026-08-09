@@ -8,36 +8,36 @@
    1. Tema Değişkenleri (Design Tokens)
    -------------------------------------------------------------------------- */
 :root {
-  /* Marka — yeşil palet */
-  --brand:        #6BAe2e;
-  --brand-600:    #7CB342;
-  --brand-500:    #8BC34A;
-  --brand-300:    #C5E1A5;
-  --brand-700:    #558B2F;
-  --brand-ink:    #2f4a18;
+  /* Marka — Caseon paleti (mürekkep + mavi aksan) */
+  --brand:        #3B6BF6;
+  --brand-600:    #3B6BF6;
+  --brand-500:    #5C86F8;
+  --brand-300:    #B9CBFC;
+  --brand-700:    #2A4FC9;
+  --brand-ink:    #1A1D26;
 
-  /* İkincil aksan */
-  --accent:       #1976D2;
+  /* İkincil aksan — Caseon altın */
+  --accent:       #C9A969;
 
   /* Açık tema yüzeyleri */
   --bg:           #ffffff;
-  --bg-soft:      #f6f8f4;
+  --bg-soft:      #F7F6F3;
   --bg-elev:      #ffffff;
   --surface:      #ffffff;
-  --border:       #e7ebe2;
-  --border-soft:  #eef1ea;
+  --border:       #E5E3DD;
+  --border-soft:  #EFEDE8;
 
   /* Metin */
-  --text:         #1c241a;
-  --text-soft:    #4b5548;
-  --text-mut:     #7a8676;
+  --text:         #1A1D26;
+  --text-soft:    #4A4F5C;
+  --text-mut:     #6E7484;
   --text-invert:  #ffffff;
 
   /* Efektler */
-  --shadow-sm:  0 1px 2px rgba(28,36,26,.06), 0 1px 3px rgba(28,36,26,.05);
-  --shadow:     0 6px 24px -8px rgba(28,36,26,.18), 0 2px 8px -4px rgba(28,36,26,.10);
-  --shadow-lg:  0 24px 60px -20px rgba(28,36,26,.30);
-  --ring:       0 0 0 3px rgba(124,179,66,.30);
+  --shadow-sm:  0 1px 2px rgba(10,14,26,.06), 0 1px 3px rgba(10,14,26,.05);
+  --shadow:     0 6px 24px -8px rgba(10,14,26,.18), 0 2px 8px -4px rgba(10,14,26,.10);
+  --shadow-lg:  0 24px 60px -20px rgba(10,14,26,.30);
+  --ring:       0 0 0 3px rgba(59,107,246,.30);
 
   /* Tipografi */
   --font-display: 'Sora', system-ui, -apple-system, sans-serif;
@@ -58,25 +58,25 @@
 }
 
 [data-theme="dark"] {
-  --bg:           #0e120c;
-  --bg-soft:      #141a10;
-  --bg-elev:      #171e12;
-  --surface:      #171e12;
-  --border:       #283021;
-  --border-soft:  #20281a;
+  --bg:           #0A0E1A;
+  --bg-soft:      #10141F;
+  --bg-elev:      #141926;
+  --surface:      #141926;
+  --border:       #252B3A;
+  --border-soft:  #1B2130;
 
-  --text:         #eef2e9;
-  --text-soft:    #c2cbb8;
-  --text-mut:     #8c977f;
-  --text-invert:  #0e120c;
+  --text:         #F7F6F3;
+  --text-soft:    #C3C7D1;
+  --text-mut:     #868DA0;
+  --text-invert:  #0A0E1A;
 
-  --brand-600:    #9CCC65;
-  --brand-500:    #aed581;
+  --brand-600:    #7FA0FA;
+  --brand-500:    #A3BCFC;
 
   --shadow-sm:  0 1px 2px rgba(0,0,0,.4);
   --shadow:     0 10px 30px -10px rgba(0,0,0,.6);
   --shadow-lg:  0 30px 70px -25px rgba(0,0,0,.7);
-  --ring:       0 0 0 3px rgba(156,204,101,.30);
+  --ring:       0 0 0 3px rgba(127,160,250,.30);
 }
 
 /* --------------------------------------------------------------------------
@@ -114,7 +114,7 @@ a { color: inherit; text-decoration: none; transition: color var(--t-fast); }
 img, svg { max-width: 100%; display: block; }
 ul { list-style: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-::selection { background: var(--brand-500); color: #14210a; }
+::selection { background: var(--brand-500); color: #0A0E1A; }
 
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
 .narrow { max-width: var(--maxw-narrow); }
@@ -129,11 +129,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .lead { font-size: 1.18rem; color: var(--text-soft); line-height: 1.65; }
 .text-grad {
-  background: linear-gradient(120deg, var(--brand-700), var(--brand-500) 60%, var(--accent));
+  background: linear-gradient(120deg, var(--brand-700), var(--brand-600) 55%, var(--brand-500));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 [data-theme="dark"] .text-grad {
-  background: linear-gradient(120deg, var(--brand-300), var(--brand-500) 55%, #7fc7ff);
+  background: linear-gradient(120deg, var(--brand-300), var(--brand-500) 55%, #9DBBFD);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 
@@ -150,9 +150,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn:active { transform: translateY(1px); }
 .btn-primary {
   background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
-  color: #fff; box-shadow: 0 8px 22px -8px rgba(85,139,47,.6);
+  color: #fff; box-shadow: 0 8px 22px -8px rgba(59,107,246,.45);
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -10px rgba(85,139,47,.7); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -10px rgba(59,107,246,.55); }
 .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
 .btn-ghost:hover { border-color: var(--brand-600); color: var(--brand-700); }
 [data-theme="dark"] .btn-ghost:hover { color: var(--brand-500); }
@@ -182,11 +182,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; }
 /* Marka logosu: Caseon lockup (451x141). Kare kırpma YOK — en/boy oranı korunur.
    Açık temada siyah, koyu temada beyaz sürüm gösterilir. */
-.brand img { width: auto; height: 26px; border-radius: 0; display: block; }
+.brand img { width: 28px; height: 28px; border-radius: 0; display: block; }
 .brand .logo-dark { display: none; }
 [data-theme="dark"] .brand .logo-light { display: none; }
 [data-theme="dark"] .brand .logo-dark  { display: block; }
-@media (max-width: 420px) { .brand img { height: 22px; } }
+@media (max-width: 420px) { .brand img { width: 24px; height: 24px; } }
 .brand b { color: var(--brand-700); }
 [data-theme="dark"] .brand b { color: var(--brand-500); }
 .brand small { display: block; font-family: var(--font-body); font-weight: 500; font-size: .68rem; color: var(--text-mut); letter-spacing: .04em; margin-top: -2px; }
@@ -259,7 +259,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 156px; height: 156px; border-radius: 50%;
   display: grid; place-items: center; margin-bottom: 1.2rem;
   background: conic-gradient(from 200deg, var(--brand-500), var(--brand-300), var(--accent), var(--brand-500));
-  box-shadow: 0 18px 40px -16px rgba(85,139,47,.6);
+  box-shadow: 0 18px 40px -16px rgba(59,107,246,.45);
 }
 .portrait .ph-ring span {
   width: 138px; height: 138px; border-radius: 50%; display: grid; place-items: center;
@@ -374,7 +374,7 @@ section { position: relative; }
 .post-card .thumb.v2 { background: linear-gradient(135deg, #2c5364, #203a43, #0f2027); }
 .post-card .thumb.v3 { background: linear-gradient(135deg, var(--accent), #0d47a1); }
 .post-card .thumb.v4 { background: linear-gradient(135deg, #355c7d, #6c5b7b, #c06c84); }
-.post-card .thumb.v5 { background: linear-gradient(135deg, #3a7d44, #181d27); }
+.post-card .thumb.v5 { background: linear-gradient(135deg, #2A4FC9, #101426); }
 .post-card .thumb::after { content: ""; position: absolute; inset: 0;
   background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.22) 1px, transparent 0); background-size: 18px 18px; opacity: .5; }
 .post-card .pc-body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
@@ -402,7 +402,7 @@ section { position: relative; }
 .cta-band h2 { color: #fff; font-size: clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom: .8rem; }
 .cta-band p { color: rgba(255,255,255,.86); max-width: 50ch; margin-inline: auto; }
 .cta-band .btn-primary { background: #fff; color: var(--brand-700); }
-.cta-band .btn-primary:hover { background: #f3f7ee; }
+.cta-band .btn-primary:hover { background: #F7F6F3; }
 .cta-band .socials { display: flex; gap: .6rem; justify-content: center; margin-top: 1.8rem; }
 .cta-band .socials a { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
   background: rgba(255,255,255,.14); color: #fff; transition: var(--t-fast); }
@@ -439,7 +439,7 @@ section { position: relative; }
 .article-hero.v2 { background: linear-gradient(135deg, #2c5364, #203a43, #0f2027); }
 .article-hero.v3 { background: linear-gradient(135deg, var(--accent), #0d47a1); }
 .article-hero.v4 { background: linear-gradient(135deg, #355c7d, #6c5b7b, #c06c84); }
-.article-hero.v5 { background: linear-gradient(135deg, #3a7d44, #181d27); }
+.article-hero.v5 { background: linear-gradient(135deg, #2A4FC9, #101426); }
 .article-hero::after { content: ""; position: absolute; inset: 0;
   background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.18) 1px, transparent 0); background-size: 22px 22px; opacity: .45; }
 .article-hero span { position: relative; font-family: var(--font-display); font-weight: 800; font-size: 4rem; color: rgba(255,255,255,.92); }
@@ -551,7 +551,7 @@ section { position: relative; }
 .portrait.has-photo { padding: 0; display: block; }
 .portrait .ph-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .portrait .ph-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 24px; text-align: left;
-  background: linear-gradient(to top, rgba(8,12,6,.88), rgba(8,12,6,.4) 55%, transparent); }
+  background: linear-gradient(to top, rgba(10,14,26,.88), rgba(10,14,26,.4) 55%, transparent); }
 .portrait .ph-cap h3 { color: #fff; font-size: 1.3rem; }
 .portrait .ph-cap p { color: rgba(255,255,255,.86); font-size: .92rem; margin-top: .25rem; }
 /* Yazar avatari: gercek foto */
