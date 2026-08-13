@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Erasing Personal Data From a RAG Index — and From Fine-Tuned Weights — İsmail Tarık Şenkal</title>
+<meta name="description" content="A deletion request touches six places: source, chunks, vectors, caches, logs and fine-tuned weights. A practical erasure strategy and schema for each of them." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/data-erasure-rag-and-weights/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/kvkk-llm-veri-silme/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Erasing Personal Data From a RAG Index — and From Fine-Tuned Weights" /><meta property="og:description" content="A deletion request touches six places: source, chunks, vectors, caches, logs and fine-tuned weights. A practical erasure strategy and schema for each of them." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-18.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Erasing Personal Data From a RAG Index — and From Fine-Tuned Weights",
+      "description": "A deletion request touches six places: source, chunks, vectors, caches, logs and fine-tuned weights. A practical erasure strategy and schema for each of them.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/data-erasure-rag-and-weights/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-18.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/kvkk-llm-veri-silme/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Applications</span></div>
+    <span class="tag">Applications</span>
+    <h1>Erasing Personal Data From a RAG Index — and From Fine-Tuned Weights</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 7 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-18.jpg" alt="Erasing Personal Data From a RAG Index — and From Fine-Tuned Weights"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">When a user says "delete my data", in a conventional application that is a <code>DELETE</code> statement. In an LLM system the same personal data can live in at least six places, and one of them is irreversible. This article is not a legal essay; it is an erasure architecture an engineer can implement. One caveat first: what follows is engineering practice, not legal advice — work with your own counsel for the final assessment.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">Where personal data lives in an LLM system</a></li><li><a href="#b2">The deletable layer: source, chunks, vectors</a></li><li><a href="#b3">The forgotten layer: caches and logs</a></li><li><a href="#b4">The hard layer: fine-tuned weights</a></li><li><a href="#b5">Compliance by design</a></li><li><a href="#b6">Transfer, retention and documentation</a></li></ol></div>
+
+<h2 id="b1">Where personal data lives in an LLM system</h2>
+<p>Preparing for a deletion request starts with an inventory. In a typical RAG plus fine-tuning architecture, one person's data sits in:</p>
+<table class="cmp-table">
+<thead><tr><th>Layer</th><th>Erasability</th></tr></thead>
+<tbody>
+<tr><td>Source document store</td><td class="yes">Easy — an ordinary delete</td></tr>
+<tr><td>Chunked text table</td><td class="yes">Easy, if provenance was recorded</td></tr>
+<tr><td>Vector index</td><td class="yes">Moderate — may require index compaction</td></tr>
+<tr><td>Prompt/response logs and traces</td><td class="no">Frequently forgotten — the biggest silent risk</td></tr>
+<tr><td>Caches (prompt cache, application cache)</td><td class="no">Expiry-dependent; rarely on the inventory</td></tr>
+<tr><td>Fine-tuned model weights</td><td class="no">Practically irreversible</td></tr>
+</tbody></table>
+<p>That table is itself a compliance artifact: knowing in advance which six systems a data-subject request has to sweep turns response time from weeks into hours.</p>
+
+<h2 id="b2">The deletable layer: source, chunks, vectors</h2>
+<p>The first three layers are erasable in one transaction if designed for it. The key decision is this: <strong>every chunk and every vector must carry which source document and which data subject it came from.</strong> That column cannot be added retroactively.</p>
+<pre><code>CREATE TABLE rag_chunk (
+  id           bigserial PRIMARY KEY,
+  document_id  uuid        NOT NULL,
+  subject_id   uuid,                       -- whose personal data this is
+  text         text        NOT NULL,
+  embedding    vector(1536) NOT NULL,
+  source_path  text        NOT NULL,
+  added_at     timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX ON rag_chunk (subject_id) WHERE subject_id IS NOT NULL;
+CREATE INDEX ON rag_chunk (document_id);</code></pre>
+<pre><code>-- Erasure: three layers in one transaction
+BEGIN;
+  DELETE FROM rag_chunk WHERE subject_id = $1;     -- chunk and vector together
+  UPDATE source_document SET deleted = true, content = NULL
+    WHERE subject_id = $1;
+  INSERT INTO erasure_log (subject_id, request_id, layer, at)
+    VALUES ($1, $2, 'rag', now());                 -- leave evidence
+COMMIT;</code></pre>
+<p>One vector-side detail matters: in row-based solutions such as pgvector, deleting the row deletes the vector. Some external vector databases tombstone instead, with real removal arriving at index compaction. Verify how yours behaves and, if it tombstones, make compaction part of the erasure flow.</p>
+<div class="callout"><strong>Tip:</strong> Do not forget derived records. A summary, a memory entry or a classification result can keep carrying personal data after the source is gone. Every derived record must store which records it came from; otherwise erasure is incomplete by construction.</div>
+
+<h2 id="b3">The forgotten layer: caches and logs</h2>
+<p>This is the most frequently skipped place in practice. Prompt and response logs, traces and error reports usually carry personal data in the clear and sit outside the erasure flow entirely.</p>
+<p>Three rules make it manageable. <strong>One:</strong> never write personal data into logs — mask before the tracing layer, not inside it. <strong>Two:</strong> if you must write it, set a short retention and document it; a thirty-day retention naturally narrows the scope of any deletion request. <strong>Three:</strong> add the subject identifier as a field on log records; you cannot erase from a log you cannot query.</p>
+<p>On the cache side, the practical approach is to document rather than to rely on expiry: write down how long each cache lives and when it is purged following a deletion request.</p>
+
+<h2 id="b4">The hard layer: fine-tuned weights</h2>
+<p>Honesty is required here: <strong>there is no practical, reliable way to erase one person's data from fine-tuned model weights.</strong> Machine unlearning is an active research area, but it offers no auditable guarantee at production scale. So the engineering answer is not erasure but <em>avoidance</em>.</p>
+<p>A workable strategy has three steps:</p>
+<ol>
+<li><strong>Never let personal data into the training set.</strong> Make PII detection and masking a mandatory step in dataset construction; this prevents the one problem that cannot be solved later.</li>
+<li><strong>Put knowledge in the index, not the weights.</strong> Where person-specific knowledge is needed, use RAG — this is RAG's strongest compliance argument: the knowledge lives in an erasable layer.</li>
+<li><strong>If unavoidable, plan for retraining.</strong> Version the training set and record which record entered which version, so that retraining on cleaned data is at least <em>possible</em> when a request arrives.</li>
+</ol>
+<pre><code>import re
+
+NATIONAL_ID = re.compile(r"\b[1-9][0-9]{10}\b")
+IBAN  = re.compile(r"\bTR[0-9]{2}[0-9A-Z]{20}\b")
+EMAIL = re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.]+\b")
+PHONE = re.compile(r"\b(?:\+90|0)?5[0-9]{9}\b")
+
+def valid_national_id(s: str) -&gt; bool:
+    """Turkish national ID: 11 digits, non-zero first digit, two check digits."""
+    if len(s) != 11 or not s.isdigit() or s[0] == "0":
+        return False
+    d = [int(c) for c in s]
+    if (sum(d[0:9:2]) * 7 - sum(d[1:8:2])) % 10 != d[9]:
+        return False
+    return sum(d[:10]) % 10 == d[10]
+
+def mask(text: str) -&gt; str:
+    """Run BEFORE writing to a training set or to logs."""
+    text = NATIONAL_ID.sub(
+        lambda m: "[NATIONAL_ID]" if valid_national_id(m.group()) else m.group(), text)
+    text = IBAN.sub("[IBAN]", text)
+    text = EMAIL.sub("[EMAIL]", text)
+    text = PHONE.sub("[PHONE]", text)
+    return text</code></pre>
+<p>The checksum validation is not decoration: masking every eleven-digit number without validating it also destroys order numbers and product codes, and renders the dataset unusable.</p>
+
+<h2 id="b5">Compliance by design</h2>
+<p>Compliance has to be an architectural property rather than a layer bolted on afterwards. Four design decisions suffice:</p>
+<ul>
+<li><strong>The subject identifier travels through every layer.</strong> Source, chunk, vector, memory record, log — all of them.</li>
+<li><strong>Derived records keep their provenance.</strong> A summary knows which documents produced it.</li>
+<li><strong>Erasure is a flow, not a query.</strong> It walks six layers in order, records each step, and produces evidence at the end.</li>
+<li><strong>There is a deletion test.</strong> Create a subject in staging, delete them, then search all six layers. Without that test your erasure flow does not work.</li>
+</ul>
+<p>On the regulatory side there is also a newer source in Turkey: the data protection authority's generative-AI guidance published on 24 November 2025. Its content sits inside a PDF, so it is not indexed and not answerable from search; download it directly and read it against your own systems. Most engineering teams miss it for exactly that reason.</p>
+
+<h2 id="b6">Transfer, retention and documentation</h2>
+<p>Erasure is only part of compliance. For an LLM feature you also need three things in writing, and all three depend on provider choice.</p>
+<ol>
+<li><strong>A cross-border transfer analysis.</strong> For every model provider, document where the data goes and on which legal basis. This is done per provider and updated when the provider changes.</li>
+<li><strong>Retention configuration.</strong> Provider-side data retention is now a configurable, documentable control on most platforms — set it deliberately rather than accepting the default, and record the decision.</li>
+<li><strong>A processing record.</strong> Your agent audit log can double as the personal-data processing record. Design one log to serve both purposes rather than building two systems.</li>
+</ol>
+<p>One closing note: assume your system prompt can leak. Do not put customer names, internal rules or personal data into it; OWASP's 2026 edition renamed this risk <em>Hidden Context Exposure</em> and kept sensitive information disclosure at number two on its list.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>Personal data lives in six places in an LLM system; the erasure flow must walk all six and produce evidence.</li>
+<li>Write the subject identifier onto chunk and vector records — that column cannot be added retroactively.</li>
+<li>Erasing from fine-tuned weights is impractical; the answer is avoidance — keep person-specific knowledge in the RAG index, not the weights.</li>
+<li>Logs and caches are the most-skipped layer; mask before the tracing layer rather than inside it.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>How do I delete personal data from a RAG index?</summary><p>In one transaction, if chunk and vector records carry a subject identifier: delete the chunks, mark the source document, and write an erasure record. Verify whether your vector database truly removes or merely tombstones; if it tombstones, add index compaction to the flow.</p></details>
+<details><summary>Can a person's data be erased from a fine-tuned model?</summary><p>There is no practical, auditable way. Machine unlearning is active research but offers no production-scale guarantee. The right approach is avoidance: keep personal data out of the training set, hold person-specific knowledge in a RAG index, and version the training set so retraining remains possible.</p></details>
+<details><summary>What documentation does an LLM feature need?</summary><p>At minimum three things: a per-provider cross-border transfer analysis, a record of the retention configuration you chose, and a personal-data processing record. If you design your agent audit log to satisfy the third, you avoid building a second system. Work with your own counsel for the final assessment.</p></details>
+</div>
+
+<hr>
+<p>Compliance is an architectural property rather than a layer added later — and erasability is its most concrete test. For AI in legal work see <a href="../ai-in-legal-practice/">AI in legal practice</a>, for building the erasable knowledge layer see <a href="../what-is-rag-how-to-build/">the RAG guide</a>, and for deletion behaviour on the vector side see <a href="../vector-databases-guide/">vector databases</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Applications</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../does-llms-txt-work/"><div class="dir">← Previous</div><div class="ttl">Does llms.txt Actually Work? What the Data Says, and What v2 Changed</div></a><a class="next" href="../multi-agent-cost-reality/"><div class="dir">Next →</div><div class="ttl">Multi-Agent Systems: 15× the Tokens, 90% Better — Which One Is You?</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

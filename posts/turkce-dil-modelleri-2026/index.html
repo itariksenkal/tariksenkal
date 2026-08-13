@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Türkçe Dil Modelleri 2026: Doğrulanmış Bir Manzara (ve Uydurulmuş Olanlar) — İsmail Tarık Şenkal</title>
+<meta name="description" content="Türkçe açık kaynak LLM manzarası, her iddia için Hugging Face bağlantısıyla: Cosmos, Kumru, Trendyol, Kanarya, BİLGE. Var olmayan modelleri nasıl ayırt edersiniz?" />
+<link rel="canonical" href="https://tariksenkal.com/posts/turkce-dil-modelleri-2026/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/turkish-language-models-2026/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Türkçe Dil Modelleri 2026: Doğrulanmış Bir Manzara (ve Uydurulmuş Olanlar)" /><meta property="og:description" content="Türkçe açık kaynak LLM manzarası, her iddia için Hugging Face bağlantısıyla: Cosmos, Kumru, Trendyol, Kanarya, BİLGE. Var olmayan modelleri nasıl ayırt edersiniz?" /><meta property="og:image" content="https://tariksenkal.com/image/bimg-03.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Türkçe Dil Modelleri 2026: Doğrulanmış Bir Manzara (ve Uydurulmuş Olanlar)",
+      "description": "Türkçe açık kaynak LLM manzarası, her iddia için Hugging Face bağlantısıyla: Cosmos, Kumru, Trendyol, Kanarya, BİLGE. Var olmayan modelleri nasıl ayırt edersiniz?",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/posts/turkce-dil-modelleri-2026/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-03.jpg",
+      "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/turkish-language-models-2026/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Ekosistem</span></div>
+    <span class="tag">Ekosistem</span>
+    <h1>Türkçe Dil Modelleri 2026: Doğrulanmış Bir Manzara (ve Uydurulmuş Olanlar)</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 6 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-03.jpg" alt="Türkçe Dil Modelleri 2026: Doğrulanmış Bir Manzara (ve Uydurulmuş Olanlar)"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Türkçe "açık kaynak LLM" araması yaptığınızda karşınıza çıkan ilk sonuçların bir kısmı var olmayan modelleri listeliyor. Uydurulmuş depo adları, uydurulmuş kıyaslama puanları ve model lisansı diye sunulan bir ABD ihracat mevzuatı. Bu yazı, bunun tam tersini yapıyor: her model adı gerçek bir Hugging Face deposuna bağlı, her sayının nereden geldiği yazılı ve doğrulayamadığım hiçbir şey burada yok. Sonunda da kendi listenizi 20 saniyede doğrulayabileceğiniz bir betik var.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol><li><a href="#b1">Önce uyarı: var olmayan modeller</a></li><li><a href="#b2">Doğrulanmış manzara: kim ne yayımlıyor?</a></li><li><a href="#b3">Lisanslar: "açık" ne demek, ne demek değil?</a></li><li><a href="#b4">BİLGE ve T3: devlet ve vakıf tarafı</a></li><li><a href="#b5">Kıyaslama gerçeği: Türkçe'ye özel model her zaman kazanmıyor</a></li><li><a href="#b6">Model seçimi: pratik bir karar akışı</a></li></ol></div>
+
+<h2 id="b1">Önce uyarı: var olmayan modeller</h2>
+<p>Türkçe arama sonuçlarında bugün üst sıralarda yer alan bir liste sayfası şu model adlarını içeriyor: <code>KanarYa-Mistral-7B-tr</code>, <code>Kumru AI-7.4B</code>, <code>Cosmos-Llama-1-70B</code>, <code>TÜBİTAK BİLGEM-13B</code>, <code>bilgem-tr-llm-70b</code> ve "ITAR/EAR Custom License" altında yayımlandığı söylenen <code>t3-ai-defence-7b</code>.</p>
+<blockquote>Bu depoların hiçbiri yok — ve ITAR/EAR bir model lisansı değil, ABD ihracat kontrol mevzuatıdır.</blockquote>
+<p>Bunu okurken bana da güvenmeyin. Doğrulaması otuz saniye sürüyor ve bu betik çalışır:</p>
+<pre><code>from huggingface_hub import HfApi
+from huggingface_hub.utils import RepositoryNotFoundError
+
+api = HfApi()
+adaylar = [
+    # iddia edilen, doğrulanamayan depolar
+    "asafaya/KanarYa-Mistral-7B-tr",
+    "vngrs-ai/Kumru-AI-7.4B",
+    "ytu-ce-cosmos/Cosmos-Llama-1-70B",
+    # gerçekten var olanlar
+    "asafaya/kanarya-2b",
+    "vngrs-ai/Kumru-2B",
+    "ytu-ce-cosmos/Turkish-Llama-8b-v0.1",
+]
+
+for repo in adaylar:
+    try:
+        bilgi = api.model_info(repo)
+        print("VAR  ", repo, "| lisans:", bilgi.card_data.get("license"))
+    except RepositoryNotFoundError:
+        print("YOK  ", repo)</code></pre>
+<p>Bir model listesini okurken uygulayacağınız kural basit: <strong>depo adı ve lisans verilmemişse, o satır bir iddiadır, bir bilgi değil.</strong> Türkçe yapay zekâ ekosisteminin en büyük sorunu model azlığı değil; doğrulanabilir bilgi azlığı.</p>
+
+<h2 id="b2">Doğrulanmış manzara: kim ne yayımlıyor?</h2>
+<p>Aşağıdaki tablodaki her satır, yazım sırasında Hugging Face üzerinden doğrulanmıştır.</p>
+<table class="cmp-table">
+<thead><tr><th>Kurum</th><th>Doğrulanmış modeller</th></tr></thead>
+<tbody>
+<tr><td><strong>Cosmos</strong> — Yıldız Teknik Üniversitesi Bilgisayar Mühendisliği (İTÜ değil)</td><td class="yes"><code>Turkish-Llama-8b-v0.1</code> (Llama-3-8B üzerine, 30 GB Türkçe veri), <code>Turkish-Gemma-9b-v0.1</code> (Gemma-2-9B üzerine), ModernBERT-TR ailesi: <code>-base</code>, <code>-embed</code>, <code>-reranker</code>, <code>-guardrail</code> (~0,1B)</td></tr>
+<tr><td><strong>VNGRS</strong></td><td class="yes"><code>Kumru-2B</code> ve <code>Kumru-2B-Base</code>; VBART ailesi (Small → XLarge) ve özetleme/başlık üretme türevleri</td></tr>
+<tr><td><strong>Trendyol</strong></td><td class="yes"><code>Trendyol-LLM-8B-T1</code>, <code>Trendyol-LLM-Asure-12B</code> (Gemma 3-12B üzerine, çok modlu), <code>Trendyol-Cybersecurity-LLM-v2-70B-Q4_K_M</code></td></tr>
+<tr><td><strong>Kanarya</strong> — Ali Safaya</td><td class="yes">Yalnızca <code>kanarya-750m</code> ve <code>kanarya-2b</code>. Mart 2024'ten beri güncellenmedi; 7B sürümü yok</td></tr>
+<tr><td><strong>BERTurk</strong> — dbmdz</td><td class="yes">Gerçek ve yaygın kullanılıyor, ancak <strong>Bavyera Eyalet Kütüphanesi</strong> tarafından yayımlandı — Türkiye kaynaklı değil</td></tr>
+<tr><td><strong>Turkcell</strong></td><td class="no"><code>Turkcell-LLM-7b-v1</code> var, ama Nisan 2024'ten beri güncellenmedi — pratikte atıl</td></tr>
+</tbody></table>
+<p>Bu tablonun en çarpıcı yanı, çoğu listede görmediğiniz şey: <strong>Türkçe'ye özel yayımlanmış, 12B'nin üzerinde, açık ağırlıklı bir model yok.</strong> Ekosistemin gerçek ağırlık merkezi 2B–12B aralığında ve encoder tarafında (BERT/ModernBERT türevleri) şaşırtıcı derecede güçlü.</p>
+<p>Bunun bir de doğrudan sonucu var: Türkçe için büyük bir modele ihtiyacınız varsa, seçenek Türkçe'ye özel bir model değil, Türkçe'yi iyi bilen çok dilli bir modeldir. Bu kategoride en temiz lisanslı seçenek <code>utter-project/EuroLLM-22B-Instruct-2512</code> — 22,6 milyar parametre, <strong>Apache-2.0</strong>, ve desteklediği 35 dil arasında Türkçe açıkça yer alıyor.</p>
+
+<h2 id="b3">Lisanslar: "açık" ne demek, ne demek değil?</h2>
+<p>"Açık kaynak" etiketi Türkçe listelerde en çok yanlış kullanılan şey. Doğrulanmış durum şöyle:</p>
+<ul>
+<li><code>Turkish-Llama-8b-v0.1</code> <strong>Llama 3 lisansı</strong> altında. Apache değil; kullanım kısıtları ve atıf yükümlülükleri var.</li>
+<li><code>Turkish-Gemma-9b-v0.1</code> ve <code>Trendyol-LLM-Asure-12B</code> <strong>Gemma lisansı</strong> altında. Bunlar da Apache-2.0 değil — Türkçe listelerde en sık yapılan hata bu ikisini "Apache" diye etiketlemek.</li>
+<li><code>EuroLLM-22B-Instruct-2512</code> gerçekten <strong>Apache-2.0</strong>.</li>
+</ul>
+<div class="callout"><strong>İpucu:</strong> Ticari bir üründe kullanacaksanız lisansı model kartından değil, deponun <code>README</code> üst verisindeki <code>license</code> alanından okuyun ve o tarihteki hâlini kayıt altına alın. Model kartı metni ile üst veri zaman zaman uyuşmaz; hukuk ekibiniz üst veriyi ister.</div>
+
+<h2 id="b4">BİLGE ve T3: devlet ve vakıf tarafı</h2>
+<p><strong>BİLGE</strong>, TÜBİTAK BİLGEM tarafından geliştirilen ulusal dil modeli. Doğrulanabilir olanlar: 1 trilyon token üzerinde eğitildiği, kültürel çeviri değerlendirmesinde 50 üzerinden 44,44 puan aldığı ve resmî bir tanıtım sitesinin bulunduğu. Doğrulanamayan iki şey var ve bunları söylemek dürüstlüğün gereği: <strong>parametre sayısı çelişkili</strong> — farklı haber kaynakları 1,9B–122B arası bir aile ile 37B arasında ayrışıyor — ve <strong>hiçbir kaynak BİLGE'nin açık ağırlıklı olduğunu doğrulamıyor.</strong> Dolayısıyla BİLGE'yi "Türkiye'nin açık kaynak modeli" diye anmak şu an için yanlış olur.</p>
+<p><strong>T3 AI</strong>, T3 Vakfı ve Baykar iş birliğiyle geliştirilen ve TEKNOFEST'te tanıtılan model; beta sürümü erişime açıldı. Savunma sanayiine özel, ihracat kontrollü bir varyantına dair dolaşan iddiaların hiçbir birincil kaynağı yok.</p>
+
+<h2 id="b5">Kıyaslama gerçeği: Türkçe'ye özel model her zaman kazanmıyor</h2>
+<p>Türkçe LLM tartışmasının en çok gözden kaçan bulgusu bu. Koç Üniversitesi KUIS AI ekibinin <strong>Cetvel</strong> çalışması (arXiv:2508.16431, EACL 2026'ya kabul edildi) 23 görev ve 70B'ye kadar 33 açık ağırlıklı modeli değerlendirdi ve şunu buldu: <em>Türkçe'ye özel talimat ayarlı modeller, çok dilli veya genel amaçlı modellere göre genellikle daha zayıf performans gösteriyor — dile özel olarak hazırlanmış olmalarına rağmen.</em> Llama 3 ve Mistral, birçok görevde Türkçe'ye özel modelleri geçti.</p>
+<p>Bu, "Türkçe model gereksiz" demek değil. Şunu söylüyor: <strong>dil etiketi bir performans garantisi değildir.</strong> Türkçe'ye sürekli ön eğitim yapılmış bir 9B model, aynı boyuttaki çok dilli bir modelden Türkçe'de daha iyi olabilir; ama 70B'lik güçlü bir çok dilli modelden daha iyi olacağının garantisi yoktur.</p>
+<p>Kıyaslama tarafında bakılacak yerler: <strong>TurkBench</strong> (arXiv:2601.07020, 8.151 örnek, 21 alt görev, EACL 2026 SIGTURK), daha eski referans olarak <strong>TR-MMLU</strong> (arXiv:2501.00593) ve canlı sıralamalar için <code>yerel.ai/leaderboard</code> ile Hugging Face üzerindeki <code>alibayram</code> TR-MMLU tablosu. Model kartlarının kendi bildirdiği puanları da kullanabilirsiniz — örneğin <code>Turkish-Gemma-9b-v0.1</code> kartı Türkçe kıyaslamalarda 63,31 ortalama bildiriyor — ama bunlar <em>üreticinin kendi ölçümüdür</em>, bağımsız değildir; öyle etiketleyin.</p>
+
+<h2 id="b6">Model seçimi: pratik bir karar akışı</h2>
+<ol>
+<li><strong>Görev bir sınıflandırma, etiketleme veya arama işi mi?</strong> Büyük bir üretken modele gerek yok. ModernBERT-TR ailesi (~0,1B) bu işlerde hem çok daha hızlı hem çok daha ucuz.</li>
+<li><strong>Anlamsal arama mı yapıyorsunuz?</strong> Türkçe için ayrı bir embedding modeli seçin ve sorgu ile belgeleri aynı modelle kodlayın.</li>
+<li><strong>Üretken bir işse ve veri kurum dışına çıkamıyorsa</strong>, 8B–12B aralığındaki Türkçe sürekli-ön-eğitimli modeller makul bir başlangıç; lisansı önceden okuyun.</li>
+<li><strong>Kalite tavanı gerekiyorsa</strong>, Türkçe'ye özel model aramayı bırakın; güçlü çok dilli bir modeli kendi görev setinizde ölçün.</li>
+<li><strong>Her durumda:</strong> kararı kıyaslama tablosuyla değil, kendi verinizden çıkardığınız 50–200 örneklik bir değerlendirme setiyle verin. Genel liderlik tabloları sizin işinizi ölçmüyor.</li>
+</ol>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>Türkçe SERP'te üst sıralarda dolaşan bazı model adları hiç var olmadı; depo adı ve lisans verilmeyen her satır bir iddiadır.</li>
+<li>Doğrulanmış manzara 2B–12B aralığında yoğunlaşıyor; Türkçe'ye özel, 12B üstü açık ağırlıklı bir model yok.</li>
+<li>Cosmos ve Trendyol modelleri Llama 3 / Gemma lisansı altında — Apache-2.0 değil. EuroLLM-22B gerçekten Apache-2.0 ve Türkçe destekliyor.</li>
+<li>Cetvel çalışması, Türkçe'ye özel talimat ayarlı modellerin çok dilli modellerin gerisinde kalabildiğini gösteriyor: dil etiketi performans garantisi değil.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Türkçe için en iyi açık kaynak LLM hangisi?</summary><p>Tek bir cevabı yok ve olduğunu iddia eden listelere şüpheyle bakın. Sınıflandırma ve arama işlerinde ModernBERT-TR ailesi; kurum içi üretken işlerde 8B–12B Türkçe sürekli-ön-eğitimli modeller; kalite tavanı gerektiğinde güçlü bir çok dilli model. Kararı kendi değerlendirme setinizde verin.</p></details>
+<details><summary>Kumru mu Trendyol LLM mi?</summary><p>Farklı ölçeklerdeler, bu yüzden doğrudan rakip değiller. Doğrulanmış hâlleriyle Kumru 2B seviyesinde, Trendyol'un yayımladığı modeller 8B ve 12B seviyesinde. Küçük ve hızlı bir taban arıyorsanız Kumru, daha yüksek kapasite gerekiyorsa Trendyol tarafı — ama Trendyol modellerinin Gemma lisansı altında olduğunu ticari kullanımdan önce okuyun.</p></details>
+<details><summary>BİLGE açık kaynak mı?</summary><p>Bunu doğrulayan bir birincil kaynak yok. BİLGE'nin 1 trilyon token üzerinde eğitildiği ve kültürel çeviri değerlendirmesinde 44,44/50 aldığı bildirildi; parametre sayısı ise kaynaklar arasında çelişkili. Açık ağırlıklı olduğuna dair bir doğrulama bulunmadığı için öyle anılmamalı.</p></details>
+</div>
+
+<hr>
+<p>Türkçe yapay zekâ ekosisteminin ihtiyacı daha çok liste değil, doğrulanabilir liste. Açık ağırlıklı modellerin genel manzarası için <a href="../acik-kaynak-llm/">açık kaynak LLM'ler</a>, bir modeli kendi verinizde ölçmenin yöntemi için <a href="../llm-degerlendirme/">LLM değerlendirme</a>, ve neden çoğu Türkçe iş için küçük bir modelin yettiği konusunda <a href="../kucuk-dil-modelleri/">küçük dil modelleri</a> yazılarına bakabilirsiniz.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Ekosistem</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="../uzun-baglam-mi-rag-mi/"><div class="dir">← Önceki</div><div class="ttl">1 Milyon Token Bağlam Varken RAG'a Hâlâ Gerek Var mı? (2026)</div></a><a class="next" href="../owasp-ajan-guvenlik-riskleri/"><div class="dir">Sıradaki →</div><div class="ttl">OWASP Ajan Güvenliği İlk 10: ASI01'den ASI10'a Somut Karşılıklar</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

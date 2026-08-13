@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet — İsmail Tarık Şenkal</title>
+<meta name="description" content="Türkçe metnin token maliyetini ölçtük, üstüne kur riskini ve önbellek ekonomisini koyduk: API mi kendi sunucun mu sorusunun TL cinsinden çalışan cevabı." />
+<link rel="canonical" href="https://tariksenkal.com/posts/kurumsal-llm-butcesi/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/enterprise-llm-budgeting/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet" /><meta property="og:description" content="Türkçe metnin token maliyetini ölçtük, üstüne kur riskini ve önbellek ekonomisini koyduk: API mi kendi sunucun mu sorusunun TL cinsinden çalışan cevabı." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-20.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet",
+      "description": "Türkçe metnin token maliyetini ölçtük, üstüne kur riskini ve önbellek ekonomisini koyduk: API mi kendi sunucun mu sorusunun TL cinsinden çalışan cevabı.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/posts/kurumsal-llm-butcesi/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-20.jpg",
+      "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/enterprise-llm-budgeting/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Maliyet</span></div>
+    <span class="tag">Maliyet</span>
+    <h1>Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 7 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-20.jpg" alt="Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Yapay zekâ bütçesi hazırlarken karşılaşacağınız ilk sorun, elinizdeki bütün referansların İngilizce metin ve dolar üzerinden kurulmuş olması. Türkçe metin aynı içerik için daha fazla token tüketir, fatura dolarla gelir, geliriniz TL'dir ve gerçek maliyet birimi "milyon token" değil "başarılı görev"tir. Bu yazıda bu dört değişkeni tek bir çalışan modelde birleştiriyorum — sayıları uydurmadan, ölçerek.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol><li><a href="#b1">Yanlış birim: milyon token değil, başarılı görev</a></li><li><a href="#b2">Token vergisi: ölçülmüş hâli</a></li><li><a href="#b3">Önbellek ekonomisi: cache ne zaman kâra geçer?</a></li><li><a href="#b4">Kur riski: TL bütçenin görünmeyen kalemi</a></li><li><a href="#b5">API mi kendi sunucum mu? Başabaş hesabı</a></li><li><a href="#b6">Maliyet dağıtımı ve devre kesiciler</a></li></ol></div>
+
+<h2 id="b1">Yanlış birim: milyon token değil, başarılı görev</h2>
+<p>Sağlayıcılar fiyatı milyon token başına verir, bu yüzden herkes bütçeyi milyon token üzerinden kurar. Sorun şu: aynı işi iki model çok farklı token sayısıyla bitirir ve bazıları hiç bitiremez. Ucuz model üç kez deneyip başarısız olursa, pahalı modelden pahalıya gelmiştir.</p>
+<blockquote>Bütçenin doğru birimi <strong>başarılı görev başına maliyet</strong>tir; milyon token bir girdi kalemidir, bir sonuç ölçüsü değil.</blockquote>
+<p>Bu artık ölçülen bir eksen. Artificial Analysis'in 15 Haziran 2026 tarihli Intelligence Index v4.1 çalışmasında görev başına maliyet, kabaca karşılaştırılabilir zekâ seviyelerinde <strong>seksen katı aşan</strong> bir yelpazeye yayılıyor: Claude Fable 5 için 3,25 dolar, Opus 4.8 (max) için 1,78 dolar, GPT-5.5 (xhigh) için 0,99 dolar ve DeepSeek V4 Pro (max) için 0,04 dolar. Yönlendirme (routing) mimarisinin bütün ekonomik gerekçesi bu tablodadır: her işi en pahalı modele göndermek bir mühendislik kararı değil, bir bütçe kazasıdır.</p>
+
+<h2 id="b2">Token vergisi: ölçülmüş hâli</h2>
+<p>Türkçe metnin daha fazla token tükettiği herkesin bildiği ama kimsenin ölçmediği bir iddia. Paralel bir metin çiftinde <code>o200k_base</code> tokenleştiricisiyle ölçtüğüm sonuç:</p>
+<table class="cmp-table">
+<thead><tr><th>Ölçüm</th><th>Türkçe / İngilizce</th></tr></thead>
+<tbody>
+<tr><td>Aynı içerik için token sayısı</td><td class="no">80 / 54 → yaklaşık <strong>1,48 kat</strong></td></tr>
+<tr><td>Token başına karakter</td><td class="no">3,58 / 5,83</td></tr>
+</tbody></table>
+<pre><code>import tiktoken
+enc = tiktoken.get_encoding("o200k_base")
+
+def olc(metin: str) -&gt; dict:
+    n = len(enc.encode(metin))
+    return {"token": n, "karakter_basina": round(len(metin) / n, 2)}
+
+# Kendi korpusunuzdan 20-30 gercek ornek gecirin;
+# blogdan oran kopyalamak butcenizi yaniltir.</code></pre>
+<p>Bu oranın bütçedeki karşılığı doğrudan: <strong>Türkçe ağırlıklı bir iş yükünde girdi maliyetiniz, aynı işin İngilizce hâline göre yaklaşık yarı yarıya daha yüksektir</strong> ve bu fark bağlam penceresine, ön dolum süresine ve dolayısıyla gecikmeye de yansır. Türkçe'nin neden bu şekilde tokenleştiğinin dilbilimsel açıklaması ayrı bir konu; <a href="https://halideyilmaz.com/posts/tokenizasyon-turkce/">Türkçe tokenizasyonun teknik nedenleri</a> için bu yazıyı okuyun — burada işimiz, o oranı bütçeye çevirmek.</p>
+<div class="callout"><strong>İpucu:</strong> Oranı tek bir cümlede değil, kendi üretim günlüklerinizden çekeceğiniz 200 gerçek istekte ölçün ve <em>istek tipine göre</em> ayırın. Sistem talimatı çoğu zaman İngilizce, kullanıcı içeriği Türkçedir; ikisinin oranı farklıdır ve toplam maliyeti belirleyen karışımdır.</div>
+
+<h2 id="b3">Önbellek ekonomisi: cache ne zaman kâra geçer?</h2>
+<p>Prompt caching, Türkçe iş yüklerinde token vergisini büyük ölçüde geri kazandıran tek kaldıraç — çünkü uzun ve sabit sistem talimatları tam olarak önbelleğe uygun parçadır. Fiyatlandırma mantığı şöyle: önbellek <strong>okumaları</strong> temel girdi fiyatının yaklaşık <strong>0,1 katı</strong>, <strong>yazmaları</strong> ise 5 dakikalık TTL'de <strong>1,25 kat</strong>, 1 saatlik TTL'de <strong>2 kat</strong>.</p>
+<p>Başabaş noktası buradan çıkar ve şaşırtıcı derecede erkendir:</p>
+<ul>
+<li><strong>5 dakikalık TTL:</strong> 1,25 (yazma) + 0,1 (okuma) = 1,35 &lt; 2,0 (iki kez önbelleksiz) → <strong>iki istekte kâra geçer.</strong></li>
+<li><strong>1 saatlik TTL:</strong> 2,0 + 0,2 = 2,2 &lt; 3,0 (üç kez önbelleksiz) → <strong>üç istekte kâra geçer.</strong></li>
+</ul>
+<p>Bütçe modelinde bunu ihmal etmek, sabit ön eki büyük olan sistemlerde maliyeti kolayca iki-üç katı fazla tahmin etmenize yol açar. Tersi de doğru: önbelleğin çalıştığını <em>varsayıp</em> doğrulamamak, bütçeyi olduğundan düşük gösterir. Yanıttaki önbellek okuma ve yazma token sayılarını üretimde ölçün; sıfırsa önbellek çalışmıyordur.</p>
+
+<h2 id="b4">Kur riski: TL bütçenin görünmeyen kalemi</h2>
+<p>Hiçbir İngilizce kaynak bunu yazmaz, çünkü onların sorunu değil. Sizin sorununuz: fatura dolar, gelir TL. Yıllık bir bütçeyi sabit kurla planlamak, bütçenin en büyük tek riskini görmezden gelmektir. Model bunu içermeli:</p>
+<pre><code>from dataclasses import dataclass
+
+@dataclass
+class Fiyat:
+    girdi_usd_m: float        # milyon girdi token basina USD
+    cikti_usd_m: float        # milyon cikti token basina USD
+    cache_okuma_carpani: float = 0.10
+    cache_yazma_carpani: float = 1.25   # 5 dk TTL
+
+def aylik_maliyet_tl(fiyat: Fiyat, istek: int, girdi_tok: int, cikti_tok: int,
+                     cache_orani: float, kur: float, kur_tamponu: float = 0.15) -&gt; dict:
+    """cache_orani: girdinin onbellekten okunan payi (0..1)."""
+    m = 1_000_000
+    onbellekli   = girdi_tok * cache_orani
+    onbelleksiz  = girdi_tok - onbellekli
+
+    girdi_usd = istek * (
+        onbelleksiz / m * fiyat.girdi_usd_m
+        + onbellekli / m * fiyat.girdi_usd_m * fiyat.cache_okuma_carpani)
+    cikti_usd = istek * cikti_tok / m * fiyat.cikti_usd_m
+    toplam_usd = girdi_usd + cikti_usd
+
+    return {
+        "usd": round(toplam_usd, 2),
+        "tl_bugun": round(toplam_usd * kur, 2),
+        "tl_tamponlu": round(toplam_usd * kur * (1 + kur_tamponu), 2),  # butceye bunu yazin
+    }</code></pre>
+<p>Üç pratik kural. <strong>Birincisi:</strong> bütçeye bugünkü kuru değil, tamponlu kuru yazın — tamponu kendi finans ekibinizin varsayımından alın, buradaki %15 yalnızca bir yer tutucudur. <strong>İkincisi:</strong> aylık gerçekleşen tüketimi USD olarak takip edin, TL olarak değil; aksi hâlde kur hareketini tüketim artışı sanırsınız. <strong>Üçüncüsü:</strong> kur riskini azaltmanın en etkili yolu finansal değil mimaridir — token tüketimini düşüren her karar (önbellek, yönlendirme, küçük model, kısa çıktı) aynı zamanda kur riskini de düşürür.</p>
+
+<h2 id="b5">API mi kendi sunucum mu? Başabaş hesabı</h2>
+<p>Kendi sunucusunu kurma kararı Türkiye'de genellikle veri gizliliği gerekçesiyle gündeme gelir, sonra maliyetle gerekçelendirilmeye çalışılır. İkisini karıştırmayın: gizlilik bir gerekliliktir, maliyet bir hesaptır ve hesap çoğu zaman API'den yanadır.</p>
+<p>Dürüst bir TCO şu kalemleri içermeli — ve ilk üç kalem dışındakiler neredeyse her zaman unutulur:</p>
+<ol>
+<li><strong>GPU</strong> — satın alma amortismanı veya saatlik kiralama.</li>
+<li><strong>Barındırma</strong> — elektrik, soğutma, ağ; ya da bulut örneği ücreti.</li>
+<li><strong>Boşta kalma</strong> — en kritik kalem. API'de kullanmadığınızda ödemezsiniz; kendi sunucunuzda GPU gece boyunca da faturalanır. Günde 8 saat yoğunluk demek, kapasitenin üçte ikisinin boşa gitmesi demektir.</li>
+<li><strong>Mühendislik</strong> — kurulum, sürüm yükseltme, kuantizasyon, nöbet. Bu genellikle donanımdan pahalıdır.</li>
+<li><strong>Kalite farkı</strong> — açık ağırlıklı modelin görev başarısı düşükse, ek deneme maliyetini de yazın.</li>
+</ol>
+<p>Pratik eşik şudur: <strong>yükünüz sürekli ve yüksekse</strong> (GPU'nun gerçek kullanım oranı yüksek), kendi sunucunuz kazanabilir. <strong>Yükünüz değişkense veya düşükse</strong>, API neredeyse her zaman ucuzdur. Melez kurulum çoğu ekip için en iyi cevaptır: yüksek hacimli ve dar kapsamlı işler (sınıflandırma, çıkarım, embedding) kendi sunucunuzda, düşük hacimli ve zor işler API'de.</p>
+
+<h2 id="b6">Maliyet dağıtımı ve devre kesiciler</h2>
+<p>Bütçe planlaması, harcamayı görebiliyorsanız işe yarar. İki şey gerekiyor. <strong>Etiketleme:</strong> her isteğe müşteri/ekip/özellik kimliği ekleyin ve maliyeti bu boyutlarda toplayın; bu, iç faturalandırmanın (chargeback) tek yoludur ve sonradan eklenmesi zordur. <strong>Devre kesici:</strong> günlük ve aylık üst sınır koyun, sınırın %80'inde uyarın, %100'ünde bloklayın.</p>
+<pre><code>class ButceKesici:
+    def __init__(self, gunluk_usd: float):
+        self.limit = gunluk_usd
+        self.harcanan = 0.0
+
+    def izin_ver(self, tahmini_usd: float) -&gt; bool:
+        if self.harcanan + tahmini_usd &gt; self.limit:
+            return False                     # istek reddedilir, kuyruga alinir
+        return True
+
+    def kaydet(self, gercek_usd: float, etiketler: dict) -&gt; None:
+        self.harcanan += gercek_usd
+        metrik_yaz("llm_maliyet_usd", gercek_usd, etiketler)  # ekip/musteri/ozellik</code></pre>
+<p>Bir uyarı: akıl yürüten modellerde çaba (effort) seviyesi yalnızca düşünme uzunluğunu değil <em>araç çağrısı sayısını da</em> değiştirir. Yani maliyet tahmininizi girdi ve çıktı token sayısı üzerinden kuruyorsanız, ajan iş yüklerinde sistematik olarak eksik tahmin edersiniz. Ajan görevlerinde tahmini istek başına değil, <em>görev başına</em> yapın.</p>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>Bütçenin birimi başarılı görev başına maliyettir; yayımlanmış ölçümlerde bu eksende seksen katı aşan bir yelpaze var.</li>
+<li>Ölçtüm: Türkçe metin aynı içerik için yaklaşık 1,48 kat token tüketiyor — bütçeyi bu çarpanla kurun, kendi verinizde doğrulayın.</li>
+<li>Önbellek iki (5 dk TTL) veya üç (1 saat TTL) istekte kâra geçer; çalıştığını varsaymayın, yanıttaki önbellek sayaçlarını ölçün.</li>
+<li>Kur riskini bütçeye tamponlu yazın ve tüketimi USD olarak izleyin; token azaltan her mimari karar aynı zamanda kur riskini azaltır.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Türkçe metin gerçekten daha mı pahalı?</summary><p>Evet, çünkü aynı içerik daha fazla token'a bölünüyor. Paralel bir metin çiftinde <code>o200k_base</code> ile ölçtüğüm oran yaklaşık 1,48 kat ve token başına karakter 5,83'ten 3,58'e düşüyor. Oran tokenleştiriciye ve metin türüne göre değişir; kendi korpusunuzda ölçün.</p></details>
+<details><summary>API mi kullanmalıyım yoksa kendi sunucumu mu kurmalıyım?</summary><p>Yük sürekli ve yüksekse kendi sunucunuz kazanabilir; değişken veya düşük yükte API neredeyse her zaman ucuzdur, çünkü boşta kalan GPU'ya ödeme yapmazsınız. Hesaba mühendislik ve nöbet maliyetini de katın — genellikle donanımdan büyüktür. Veri gizliliği bir gerekliliktir ve maliyet hesabından ayrı değerlendirilmelidir.</p></details>
+<details><summary>Yapay zeka bütçesinde kur riskini nasıl yönetirim?</summary><p>Bütçeyi tamponlu kurla planlayın, gerçekleşen tüketimi TL değil USD cinsinden izleyin ki kur hareketini hacim artışıyla karıştırmayın, ve asıl azaltmayı mimariden bekleyin: önbellekleme, model yönlendirme, kısa çıktı ve küçük model kullanımı döviz maruziyetini doğrudan küçültür.</p></details>
+</div>
+
+<hr>
+<p>Bütçe, tahmin edilebilir hâle geldiğinde bir engel olmaktan çıkar. Maliyeti düşüren kaldıraçların tamamı için <a href="../llm-maliyet-optimizasyonu/">LLM maliyet optimizasyonu</a>, her işi doğru modele göndermenin mimarisi için <a href="../model-yonlendirme-kademeleme/">model yönlendirme ve kademeleme</a>, ve ucuz tarafın ne kadar iş gördüğünü anlamak için <a href="../kucuk-dil-modelleri/">küçük dil modelleri</a> yazılarına bakabilirsiniz.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Maliyet</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="../mcp-sunucu-guvenligi/"><div class="dir">← Önceki</div><div class="ttl">MCP Sunucu Güvenliği: Araç Açıklamasına Gizlenen Talimatlar</div></a><a class="next" href="../ajanlari-uretime-almak/"><div class="dir">Sıradaki →</div><div class="ttl">Yapay Zekâ Ajanlarını Üretime Almak: Demo Çalışıyor, Peki Sistem?</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

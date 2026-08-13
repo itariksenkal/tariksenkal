@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OWASP Agentic Top 10: What ASI01–ASI10 Mean in Code — İsmail Tarık Şenkal</title>
+<meta name="description" content="Turning each item of the OWASP Agentic Top 10 (2026) into an implementable control — a config, a policy and a test — instead of restating the risk." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/owasp-agentic-top-10/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/owasp-ajan-guvenlik-riskleri/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="OWASP Agentic Top 10: What ASI01–ASI10 Mean in Code" /><meta property="og:description" content="Turning each item of the OWASP Agentic Top 10 (2026) into an implementable control — a config, a policy and a test — instead of restating the risk." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-09.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "OWASP Agentic Top 10: What ASI01–ASI10 Mean in Code",
+      "description": "Turning each item of the OWASP Agentic Top 10 (2026) into an implementable control — a config, a policy and a test — instead of restating the risk.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/owasp-agentic-top-10/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-09.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/owasp-ajan-guvenlik-riskleri/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Security</span></div>
+    <span class="tag">Security</span>
+    <h1>OWASP Agentic Top 10: What ASI01–ASI10 Mean in Code</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 7 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-09.jpg" alt="OWASP Agentic Top 10: What ASI01–ASI10 Mean in Code"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Almost everything written about agent security does the same thing: it lists risks. The list is useful, but when you close it nothing in your system has changed. This article does not repeat the list — it turns each item of OWASP's 2026 agentic risk framework into <em>a control you can write today</em>. For every item I ask one question: which config, which policy and which test closes this?</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">Two frameworks, eight months apart</a></li><li><a href="#b2">ASI01–ASI03: goal, tools, identity</a></li><li><a href="#b3">ASI04–ASI06: supply chain, code execution, memory</a></li><li><a href="#b4">ASI07–ASI10: comms, cascades, trust, rogue agents</a></li><li><a href="#b5">Putting the policy in code</a></li><li><a href="#b6">Where to start: a 30-day order</a></li></ol></div>
+
+<h2 id="b1">Two frameworks, eight months apart</h2>
+<p>2026 was the year the frameworks landed. The <strong>OWASP Top 10 for Agentic Applications 2026</strong> was published on 9 December 2025 and named ten agent-specific risks. Eight months later, on 3 August 2026, the <strong>OWASP GenAI LLM Top 10 2026</strong> arrived — the first edition in which real-world incident data carried weight (roughly 25% incident data, 75% expert consensus).</p>
+<p>The verified movements in that list matter for agent engineering: Prompt Injection stayed at #1, Sensitive Information Disclosure stayed at #2, <strong>Excessive Agency climbed to #3</strong>, Unbounded Consumption rose four places, output handling fell from 5th to 10th, and <strong>System Prompt Leakage was renamed Hidden Context Exposure</strong>. Prompt injection now also covers cross-modal attacks hidden in images and audio.</p>
+<blockquote>Everything that rose is agent-driven — agency, consumption and context. What fell is classic application security: output handling.</blockquote>
+<p>OWASP's own framing is also this article's thesis: stop trying to build a model that cannot be fooled, and build the system around it so that when the model is fooled — and it will be — nothing important breaks.</p>
+
+<h2 id="b2">ASI01–ASI03: goal, tools, identity</h2>
+<ul>
+<li><strong>ASI01 — Agent Goal Hijack.</strong> Control: re-inject the system instruction and the user's goal on <em>every</em> turn, and never place tool output into the instruction channel. Test: a regression test that runs the agent against a goal-rewriting payload and asserts the final-turn objective still matches the first-turn one.</li>
+<li><strong>ASI02 — Tool Misuse &amp; Exploitation.</strong> Control: an allowlist plus a parameter schema plus a rate limit for every tool. The tool must validate its own input too; "the model will produce correct parameters" is not a security assumption. Test: unit tests showing schema-violating calls are rejected at the tool layer.</li>
+<li><strong>ASI03 — Identity &amp; Privilege Abuse.</strong> Control: the agent must act with the privileges of <em>the user who triggered the action</em>, not its own. Use short-lived, narrowly scoped tokens and keep broad grants off the agent's service account. Test: an integration test proving that requesting a record the user cannot reach is denied through the agent too.</li>
+</ul>
+
+<h2 id="b3">ASI04–ASI06: supply chain, code execution, memory</h2>
+<ul>
+<li><strong>ASI04 — Agentic Supply Chain.</strong> Control: pin tool-server and plugin versions, record a hash of every tool definition, and halt deployment when it changes. This is the cheapest available defence against a dependency that turns malicious after the fact.</li>
+<li><strong>ASI05 — Unexpected Code Execution.</strong> Control: run model-generated code only in a container with no network, a read-only filesystem, and wall-clock and memory limits. Shell access should not be the default; where it is enabled, enable it with a command allowlist.</li>
+<li><strong>ASI06 — Memory &amp; Context Poisoning.</strong> Control: store provenance for every memory write and mark content from untrusted sources as a <em>quotation</em>, not as fact. Treat writing to memory as a tool call in its own right: permission, schema and audit record required.</li>
+</ul>
+<div class="callout"><strong>Tip:</strong> The insidious property of memory poisoning is its delay — written today, triggered three weeks later. Recording write time, source and the session identity that wrote each memory entry is the only thing that makes post-incident analysis possible.</div>
+
+<h2 id="b4">ASI07–ASI10: comms, cascades, trust, rogue agents</h2>
+<ul>
+<li><strong>ASI07 — Insecure Inter-Agent Communication.</strong> Control: carry inter-agent messages over an authenticated channel and sign the sending agent's identity. Text one agent sends another is still <em>untrusted input</em> to the receiver.</li>
+<li><strong>ASI08 — Cascading Failures.</strong> Control: circuit breakers, step budgets and a cap on spawned sub-agents. If a sub-agent's failure sends the parent into a retry, the system drowns itself without exponential backoff and a global budget.</li>
+<li><strong>ASI09 — Human-Agent Trust Exploitation.</strong> Control: an approval screen must show <em>which concrete records will change</em>, not what the agent intends. "Shall I clean up the files?" is a bad approval; "these 14 files will be deleted" is a good one. Approval fatigue is a vulnerability.</li>
+<li><strong>ASI10 — Rogue Agents.</strong> Control: inventory. If you cannot list which agents run under which identities with access to which tools, you cannot close this item. Include scheduled and background agents.</li>
+</ul>
+
+<h2 id="b5">Putting the policy in code</h2>
+<p>Most of the controls above collapse into one place: a permission gate that runs <em>before</em> the tool does. The pattern below is small but real, and satisfies ASI02, ASI03 and ASI09 simultaneously:</p>
+<pre><code>from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Permission:
+    tool: str
+    read_only: bool           # writing tools are a separate class
+    needs_approval: bool      # irreversible actions
+    max_calls: int            # per-session rate limit
+
+POLICY = {
+    "search_docs":  Permission("search_docs",  True,  False, 40),
+    "delete_doc":   Permission("delete_doc",   False, True,   2),
+    "send_email":   Permission("send_email",   False, True,   1),
+}
+
+class PolicyError(Exception):
+    pass
+
+def call(tool: str, args: dict, ctx) -&gt; dict:
+    perm = POLICY.get(tool)
+    if perm is None:
+        raise PolicyError(f"not on the allowlist: {tool}")            # ASI02
+    if ctx.counter[tool] &gt;= perm.max_calls:
+        raise PolicyError(f"rate limit exceeded: {tool}")             # ASI08
+    if not ctx.user_may(tool, args):
+        raise PolicyError("insufficient user privilege")              # ASI03
+    if perm.needs_approval and not ctx.approved(tool, args):
+        raise PolicyError("awaiting human approval")                  # ASI09
+
+    ctx.counter[tool] += 1
+    ctx.audit(tool, args)      # every call leaves a trace
+    return TOOLS[tool](**args)</code></pre>
+<p>The important property of this gate is that it lives <em>outside</em> the model. Telling the model "do not delete things" is a suggestion; a <code>needs_approval</code> check at the gate is a rule. Security comes from rules, not suggestions.</p>
+
+<h2 id="b6">Where to start: a 30-day order</h2>
+<ol>
+<li><strong>Inventory (ASI10).</strong> Tabulate agents, their identities and their tools. You cannot protect an agent you do not know about.</li>
+<li><strong>Allowlist and schema (ASI02).</strong> Build the gate above and make the default deny.</li>
+<li><strong>Privilege reduction (ASI03).</strong> Move broad service-account grants into user context.</li>
+<li><strong>Isolation (ASI05).</strong> Move code execution into a network-isolated container.</li>
+<li><strong>Budgets and breakers (ASI08).</strong> Cap steps, sub-agents and tokens.</li>
+<li><strong>Audit and memory provenance (ASI06).</strong> Make every tool call and every memory write leave a trace.</li>
+</ol>
+<p>Those six steps close most of the ten in practice. The remainder — supply-chain pinning and inter-agent signing — can come later, but should not be forgotten.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>Read OWASP's 2026 agentic framework as a control list, not a risk list: every item has a configuration counterpart.</li>
+<li>Everything that rose in the 2026 LLM Top 10 is agent-driven — Excessive Agency to #3, Unbounded Consumption up four places.</li>
+<li>The tool permission gate must live outside the model: an instruction is a suggestion, a gate check is a rule.</li>
+<li>Approval screens must show concrete effects rather than intent — approval fatigue is exactly what ASI09 describes.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>What is the OWASP agentic security list?</summary><p>The OWASP Top 10 for Agentic Applications, published 9 December 2025, names ten risks specific to agent-based systems: goal hijack, tool misuse, identity and privilege abuse, supply chain, unexpected code execution, memory and context poisoning, insecure inter-agent communication, cascading failures, human-agent trust exploitation and rogue agents.</p></details>
+<details><summary>How does it differ from the LLM Top 10?</summary><p>The LLM Top 10 covers model-centric risks — prompt injection, sensitive information disclosure, excessive agency. The agentic list covers what appears once the model uses tools, keeps memory and talks to other agents. They are layered rather than competing: prompt injection touches six of the ten agentic categories.</p></details>
+<details><summary>How does a small team implement all of this?</summary><p>Do not implement all of it; implement it in order. Inventory, a tool permission gate and privilege reduction close most of the risk in three steps and none of them requires a product purchase. Isolation and budgets follow in a second wave, supply-chain pinning in a third.</p></details>
+</div>
+
+<hr>
+<p>Once the risk list becomes a control list, agent security stops being frightening and becomes ordinary engineering. For the underlying attack see <a href="../prompt-injection-jailbreaks/">prompt injection and jailbreaks</a>, for defences at the output layer see <a href="../guardrails-content-moderation/">guardrails and content moderation</a>, and for the loop these controls sit inside see <a href="../autonomous-agent-architectures/">autonomous agent architectures</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Security</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../turkish-language-models-2026/"><div class="dir">← Previous</div><div class="ttl">Turkish Language Models in 2026: A Verified Landscape</div></a><a class="next" href="../mcp-server-security/"><div class="dir">Next →</div><div class="ttl">MCP Server Security: When the Tool Description Is the Attack</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent Harness Design: Generator–Evaluator and Context Anxiety — İsmail Tarık Şenkal</title>
+<meta name="description" content="Why long-running agents wrap up early: context anxiety, why resets beat compaction, the generator-evaluator split and file-based handoff between agents." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/agent-harness-design/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/ajan-kosum-mimarisi/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Agent Harness Design: Generator–Evaluator and Context Anxiety" /><meta property="og:description" content="Why long-running agents wrap up early: context anxiety, why resets beat compaction, the generator-evaluator split and file-based handoff between agents." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-05.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Agent Harness Design: Generator–Evaluator and Context Anxiety",
+      "description": "Why long-running agents wrap up early: context anxiety, why resets beat compaction, the generator-evaluator split and file-based handoff between agents.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/agent-harness-design/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-05.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/ajan-kosum-mimarisi/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Architecture</span></div>
+    <span class="tag">Architecture</span>
+    <h1>Agent Harness Design: Generator–Evaluator and Context Anxiety</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 7 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-05.jpg" alt="Agent Harness Design: Generator–Evaluator and Context Anxiety"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">The strangest behaviour in a long-running agent task is this: the agent does not finish, but acts as if it did. It writes a summary, says "complete", and stops — while work remains. That behaviour now has a name and a known cause. This article is about the <em>harness</em> layer built around a single agent loop: which parts genuinely matter, and which ones multiply cost twentyfold and earn it.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">What a harness is, and how it differs from the agent</a></li><li><a href="#b2">Context anxiety: rushing as the window fills</a></li><li><a href="#b3">Why resets beat compaction</a></li><li><a href="#b4">The generator-evaluator split</a></li><li><a href="#b5">Sprint contracts and file-based handoff</a></li><li><a href="#b6">When a harness is not worth building</a></li></ol></div>
+
+<h2 id="b1">What a harness is, and how it differs from the agent</h2>
+<p>An <strong>agent</strong> is a model plus tools plus a loop. A <strong>harness</strong> is the structure built around that loop to make sure the work is actually done: task decomposition, persisted intermediate artifacts, a separate evaluation step, retries and context management.</p>
+<blockquote>The agent does the work; the harness is what makes the work real.</blockquote>
+<p>The size of that difference has been measured. In Anthropic's harness-design work (24 March 2026) the same retro-game task took <strong>20 minutes and $9</strong> with a bare agent, and <strong>6 hours and $200</strong> under a full harness. A digital audio workstation build by the same team took 3 hours 50 minutes and $124.70. The harness is not cheap — but it was the version that produced shippable output.</p>
+<p>The right way to read that table is to see the harness as <em>quality insurance</em> rather than acceleration. Twenty times the cost only makes sense where correctness is worth twenty times more.</p>
+
+<h2 id="b2">Context anxiety: rushing as the window fills</h2>
+<p><strong>Context anxiety</strong> is the tendency of a model to wrap up prematurely as its context window fills. Anthropic named it in Claude Sonnet 4.5: as remaining space shrinks, the model tries to conclude, skips remaining steps and declares completion.</p>
+<p>This is an architecture problem, not a prompt problem, and it has two practical consequences. First: <strong>do not let the agent feel how full the window is.</strong> Writing the remaining token count into context is the most direct way to trigger the behaviour. Second: rather than squeezing a long task into one window, split it.</p>
+<div class="callout"><strong>Tip:</strong> Detecting the "summarise and stop" mode is easy: no new tool calls in the last two turns and output that switches into summary register. Treat that pattern as a <em>warning</em> rather than a completion signal — at that point the harness should open a new session, not accept the task as done.</div>
+
+<h2 id="b3">Why resets beat compaction</h2>
+<p>When context fills you have two options: <em>compaction</em> (summarise history and continue) or a <em>reset</em> (open a new session carrying only the state you choose). Intuition favours compaction; measurement favoured the reset.</p>
+<p>The reason is elegant: compaction does not give the agent a clean slate. The summary still carries traces of earlier attempts, abandoned approaches and failed hypotheses; the model still sees them and stays under their influence. A reset is genuinely a fresh start — the only thing carried across is what you deliberately chose to carry.</p>
+<pre><code># Reset instead of compaction: YOU choose what carries over
+HANDOFF = """Objective: {goal}
+Completed steps:
+{done}
+Remaining steps:
+{todo}
+Known constraints:
+{constraints}
+Note: details of earlier attempts were deliberately not carried over."""
+
+def new_session(state):
+    handoff = HANDOFF.format(
+        goal=state.goal,
+        done="\n".join(f"- {s}" for s in state.done),
+        todo="\n".join(f"- {s}" for s in state.todo),
+        constraints="\n".join(f"- {c}" for c in state.constraints))
+    return Session(system=SYSTEM, first_message=handoff)   # clean window</code></pre>
+<p>The real difference is <em>who writes</em> the summary. A model summarising its own history also launders its own mistakes. Generating the handoff from a structured state object removes that risk entirely.</p>
+
+<h2 id="b4">The generator-evaluator split</h2>
+<p>This is the single highest-return part of a harness. The observation: <strong>agents over-praise their own output.</strong> Ask the same model whether the work is good and it will nearly always say yes. But defining an <em>independent</em> evaluator agent and tuning it — writing what it should look at, what evidence to gather, what threshold to apply — is entirely tractable.</p>
+<p>The practical arrangement:</p>
+<ol>
+<li>The <strong>generator</strong> does the work and writes output to a file.</li>
+<li>The <strong>evaluator</strong> sees only the output and the success criteria — never the generator's reasoning. This separation is critical; an evaluator that sees the justification gets persuaded by it.</li>
+<li>The evaluator returns something <em>concrete</em>: pass/fail plus a list of items to fix.</li>
+<li>The generator fixes; the loop repeats at most N times.</li>
+</ol>
+<p>Making subjective quality gradable comes from the same place: "is the interface good" cannot be evaluated, but "does anything overflow at three viewport widths, is contrast above 4.5:1, is there an empty state" can. Give the evaluator a checklist, not a judgement call.</p>
+
+<h2 id="b5">Sprint contracts and file-based handoff</h2>
+<p>A <strong>sprint contract</strong> is the generator and evaluator agreeing on testable success criteria before implementation starts. It removes the later "that is not what I meant" argument and gives the evaluator something concrete to measure. Anthropic's own experience contains an instructive correction here: they later <em>removed</em> the sprint construct — the contract idea persists, but the ceremony around it can cost more than it returns. Apply the same test to your own harness: if a component has no measured contribution, delete it.</p>
+<p><strong>File-based handoff</strong> is the sturdiest form of the inter-agent channel. Rather than messaging each other, agents write and read files. The advantages are concrete: output persists across crashes, humans can inspect it, it enters version control, and only the needed slice ever enters a context window.</p>
+<pre><code>work/
+  task.md            # sprint contract: objective + success criteria
+  plan.md            # the generator's plan
+  output/            # produced artifacts
+  review-01.md       # evaluator report (pass/fail + items)
+  review-02.md
+  state.json         # structured state the harness keeps (for handoff)</code></pre>
+
+<h2 id="b6">When a harness is not worth building</h2>
+<p>A harness is a cost, and it does not pay everywhere. It does not pay when:</p>
+<ul>
+<li><strong>The task finishes in one turn.</strong> An evaluator adds latency and cost, nothing else.</li>
+<li><strong>Success criteria cannot be written down.</strong> Without a concrete criterion the evaluator just restates the generator's opinion.</li>
+<li><strong>Failure is cheap.</strong> If a wrong output costs little, re-running is cheaper than a harness.</li>
+<li><strong>A human is already in the loop.</strong> With a human reviewer present, a second model reviewer is redundant.</li>
+</ul>
+<p>There is exactly one case where it clearly pays: <strong>long, multi-step work with verifiable output where errors are expensive.</strong> Code generation, data transformation, document processing pipelines. Where those three conditions do not hold together, building a harness is decoration rather than engineering.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>The same task cost 20 minutes and $9 bare versus 6 hours and $200 harnessed — a harness buys quality, not speed.</li>
+<li>Context anxiety is real: models wrap up early as the window fills, so keep remaining-token information out of context.</li>
+<li>Resets beat compaction because a summary still carries traces of abandoned approaches.</li>
+<li>Give the evaluator the output and a checklist — never the generator's reasoning.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>What is an agent harness?</summary><p>The layer built around an agent loop that ensures the work is actually complete: task decomposition, artifacts written to files, an independent evaluation step, retries and context management. The agent does the work; the harness guarantees the result.</p></details>
+<details><summary>What is context anxiety and how do I prevent it?</summary><p>The tendency of a model to wrap up early, skip steps and declare completion as its context window fills. Two preventions: keep remaining-token information out of the context, and split long tasks across sessions rather than squeezing them into one window.</p></details>
+<details><summary>Compaction or reset?</summary><p>On long runs a reset works better, because compaction never gives the agent a clean slate — the summary carries traces of failed attempts. With a reset you choose what carries over, and you should generate that handoff from a structured state object rather than from a model-written summary.</p></details>
+</div>
+
+<hr>
+<p>The harness is what turns an agent from a demo into a production component. For the architectural options of the loop see <a href="../autonomous-agent-architectures/">autonomous agent architectures</a>, for what the evaluator should measure see <a href="../agent-evaluation/">agent evaluation</a>, and for deciding what enters the window see <a href="../context-engineering/">context engineering</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Architecture</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../agents-in-production/"><div class="dir">← Previous</div><div class="ttl">Taking AI Agents to Production: The Demo Works — Does the System?</div></a><a class="next" href="../agent-memory-systems/"><div class="dir">Next →</div><div class="ttl">Agent Memory Systems: What Lives Outside the Context Window</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

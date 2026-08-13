@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız? — İsmail Tarık Şenkal</title>
+<meta name="description" content="Ajan belleği nedir, nasıl kurulur? Epizodik/semantik/prosedürel ayrımı, pgvector şeması, Mem0-Zep-Letta karşılaştırması ve bellek zehirlenmesine karşı kontroller." />
+<link rel="canonical" href="https://tariksenkal.com/posts/ajan-bellek-sistemleri/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/agent-memory-systems/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız?" /><meta property="og:description" content="Ajan belleği nedir, nasıl kurulur? Epizodik/semantik/prosedürel ayrımı, pgvector şeması, Mem0-Zep-Letta karşılaştırması ve bellek zehirlenmesine karşı kontroller." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-06.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız?",
+      "description": "Ajan belleği nedir, nasıl kurulur? Epizodik/semantik/prosedürel ayrımı, pgvector şeması, Mem0-Zep-Letta karşılaştırması ve bellek zehirlenmesine karşı kontroller.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/posts/ajan-bellek-sistemleri/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-06.jpg",
+      "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/agent-memory-systems/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Ajanlar</span></div>
+    <span class="tag">Ajanlar</span>
+    <h1>Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız?</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 6 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-06.jpg" alt="Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız?"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Bir ajanın "hatırlaması" iki farklı şeyi ifade eder ve bu ikisi karıştırıldığında mimari de karışır. Birincisi bağlam penceresinin içinde olan bitendir — o oturum sona erdiğinde kaybolur. İkincisi pencerenin dışında, kalıcı bir yerde duran şeydir. Bu yazı ikincisiyle ilgili: neyi saklamalı, nerede saklamalı, ne zaman silmeli ve saklanan şey zehirlendiğinde ne olur.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol><li><a href="#b1">Bellek nedir, bağlam değildir</a></li><li><a href="#b2">Üç tür bellek ve neye yararlar</a></li><li><a href="#b3">Dört bileşen: yazma, çıkarma, getirme, bakım</a></li><li><a href="#b4">Çalışan bir pgvector şeması</a></li><li><a href="#b5">Araç manzarası: ne zaman kütüphane, ne zaman kendiniz?</a></li><li><a href="#b6">Bellek zehirlenmesi ve silme hakkı</a></li></ol></div>
+
+<h2 id="b1">Bellek nedir, bağlam değildir</h2>
+<p><strong>Bağlam mühendisliği</strong>, sınırlı pencereye bu adımda neyin gireceğine karar vermektir. <strong>Bellek</strong>, pencerenin dışında kalıcı olarak neyin duracağına karar vermektir. Farklı sorular, farklı hata biçimleri, farklı araçlar.</p>
+<blockquote>Bağlam bir çalışma masasıdır; bellek bir arşiv. Masayı temizlemek arşivi silmez.</blockquote>
+<p>2026'da bu ayrımın önemi arttı, çünkü bellek artık kendiniz kurduğunuz bir yapı olmak zorunda değil: sağlayıcı API'lerinde bellek ve bağlam düzenleme birer birincil öge hâline geldi. Yine de <em>neyi</em> saklayacağınız kararı size ait ve zor olan da bu.</p>
+
+<h2 id="b2">Üç tür bellek ve neye yararlar</h2>
+<table class="cmp-table">
+<thead><tr><th>Tür</th><th>Ne saklar, ne işe yarar</th></tr></thead>
+<tbody>
+<tr><td><strong>Epizodik</strong></td><td class="yes">Olaylar: "kullanıcı 3 Mart'ta X siparişini iptal etti". Zaman damgalı, tekil, doğrulanabilir. Destek ve kişiselleştirme için asıl değerli tür.</td></tr>
+<tr><td><strong>Semantik</strong></td><td class="yes">Genellemeler: "kullanıcı teknik ayrıntı seven bir geliştirici". Kullanışlı ama <em>çıkarım</em> ürünü olduğu için yanlış olabilir.</td></tr>
+<tr><td><strong>Prosedürel</strong></td><td class="yes">Nasıl yapılır bilgisi: "bu müşteride fatura akışı önce onay ister". Ajanın davranışını doğrudan değiştirir; en yüksek etkili, en riskli tür.</td></tr>
+</tbody></table>
+<p>Pratikte en sık yapılan hata, üçünü tek bir "notlar" tablosuna yığmak. Ayırmanız gerekir çünkü <em>yaşam süreleri</em> farklıdır: epizodik kayıt asla değişmez (olay olmuştur), semantik kayıt zamanla eskir, prosedürel kayıt ise değiştiğinde <em>hemen</em> güncellenmelidir — eski bir prosedür, yanlış bir eylem demektir.</p>
+
+<h2 id="b3">Dört bileşen: yazma, çıkarma, getirme, bakım</h2>
+<p>Haziran 2026'da yayımlanan bir sistem çalışması (arXiv:2606.24775) bellek sistemlerini bu dört bileşene ayırıyor ve <strong>12 bellek sistemi ile 2 temel çizgiyi, 11 veri kümesine yayılan 5 iş yükünde</strong> değerlendiriyor. Ana bulgu, mimari seçimini kolaylaştırmıyor ama dürüst: <strong>hiçbir mimari her yerde kazanmıyor</strong> — etkinlik, iş yükü ile mimarinin uyumuna bağlı. Çalışmanın ikinci bulgusu daha doğrudan işe yarıyor: <strong>yerel bakım, global yeniden düzenlemeden daha maliyet-etkin.</strong> Yani belleği periyodik olarak baştan sona yeniden yapılandırmak yerine, dokunulan kaydı yerinde güncellemek.</p>
+<ol>
+<li><strong>Temsil ve saklama:</strong> kayıt ne biçimde durur — serbest metin, yapılandırılmış alan, embedding, ya da üçü birden.</li>
+<li><strong>Çıkarma:</strong> konuşmadan hangi bilginin bellek olmaya değer olduğuna karar verme. En çok gürültü buradan girer.</li>
+<li><strong>Getirme ve yönlendirme:</strong> hangi sorguda hangi kayıtların bağlama gireceği.</li>
+<li><strong>Bakım:</strong> güncelleme, birleştirme, çelişki çözme, süresi dolanı silme. En çok ihmal edilen bileşen.</li>
+</ol>
+<div class="callout"><strong>İpucu:</strong> Bellek yazmayı varsayılan olarak açmayın. "Her konuşmadan not çıkar" kurgusu birkaç hafta içinde birbiriyle çelişen yüzlerce kayıt üretir ve getirme kalitesini düşürür. Yazmayı bir araç çağrısı yapın: model <em>bilinçli olarak</em> "bunu hatırla" demeli, ve o çağrı şema ile doğrulanmalı.</div>
+
+<h2 id="b4">Çalışan bir pgvector şeması</h2>
+<p>Bellek için ayrı bir ürün almadan önce, elinizdeki PostgreSQL'in ne kadar yol aldığını görün. Aşağıdaki şema epizodik/semantik/prosedürel ayrımını, çok kiracılı izolasyonu, kaynak takibini ve süre dolumunu birlikte karşılar:</p>
+<pre><code>CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE ajan_bellek (
+  id           bigserial PRIMARY KEY,
+  kiraci_id    uuid        NOT NULL,          -- cok kiracili izolasyon
+  ozne_id      uuid        NOT NULL,          -- kime/neye ait
+  tur          text        NOT NULL
+               CHECK (tur IN ('epizodik','semantik','prosedurel')),
+  icerik       text        NOT NULL,
+  gomme        vector(1536) NOT NULL,
+  kaynak       text        NOT NULL,          -- 'kullanici' | 'arac' | 'cikarim'
+  guven        real        NOT NULL DEFAULT 0.5,
+  olusturuldu  timestamptz NOT NULL DEFAULT now(),
+  gecerli_son  timestamptz,                   -- NULL = suresiz
+  silindi      boolean     NOT NULL DEFAULT false
+);
+
+-- kiraci + tur bazli filtrelenmis benzerlik aramasi
+CREATE INDEX ON ajan_bellek USING hnsw (gomme vector_cosine_ops);
+CREATE INDEX ON ajan_bellek (kiraci_id, ozne_id, tur) WHERE NOT silindi;</code></pre>
+<pre><code>-- getirme: her zaman kiraci ile filtreleyin, sonra benzerlige bakin
+SELECT id, icerik, tur, kaynak, guven
+FROM   ajan_bellek
+WHERE  kiraci_id = $1
+  AND  ozne_id   = $2
+  AND  NOT silindi
+  AND  (gecerli_son IS NULL OR gecerli_son &gt; now())
+ORDER  BY gomme &lt;=&gt; $3
+LIMIT  8;</code></pre>
+<p>Üç ayrıntı bu şemayı üretime uygun kılıyor. <code>kaynak</code> alanı, kaydın kullanıcıdan mı, bir araçtan mı, yoksa modelin çıkarımından mı geldiğini ayırır — zehirlenme incelemesinin tek dayanağı budur. <code>gecerli_son</code>, semantik kayıtların sessizce eskimesini engeller. <code>silindi</code> bayrağı ise silme talebini denetlenebilir kılar; satırı gerçekten kaldırmadan önce iz bırakır.</p>
+
+<h2 id="b5">Araç manzarası: ne zaman kütüphane, ne zaman kendiniz?</h2>
+<p>Bu alanda birkaç olgun seçenek var: <strong>Mem0</strong>, <strong>Zep</strong>, <strong>Letta</strong> ve <strong>LangMem</strong>. Türkçe kaynaklarda bu isimlerin hiçbiri geçmiyor, oysa karar bunlarla veriliyor. Seçim kriteri şu üç soruya iniyor:</p>
+<ul>
+<li><strong>Bakım politikanız var mı?</strong> Yoksa hazır bir kütüphane işinizi görür; asıl değeri çıkarma ve birleştirme mantığında.</li>
+<li><strong>Verinin nerede durduğu sizin için kritik mi?</strong> Kritikse kendi PostgreSQL şemanız en basit ve en denetlenebilir yoldur.</li>
+<li><strong>Bellek sorguları ürün mantığına karışıyor mu?</strong> Karışıyorsa (ör. "yalnızca bu departmanın kayıtları") kendi katmanınızı yazmak kaçınılmazdır.</li>
+</ul>
+<p>Kıyaslama tarafında dikkatli olun: hangi bellek kıyaslamalarının "standart" olduğu iddiası çoğunlukla o alanda ürün satan şirketlerden geliyor. Yayımlanmış bağımsız değerlendirmenin bulgusu da zaten mimarilerin evrensel olarak sıralanamayacağı yönünde. Kendi iş yükünüzde ölçün.</p>
+
+<h2 id="b6">Bellek zehirlenmesi ve silme hakkı</h2>
+<p>OWASP'ın 2026 ajan çerçevesi <em>Bellek ve Bağlam Zehirlenmesi</em>ni ASI06 olarak adlandırdı. Saldırı basit: güvenilmeyen bir kaynaktan gelen metin belleğe "gerçek" olarak yazılır ve haftalar sonra, tamamen farklı bir oturumda, ajanın davranışını değiştirir. Prosedürel bellekte bu doğrudan yanlış eylem demektir.</p>
+<p>Dört kontrol bunu yönetilebilir kılar: <strong>(1)</strong> yazmayı şema doğrulamalı bir araç çağrısına bağlayın; <strong>(2)</strong> her kayda kaynak yazın ve çıkarım ürünü kayıtlara düşük güven verin; <strong>(3)</strong> prosedürel bellek yazımını insan onayına bağlayın — en yüksek etkili tür, en sıkı kapıyı hak eder; <strong>(4)</strong> getirmede kaynağa göre önceliklendirin, güvenilmeyen kaynaklı kaydı "kullanıcı şunu iddia etti" biçiminde alıntı olarak sunun.</p>
+<p>Silme tarafı da mimari bir gerekliliktir. Bir kişinin verisinin silinmesi istendiğinde bellek üç yerde durabilir: satır olarak veritabanında, embedding olarak vektör indeksinde ve özet olarak başka bir kaydın içinde. Üçüncüsü en sinsisidir — "kullanıcı X, Y hakkında şikâyetçiydi" özeti, X'in kaydını sildiğinizde de kalır. Silme işlemini baştan şu şekilde tasarlayın: her türetilmiş kayıt, hangi kayıtlardan üretildiğini saklasın.</p>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>Bağlam pencerenin içi, bellek dışıdır; ikisini karıştırmak mimariyi de karıştırır.</li>
+<li>Epizodik, semantik ve prosedürel belleği ayırın — yaşam süreleri ve risk profilleri farklıdır.</li>
+<li>Bağımsız değerlendirme hiçbir bellek mimarisinin evrensel olarak kazanmadığını, yerel bakımın global yeniden düzenlemeden ucuz olduğunu buldu.</li>
+<li>Her kayda kaynak yazın; zehirlenme incelemesi ve silme hakkı bu alan olmadan uygulanamaz.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Ajan bellek sistemi nedir?</summary><p>Bir ajanın bağlam penceresi dışında kalıcı olarak sakladığı bilginin tamamı ve onu yöneten katman: yazma, çıkarma, getirme ve bakım. Oturum bitince kaybolan bağlamdan farkı kalıcılığıdır ve farklı hata biçimleri üretir — eskime, çelişki ve zehirlenme.</p></details>
+<details><summary>Bellek için ayrı bir ürün almalı mıyım?</summary><p>Önce elinizdeki PostgreSQL ile pgvector'ün ne kadar yol aldığını ölçün; çok kiracılı izolasyon, kaynak takibi ve süre dolumu isteyen çoğu ekip için yeterlidir. Hazır kütüphanelerin asıl değeri çıkarma ve birleştirme mantığındadır; bu mantığı kendiniz yazmayacaksanız mantıklı bir tercihtir.</p></details>
+<details><summary>Bellek zehirlenmesi nedir?</summary><p>Güvenilmeyen bir kaynaktan gelen içeriğin belleğe gerçek bilgi olarak yazılması ve sonraki oturumlarda ajanın davranışını değiştirmesidir. Gecikmeli olduğu için tespiti zordur. Yazmayı araç çağrısına bağlamak, her kayda kaynak yazmak ve prosedürel yazımları onaya tabi tutmak riski büyük ölçüde kapatır.</p></details>
+</div>
+
+<hr>
+<p>Bellek, ajanı her seferinde sıfırdan başlayan bir araç olmaktan çıkarır — ama yalnızca ne sakladığınıza ve ne sildiğinize hâkimseniz. Pencerenin içine ne gireceği için <a href="../baglam-muhendisligi/">bağlam mühendisliği</a>, getirme katmanının altyapısı için <a href="../vektor-veritabanlari/">vektör veritabanları</a>, ve belleği kullanan döngünün tasarımı için <a href="../otonom-ajan-mimarileri/">otonom ajan mimarileri</a> yazılarına bakabilirsiniz.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Ajanlar</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="../ajan-kosum-mimarisi/"><div class="dir">← Önceki</div><div class="ttl">Ajan Koşum Mimarisi: Üretici-Değerlendirici Deseni ve Bağlam Kaygısı</div></a><a class="next" href="../ajan-izolasyonu-ve-yetki/"><div class="dir">Sıradaki →</div><div class="ttl">Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

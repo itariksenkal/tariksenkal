@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>With a 1M-Token Window, Do You Still Need RAG? — İsmail Tarık Şenkal</title>
+<meta name="description" content="Does a 1M-token window make RAG obsolete? Context rot, the measured token cost of non-English text, and a third option: pushing long context into filesystem tool calls." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/long-context-vs-rag/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/uzun-baglam-mi-rag-mi/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="With a 1M-Token Window, Do You Still Need RAG?" /><meta property="og:description" content="Does a 1M-token window make RAG obsolete? Context rot, the measured token cost of non-English text, and a third option: pushing long context into filesystem tool calls." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-02.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "With a 1M-Token Window, Do You Still Need RAG?",
+      "description": "Does a 1M-token window make RAG obsolete? Context rot, the measured token cost of non-English text, and a third option: pushing long context into filesystem tool calls.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/long-context-vs-rag/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-02.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/uzun-baglam-mi-rag-mi/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Architecture</span></div>
+    <span class="tag">Architecture</span>
+    <h1>With a 1M-Token Window, Do You Still Need RAG?</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 8 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-02.jpg" alt="With a 1M-Token Window, Do You Still Need RAG?"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Your model has a 1M-token context window. Your entire policy corpus is 400K tokens. The obvious question follows: if it all fits, why maintain a RAG pipeline at all? It is a fair question, and the honest answer is that fitting is not the same as being used well — and the bill behaves differently than you expect. Here is the long answer, with numbers I measured rather than borrowed.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">1M is table stakes now</a></li><li><a href="#b2">Context rot: what happens as the window fills</a></li><li><a href="#b3">Where it breaks: dynamic synthesis, not static retrieval</a></li><li><a href="#b4">The non-English tax, measured</a></li><li><a href="#b5">A third option: push context into the filesystem</a></li><li><a href="#b6">The decision table</a></li></ol></div>
+
+<h2 id="b1">1M is table stakes now</h2>
+<p>A few years ago context length was a marketing line. In 2026 it is not: the current Claude family ships a 1M-token window with 128K max output, and Google's fast Gemini models are also at 1M. "How many tokens" has stopped being a selection criterion and become a baseline feature.</p>
+<blockquote>The question moved from "how big is the window" to "how much of the window actually works".</blockquote>
+<p>That distinction has a name: the gap between the <em>advertised</em> window and the <em>effective</em> one. The advertised window is how many tokens the model will accept without erroring. The effective window is the range over which it uses those tokens with equal reliability — and it is almost always smaller.</p>
+
+<h2 id="b2">Context rot: what happens as the window fills</h2>
+<p>The reference work here is Chroma's context-rot study, and it is a <strong>2025</strong> artifact — 14 July 2025, 18 models across Anthropic, OpenAI, Google and Alibaba. 2026 blog posts routinely misdate it. Its five experiments produced these findings:</p>
+<ul>
+<li><strong>Length alone degrades performance</strong> — even on <em>simple</em> tasks. Accuracy falls as input grows without the task getting harder.</li>
+<li><strong>A single distractor hurts</strong>, and multiple distractors compound. A paragraph that resembles the answer but is wrong is the most dangerous content in your context.</li>
+<li><strong>Position matters:</strong> accuracy is highest when the target appears early.</li>
+<li><strong>Models scored better on shuffled haystacks than on coherent ones</strong> — counterintuitive, and therefore the finding worth remembering.</li>
+<li>Behaviour under uncertainty is family-dependent: Claude models tend to abstain when unsure, while GPT models hallucinate more in the presence of distractors.</li>
+</ul>
+<p>The engineering lesson is unambiguous: putting more into the window is not a lever that raises accuracy. Frequently it is the opposite.</p>
+
+<h2 id="b3">Where it breaks: dynamic synthesis, not static retrieval</h2>
+<p>What 2026 added was localisation of the failure. AgentLongBench (arXiv:2601.20730, 28 January 2026) tests from 32K up to 4M tokens and finds that current models are fine at <strong>static retrieval</strong> — pulling a fact out of a long text — and fail at <strong>dynamic synthesis</strong>, combining information that accumulates across the context into a decision. AMA-Bench (arXiv:2602.22769, 26 February 2026) attributes part of this to the lossiness of similarity-based retrieval.</p>
+<p>This explains why needle-in-a-haystack tests mislead: they measure precisely the thing models are already good at. Your production workload is usually the other thing — extracting contradictions across a hundred pages of contracts, tracking a decision that changed over a conversation, remembering what was done across a thirty-step agent session.</p>
+<div class="callout"><strong>Tip:</strong> Do not make this decision from a needle test. Build a 30–50 question set from your own documents, run it both ways — full 400K context and 5-chunk RAG — and measure two things: accuracy and cost per question. The decision comes from two tables, not from intuition.</div>
+
+<h2 id="b4">The non-English tax, measured</h2>
+<p>Every context and cost calculation copied from an English source breaks on non-English text, because the same meaning costs more tokens. That claim is asserted everywhere and quantified nowhere. So let us quantify it — this script runs:</p>
+<pre><code>import tiktoken
+enc = tiktoken.get_encoding("o200k_base")
+
+tr = ("Sözleşmenin feshi hâlinde tarafların karşılıklı yükümlülükleri sona erer "
+      "ve tazminat talepleri saklıdır. Çalışanlarımızın yıllık izin hakları, "
+      "çalışma süresine göre hesaplanmaktadır. Bu bilgilendirme metni yalnızca "
+      "genel bilgi amacıyla hazırlanmıştır ve hukuki tavsiye niteliği taşımaz.")
+
+en = ("If the contract is terminated, the mutual obligations of the parties end "
+      "and claims for damages are reserved. The annual leave entitlements of our "
+      "employees are calculated according to their length of service. This notice "
+      "has been prepared for general information purposes only and does not "
+      "constitute legal advice.")
+
+for name, text in (("TR", tr), ("EN", en)):
+    n = len(enc.encode(text))
+    print(name, "tokens:", n, "| chars per token:", round(len(text) / n, 2))</code></pre>
+<p>On this parallel pair the measured result is <strong>80 tokens for Turkish against 54 for English</strong> — about <strong>1.48×</strong> for identical content. Efficiency per character drops too: 3.58 characters per token in Turkish versus 5.83 in English. The cause is agglutination — each inflectional suffix splits into its own subword piece. The TR-MMLU work (arXiv:2501.00593) likewise flagged tokenization quality as a core weakness for Turkish.</p>
+<p>That one number moves three things at once. <strong>Context</strong>: a 1M window holds roughly two-thirds as much Turkish prose as English. <strong>Cost</strong>: stuffing the same corpus into every request is proportionally more expensive. <strong>Latency</strong>: prefill scales with token count, so time-to-first-token rises too.</p>
+<p>An important caveat: 1.48 is <em>one</em> text pair on <em>one</em> tokenizer. Measure it on your own corpus with your own model's tokenizer — copying a ratio out of a blog post is exactly the habit this article argues against. For the linguistic reasons behind Turkish tokenization specifically, see <a href="https://halideyilmaz.com/en/posts/tokenization-turkish-challenges/">this deep dive on Turkish tokenization</a> rather than a re-derivation here.</p>
+
+<h2 id="b5">A third option: push context into the filesystem</h2>
+<p>The debate is usually framed as binary, but 2026 produced a strong third answer: move long-context work out of the attention mechanism and into <strong>filesystem and shell tool calls</strong>. "Coding Agents are Effective Long-Context Processors" (arXiv:2603.20432, 20 March 2026) reports beating published state of the art by <strong>17.3%</strong> on average, on corpora up to 3 trillion tokens.</p>
+<p>The idea is an old engineering reflex: instead of loading the data into memory, write a query that goes to the data. The agent uses <code>grep</code>, <code>head</code> and <code>jq</code>, pulls only the relevant lines into context and leaves the rest on disk:</p>
+<pre><code># What the agent does instead of loading 400K tokens into context:
+$ grep -rn "termination notice" contracts/ | head -20
+contracts/2024-supply.md:118: ... termination notice thirty days prior ...
+contracts/2025-maintenance.md:64: ... termination notice must be in writing ...
+
+$ sed -n '110,130p' contracts/2024-supply.md   # only the relevant block</code></pre>
+<p>Where your corpus already lives as files, this needs less infrastructure than RAG — no embedding pipeline, no vector store, no reindexing — and costs far less than full context. In exchange it requires an agent loop and depends on the model picking good search terms, so where semantic matching is essential RAG still wins.</p>
+
+<h2 id="b6">The decision table</h2>
+<table class="cmp-table">
+<thead><tr><th>Situation</th><th>Choice</th></tr></thead>
+<tbody>
+<tr><td>Small corpus (&lt;100K tokens), identical on every query</td><td class="yes">Full context + prompt caching</td></tr>
+<tr><td>Large corpus, narrow pinpoint queries</td><td class="yes">RAG</td></tr>
+<tr><td>Corpus on a filesystem, lexical searches</td><td class="yes">Agent + shell tools</td></tr>
+<tr><td>Documents change often, freshness is critical</td><td class="yes">RAG (keep the index current)</td></tr>
+<tr><td>Holistic reasoning over one long document</td><td class="yes">Full context</td></tr>
+<tr><td>Citations are mandatory</td><td class="no">Full context is weak — RAG carries provenance naturally</td></tr>
+</tbody></table>
+<p>One economic detail that is frequently missed: if a large prefix repeats on every request, prompt caching makes the full-context option far more competitive than it looks, because cache reads cost a small fraction of base input price. But that only holds while the prefix is <em>genuinely</em> stable — put variable user data at the front of the context and the saving disappears entirely.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>1M tokens is now a baseline; the differentiator is how much of the window is effectively usable.</li>
+<li>Context rot (Chroma, 2025) shows length alone degrades accuracy and a single distractor already hurts.</li>
+<li>Measured: the same parallel text costs 80 tokens in Turkish and 54 in English — about 1.48×. Measure your own corpus.</li>
+<li>Do not forget the third option — filesystem and shell tool calls can beat both on the right corpus.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Is RAG or long context better?</summary><p>There is no single answer; corpus size, query type and freshness requirements decide. For small, stable corpora full context plus prompt caching is usually simpler and sufficient. For large, frequently changing corpora, or where citations are required, RAG wins.</p></details>
+<details><summary>What is context rot?</summary><p>The decline in model accuracy as input length grows, even when the task itself does not get harder. Chroma's 2025 study demonstrated it across 18 models: accuracy is highest when the target appears early and falls as distracting content accumulates.</p></details>
+<details><summary>Can I just send all my documents in a 1M-token window?</summary><p>Technically yes; it is rarely the right call. Sending the whole corpus per query does not improve accuracy, it inflates time-to-first-token, and on non-English text it is proportionally more expensive. If you do have a stable prefix, prompt caching cuts that cost substantially.</p></details>
+</div>
+
+<hr>
+<p>The window got bigger but the decision did not get easier — there are simply three options now instead of two. To build the retrieval path from scratch see the <a href="../what-is-rag-how-to-build/">RAG guide</a>, for the discipline of deciding what earns a place in the window see <a href="../context-engineering/">context engineering</a>, and to separate teaching a model from giving it knowledge see <a href="../fine-tuning-vs-rag-vs-prompt/">fine-tuning vs RAG vs prompting</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Architecture</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../computer-use-agents/"><div class="dir">← Previous</div><div class="ttl">Computer-Use Agents: The 60-Point Gap Between Demo and Production</div></a><a class="next" href="../turkish-language-models-2026/"><div class="dir">Next →</div><div class="ttl">Turkish Language Models in 2026: A Verified Landscape</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

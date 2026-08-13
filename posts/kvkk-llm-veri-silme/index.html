@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KVKK ve LLM: Bir Kişisel Veriyi RAG İndeksinden ve Ağırlıklardan Nasıl Silersiniz? — İsmail Tarık Şenkal</title>
+<meta name="description" content="Silme talebi geldiğinde veri altı yerde durur: kaynak, chunk, vektör, önbellek, günlük ve ağırlıklar. Her biri için uygulanabilir bir silme stratejisi ve kod." />
+<link rel="canonical" href="https://tariksenkal.com/posts/kvkk-llm-veri-silme/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/data-erasure-rag-and-weights/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="KVKK ve LLM: Bir Kişisel Veriyi RAG İndeksinden ve Ağırlıklardan Nasıl Silersiniz?" /><meta property="og:description" content="Silme talebi geldiğinde veri altı yerde durur: kaynak, chunk, vektör, önbellek, günlük ve ağırlıklar. Her biri için uygulanabilir bir silme stratejisi ve kod." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-18.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "KVKK ve LLM: Bir Kişisel Veriyi RAG İndeksinden ve Ağırlıklardan Nasıl Silersiniz?",
+      "description": "Silme talebi geldiğinde veri altı yerde durur: kaynak, chunk, vektör, önbellek, günlük ve ağırlıklar. Her biri için uygulanabilir bir silme stratejisi ve kod.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/posts/kvkk-llm-veri-silme/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-18.jpg",
+      "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/data-erasure-rag-and-weights/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Uygulama</span></div>
+    <span class="tag">Uygulama</span>
+    <h1>KVKK ve LLM: Bir Kişisel Veriyi RAG İndeksinden ve Ağırlıklardan Nasıl Silersiniz?</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 6 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-18.jpg" alt="KVKK ve LLM: Bir Kişisel Veriyi RAG İndeksinden ve Ağırlıklardan Nasıl Silersiniz?"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Bir kullanıcı "verilerimi silin" dediğinde, klasik bir uygulamada bu bir <code>DELETE</code> sorgusudur. LLM sistemlerinde ise aynı kişisel veri en az altı yerde bulunabilir ve bunlardan biri geri döndürülemez. Bu yazı hukuki bir deneme değil; bir mühendisin uygulayabileceği bir silme mimarisi. Bir uyarıyla başlayayım: burada anlatılanlar mühendislik pratiğidir, hukuki görüş değildir — nihai değerlendirme için kurumunuzun hukuk birimiyle çalışın.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol><li><a href="#b1">Kişisel veri LLM sisteminde nerelerde durur?</a></li><li><a href="#b2">Silinebilir katman: kaynak, chunk, vektör</a></li><li><a href="#b3">Unutulan katman: önbellek ve günlükler</a></li><li><a href="#b4">Zor katman: ince ayarlı ağırlıklar</a></li><li><a href="#b5">Tasarımla uyum: silinebilirlik için mimari</a></li><li><a href="#b6">Aktarım, saklama ve belgeleme</a></li></ol></div>
+
+<h2 id="b1">Kişisel veri LLM sisteminde nerelerde durur?</h2>
+<p>Silme talebine hazırlanmanın ilk adımı envanter. Tipik bir RAG + ince ayar mimarisinde bir kişinin verisi şuralarda bulunur:</p>
+<table class="cmp-table">
+<thead><tr><th>Katman</th><th>Silinebilirlik</th></tr></thead>
+<tbody>
+<tr><td>Kaynak belge deposu</td><td class="yes">Kolay — sıradan silme</td></tr>
+<tr><td>Parçalanmış (chunk) metin tablosu</td><td class="yes">Kolay, ama kaynak izi tutuluyorsa</td></tr>
+<tr><td>Vektör indeksi</td><td class="yes">Orta — indeks tipine göre yeniden oluşturma gerekebilir</td></tr>
+<tr><td>Prompt/yanıt günlükleri ve izler</td><td class="no">Sık unutulur — en büyük sessiz risk</td></tr>
+<tr><td>Önbellekler (prompt cache, uygulama cache)</td><td class="no">Süre dolumuna bağlı; envanterde nadiren yer alır</td></tr>
+<tr><td>İnce ayarlı model ağırlıkları</td><td class="no">Pratik olarak geri alınamaz</td></tr>
+</tbody></table>
+<p>Bu tablonun kendisi bir uyumluluk aracıdır: bir veri sahibi başvurusu geldiğinde hangi altı sistemi taramanız gerektiğini önceden bilmek, cevap süresini haftalardan saatlere indirir.</p>
+
+<h2 id="b2">Silinebilir katman: kaynak, chunk, vektör</h2>
+<p>İlk üç katman doğru tasarlandığında tek işlemde silinebilir. Anahtar tasarım kararı şu: <strong>her chunk ve her vektör, hangi kaynak belgeden ve hangi veri sahibinden geldiğini taşımalı.</strong> Bu alan sonradan eklenemez.</p>
+<pre><code>CREATE TABLE rag_parca (
+  id           bigserial PRIMARY KEY,
+  belge_id     uuid        NOT NULL,
+  veri_sahibi  uuid,                       -- KVKK icin: kime ait
+  metin        text        NOT NULL,
+  gomme        vector(1536) NOT NULL,
+  kaynak_yol   text        NOT NULL,
+  eklendi      timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX ON rag_parca (veri_sahibi) WHERE veri_sahibi IS NOT NULL;
+CREATE INDEX ON rag_parca (belge_id);</code></pre>
+<pre><code>-- Silme: tek islemde uc katman
+BEGIN;
+  DELETE FROM rag_parca  WHERE veri_sahibi = $1;   -- chunk + vektor birlikte
+  UPDATE kaynak_belge SET silindi = true, icerik = NULL
+    WHERE veri_sahibi = $1;
+  INSERT INTO silme_kaydi (veri_sahibi, talep_id, katman, zaman)
+    VALUES ($1, $2, 'rag', now());                 -- kanit birak
+COMMIT;</code></pre>
+<p>Vektör tarafında bir ayrıntı önemli: pgvector gibi satır tabanlı çözümlerde satırı silmek vektörü de siler. Bazı harici vektör veritabanlarında ise silme işaretleme (tombstone) yapar ve gerçek temizlik indeks sıkıştırmasıyla gelir. Kullandığınız sistemin bunu nasıl yaptığını doğrulayın ve gerekiyorsa sıkıştırmayı silme akışının parçası hâline getirin.</p>
+<div class="callout"><strong>İpucu:</strong> Türetilmiş kayıtları unutmayın. Bir özet, bir bellek kaydı veya bir sınıflandırma sonucu, kaynak silindikten sonra da kişisel veri taşımaya devam edebilir. Her türetilmiş kaydın, hangi kayıtlardan üretildiğini saklaması gerekir; aksi hâlde silme eksik kalır.</div>
+
+<h2 id="b3">Unutulan katman: önbellek ve günlükler</h2>
+<p>Uygulamada en sık atlanan yer burası. Prompt ve yanıt günlükleri, izleme kayıtları ve hata raporları çoğu zaman kişisel veriyi ham hâliyle taşır ve silme akışının kapsamı dışında kalır.</p>
+<p>Üç kural bunu yönetilebilir kılar. <strong>Birincisi:</strong> günlüklere kişisel veriyi hiç yazmayın — maskelemeyi izleme katmanından önce yapın, sonra değil. <strong>İkincisi:</strong> yazmak zorundaysanız kısa saklama süresi verin ve bunu belgeleyin; otuz günlük bir saklama, silme talebinin kapsamını doğal olarak daraltır. <strong>Üçüncüsü:</strong> günlük kayıtlarına veri sahibi kimliğini bir alan olarak ekleyin; taranabilir olmayan bir günlükten silme yapılamaz.</p>
+<p>Önbellek tarafında pratik yaklaşım, süre dolumuna güvenmek yerine bunu belgelemektir: hangi önbelleğin ne kadar yaşadığını ve silme talebi sonrası ne zaman temizlendiğini yazılı hâle getirin.</p>
+
+<h2 id="b4">Zor katman: ince ayarlı ağırlıklar</h2>
+<p>Burada dürüst olmak gerekiyor: <strong>bir kişisel veriyi ince ayarlı model ağırlıklarından güvenilir biçimde silmenin pratik bir yolu yok.</strong> Makine öğrenmesinde "unutturma" (machine unlearning) aktif bir araştırma alanı, ama üretim ölçeğinde garanti veren, denetlenebilir bir yöntem sunmuyor. Bu yüzden mühendislik cevabı silme değil <em>kaçınmadır</em>.</p>
+<p>Uygulanabilir strateji üç adımlı:</p>
+<ol>
+<li><strong>Kişisel veriyi eğitim setine hiç sokmayın.</strong> İnce ayar veri setini oluştururken PII tespiti ve maskeleme zorunlu bir adım olsun; bu, sonradan çözülemeyecek tek sorunu baştan engeller.</li>
+<li><strong>Bilgiyi ağırlığa değil indekse koyun.</strong> Kişiye özgü bilgi gerekiyorsa RAG kullanın — RAG'ın en güçlü uyum argümanı budur: bilgi silinebilir bir katmanda durur.</li>
+<li><strong>Kaçınılmazsa yeniden eğitim planı yapın.</strong> Eğitim setini sürümleyin ve hangi kaydın hangi sürüme girdiğini saklayın; böylece bir silme talebi geldiğinde temizlenmiş veriyle yeniden eğitmek en azından <em>mümkün</em> olur.</li>
+</ol>
+<pre><code>import re
+
+TCKN = re.compile(r"\b[1-9][0-9]{10}\b")
+IBAN = re.compile(r"\bTR[0-9]{2}[0-9A-Z]{20}\b")
+EPOSTA = re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.]+\b")
+TELEFON = re.compile(r"\b(?:\+90|0)?5[0-9]{9}\b")
+
+def tckn_gecerli(s: str) -&gt; bool:
+    """TCKN dogrulama: 11 hane, ilk hane 0 degil, iki kontrol hanesi."""
+    if len(s) != 11 or not s.isdigit() or s[0] == "0":
+        return False
+    d = [int(c) for c in s]
+    if (sum(d[0:9:2]) * 7 - sum(d[1:8:2])) % 10 != d[9]:
+        return False
+    return sum(d[:10]) % 10 == d[10]
+
+def maskele(metin: str) -&gt; str:
+    """Egitim setine ve gunluklere yazmadan ONCE calistirin."""
+    metin = TCKN.sub(lambda m: "[TCKN]" if tckn_gecerli(m.group()) else m.group(), metin)
+    metin = IBAN.sub("[IBAN]", metin)
+    metin = EPOSTA.sub("[EPOSTA]", metin)
+    metin = TELEFON.sub("[TELEFON]", metin)
+    return metin</code></pre>
+<p>Kontrol hanesi doğrulaması burada süs değil: doğrulama yapmadan on bir haneli her sayıyı maskelemek, sipariş numaralarını ve ürün kodlarını da bozar ve veri setinizi kullanılamaz hâle getirir.</p>
+
+<h2 id="b5">Tasarımla uyum: silinebilirlik için mimari</h2>
+<p>Uyumu sonradan eklenen bir katman değil, bir mimari özellik olarak düşünmek gerekiyor. Dört tasarım kararı yeterli:</p>
+<ul>
+<li><strong>Veri sahibi kimliği her katmanda taşınır.</strong> Kaynak, chunk, vektör, bellek kaydı, günlük — hepsinde.</li>
+<li><strong>Türetilmiş kayıtlar kaynağını saklar.</strong> Özet, hangi belgelerden üretildiğini bilir.</li>
+<li><strong>Silme bir akıştır, bir sorgu değil.</strong> Altı katmanı sırayla dolaşır, her adımı kaydeder ve sonunda bir kanıt üretir.</li>
+<li><strong>Silme testi vardır.</strong> Test ortamında bir veri sahibi oluşturup silin, sonra altı katmanda da arayın. Bu test yoksa silme akışınız çalışmıyordur.</li>
+</ul>
+<p>Düzenleyici tarafta yeni bir kaynak da var: KVKK'nın 24 Kasım 2025 tarihli üretken yapay zekâ rehberi. Rehberin içeriği bir PDF içinde yayımlandığı için arama motorlarında bulunamıyor; doğrudan kurumun sitesinden indirin ve kendi sistemlerinize göre okuyun. Bu, mühendislik ekiplerinin çoğunun kaçırdığı bir kaynak.</p>
+
+<h2 id="b6">Aktarım, saklama ve belgeleme</h2>
+<p>Silme, uyumun yalnızca bir parçası. Bir LLM özelliği için üç şeyi daha yazılı hâle getirmeniz gerekir ve üçü de sağlayıcı seçimiyle doğrudan ilişkili.</p>
+<ol>
+<li><strong>Yurt dışına aktarım analizi.</strong> Kullandığınız her model sağlayıcısı için verinin nereye gittiğini ve hangi hukuki dayanağa yaslandığını belgeleyin. Bu analiz sağlayıcı başına yapılır ve sağlayıcı değiştiğinde güncellenir.</li>
+<li><strong>Saklama yapılandırması.</strong> Sağlayıcı tarafındaki veri saklama artık çoğu platformda yapılandırılabilir ve belgelenebilir bir kontroldür — varsayılanı kabul etmek yerine bilinçli olarak ayarlayın ve kararı kayıt altına alın.</li>
+<li><strong>İşleme kaydı.</strong> Ajan denetim kaydınız, kişisel veri işleme kaydı olarak da iş görebilir. İki ayrı sistem kurmak yerine tek kaydı iki amaca hizmet edecek şekilde tasarlayın.</li>
+</ol>
+<p>Son bir not: sistem talimatınızın da sızabileceğini varsayın. Sistem prompt'una müşteri adı, iç kural veya kişisel veri koymayın; OWASP'ın 2026 baskısı bu riski <em>Hidden Context Exposure</em> adıyla yeniden adlandırdı ve hassas bilgi ifşasını listenin ikinci sırasında tuttu.</p>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>Bir kişisel veri LLM sisteminde altı yerde durur; silme akışı altısını da dolaşmalı ve kanıt üretmelidir.</li>
+<li>Chunk ve vektör kayıtlarına veri sahibi kimliği yazın — bu alan sonradan eklenemez.</li>
+<li>İnce ayarlı ağırlıklardan silme pratik değildir; çözüm kaçınmadır — kişiye özgü bilgiyi ağırlığa değil RAG indeksine koyun.</li>
+<li>Günlükler ve önbellekler en sık atlanan katmandır; maskelemeyi izleme katmanından önce yapın.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>RAG indeksinden kişisel veri nasıl silinir?</summary><p>Chunk ve vektör kayıtlarında veri sahibi kimliği tutuyorsanız tek işlemde: parçaları silin, kaynak belgeyi işaretleyin ve silme kaydı oluşturun. Vektör veritabanınızın silmeyi gerçekten kaldırma mı yoksa işaretleme mi olarak yaptığını doğrulayın; işaretleme yapıyorsa indeks sıkıştırmasını da akışa ekleyin.</p></details>
+<details><summary>İnce ayarlı modelden bir kişinin verisi silinebilir mi?</summary><p>Pratik ve denetlenebilir bir yolu yok. Makine öğrenmesinde unutturma aktif bir araştırma alanı ama üretim ölçeğinde garanti sunmuyor. Bu yüzden doğru yaklaşım silme değil kaçınmadır: kişisel veriyi eğitim setine hiç sokmayın, kişiye özgü bilgiyi RAG indeksinde tutun ve eğitim setini sürümleyerek yeniden eğitimi mümkün kılın.</p></details>
+<details><summary>LLM özelliği için hangi belgeleri hazırlamalıyım?</summary><p>Asgari üç şey: sağlayıcı başına yurt dışına aktarım analizi, saklama süresi yapılandırmasının kaydı ve kişisel veri işleme kaydı. Ajan denetim kaydınızı bu üçüncüsünü de karşılayacak şekilde tasarlarsanız ikinci bir sistem kurmanız gerekmez. Nihai değerlendirme için hukuk biriminizle çalışın.</p></details>
+</div>
+
+<hr>
+<p>Uyum, sonradan eklenen bir katman değil bir mimari özelliktir — ve silinebilirlik, o mimarinin en somut testidir. Hukuk alanında yapay zekâ uygulamaları için <a href="../hukukta-yapay-zeka/">hukukta yapay zeka</a>, silinebilir bilgi katmanını kurmak için <a href="../rag-nedir-nasil-kurulur/">RAG rehberi</a>, ve vektör tarafındaki silme davranışı için <a href="../vektor-veritabanlari/">vektör veritabanları</a> yazılarına bakabilirsiniz.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Uygulama</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="../llms-txt-ise-yariyor-mu/"><div class="dir">← Önceki</div><div class="ttl">llms.txt İşe Yarıyor mu? Verilerin Söylediği ve v2'nin Getirdikleri</div></a><a class="next" href="../coklu-ajan-maliyet-gercegi/"><div class="dir">Sıradaki →</div><div class="ttl">Çoklu Ajan Sistemleri: 15 Kat Token, %90 Kazanç — Hangisi Sizin Durumunuz?</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

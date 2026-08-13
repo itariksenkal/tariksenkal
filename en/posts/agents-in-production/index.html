@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Taking AI Agents to Production: The Demo Works — Does the System? — İsmail Tarık Şenkal</title>
+<meta name="description" content="What it takes to run an AI agent in production: timeouts, idempotency, circuit breakers, prompt versioning, canary rollout and cost per successful task — with code." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/agents-in-production/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/ajanlari-uretime-almak/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Taking AI Agents to Production: The Demo Works — Does the System?" /><meta property="og:description" content="What it takes to run an AI agent in production: timeouts, idempotency, circuit breakers, prompt versioning, canary rollout and cost per successful task — with code." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-04.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Taking AI Agents to Production: The Demo Works — Does the System?",
+      "description": "What it takes to run an AI agent in production: timeouts, idempotency, circuit breakers, prompt versioning, canary rollout and cost per successful task — with code.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/agents-in-production/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-04.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/ajanlari-uretime-almak/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Agents</span></div>
+    <span class="tag">Agents</span>
+    <h1>Taking AI Agents to Production: The Demo Works — Does the System?</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 7 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-04.jpg" alt="Taking AI Agents to Production: The Demo Works — Does the System?"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">The demo works. Thirty seconds, four tool calls, a correct answer. Then you put it in front of real users and discover that the model was never the hard part — everything built around it was. This article is about that everything: deployment topology, timeouts, idempotency, failure taxonomy, prompt versioning and the two metrics that actually tell you whether an agent is working.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">The real gap between a demo and a system</a></li><li><a href="#b2">Deployment topology: sync or queue?</a></li><li><a href="#b3">Idempotency, timeouts and retries</a></li><li><a href="#b4">A failure taxonomy worth naming</a></li><li><a href="#b5">Prompt versioning and canary rollout</a></li><li><a href="#b6">The pre-production checklist</a></li></ol></div>
+
+<h2 id="b1">The real gap between a demo and a system</h2>
+<p>That gap now has a published measurement. In Anthropic's harness-design work (24 March 2026) the same task was measured two ways: a bare agent finished in <strong>20 minutes for $9</strong>, and the same task under a full harness took <strong>6 hours and $200</strong>. Twenty times the cost — and the second one was the version that produced production-quality output.</p>
+<blockquote>Taking an agent to production is not about making it faster; it is about building a system around it that catches failure.</blockquote>
+<p>Look at where the difference comes from and the list is familiar: evaluation steps, retries, verification, persisting intermediate artifacts, human approval. Which means shipping an agent is not a model problem but a distributed systems problem — and the classic distributed systems toolkit transfers almost unchanged.</p>
+
+<h2 id="b2">Deployment topology: sync or queue?</h2>
+<p>This is the first architectural decision and the one most often got wrong. If an agent task averages thirty seconds and occasionally takes five minutes, putting it inside an HTTP request is a mistake: the client times out, the user closes the tab, the work is abandoned halfway, and you pay for half a task.</p>
+<table class="cmp-table">
+<thead><tr><th>Situation</th><th>Topology</th></tr></thead>
+<tbody>
+<tr><td>&lt; 5 seconds, single tool call</td><td class="yes">Synchronous HTTP</td></tr>
+<tr><td>5–60 seconds, a few steps</td><td class="yes">Streaming + progress events</td></tr>
+<tr><td>&gt; 1 minute, or highly variable</td><td class="yes">Queue + job ID + polling or webhook</td></tr>
+<tr><td>Hours, with human approval</td><td class="yes">Durable workflow + checkpoints</td></tr>
+</tbody></table>
+<p>For long-running work 2026 also produced a protocol-level answer: MCP's <code>io.modelcontextprotocol/tasks</code> extension defines durable task handles — <code>working</code>, <code>input_required</code>, <code>completed</code>, <code>failed</code> and <code>cancelled</code> states, polling via <code>tasks/get</code>, mid-flight input via <code>tasks/update</code>, and survival across client crashes. "Long-running job" no longer has to be a bespoke structure you invent.</p>
+
+<h2 id="b3">Idempotency, timeouts and retries</h2>
+<p>The most expensive production failure agents produce is a duplicated side effect: the same email sent twice, the same order created twice. The cause is always the same — a timeout fires, the system retries, and the first call had actually succeeded.</p>
+<p>The fix is classic too: every tool with a side effect takes an <em>idempotency key</em>, and a second call with the same key returns the first result instead of repeating the work.</p>
+<pre><code>import hashlib, json
+
+def idempotency_key(task_id: str, tool: str, args: dict) -&gt; str:
+    body = json.dumps(args, sort_keys=True, ensure_ascii=False)
+    raw = f"{task_id}|{tool}|{body}"
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:32]
+
+def safe_call(tool, args, task_id, store, timeout=30):
+    key = idempotency_key(task_id, tool.name, args)
+    previous = store.get(key)
+    if previous is not None:
+        return previous                     # do not re-run; return the result
+
+    result = tool.run(**args, timeout=timeout)
+    store.set(key, result, ttl=86400)       # keep for 24 hours
+    return result</code></pre>
+<p>Two rules travel with it: <strong>give every tool a timeout</strong> (the default is not infinite, it is whatever you set) and <strong>bound retries with exponential backoff</strong>. Automatic retry on a side-effecting tool must never be enabled without an idempotency key.</p>
+<div class="callout"><strong>Tip:</strong> Remember that under MCP's 2026 revision a broken stream loses the request and the client re-issues it with a new request ID. That turns idempotency from a good practice into a protocol requirement.</div>
+
+<h2 id="b4">A failure taxonomy worth naming</h2>
+<p>"The agent didn't work" is not a bug report. Teams that succeed in production share one habit: they classify failures into named categories, because each category has a different fix.</p>
+<ul>
+<li><strong>Tool failure:</strong> the tool returned a 500, timed out, or produced schema-violating output. Fix at the tool layer, not in the prompt.</li>
+<li><strong>Grounding failure:</strong> the model called the right tool with the wrong parameters. Fix: clearer schemas and descriptions, worked examples.</li>
+<li><strong>Planning failure:</strong> the model chose the wrong tool or skipped a step. Fix: fewer tools, shorter instructions.</li>
+<li><strong>Non-termination:</strong> the agent never finishes and repeats itself. Fix: step budget, progress check, loop detection.</li>
+<li><strong>Context overflow:</strong> the window filled and quality dropped. Fix: compaction or a session reset.</li>
+<li><strong>Verification failure:</strong> the agent believes it finished and the output is wrong. Fix: a separate evaluator — the most expensive and the most important one.</li>
+</ul>
+<p>Add these categories to your tracing tags. Look at the weekly distribution and the layer to improve reveals itself; without it, everyone edits the prompt, because the prompt is the most visible thing.</p>
+
+<h2 id="b5">Prompt versioning and canary rollout</h2>
+<p>A prompt is not a config file, it is code: it changes behaviour, it must be revertible, and it must be tested. Three things should be standard in production.</p>
+<ol>
+<li><strong>Versioning:</strong> every prompt ships with a version tag and every request records which version ran. When quality drops, the first question will be "which version".</li>
+<li><strong>Canary rollout:</strong> release a new prompt to 5% of traffic, compare metrics, then widen. The same applies to model upgrades — the model a provider calls "better" may be worse on your task.</li>
+<li><strong>Rollback:</strong> test the rollback path before you need it. In agent systems rollback often covers not just the prompt but tool schemas and memory records too.</li>
+</ol>
+<p>The metric set is narrow, and four are enough: <strong>task success rate</strong>, <strong>cost per successful task</strong>, <strong>p95 completion time</strong> and <strong>human intervention rate</strong>. If all four are not improving, there is no improvement — usually one is being bought with another.</p>
+
+<h2 id="b6">The pre-production checklist</h2>
+<ol>
+<li>Does every tool have a timeout, a rate limit and schema validation?</li>
+<li>Do side-effecting tools take an idempotency key?</li>
+<li>Are step, token and sub-agent budgets defined — and what happens when they are exceeded?</li>
+<li>Is there a circuit breaker that halts the agent after N consecutive failures?</li>
+<li>Does every request record which prompt and model version ran?</li>
+<li>Is the trace sufficient to follow one task end to end?</li>
+<li>Do irreversible actions require approval, and does the approval screen show the concrete effect?</li>
+<li>What does the user see on failure? "Something went wrong" is not a product answer.</li>
+</ol>
+<p>Most of this list is not agent-specific; it is ordinary production engineering. What agents change is that failure is far more likely and far more creative. If OWASP's 2026 LLM list moved <em>Excessive Agency</em> to #3 and <em>Unbounded Consumption</em> up four places, this is exactly why: the damage lands in production, at the agent layer.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>The same task cost 20 minutes and $9 bare, versus 6 hours and $200 under a full harness — and the harness produced the shippable output.</li>
+<li>Do not put agent work longer than a minute inside an HTTP request; use a queue, a job ID and checkpoints.</li>
+<li>Every side-effecting tool needs an idempotency key — MCP's new stream behaviour makes this a protocol requirement, not a nicety.</li>
+<li>Classify failures into named categories; without that, everyone edits the most visible thing, which is the prompt.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>How do I take an AI agent to production?</summary><p>By building the system around the model rather than tuning the model. The right deployment topology (a queue for long work), timeouts and schema validation on every tool, idempotency on side-effecting tools, step and token budgets, a circuit breaker, prompt versioning and canary rollout. Model selection is the easiest item on that list.</p></details>
+<details><summary>How should I measure agent cost?</summary><p>Per successful task, not per request. Work an agent finishes on the third attempt costs more than work finished on the first, and that difference is invisible in per-request metrics. Give every task an ID, sum the cost of all calls under that ID, and split by outcome.</p></details>
+<details><summary>What if the agent loops forever?</summary><p>Three preventive rules: a step budget, a progress check (stop if state has not changed in N steps) and repetition detection (cut off when the same tool is called with the same arguments repeatedly). A global token budget then acts as a safety net — when it is exceeded, mark the task failed and requeue it.</p></details>
+</div>
+
+<hr>
+<p>Shipping an agent means shifting your trust from the model to the system around it. For the general discipline of going live see <a href="../mlops-ai-to-production/">MLOps and taking AI to production</a>, for the architectural options of the loop itself see <a href="../autonomous-agent-architectures/">autonomous agent architectures</a>, and to see what actually broke see <a href="../llm-observability/">LLM observability</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Agents</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../enterprise-llm-budgeting/"><div class="dir">← Previous</div><div class="ttl">Enterprise LLM Budgeting: Token Overhead, FX Risk and the Real Unit Cost</div></a><a class="next" href="../agent-harness-design/"><div class="dir">Next →</div><div class="ttl">Agent Harness Design: Generator–Evaluator and Context Anxiety</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>
