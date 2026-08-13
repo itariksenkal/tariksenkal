@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A2A: Ajanlar Birbiriyle Nasıl Konuşur? (MCP'nin Rakibi Değil, Tamamlayıcısı) — İsmail Tarık Şenkal</title>
+<meta name="description" content="A2A v1.0 ajanlar arası keşif ve görev devrini standartlaştırıyor. Agent Card, görev yaşam döngüsü, MCP ile farkı ve ajan ticaretinin protokol katmanı." />
+<link rel="canonical" href="https://tariksenkal.com/posts/ajanlar-arasi-protokol-a2a/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/a2a-agent-interoperability/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="A2A: Ajanlar Birbiriyle Nasıl Konuşur? (MCP'nin Rakibi Değil, Tamamlayıcısı)" /><meta property="og:description" content="A2A v1.0 ajanlar arası keşif ve görev devrini standartlaştırıyor. Agent Card, görev yaşam döngüsü, MCP ile farkı ve ajan ticaretinin protokol katmanı." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-15.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "A2A: Ajanlar Birbiriyle Nasıl Konuşur? (MCP'nin Rakibi Değil, Tamamlayıcısı)",
+      "description": "A2A v1.0 ajanlar arası keşif ve görev devrini standartlaştırıyor. Agent Card, görev yaşam döngüsü, MCP ile farkı ve ajan ticaretinin protokol katmanı.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/posts/ajanlar-arasi-protokol-a2a/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-15.jpg",
+      "inLanguage": "tr"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#hakkinda">Kimdir</a>
+        <a href="../../#ne-yapiyor">Ne Yapıyor</a>
+        <a href="../../#uzmanlik">Uzmanlık</a>
+        <a href="../../blog/">Yazılar</a>
+        <a href="../../#iletisim">İletişim</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../en/posts/a2a-agent-interoperability/">EN</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Ana sayfa</a> <span>/</span>
+        <a href="../../blog/">Yazılar</a> <span>/</span>
+        <span>Araçlar</span></div>
+    <span class="tag">Araçlar</span>
+    <h1>A2A: Ajanlar Birbiriyle Nasıl Konuşur? (MCP'nin Rakibi Değil, Tamamlayıcısı)</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Kurucu Ortak</div></div></div><span>· 7 dakika okuma</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../image/bimg-15.jpg" alt="A2A: Ajanlar Birbiriyle Nasıl Konuşur? (MCP'nin Rakibi Değil, Tamamlayıcısı)"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Şirketinizin bir seyahat ajanı var, muhasebe departmanının bir harcama onay ajanı var ve ikisi birbirinden habersiz çalışıyor. Seyahat ajanının onay isteyebilmesi için ya muhasebenin iç mantığını öğrenmesi ya da birilerinin araya bir entegrasyon yazması gerekiyor. A2A tam olarak bu problemi standartlaştırıyor: bir ajanın başka bir ajanı bulup ona iş devredebilmesini — iç mantığını görmeden. Bu yazıda A2A'nın nasıl çalıştığını ve MCP ile ilişkisini net bir sınırla anlatıyorum.</p>
+
+<div class="toc"><h4>İçindekiler</h4><ol><li><a href="#b1">A2A ile MCP aynı katmanda değil</a></li><li><a href="#b2">Agent Card: ajanın kartviziti</a></li><li><a href="#b3">Görev yaşam döngüsü</a></li><li><a href="#b4">Bir devir akışı, uçtan uca</a></li><li><a href="#b5">Ajan ticareti: üstüne binen katman</a></li><li><a href="#b6">Güvenlik: ASI07 ve sınırlar</a></li></ol></div>
+
+<h2 id="b1">A2A ile MCP aynı katmanda değil</h2>
+<p>"A2A mı MCP mi?" sorusu yanlış kurulmuş bir soru; ikisi farklı ilişkileri tarifliyor. A2A'nın kendi konumlandırması da bunu açıkça söylüyor: <strong>tamamlayıcı</strong>.</p>
+<table class="cmp-table">
+<thead><tr><th></th><th>MCP</th><th>A2A</th></tr></thead>
+<tbody>
+<tr><td>Kimin kiminle</td><td>Ajan ↔ araç</td><td>Ajan ↔ ajan</td></tr>
+<tr><td>Karşı taraf</td><td>Belirlenimci bir işlev (dosya oku, sorgu çalıştır)</td><td>Kendi başına akıl yürüten, kendi araçları olan bir sistem</td></tr>
+<tr><td>Sözleşme</td><td>Girdi şeması → çıktı</td><td>Yetenek tanımı → görev, durum makinesiyle</td></tr>
+<tr><td>Süre</td><td>Genellikle tek çağrı, kısa</td><td>Uzun süreli; dakikalar, saatler, insan onayı arası</td></tr>
+<tr><td>Görünürlük</td><td>Araç ne yaptığını tamamen açar</td><td>Ajan iç mantığını, promptlarını ve araçlarını <em>açmaz</em></td></tr>
+</tbody></table>
+<blockquote>MCP bir ajanın elini uzatmasıdır; A2A bir ajanın başka birine iş devretmesidir.</blockquote>
+<p>Son satır en önemlisi. Bir ajanı MCP aracı olarak sarmalayabilirsiniz — teknik olarak mümkün — ama o zaman karşı tarafın uzun sürebileceğini, ara durum bildirebileceğini, insan onayı bekleyebileceğini ve kendi başına karar verebileceğini ifade edecek bir sözleşmeniz olmaz. A2A'nın var oluş nedeni budur.</p>
+<p>Yönetişim tarafı da olgunlaştı: A2A <strong>v1.0</strong>'a ulaştı, Google tarafından başlatıldıktan sonra <strong>Linux Foundation</strong>'a devredildi ve bugün AWS, Cisco, Google, IBM Research, Microsoft, Salesforce, SAP ve ServiceNow'un yer aldığı bir teknik yönlendirme komitesi tarafından yürütülüyor. Lisans Apache-2.0.</p>
+
+<h2 id="b2">Agent Card: ajanın kartviziti</h2>
+<p>Keşif, A2A'nın ilk problemi: bir ajan başka bir ajanın <em>ne yapabildiğini</em> nasıl öğrenir? Cevap, ajanın kendi alan adında yayınladığı makine tarafından okunabilir bir tanım — <strong>Agent Card</strong>.</p>
+<pre><code>{
+  "protocolVersion": "1.0",
+  "name": "Harcama Onay Ajanı",
+  "description": "Şirket harcama politikasına göre talepleri değerlendirir ve onaylar.",
+  "url": "https://muhasebe.sirket.com/a2a",
+  "preferredTransport": "JSONRPC",
+  "provider": {
+    "organization": "Örnek A.Ş.",
+    "url": "https://sirket.com"
+  },
+  "version": "2.3.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true
+  },
+  "defaultInputModes":  ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json"],
+  "securitySchemes": {
+    "kurumsal-oidc": {
+      "type": "openIdConnect",
+      "openIdConnectUrl": "https://kimlik.sirket.com/.well-known/openid-configuration"
+    }
+  },
+  "security": [{ "kurumsal-oidc": [] }],
+  "skills": [
+    {
+      "id": "harcama-onayi",
+      "name": "Harcama onayı",
+      "description": "Bir harcama talebini politikaya göre onaylar veya reddeder.",
+      "tags": ["finans", "onay"],
+      "examples": [
+        "1.200 TL uçak bileti, İstanbul-Ankara, müşteri ziyareti",
+        "3 gecelik otel konaklaması, 8.400 TL"
+      ]
+    }
+  ]
+}</code></pre>
+<p>Kartın en çok işe yarayan kısmı <code>skills</code>. Dikkat edin: bir yetenek, MCP aracı gibi katı bir JSON şeması değil; <em>doğal dille</em> tarif edilmiş bir iş ve birkaç örnek. Bunun sebebi karşı tarafın da bir dil modeli olması. Çağıran ajan bu tanımı okur ve "benim elimdeki iş buna uyuyor mu?" kararını verir. Örnekler bu yüzden dekoratif değil, işlevseldir.</p>
+<div class="callout"><strong>İpucu:</strong> Yetenek açıklamasını iki soruya cevap verecek şekilde yazın: <em>ne yapar</em> ve <em>ne yapmaz</em>. En sık görülen entegrasyon hatası, çağıran ajanın kapsam dışı bir işi "yaklaşık uyuyor" diye devretmesi. "Yalnızca 50.000 TL altındaki talepleri değerlendirir; üstü insan onayına gider" cümlesi, bir şema alanının yapamayacağı işi yapar.</div>
+
+<h2 id="b3">Görev yaşam döngüsü</h2>
+<p>A2A'nın çekirdek nesnesi <strong>görev</strong> (task). Bir görev, kimliği olan ve durumu zamanla değişen bir varlıktır — tek bir istek-yanıt değil. Bu, uzun süreli işlerin protokole yazılmış hâlidir.</p>
+<pre><code>submitted ──&gt; working ──┬──&gt; completed      (bitti)
+                        ├──&gt; input-required (girdi bekliyor)
+                        ├──&gt; failed         (hata)
+                        ├──&gt; canceled       (iptal)
+                        └──&gt; rejected       (kabul edilmedi)
+
+      input-required ──&gt; working   (istemci yanıt verince)</code></pre>
+<p><code>input-required</code> durumu en ayırt edici olanı. Uzaktaki ajan işin ortasında durabilir ve "bu talep politika sınırında, yöneticinin onayı gerekiyor" diyebilir. Çağıran ajan bu durumu kullanıcısına taşır, cevabı alır ve aynı göreve iletir. Görev kimliği baştan sona aynı kalır; yani iki taraf da işin neresinde olduklarını bilir.</p>
+<p>Görev sonuçları iki biçimde döner: <strong>mesajlar</strong> (konuşma niteliğindeki ara çıktılar) ve <strong>eserler</strong> (artifact — üretilen kalıcı çıktı: bir rapor, bir dosya, yapılandırılmış bir sonuç). Uzun süren görevler için <code>pushNotifications</code> yeteneği var: istemci bir geri çağrı adresi verir, ajan durum değiştikçe oraya bildirir. Saatler süren bir görevde bağlantıyı açık tutmak zorunda kalmazsınız.</p>
+
+<h2 id="b4">Bir devir akışı, uçtan uca</h2>
+<p>Python ile, keşiften sonuca kadar. Kart okunuyor, uygun yetenek seçiliyor, görev gönderiliyor ve durum takip ediliyor.</p>
+<pre><code>import asyncio
+import httpx
+
+BASE = "https://muhasebe.sirket.com"
+
+# gorev_getir / gorev_gonder_devam / kullaniciya_sor: aynı desende,
+# sırasıyla tasks/get, message/send (taskId ile) ve kendi arayüzünüz.
+
+
+async def kart_oku(client: httpx.AsyncClient) -&gt; dict:
+    # Agent Card iyi bilinen bir yolda yayınlanır.
+    r = await client.get(f"{BASE}/.well-known/agent-card.json")
+    r.raise_for_status()
+    return r.json()
+
+
+async def gorev_gonder(client, url, metin, token) -&gt; dict:
+    r = await client.post(
+        url,
+        headers={"Authorization": f"Bearer {token}"},
+        json={
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "message/send",
+            "params": {
+                "message": {
+                    "role": "user",
+                    "messageId": "msg-1",
+                    "parts": [{"kind": "text", "text": metin}],
+                }
+            },
+        },
+    )
+    r.raise_for_status()
+    return r.json()["result"]
+
+
+async def devret(talep_metni: str, token: str) -&gt; dict:
+    async with httpx.AsyncClient(timeout=30) as client:
+        kart = await kart_oku(client)
+
+        # Yetenek seçimi: etiketle filtrele, kalanı modele bırak.
+        uygun = [s for s in kart["skills"] if "onay" in s["tags"]]
+        if not uygun:
+            raise RuntimeError("Bu ajan onay yeteneği sunmuyor.")
+
+        gorev = await gorev_gonder(client, kart["url"], talep_metni, token)
+
+        while gorev["status"]["state"] in ("submitted", "working"):
+            await asyncio.sleep(2)
+            gorev = await gorev_getir(client, kart["url"], gorev["id"], token)
+
+        if gorev["status"]["state"] == "input-required":
+            # Kullanıcıya sor, cevabı AYNI göreve ilet.
+            cevap = await kullaniciya_sor(gorev["status"]["message"])
+            gorev = await gorev_gonder_devam(
+                client, kart["url"], gorev["id"], cevap, token
+            )
+
+        return gorev</code></pre>
+<p>Bu döngüde dikkat edilecek üç şey var. Birincisi, <strong>zaman aşımı çağıran tarafta olmalı</strong> — uzaktaki ajanın ne kadar süreceğine dair sözleşmesi yok, dolayısıyla vazgeçme kararı sizindir. İkincisi, <strong>yoklama yerine bildirim tercih edin</strong>; <code>pushNotifications</code> destekleniyorsa yukarıdaki <code>while</code> döngüsü yerine bir geri çağrı uç noktası kullanın. Üçüncüsü, <code>rejected</code> durumunu <code>failed</code> ile karıştırmayın: birincisi "bu işi almıyorum" demektir ve tekrar denemek anlamsızdır; ikincisi geçici olabilir.</p>
+
+<h2 id="b5">Ajan ticareti: üstüne binen katman</h2>
+<p>A2A'nın 2026'da somutlaştığı yer ajanların birbirinden <em>satın alması</em>. Görev devri standartlaştığında sıradaki soru ödemenin nasıl yapılacağı oluyor ve bu boşluğu iki ayrı girişim dolduruyor.</p>
+<ul>
+<li><strong>Agentic Commerce Protocol</strong> — OpenAI ve Stripe'ın birlikte yayınladığı, Apache-2.0 lisanslı, REST ve MCP üzerinden çalışan bir protokol. ChatGPT içinde canlı olarak kullanılıyor; satıcı katalogunu ve sipariş akışını ajanın doğrudan tüketebileceği hâle getiriyor.</li>
+<li><strong>AP2 (Agent Payments Protocol)</strong> — Google'ın 16 Eylül 2025'te duyurduğu yaklaşım. Merkezinde <em>imzalı yetki belgeleri</em> (Mandate) var: kullanıcının ajanına verdiği harcama yetkisi kriptografik olarak imzalanır ve zincir boyunca doğrulanabilir. Mastercard, PayPal, Amex, Adyen ve Etsy dahil 60'tan fazla ortakla duyuruldu.</li>
+</ul>
+<p>Bu iki yaklaşımın ortak sorduğu soru şu: bir ajan sizin adınıza para harcadığında, harcama yetkisinin gerçekten sizden geldiğini kim ve nasıl kanıtlar? AP2'nin imzalı mandate yanıtı, ajan ticaretinin kimlik doğrulama katmanını çözmeye çalışıyor — çünkü "ajanım öyle dedi" bir ödeme itirazında hiçbir şey ifade etmez.</p>
+
+<h2 id="b6">Güvenlik: ASI07 ve sınırlar</h2>
+<p>OWASP'ın 2026 ajan risk listesinde <strong>ASI07 — Güvensiz Ajanlar Arası İletişim</strong> ayrı bir madde olarak yer alıyor ve A2A tam olarak bu yüzeyi açıyor. Dikkat edilecek üç nokta:</p>
+<ol>
+<li><strong>Uzaktaki ajan güvenilmez bir içerik kaynağıdır.</strong> Döndürdüğü metin sizin ajanınızın bağlamına girer. Kendi sisteminizde bu metni <em>kullanıcı girdisi</em> gibi işleyin: ondan türeyen değerlerle yan etkili araç çağırmayın.</li>
+<li><strong>Yetki devri zincirleme büyür.</strong> A ajanı B'ye, B de C'ye iş devrederse, C'nin hangi yetkiyle çalıştığı hızla belirsizleşir. Agent Card'daki <code>securitySchemes</code> alanını ciddiye alın ve devredilen erişim token'ının kapsamını her sıçramada daraltın — genişletmeyin.</li>
+<li><strong>Kartın kendisi doğrulanmalıdır.</strong> Agent Card bir alan adında yayınlanan JSON'dur; onu getiren kanal TLS ile korunmuyorsa ya da kart bir yönlendirmenin sonunda başka bir alan adından geliyorsa, konuştuğunuz ajanın kim olduğunu bilmiyorsunuz demektir.</li>
+</ol>
+<p>Pratik bir kural: A2A ile bağlandığınız her ajanı, kendi sisteminizin dışında duran bir üçüncü taraf API'si gibi ele alın — çünkü öyledir. Aynı organizasyon içinde bile. Ajanlar arası güvenin varsayılan olarak yüksek olduğu mimariler, ilk zehirli görev sonucunda çöker.</p>
+
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul>
+<li>MCP ajan↔araç, A2A ajan↔ajan katmanıdır; A2A'nın kendi konumlandırması MCP'yi tamamlayıcı olduğu yönündedir.</li>
+<li>A2A v1.0 Linux Foundation altında, AWS/Cisco/Google/IBM/Microsoft/Salesforce/SAP/ServiceNow'un yer aldığı bir komiteyle yürütülüyor; lisans Apache-2.0.</li>
+<li>Keşif Agent Card ile, iş ise durum makinesi olan görevlerle yürür; <code>input-required</code> uzun süreli ve insan onaylı akışları protokole taşır.</li>
+<li>Ajan ticareti üstüne binen katmandır: ACP (OpenAI + Stripe) ve imzalı Mandate temelli AP2 aynı yetki kanıtı sorununu çözmeye çalışır.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>A2A kullanmak için ajanımı yeniden yazmam gerekir mi?</summary><p>Hayır. A2A ajanınızın iç mimarisine hiçbir şey dayatmaz — hangi modeli kullandığınız, nasıl akıl yürüttüğünüz, hangi araçları çağırdığınız protokolün görüş alanı dışındadır. Eklemeniz gereken iki şey var: yayınlanan bir Agent Card ve görev yaşam döngüsünü konuşan bir HTTP uç noktası. Mevcut ajanınızı bu uç noktanın arkasına koymak çoğu durumda birkaç yüz satırlık bir sarmalayıcı işidir.</p></details>
+<details><summary>Aynı sistemde hem MCP hem A2A kullanılır mı?</summary><p>Tipik kurulum tam olarak budur. Ajanınız kendi araçlarına MCP ile ulaşır — veritabanı, dosya sistemi, arama. Kendi başına halledemediği, başka bir ekibin veya şirketin sahip olduğu işi ise A2A ile devreder. İkisi aynı çağrı yığınında farklı katmanlarda durur; birini seçip diğerini elemek gerekmez.</p></details>
+<details><summary>Uzaktaki ajan işi yanlış yaparsa sorumluluk kimde?</summary><p>Protokol bu soruyu çözmez, ama görünür kılar. Görev nesnesinin kimliği, durum geçişleri ve döndürdüğü eserler denetlenebilir bir iz bırakır — hangi talebin hangi ajana ne zaman devredildiği ve ne döndüğü kayıtlıdır. Sorumluluk paylaşımı sözleşmesel bir konudur; sizin mühendislik göreviniz, o sözleşmenin dayanacağı izi eksiksiz tutmak ve devredilen yetkiyi mümkün olan en dar kapsamda vermektir.</p></details>
+</div>
+
+<hr>
+<p>Özetle: A2A, ajanların birbirini bulup iş devredebilmesi için eksik olan ortak dili sağlıyor — ve bunu MCP'nin yerine değil, onun bir katman üstünde yapıyor. Araç katmanının nasıl çalıştığını <a href="../mcp-model-baglam-protokolu/">MCP'ye giriş</a> yazısında, bu ajanların iç mimarisini <a href="../otonom-ajan-mimarileri/">otonom ajan mimarileri</a> yazısında, araçların modele nasıl tarif edildiğini ise <a href="../fonksiyon-cagirma/">fonksiyon çağırma</a> yazısında bulabilirsiniz.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Araçlar</span><span class="tag">Yapay Zeka</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="post-nav"><a href="../mcp-apps-sohbet-icinde-arayuz/"><div class="dir">← Önceki</div><div class="ttl">MCP Apps: Sohbetin İçinde Çalışan Arayüzler</div></a><a class="next" href="../mcp-durumsuz-mimari-2026/"><div class="dir">Sıradaki →</div><div class="ttl">MCP 2026: Protokol Neden Durumsuz Hâle Geldi ve Sunucunuz Ne Yapmalı?</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · Tüm hakları saklıdır.</span><span><a href="../../gizlilik/">Çerez Politikası</a> · Ankara · ODTÜ Teknokent 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

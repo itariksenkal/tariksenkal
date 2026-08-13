@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival — İsmail Tarık Şenkal</title>
+<meta name="description" content="A2A v1.0 standardises agent discovery and task delegation. Agent Cards, the task lifecycle, how it differs from MCP, and the agentic commerce layer above it." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/a2a-agent-interoperability/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/ajanlar-arasi-protokol-a2a/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival" /><meta property="og:description" content="A2A v1.0 standardises agent discovery and task delegation. Agent Cards, the task lifecycle, how it differs from MCP, and the agentic commerce layer above it." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-15.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival",
+      "description": "A2A v1.0 standardises agent discovery and task delegation. Agent Cards, the task lifecycle, how it differs from MCP, and the agentic commerce layer above it.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/a2a-agent-interoperability/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-15.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/ajanlar-arasi-protokol-a2a/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Tools</span></div>
+    <span class="tag">Tools</span>
+    <h1>A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 8 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-15.jpg" alt="A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">Your company has a travel agent, finance has an expense-approval agent, and neither knows the other exists. For the travel agent to request approval, it must either learn finance's internal logic or somebody must write an integration between them. A2A standardises exactly that problem: letting one agent find another and hand it work — without seeing inside it. This article covers how A2A works and draws a clean line between it and MCP.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">A2A and MCP are not the same layer</a></li><li><a href="#b2">The Agent Card</a></li><li><a href="#b3">The task lifecycle</a></li><li><a href="#b4">A delegation flow, end to end</a></li><li><a href="#b5">Agentic commerce: the layer on top</a></li><li><a href="#b6">Security: ASI07 and boundaries</a></li></ol></div>
+
+<h2 id="b1">A2A and MCP are not the same layer</h2>
+<p>"A2A or MCP?" is a badly framed question; the two describe different relationships. A2A's own positioning says so explicitly: <strong>complementary</strong>.</p>
+<table class="cmp-table">
+<thead><tr><th></th><th>MCP</th><th>A2A</th></tr></thead>
+<tbody>
+<tr><td>Who talks to whom</td><td>Agent ↔ tool</td><td>Agent ↔ agent</td></tr>
+<tr><td>The other side is</td><td>A deterministic function (read a file, run a query)</td><td>A system that reasons on its own and has its own tools</td></tr>
+<tr><td>Contract</td><td>Input schema → output</td><td>Capability description → task, with a state machine</td></tr>
+<tr><td>Duration</td><td>Usually a single short call</td><td>Long-running: minutes, hours, human approvals in between</td></tr>
+<tr><td>Visibility</td><td>The tool fully exposes what it does</td><td>The agent <em>does not</em> expose its internal logic, prompts or tools</td></tr>
+</tbody></table>
+<blockquote>MCP is an agent reaching for something; A2A is an agent handing work to somebody else.</blockquote>
+<p>That last row is the important one. You could wrap an agent as an MCP tool — technically it's possible — but then you'd have no contract expressing that the other side may take a long time, report intermediate state, wait on human approval and make its own decisions. That's why A2A exists.</p>
+<p>Governance has matured too: A2A reached <strong>v1.0</strong>, was started by Google and then donated to the <strong>Linux Foundation</strong>, and is now run by a Technical Steering Committee spanning AWS, Cisco, Google, IBM Research, Microsoft, Salesforce, SAP and ServiceNow. Licence is Apache-2.0.</p>
+
+<h2 id="b2">The Agent Card</h2>
+<p>Discovery is A2A's first problem: how does one agent learn what another <em>can do</em>? The answer is a machine-readable description published on the agent's own domain — the <strong>Agent Card</strong>.</p>
+<pre><code>{
+  "protocolVersion": "1.0",
+  "name": "Expense Approval Agent",
+  "description": "Evaluates and approves expense requests against company policy.",
+  "url": "https://finance.example.com/a2a",
+  "preferredTransport": "JSONRPC",
+  "provider": {
+    "organization": "Example Inc.",
+    "url": "https://example.com"
+  },
+  "version": "2.3.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true
+  },
+  "defaultInputModes":  ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json"],
+  "securitySchemes": {
+    "corporate-oidc": {
+      "type": "openIdConnect",
+      "openIdConnectUrl": "https://id.example.com/.well-known/openid-configuration"
+    }
+  },
+  "security": [{ "corporate-oidc": [] }],
+  "skills": [
+    {
+      "id": "expense-approval",
+      "name": "Expense approval",
+      "description": "Approves or rejects an expense request against policy.",
+      "tags": ["finance", "approval"],
+      "examples": [
+        "$340 flight, New York to Boston, client visit",
+        "3 nights hotel accommodation, $1,200"
+      ]
+    }
+  ]
+}</code></pre>
+<p>The most useful part of the card is <code>skills</code>. Note that a skill is not a rigid JSON schema like an MCP tool; it's a job described in <em>natural language</em> plus a few examples. The reason is that the caller is also a language model. The calling agent reads this description and decides "does the work I'm holding fit this?" The examples are therefore functional, not decorative.</p>
+<div class="callout"><strong>Tip:</strong> Write the skill description to answer two questions: what it <em>does</em> and what it <em>doesn't</em>. The most common integration failure is a calling agent delegating out-of-scope work because it "roughly fits". A sentence like "handles requests under $5,000 only; above that goes to human approval" does work no schema field can do.</div>
+
+<h2 id="b3">The task lifecycle</h2>
+<p>A2A's core object is the <strong>task</strong>. A task is an entity with an identity whose state changes over time — not a single request/response. This is long-running work written into the protocol.</p>
+<pre><code>submitted ──&gt; working ──┬──&gt; completed      (done)
+                        ├──&gt; input-required (awaiting input)
+                        ├──&gt; failed         (error)
+                        ├──&gt; canceled       (cancelled)
+                        └──&gt; rejected       (not accepted)
+
+      input-required ──&gt; working   (once the client answers)</code></pre>
+<p>The <code>input-required</code> state is the distinguishing one. The remote agent can stop mid-task and say "this request sits at the policy boundary and needs a manager's sign-off". The calling agent surfaces that to its user, collects the answer, and passes it back into the same task. The task ID stays constant throughout, so both sides know where in the work they are.</p>
+<p>Task output comes back in two forms: <strong>messages</strong> (conversational intermediate output) and <strong>artifacts</strong> (durable produced output — a report, a file, a structured result). For long-running work there's the <code>pushNotifications</code> capability: the client supplies a callback address and the agent notifies it on state changes. You don't have to hold a connection open for a task that takes hours.</p>
+
+<h2 id="b4">A delegation flow, end to end</h2>
+<p>In Python, from discovery to result. Read the card, pick a matching skill, submit the task, track its state.</p>
+<pre><code>import asyncio
+import httpx
+
+BASE = "https://finance.example.com"
+
+# get_task / send_followup / ask_user follow the same pattern:
+# tasks/get, message/send (with taskId), and your own UI respectively.
+
+
+async def read_card(client: httpx.AsyncClient) -&gt; dict:
+    # The Agent Card is published at a well-known path.
+    r = await client.get(f"{BASE}/.well-known/agent-card.json")
+    r.raise_for_status()
+    return r.json()
+
+
+async def send_task(client, url, text, token) -&gt; dict:
+    r = await client.post(
+        url,
+        headers={"Authorization": f"Bearer {token}"},
+        json={
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "message/send",
+            "params": {
+                "message": {
+                    "role": "user",
+                    "messageId": "msg-1",
+                    "parts": [{"kind": "text", "text": text}],
+                }
+            },
+        },
+    )
+    r.raise_for_status()
+    return r.json()["result"]
+
+
+async def delegate(request_text: str, token: str) -&gt; dict:
+    async with httpx.AsyncClient(timeout=30) as client:
+        card = await read_card(client)
+
+        # Skill selection: filter by tag, leave the rest to the model.
+        matches = [s for s in card["skills"] if "approval" in s["tags"]]
+        if not matches:
+            raise RuntimeError("This agent offers no approval skill.")
+
+        task = await send_task(client, card["url"], request_text, token)
+
+        while task["status"]["state"] in ("submitted", "working"):
+            await asyncio.sleep(2)
+            task = await get_task(client, card["url"], task["id"], token)
+
+        if task["status"]["state"] == "input-required":
+            # Ask the user, then feed the answer back into the SAME task.
+            answer = await ask_user(task["status"]["message"])
+            task = await send_followup(
+                client, card["url"], task["id"], answer, token
+            )
+
+        return task</code></pre>
+<p>Three things to watch in that loop. First, <strong>the timeout belongs to the caller</strong> — the remote agent has no contract about how long it will take, so the decision to give up is yours. Second, <strong>prefer notifications over polling</strong>; if <code>pushNotifications</code> is supported, replace the <code>while</code> loop with a callback endpoint. Third, don't conflate <code>rejected</code> with <code>failed</code>: the first means "I'm not taking this work" and retrying is pointless, while the second may be transient.</p>
+
+<h2 id="b5">Agentic commerce: the layer on top</h2>
+<p>Where A2A got concrete in 2026 is agents <em>buying</em> from one another. Once task delegation is standardised, the next question is how payment happens, and two efforts are filling that gap.</p>
+<ul>
+<li><strong>Agentic Commerce Protocol</strong> — published jointly by OpenAI and Stripe, Apache-2.0, working over REST and MCP. It's live inside ChatGPT, making merchant catalogues and the order flow directly consumable by an agent.</li>
+<li><strong>AP2 (Agent Payments Protocol)</strong> — Google's approach, announced 16 September 2025. At its centre are <em>signed Mandates</em>: the spending authority a user grants their agent is cryptographically signed and verifiable along the chain. It launched with 60+ partners including Mastercard, PayPal, Amex, Adyen and Etsy.</li>
+</ul>
+<p>Both are asking the same question: when an agent spends money on your behalf, who proves that the authority genuinely came from you, and how? AP2's signed-mandate answer is an attempt to solve the authentication layer of agentic commerce — because "my agent said so" means nothing in a payment dispute.</p>
+
+<h2 id="b6">Security: ASI07 and boundaries</h2>
+<p>OWASP's 2026 agentic risk list names <strong>ASI07 — Insecure Inter-Agent Communication</strong> as its own entry, and A2A opens precisely that surface. Three things to get right:</p>
+<ol>
+<li><strong>A remote agent is an untrusted content source.</strong> The text it returns enters your agent's context. Treat it as <em>user input</em> in your own system: don't call side-effecting tools with values derived from it.</li>
+<li><strong>Delegated authority compounds.</strong> If agent A delegates to B and B delegates to C, what authority C is running under gets murky fast. Take the Agent Card's <code>securitySchemes</code> seriously and narrow the scope of the delegated token at every hop — never widen it.</li>
+<li><strong>The card itself must be verified.</strong> An Agent Card is JSON published on a domain; if the channel fetching it isn't TLS-protected, or if the card arrives from a different domain at the end of a redirect, you don't know who you're talking to.</li>
+</ol>
+<p>A practical rule: treat every agent you connect to over A2A as a third-party API sitting outside your system — because it is. Even within the same organisation. Architectures where inter-agent trust is high by default collapse at the first poisoned task result.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>MCP is the agent↔tool layer, A2A the agent↔agent layer; A2A positions itself as complementary to MCP, not competing with it.</li>
+<li>A2A v1.0 sits under the Linux Foundation with a committee spanning AWS, Cisco, Google, IBM, Microsoft, Salesforce, SAP and ServiceNow; licence Apache-2.0.</li>
+<li>Discovery runs through Agent Cards and work through tasks with a state machine; <code>input-required</code> puts long-running, human-approved flows into the protocol.</li>
+<li>Agentic commerce is the layer above: ACP (OpenAI + Stripe) and AP2's signed Mandates both attack the same proof-of-authority problem.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Do I have to rewrite my agent to use A2A?</summary><p>No. A2A imposes nothing on your agent's internal architecture — which model you use, how you reason, which tools you call are all outside the protocol's view. Two things need adding: a published Agent Card and an HTTP endpoint that speaks the task lifecycle. Putting an existing agent behind that endpoint is usually a few hundred lines of wrapper.</p></details>
+<details><summary>Would one system use both MCP and A2A?</summary><p>That's exactly the typical setup. Your agent reaches its own tools over MCP — database, filesystem, search. Work it can't handle itself, owned by another team or company, it delegates over A2A. The two sit at different layers of the same call stack; you don't have to pick one and drop the other.</p></details>
+<details><summary>If the remote agent gets it wrong, who is responsible?</summary><p>The protocol doesn't settle that, but it makes it visible. The task object's ID, its state transitions and the artifacts it returns leave an auditable trail — which request went to which agent when, and what came back. Apportioning liability is a contractual matter; your engineering job is to keep that trail complete and to grant delegated authority in the narrowest scope that works.</p></details>
+</div>
+
+<hr>
+<p>In short: A2A supplies the missing common language for agents to find each other and hand off work — and it does so one layer above MCP rather than in place of it. For how the tool layer works see <a href="../model-context-protocol/">the MCP introduction</a>; for the internal architecture of these agents see <a href="../autonomous-agent-architectures/">autonomous agent architectures</a>; and for how tools get described to a model see <a href="../function-calling-structured-output/">function calling</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Tools</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../mcp-apps-generative-ui/"><div class="dir">← Previous</div><div class="ttl">MCP Apps: Interactive UI Inside the Conversation</div></a><a class="next" href="../mcp-stateless-architecture-2026/"><div class="dir">Next →</div><div class="ttl">MCP 2026: Why the Protocol Went Stateless, and What Your Server Must Change</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

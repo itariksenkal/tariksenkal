@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prefix Caching Economics: When Does the Cache Actually Pay? — İsmail Tarık Şenkal</title>
+<meta name="description" content="Cache reads cost 0.1x, writes 1.25x. Break-even is two requests. So why is your cache silently doing nothing? Minimum prefixes, the 20-block rule and the parallel trap." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/prefix-caching-economics/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/onek-onbellekleme-ekonomisi/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="Prefix Caching Economics: When Does the Cache Actually Pay?" /><meta property="og:description" content="Cache reads cost 0.1x, writes 1.25x. Break-even is two requests. So why is your cache silently doing nothing? Minimum prefixes, the 20-block rule and the parallel trap." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-17.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Prefix Caching Economics: When Does the Cache Actually Pay?",
+      "description": "Cache reads cost 0.1x, writes 1.25x. Break-even is two requests. So why is your cache silently doing nothing? Minimum prefixes, the 20-block rule and the parallel trap.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/prefix-caching-economics/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-17.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/onek-onbellekleme-ekonomisi/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Cost</span></div>
+    <span class="tag">Cost</span>
+    <h1>Prefix Caching Economics: When Does the Cache Actually Pay?</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 7 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-17.jpg" alt="Prefix Caching Economics: When Does the Cache Actually Pay?"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">You turned prompt caching on and the bill did not move. This is one of the most common silent failures I see in production, because when caching fails it does not raise an error — it just stops saving you money. This article does two things: first it shows with arithmetic exactly when a cache turns a profit, then it enumerates why yours probably is not working. The break-even math is rarely published anywhere, and that is precisely the part that decides whether caching is worth it.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">What prefix caching actually caches</a></li><li><a href="#b2">The break-even arithmetic: two requests or three?</a></li><li><a href="#b3">Silent failure: the minimum prefix length</a></li><li><a href="#b4">The twenty-block rule and agent loops</a></li><li><a href="#b5">The parallel request trap</a></li><li><a href="#b6">Push cache-breakers to the end of the prompt</a></li></ol></div>
+
+<h2 id="b1">What prefix caching actually caches</h2>
+<p>As a language model processes your prompt it produces intermediate representations for every token and stores them as the key-value pairs attention will consume. That store is the <strong>KV cache</strong>. Prefix caching rests on a simple observation: if the leading, unchanged portion of your prompt is byte-for-byte identical to a previous request, there is no need to recompute it.</p>
+<blockquote>Cache matching starts at the very beginning of the prompt and is exact — a single changed space near the top invalidates everything after it.</blockquote>
+<p>One rule follows from this and governs everything else: <strong>stable content first, variable content last.</strong> System instructions, tool definitions and slow-moving document context belong at the front; the user's current question and any timestamp belong at the end. Putting <code>Current time: 2026-08-13 14:33</code> at the top of a system prompt is functionally identical to disabling caching.</p>
+
+<h2 id="b2">The break-even arithmetic: two requests or three?</h2>
+<p>Pricing has three components, quoted as multipliers against the base input price. Cache <strong>reads cost roughly 0.1×</strong>; cache <strong>writes cost 1.25× at the 5-minute TTL</strong> and <strong>2× at the 1-hour TTL</strong>.</p>
+<p>With those three numbers the break-even point is just arithmetic. If you will reuse the same prefix <em>N</em> times, the uncached cost is <code>N × 1.0</code> and the cached cost is <code>write + (N-1) × 0.1</code>.</p>
+<pre><code>5-minute TTL (write 1.25x)
+  N=1 :  1.25          vs  1.00   -&gt; loss
+  N=2 :  1.25 + 0.10 = 1.35  vs  2.00   -&gt; profit
+  N=5 :  1.25 + 0.40 = 1.65  vs  5.00   -&gt; 3.0x saving
+
+1-hour TTL (write 2.00x)
+  N=2 :  2.00 + 0.10 = 2.10  vs  2.00   -&gt; still a loss
+  N=3 :  2.00 + 0.20 = 2.20  vs  3.00   -&gt; profit</code></pre>
+<p>So you break even on the <strong>second request at the 5-minute TTL and the third at the 1-hour TTL</strong>. The practical consequence is that a longer TTL is not automatically better: unless you will hit the prefix at least three times within the window, the longer TTL never repays its write premium.</p>
+<p>You do not have to estimate any of this — the API response reports each component separately, so you can compute your true effective multiplier directly:</p>
+<pre><code>def effective_multiplier(usage, ttl="5m"):
+    """Effective input multiplier for one response's usage block.
+    1.0 = uncached baseline. Lower means real savings."""
+    write_rate = 1.25 if ttl == "5m" else 2.0
+    fresh = usage["input_tokens"]                    # uncached
+    write = usage["cache_creation_input_tokens"]     # written this request
+    read  = usage["cache_read_input_tokens"]         # served from cache
+    total = fresh + write + read
+    if total == 0:
+        return 0.0
+    weighted = fresh * 1.0 + write * write_rate + read * 0.1
+    return weighted / total
+
+# Example: 20,000-token stable prefix, 400-token question
+warm = {"input_tokens": 400, "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 20000}
+print(round(effective_multiplier(warm), 3))   # 0.118  -&gt; ~8.5x cheaper</code></pre>
+<div class="callout"><strong>Tip:</strong> Emit this as a production metric. Track the <em>effective multiplier</em>, not the cache hit rate — hit rate can read 90% while short prefixes keep the multiplier above 1.0. The multiplier is what the invoice reflects.</div>
+
+<h2 id="b3">Silent failure: the minimum prefix length</h2>
+<p>Here is the real problem. A cacheable prefix has a <strong>minimum token length</strong>, and that minimum varies by model. Worse, it is not monotonic: it is <strong>512 tokens</strong> on the newest models, <strong>1,024</strong> on the previous generation, but <strong>4,096</strong> on some mid-generation models.</p>
+<p>Fall below that threshold and the request does not fail. No error, no warning. The <code>cache_creation_input_tokens</code> field simply comes back as <code>0</code> and you spend months believing caching is on. This is the source of most "we enabled prompt caching and the bill did not change" reports — someone swapped the model and the prefix fell under the threshold.</p>
+<p>The fix is not to enable caching but to <em>assert</em> that it engaged, and to do that in a deploy gate rather than by eyeballing it once:</p>
+<pre><code>MIN_PREFIX = {          # minimum cacheable prefix by model class
+    "newest":    512,
+    "previous": 1024,
+    "mid-gen":  4096,
+}
+
+def assert_cache_active(response, model_class, expected_prefix_tokens):
+    threshold = MIN_PREFIX[model_class]
+    u = response["usage"]
+    written = u.get("cache_creation_input_tokens", 0)
+    read    = u.get("cache_read_input_tokens", 0)
+
+    if expected_prefix_tokens &lt; threshold:
+        raise ValueError(
+            f"Prefix is {expected_prefix_tokens} tokens; {model_class} requires "
+            f"{threshold}. Caching is SILENTLY off. Grow the prefix or change model.")
+
+    if written == 0 and read == 0:
+        raise ValueError(
+            "Both cache_creation and cache_read are 0 — the cache never engaged. "
+            "Check the cache_control marker and prefix stability.")
+    return True</code></pre>
+<p>Running this once after the first request is enough. The moment the silent failure becomes loud, the problem stops existing.</p>
+
+<h2 id="b4">The twenty-block rule and agent loops</h2>
+<p>A single request may define at most <strong>four cache breakpoints</strong>. When the system looks backwards from a breakpoint for a match, it walks back <strong>at most 20 content blocks</strong>.</p>
+<p>In a plain chat application this never matters. In agent loops it bites immediately: every tool call and every tool result is a separate content block. An agent that makes ten tool calls in a single turn burns through twenty blocks at once. Your breakpoint then cannot reach back to the earlier prefix and the hit disappears silently — exactly where caching would have mattered most, in long agent runs.</p>
+<ul>
+<li><strong>Move the breakpoint forward:</strong> place it at the most recent stable point in accumulated history rather than at the head of the prefix, shortening the distance the 20-block walk must cover.</li>
+<li><strong>Coalesce tool results:</strong> merging five small results into one block slows the block counter by a factor of five.</li>
+<li><strong>Measure block growth:</strong> make blocks-added-per-turn a metric; by the time it approaches 20, the cache is already gone.</li>
+</ul>
+
+<h2 id="b5">The parallel request trap</h2>
+<p>This one is invisible until you measure it. If you fire <strong>N requests with an identical prefix simultaneously, all of them pay full price.</strong> The reason is straightforward: the others leave before the first request has finished writing the cache, so there is nothing for them to read.</p>
+<p>In a batch job classifying fifty documents against the same system prompt, that means the entire saving evaporates. The correct pattern is a <em>warm-up turn</em>: send one request, wait for the first token, then fan the rest out in parallel.</p>
+<pre><code>import asyncio
+
+async def warm_then_fan_out(requests, call):
+    """Write the cache with one request, then run the rest in parallel."""
+    if not requests:
+        return []
+    first = await call(requests[0])          # cache is written here
+    rest = await asyncio.gather(*(call(r) for r in requests[1:]))
+    return [first, *rest]
+
+# WRONG: all at once -&gt; N x full price, zero hits
+# results = await asyncio.gather(*(call(r) for r in requests))</code></pre>
+<p>On a fifty-document batch this one-line difference pulls input cost down by roughly an order of magnitude, and the latency it adds is exactly one request.</p>
+
+<h2 id="b6">Push cache-breakers to the end of the prompt</h2>
+<p>Most cache-breakers are details nobody thinks of as "content": a session id buried in the system prompt, a username, a clock, an A/B flag, or a tool list rendered in nondeterministic order. Each of them makes the prefix different on every request.</p>
+<ul>
+<li><strong>Keep tool definitions in a stable order:</strong> if you build them from a dictionary, sort by key — reordering alone breaks the cache.</li>
+<li><strong>Put timestamps last:</strong> if the model needs the date, supply it next to the user message, not at the top of the system prompt.</li>
+<li><strong>Isolate personalisation:</strong> anything user-specific must sit outside the prefix, or the cache fragments once per user.</li>
+<li><strong>Pin the model version:</strong> calling an alias means your cache silently resets whenever the provider rolls the version behind it.</li>
+</ul>
+<p>Which leads to the most useful rule here: <strong>treat caching as a prompt-architecture decision, not a setting.</strong> A cache-friendly prompt is <em>designed</em> stable-first, variable-last; it is not obtained by flipping a flag afterwards.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>Reads cost 0.1×, writes 1.25× at 5 minutes and 2× at 1 hour — break-even is the second and third request respectively.</li>
+<li>The minimum prefix is 512, 1,024 or 4,096 tokens depending on the model; below it caching fails with no error at all.</li>
+<li>A breakpoint walks back at most 20 content blocks, and agent turns burn that budget fast with tool calls.</li>
+<li>Parallel requests sharing a prefix all pay full price — send one warm-up request first, then fan out.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>Does prompt caching really reduce cost?</summary><p>Yes, as long as you reuse the prefix, and the effect is large: with a 20,000-token stable prefix the effective input multiplier drops from 1.0 to roughly 0.12. But on one-off requests caching <em>increases</em> cost because of the write premium. The rule is to reuse the prefix at least twice within a 5-minute TTL, or three times within a 1-hour TTL.</p></details>
+<details><summary>Why is my cache not working when I get no error?</summary><p>Almost always one of two causes: your prefix is below the model's minimum length (512 / 1,024 / 4,096 tokens depending on the model), or the prefix changes on every request. Neither raises an error — <code>cache_creation_input_tokens</code> and <code>cache_read_input_tokens</code> simply stay at zero. Assert on both fields in a deploy gate.</p></details>
+<details><summary>Is the KV cache the same thing as prompt caching?</summary><p>They are two layers of the same mechanism. The KV cache is the inference-time structure holding per-token key-value representations, used even within a single generation. Prompt caching is the product layer that persists the shared-prefix portion of those representations <em>across requests</em> and prices it at a discount.</p></details>
+</div>
+
+<hr>
+<p>Done properly, caching is the largest cost lever available from a single architectural decision. For the other levers see <a href="../llm-cost-optimization/">LLM cost optimization</a>, for splitting a prompt into stable and variable layers see <a href="../context-engineering/">context engineering</a>, and for wiring these assertions into a deployment pipeline see <a href="../mlops-ai-to-production/">MLOps and shipping to production</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Cost</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../reasoning-token-economics/"><div class="dir">← Previous</div><div class="ttl">From Thinking Budgets to Effort Levels: What Reasoning Actually Costs</div></a><a class="next" href="../speculative-decoding/"><div class="dir">Next →</div><div class="ttl">Speculative Decoding: Getting Faster Tokens From the Same Model</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>

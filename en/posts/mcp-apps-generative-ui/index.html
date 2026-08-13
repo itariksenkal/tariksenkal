@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MCP Apps: Interactive UI Inside the Conversation — İsmail Tarık Şenkal</title>
+<meta name="description" content="The MCP Apps extension turns tool results into interactive UI. ui:// resources, the _meta.ui field, sandboxed iframes and the postMessage protocol, with real code." />
+<link rel="canonical" href="https://tariksenkal.com/en/posts/mcp-apps-generative-ui/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/mcp-apps-sohbet-icinde-arayuz/" /><meta name="theme-color" content="#3B6BF6" />
+<meta property="og:type" content="article" /><meta property="og:title" content="MCP Apps: Interactive UI Inside the Conversation" /><meta property="og:description" content="The MCP Apps extension turns tool results into interactive UI. ui:// resources, the _meta.ui field, sandboxed iframes and the postMessage protocol, with real code." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-14.jpg" />
+<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../css/style.css?v=20260809" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "MCP Apps: Interactive UI Inside the Conversation",
+      "description": "The MCP Apps extension turns tool results into interactive UI. ui:// resources, the _meta.ui field, sandboxed iframes and the postMessage protocol, with real code.",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://tariksenkal.com/en/posts/mcp-apps-generative-ui/"
+      },
+      "dateModified": "2026-08-13",
+      "author": {
+          "@type": "Person",
+          "name": "İsmail Tarık Şenkal",
+          "url": "https://tariksenkal.com/",
+          "worksFor": {
+              "@type": "Organization",
+              "name": "Hatson Teknoloji A.Ş.",
+              "url": "https://hatsontech.com/"
+          }
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "Hatson Teknoloji A.Ş.",
+          "url": "https://hatsontech.com/"
+      },
+      "image": "https://tariksenkal.com/image/bimg-14.jpg",
+      "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+<div class="progress"></div>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a>
+        <a href="../../#what-i-do">What I Do</a>
+        <a href="../../#expertise">Expertise</a>
+        <a href="../../blog/">Articles</a>
+        <a href="../../#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="lang-switch" href="../../../posts/mcp-apps-sohbet-icinde-arayuz/">TR</a>
+        <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+<article>
+  <div class="wrap narrow article-head">
+    <div class="breadcrumb"><a href="../../">Home</a> <span>/</span>
+        <a href="../../blog/">Articles</a> <span>/</span>
+        <span>Product</span></div>
+    <span class="tag">Product</span>
+    <h1>MCP Apps: Interactive UI Inside the Conversation</h1>
+    <div class="article-meta"><div class="author"><span class="ava">TŞ</span><div><div style="color:var(--text);font-weight:600">İsmail Tarık Şenkal</div><div>HatsonTech · Co-Founder</div></div></div><span>· 8 min read</span></div>
+  </div>
+  <div class="wrap narrow"><div class="article-hero"><img src="../../../image/bimg-14.jpg" alt="MCP Apps: Interactive UI Inside the Conversation"></div></div>
+  <div class="wrap narrow" style="padding-top:36px;padding-bottom:36px">
+    <div class="prose">
+<p class="lead-p">The user says "show me my free slots next week" and the agent dumps fourteen lines of text. They want to pick one, but there's nothing to pick — they have to describe it in prose. MCP Apps closes exactly that gap: a tool can return its result as a working interface rendered inside the conversation instead of as flat text. This article walks the mechanism end to end, with real code.</p>
+
+<div class="toc"><h4>Contents</h4><ol><li><a href="#b1">Where text stops working</a></li><li><a href="#b2">ui:// resources and the _meta.ui link</a></li><li><a href="#b3">Server side: wiring a tool to a UI</a></li><li><a href="#b4">Client side: the postMessage protocol</a></li><li><a href="#b5">Sandboxed iframes and the permission model</a></li><li><a href="#b6">When to render UI, when to return text</a></li></ol></div>
+
+<h2 id="b1">Where text stops working</h2>
+<p>A chat interface is not the right interface for everything. The model being good at producing text doesn't mean the user should express everything in text. Three kinds of interaction are structurally bad in prose:</p>
+<ul>
+<li><strong>Selection:</strong> pointing at one of fourteen options. In text the user says "the third one", the model miscounts, and a turn is wasted.</li>
+<li><strong>Adjustment:</strong> setting a range, a threshold, a colour. "A bit darker" is no substitute for a slider.</li>
+<li><strong>Dense data:</strong> a table, a calendar, a map. Serialised into prose it burns tokens and reads badly.</li>
+</ul>
+<blockquote>Text is a good output format; it doesn't have to be a good input format.</blockquote>
+<p>MCP Apps solves this as an official <em>extension</em> to MCP (spec dated <code>2026-01-26</code>). It doesn't touch the core protocol; it adds the ability to attach an interface to a tool result on top of the existing tool machinery. Today it's supported by Claude and Claude Desktop, VS Code GitHub Copilot, Microsoft 365 Copilot, Goose, Postman, MCPJam and Archestra.AI.</p>
+
+<h2 id="b2">ui:// resources and the _meta.ui link</h2>
+<p>The mechanism has two parts, both built from MCP primitives that already existed.</p>
+<p>The first is <strong>a resource published under the <code>ui://</code> scheme</strong>. Just as your server publishes a file or a database record, it publishes an HTML document. That document is the interface.</p>
+<p>The second is <strong>the tool's <code>_meta.ui</code> field</strong>. The tool definition declares, via <code>_meta.ui.resourceUri</code>, which <code>ui://</code> resource should render its result. That declaration lives in the tool <em>definition</em>, not in the result — and this detail matters: the client knows which interface will be needed before the tool has even been called, so it can <strong>preload</strong> it. By the time the tool result arrives the iframe is ready, and the user never watches a white box load.</p>
+<pre><code>{
+  "name": "free_slots",
+  "description": "Return available time slots in a date range.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "start": { "type": "string", "format": "date" },
+      "end":   { "type": "string", "format": "date" }
+    },
+    "required": ["start", "end"]
+  },
+  "_meta": {
+    "ui": {
+      "resourceUri": "ui://calendar/slot-picker",
+      "permissions": [],
+      "csp": {
+        "connect-src": [],
+        "img-src": ["https://cdn.internal.local"]
+      }
+    }
+  }
+}</code></pre>
+<p><code>permissions</code> declares whether the interface may reach sensitive browser capabilities such as microphone or camera; <code>csp</code> declares which external origins it may talk to. Both default to the most restrictive setting — unless you ask, your interface can reach nothing.</p>
+
+<h2 id="b3">Server side: wiring a tool to a UI</h2>
+<p>A minimal server with the Python SDK. We publish two things: the <code>ui://</code> resource and the tool bound to it.</p>
+<pre><code>from mcp.server.fastmcp import FastMCP
+from datetime import date, timedelta
+
+mcp = FastMCP("calendar")
+
+SLOT_PICKER_HTML = """&lt;!doctype html&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;style&gt;
+  body { font: 14px system-ui; margin: 0; padding: 12px; }
+  button { display:block; width:100%; margin:4px 0; padding:8px; }
+&lt;/style&gt;
+&lt;div id="list"&gt;Loading…&lt;/div&gt;
+&lt;script type="module" src="ui://calendar/slot-picker.js"&gt;&lt;/script&gt;
+"""
+
+
+@mcp.resource("ui://calendar/slot-picker", mime_type="text/html")
+def slot_picker_ui() -&gt; str:
+    return SLOT_PICKER_HTML
+
+
+@mcp.tool(
+    annotations={
+        "_meta": {"ui": {"resourceUri": "ui://calendar/slot-picker"}}
+    }
+)
+def free_slots(start: str, end: str) -&gt; dict:
+    """Return available time slots in a date range."""
+    day = date.fromisoformat(start)
+    last = date.fromisoformat(end)
+    slots = []
+    while day &lt;= last:
+        if day.weekday() &lt; 5:                     # weekdays only
+            for hour in (10, 14, 16):
+                slots.append(f"{day.isoformat()}T{hour:02d}:00")
+        day += timedelta(days=1)
+    return {"slots": slots}</code></pre>
+<p>Note that the tool <strong>still returns structured data</strong>. Adding a UI is not converting the tool's result into HTML. The model keeps seeing the data form — because even if the user never touches the interface, the model still needs to be able to say "there are three free slots". The interface is a layer on top of the data, not a replacement for it.</p>
+<div class="callout"><strong>Tip:</strong> Write the tool result for two audiences at once: enough for the model, enough for the UI. Keep the model-facing part short (three slots, not three hundred) and send the full list the interface needs in a separate field. Otherwise the price of a rich interface is an enormous JSON blob read into context on every turn.</div>
+
+<h2 id="b4">Client side: the postMessage protocol</h2>
+<p>The interface runs inside a sandboxed iframe and cannot reach the parent page. Its only channel to the host is <code>postMessage</code>, and the language spoken over it is a JSON-RPC dialect like MCP itself. Method names split into two groups: UI-specific ones carry a <code>ui/</code> prefix (such as <code>ui/initialize</code>), while shared ones like calling a tool use MCP's familiar names (<code>tools/call</code>).</p>
+<p>A minimal client on the interface side:</p>
+<pre><code>// ui://calendar/slot-picker.js
+let nextId = 1;
+const pending = new Map();
+
+function call(method, params) {
+  const id = nextId++;
+  return new Promise((resolve, reject) =&gt; {
+    pending.set(id, { resolve, reject });
+    window.parent.postMessage(
+      { jsonrpc: "2.0", id, method, params },
+      "*"                       // pin the host origin in production
+    );
+  });
+}
+
+window.addEventListener("message", (ev) =&gt; {
+  const msg = ev.data;
+  if (!msg || msg.jsonrpc !== "2.0") return;
+
+  // A response?
+  if (msg.id !== undefined &amp;&amp; pending.has(msg.id)) {
+    const { resolve, reject } = pending.get(msg.id);
+    pending.delete(msg.id);
+    msg.error ? reject(msg.error) : resolve(msg.result);
+  }
+});
+
+// 1) Handshake — the host hands over the tool result here.
+const init = await call("ui/initialize", {
+  capabilities: { tools: {} }
+});
+
+// 2) Render the data.
+const list = document.getElementById("list");
+list.textContent = "";
+for (const slot of init.toolResult.slots) {
+  const b = document.createElement("button");
+  b.textContent = new Date(slot).toLocaleString();
+  b.onclick = async () =&gt; {
+    // 3) User picked one — call another tool on the same server.
+    await call("tools/call", {
+      name: "book_appointment",
+      arguments: { slot }
+    });
+    list.textContent = "Appointment booked.";
+  };
+  list.appendChild(b);
+}</code></pre>
+<p>What that flow means: when the user clicks a button, that isn't a message written to the model — it's a direct tool call. No model turn is waited on, nothing is misread, no tokens are spent. It is also dangerous, which is why the next section exists.</p>
+
+<h2 id="b5">Sandboxed iframes and the permission model</h2>
+<p>The iframe running the interface is sandboxed: it cannot reach the parent document's DOM, cookies or storage. That's the minimum condition for HTML sent by a server not to be able to hijack the host application. It is not a <em>sufficient</em> condition, because the interface still holds one capability: <code>tools/call</code>.</p>
+<p>So set three rules up front when designing an MCP App:</p>
+<ol>
+<li><strong>Partition the tools callable from the UI.</strong> Tools triggered by user interaction should sit in a different set from the ones the agent calls on its own. "Book appointment" is fine from the interface; "delete all appointments" is not.</li>
+<li><strong>Verify the origin.</strong> In the example above the <code>postMessage</code> target is <code>"*"</code>, which is wrong in production. Learn the host's origin from the <code>ui/initialize</code> response, target it on every subsequent message, and check <code>ev.origin</code> on incoming ones.</li>
+<li><strong>Don't just request permissions, justify them.</strong> If you ask for microphone in <code>permissions</code>, explain in the interface itself why the user would grant it. Clients are expected to prompt the user; unexplained requests get declined.</li>
+</ol>
+<p>There's also an easily missed threat model: the interface HTML comes from the server, and the server may be untrusted. When you install a third-party MCP server, you also allow it to render an interface inside your conversation. The sandbox makes that harmless, but it doesn't make it <em>unconvincing</em> — an interface drawing a fake login form is still a fake login form inside an iframe. Apply the same scrutiny to the server's provenance as you do to its tool permissions.</p>
+
+<h2 id="b6">When to render UI, when to return text</h2>
+<p>Attaching a UI to every tool is tempting and wrong. The distinction that works:</p>
+<ol>
+<li><strong>If the user must select or adjust something → UI.</strong> Selection and adjustment done in prose inflate the turn count and the misunderstanding rate.</li>
+<li><strong>If the result is dense and structural → UI.</strong> Calendars, tables, maps, charts. Serialising these is both expensive and lossy.</li>
+<li><strong>If the result is an answer → text.</strong> "The invoice total is $412" needs no interface. Adding one only adds latency.</li>
+<li><strong>If the result feeds the model's reasoning → text as well, always.</strong> UI for the user, data for the model. A tool that returns only an interface leaves the model blind and unable to reason about what it just showed.</li>
+</ol>
+<p>That last point is the important one from a product perspective. The appeal of MCP Apps looks like "turning the conversation into an app", but that isn't the real win. The real win is being able to slip an interaction in without interrupting the conversation — the user makes their choice, the chat picks up where it left off, and the model keeps seeing the whole flow.</p>
+
+<div class="takeaways"><h4>Key takeaways</h4><ul>
+<li>MCP Apps is an official extension (<code>2026-01-26</code>); it doesn't change the core protocol, it attaches UI to tool results.</li>
+<li><code>_meta.ui.resourceUri</code> in the tool definition points at a <code>ui://</code> resource, which the host preloads before the tool is called.</li>
+<li>The interface runs in a sandboxed iframe and speaks JSON-RPC to the host over <code>postMessage</code>: <code>ui/</code>-prefixed methods such as <code>ui/initialize</code>, plus <code>tools/call</code>.</li>
+<li>Write the tool result for both the model and the UI; returning only an interface blinds the model on subsequent turns.</li>
+</ul></div>
+
+<div class="faq">
+<details><summary>How is an MCP App different from a regular web app?</summary><p>Lifecycle and context. An MCP Apps interface doesn't exist on its own; it is born as the result of a tool call, starts with that call's data, and lives inside the conversation. It also has no authentication, routing or state management of its own — all of that already lives in the MCP server and the host application. The right mental model isn't "a mini-app embedded in chat" but "an interactive rendering of a tool result".</p></details>
+<details><summary>Can the interface act without the model knowing?</summary><p>Yes — <code>tools/call</code> from the interface doesn't wait for a model turn. That's a feature, but it makes permission design mandatory. Keep UI-callable tools in a separate set, keep side-effecting and irreversible operations out of that set, and lean on the host application's approval flow.</p></details>
+<details><summary>What happens on a client that doesn't support it?</summary><p>The tool keeps working normally. A client that doesn't recognise <code>_meta.ui</code> ignores it and renders the structured result as text. That's why your tool must return a meaningful data result under all conditions: the interface is an enhancement layer, not a prerequisite for the tool to function.</p></details>
+</div>
+
+<hr>
+<p>In short: MCP Apps drops a small interface into exactly the place where chat is weakest — the moment of selecting and adjusting — and lets the conversation carry on unbroken. For the product side of these decisions see <a href="../ai-product-ux/">AI product UX</a>; for the protocol fundamentals see <a href="../model-context-protocol/">the MCP introduction</a>; and for how tools are described to the model in the first place see <a href="../function-calling-structured-output/">function calling</a>.</p>
+    </div>
+    <div class="article-tags"><span class="tag">Product</span><span class="tag">AI</span></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="post-nav"><a href="../prompt-injection-defense-by-design/"><div class="dir">← Previous</div><div class="ttl">Defeating Prompt Injection by Design: CaMeL and Capability-Based Defence</div></a><a class="next" href="../a2a-agent-interoperability/"><div class="dir">Next →</div><div class="ttl">A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival</div></a></div>
+  </div>
+</article>
+  <footer class="footer"><div class="wrap"><div class="footer-bottom" style="border:none;margin:0;padding:0"><span>© <span data-year>2026</span> İsmail Tarık Şenkal · All rights reserved.</span><span><a href="../../privacy/">Cookie Policy</a> · Ankara · METU Technopark 🌿</span></div></div></footer>
+  <button class="icon-btn to-top" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="../../../js/main.js"></script>
+</body>
+</html>
