@@ -113,7 +113,7 @@ answer = model.generate(
 // In the UI, link each [n] citation to a clickable source
 for n, chunk in enumerate(chunks):
     ui.show_source(n, chunk.title, chunk.url)</code></pre>
-<p>Three things to watch: (1) The citation must actually link to the source; it shouldn't be decorative. (2) The user should see the original text in one click. (3) If the answer isn't in the source, the model should be able to say so. Traceability is not a preference but a requirement in high-stakes domains like law and health. We describe how we apply a grounded, citing architecture in practice on our <a href="../what-is-caseon/">Caseon</a> page.</p>
+<p>Three things to watch: (1) The citation must actually link to the source; it shouldn't be decorative. (2) The user should see the original text in one click. (3) If the answer isn't in the source, the model should be able to say so. Traceability is not a preference but a requirement in high-stakes domains like law and health. We describe how we apply a grounded, citing architecture in practice on our Caseon page.</p>
 
 <h2 id="b4">The feedback loop</h2>
 <p>An AI product isn't perfect on day one; it improves as it's used. That requires collecting signal from users. But the feedback mechanism must not be a burden, or no one will use it.</p>

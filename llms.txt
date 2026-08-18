@@ -9,10 +9,8 @@ Hatson Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı ya
 ## Hakkında / Background
 - [İsmail Tarık Şenkal kimdir?](https://tariksenkal.com/posts/tarik-senkal-kimdir/): İsmail Tarık Şenkal kimdir? Hatson Teknoloji A.Ş.'nin kurucu ortağı, Türkçe yapay zeka, büyük dil modelleri ve hukuk teknolojileri üzerine çalışan geliştirici ve girişimcinin hikâyesi.
 - [HatsonTech nasıl ortaya çıktı?](https://tariksenkal.com/posts/hatsontech-nedir/): HatsonTech nasıl ortaya çıktı? 2024'te Ankara ODTÜ Teknokent'te kurulan Türkçe yapay zeka girişiminin doğuş hikâyesi: hangi sorundan yola çıkıldı, neden kendi ürünlerini geliştiriyor?
-- [Caseon nedir?](https://tariksenkal.com/posts/caseon-nedir/): Caseon nedir? HatsonTech'in amiral gemisi ürünü: avukatlar ve hukuk birimleri için içtihat araması, belge analizi ve akıllı hukuki asistanı bir araya getiren yapay zeka platformu.
 - [Who is İsmail Tarık Şenkal?](https://tariksenkal.com/en/posts/who-is-tarik-senkal/): Who is İsmail Tarık Şenkal? The story of the co-founder of Hatson Teknoloji A.Ş. — a developer and entrepreneur working on Turkish artificial intelligence, large language models, and legal technologies.
 - [How did HatsonTech come about?](https://tariksenkal.com/en/posts/what-is-hatsontech/): How did HatsonTech come about? The origin story of a Turkish AI startup founded in 2024 at ODTÜ Teknokent in Ankara: what problem it set out to solve, and why it builds its own products.
-- [What is Caseon?](https://tariksenkal.com/en/posts/what-is-caseon/): What is Caseon? HatsonTech's flagship product: an AI platform that brings together case-law search, document analysis and a smart legal assistant for lawyers and legal departments.
 
 ## Yazılar — Türkçe
 - [Çoklu Ajan Sistemleri: 15 Kat Token, %90 Kazanç — Hangisi Sizin Durumunuz?](https://tariksenkal.com/posts/coklu-ajan-maliyet-gercegi/): Çoklu ajan mimarisi ne zaman kazanır, ne zaman para yakar? İki birincil kaynağın uzlaştırılması, token çarpanı, hata modları ve somut bir karar tablosu.
