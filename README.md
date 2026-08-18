@@ -32,7 +32,6 @@ tariksenkal/
 ├── posts/                     # Blog yazıları
 │   ├── tarik-senkal-kimdir.html
 │   ├── hatsontech-nedir.html
-│   ├── caseon-nedir.html
 │   ├── buyuk-dil-modeli-nedir.html
 │   ├── rag-nedir.html
 │   └── turkce-yapay-zeka.html
