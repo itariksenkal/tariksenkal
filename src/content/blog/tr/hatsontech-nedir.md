@@ -16,9 +16,9 @@ HatsonTech'in hikâyesi aslında oldukça sade: yıllardır birlikte çalışan 
 
 ## Nereden geldik?
 
-İsmail Tarık Şenkal ve Halide Yılmaz olarak 2024'ten bu yana yapay zeka ürünleri üzerinde birlikte çalışıyoruz. Bu süreçte Ankara'da kurucu ortağı olduğumuz bir yapay zeka Ar-Ge şirketinde Türkçe dil modelleri, kaynak gösteren arama sistemleri ve büyük ölçekli model eğitimi üzerine ürünler geliştirdik. Ürün geliştirmeyi, ekip kurmayı ve bir şirketi ayakta tutmanın ne demek olduğunu da en çok orada öğrendik.
+İsmail Tarık Şenkal ve Halide Yılmaz olarak 2024'te yapay zeka alanında ilk şirketimizi kurduk. 2025'in başında TÜBİTAK etkinlikleri, TRUBA ve EUMaster4HPC gibi ortamlarda büyük ölçekli model eğitimi çalışmalarına katıldık. Aynı yıl, hukuk yazılımları üzerine yürüttüğümüz projeyle ODTÜ Teknokent'e girdik; 2026'da bu proje yatırım aldı. Temmuz 2026'da ise projeyi başka bir şirkete sattık. Ürün geliştirmeyi, ekip kurmayı ve bir şirketi ayakta tutmanın ne demek olduğunu en çok bu süreçte öğrendik.
 
-Temmuz 2026'da o şirketteki görevlerimizden ayrıldık. Ağustos 2026'da ise Ankara'da **Hatson Teknoloji Ltd. Şti.**'yi, yani HatsonTech'i kurduk.
+Ağustos 2026'da ana şirketimiz olan **Hatson Teknoloji Ltd. Şti.**'yi, yani HatsonTech'i Ankara'da kurduk. 2024'ten bu yana, önceki çalışmalarımızla birlikte çevre, hukuk, yazılım ve yapay zeka alanlarında teknolojik ürünler geliştiriyoruz.
 
 ## Ne yapıyoruz?
 
@@ -43,9 +43,9 @@ Bir şirket olarak birkaç basit ilkeye bağlı kalmaya çalışıyoruz:
 
 ## Caseon AI ile ilişkisi
 
-2026'da, hukuk teknolojisine odaklanan ayrı bir şirket olarak **Caseon AI**'ı (Caseon Teknoloji A.Ş.) da kurduk. Caseon tek bir alana odaklanıyor: hukuk yazılımı. Avukatların durum tespiti (due diligence) ve sözleşme inceleme işlerinde belgeler arasında daha rahat çalışabilmesi için bir çalışma alanı geliştiriyoruz. Sistem, inceleme sorularını proje belgelerine dayanarak yanıtlıyor; avukat her cevabı kaynak paragrafıyla karşılaştırıyor, gerekirse düzeltiyor ve kararını kaydediyor. Son söz her zaman avukatta.
+2026'da, sözleşme analizi için ayrı bir şirket olarak **Caseon AI**'ı (Caseon Teknoloji A.Ş.) da kurduk. Caseon tek bir alana odaklanıyor: hukuk yazılımı. Avukatların durum tespiti (due diligence) ve sözleşme inceleme işlerinde belgeler arasında daha rahat çalışabilmesi için bir çalışma alanı geliştiriyoruz. Sistem, inceleme sorularını proje belgelerine dayanarak yanıtlıyor; avukat her cevabı kaynak paragrafıyla karşılaştırıyor, gerekirse düzeltiyor ve kararını kaydediyor. Son söz her zaman avukatta.
 
-Kısacası HatsonTech farklı sektörlerden kurumların yazılım ve yapay zeka ihtiyaçlarıyla, Caseon AI ise hukuk dünyasına yönelik tek bir ürünle ilgileniyor. Caseon hâlâ geliştirme aşamasında; ayrıntılara [caseon.ai](https://caseon.ai/) üzerinden ulaşabilirsiniz.
+Kısacası ana şirketimiz HatsonTech farklı sektörlerden kurumların yazılım ve yapay zeka ihtiyaçlarıyla, Caseon AI ise hukuk dünyasına yönelik tek bir ürünle ilgileniyor. Caseon hâlâ geliştirme aşamasında; ayrıntılara [caseon.ai](https://caseon.ai/) üzerinden ulaşabilirsiniz.
 
 ---
 

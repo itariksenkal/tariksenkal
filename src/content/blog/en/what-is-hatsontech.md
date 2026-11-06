@@ -16,9 +16,9 @@ HatsonTech's story is a fairly simple one: two co-founders who had worked togeth
 
 ## Where we came from
 
-As İsmail Tarık Şenkal and Halide Yılmaz, we have been working on AI products together since 2024. During that time we built products around Turkish language models, source-citing search systems and large-scale model training at an AI R&D company we co-founded in Ankara. It is also where we learned the most about building products, building a team and what it takes to keep a company going.
+As İsmail Tarık Şenkal and Halide Yılmaz, we founded our first company, in AI, in 2024. In early 2025 we took part in large-scale model training work through TÜBİTAK events, TRUBA and EUMaster4HPC. The same year, our legal-software project took us into METU Technopark, and in 2026 that project received investment. In July 2026 we sold the project to another company. This journey taught us the most about building products, building a team and what it takes to keep a company going.
 
-In July 2026 we left our roles at that company. In August 2026 we founded **Hatson Teknoloji Ltd. Şti.**, HatsonTech, in Ankara.
+In August 2026 we founded our main company, **Hatson Teknoloji Ltd. Şti.**, HatsonTech, in Ankara. Since 2024, together with our earlier work, we have been building technology products in environment, law, software and AI.
 
 ## What we do
 
@@ -43,9 +43,9 @@ As a company, we try to stick to a few simple principles:
 
 ## How it relates to Caseon AI
 
-In 2026 we also founded **Caseon AI** (Caseon Teknoloji A.Ş.) as a separate company focused on legal technology. Caseon concentrates on one thing: legal software. We are building a workspace that helps lawyers move through documents more easily in due diligence and contract review. The system answers review questions based on the project documents; the lawyer compares each answer with its source paragraph, corrects it if needed and records the decision. The final word always stays with the lawyer.
+In 2026 we also founded **Caseon AI** (Caseon Teknoloji A.Ş.) as a separate company for contract analysis. Caseon concentrates on one thing: legal software. We are building a workspace that helps lawyers move through documents more easily in due diligence and contract review. The system answers review questions based on the project documents; the lawyer compares each answer with its source paragraph, corrects it if needed and records the decision. The final word always stays with the lawyer.
 
-In short, HatsonTech works on the software and AI needs of organisations across sectors, while Caseon AI focuses on a single product for the legal world. Caseon is still in development; you can find more at [caseon.ai](https://caseon.ai/en/).
+In short, our main company HatsonTech works on the software and AI needs of organisations across sectors, while Caseon AI focuses on a single product for the legal world. Caseon is still in development; you can find more at [caseon.ai](https://caseon.ai/en/).
 
 ---
 

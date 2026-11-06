@@ -1,6 +1,6 @@
 ---
 title: "İsmail Tarık Şenkal kimdir?"
-description: "İsmail Tarık Şenkal; HatsonTech ve Caseon AI'ın kurucu ortaklarından bir girişimci. Lisansını Hacettepe Üniversitesi'nde, yüksek lisansını ODTÜ'de yaptı; yapay zeka ve yazılım alanında şirketler kuruyor."
+description: "İsmail Tarık Şenkal; HatsonTech ve Caseon AI'ın kurucu ortaklarından bir girişimci. Hacettepe Üniversitesi mezunu, ODTÜ'de İstatistik yüksek lisansı yapıyor; yapay zeka ve yazılım alanında şirketler kuruyor."
 publishDate: "2026-08-09T23:05:00+03:00"
 updatedDate: "2026-11-06T18:00:00+03:00"
 lang: tr
@@ -16,28 +16,28 @@ Merhaba, ben **İsmail Tarık Şenkal**, kısaca Tarık. Yapay zeka ve yazılım
 
 ## Kısaca
 
--   **Eğitim:** Lisans, Hacettepe Üniversitesi; yüksek lisans, ODTÜ.
+-   **Eğitim:** Lisans, Hacettepe Üniversitesi (2018–2023); yüksek lisans, ODTÜ İstatistik (2026–devam ediyor).
 -   **Şirketler:** HatsonTech (Hatson Teknoloji Ltd. Şti.) ve Caseon AI (Caseon Teknoloji A.Ş.), kurucu ortak.
 -   **İlgi alanları:** Büyük dil modelleri, doğal dil işleme, RAG, hukuk teknolojisi ve girişimcilik.
 -   **Nerede:** Ankara.
 
-## Okul yılları
+## Eğitim
 
-Lisansımı Hacettepe Üniversitesi'nde tamamladım, yüksek lisansımı ise ODTÜ'de yaptım. Bu yıllarda bilgisayarların dili nasıl işlediği sorusu ilgimi çekmeye başladı ve zamanla yapay zekaya, özellikle de doğal dil işlemeye yöneldim.
+2018–2023 yılları arasında Hacettepe Üniversitesi'nde lisans eğitimimi tamamladım. 2026'dan bu yana ODTÜ'de İstatistik yüksek lisansı yapıyorum.
 
-Aynı dönemde TÜBİTAK etkinlikleri, Türkiye'nin ulusal yüksek başarımlı hesaplama altyapısı **TRUBA** ve Avrupa düzeyindeki **EUMaster4HPC** gibi ortamlarda büyük ölçekli model eğitimi üzerine çalışmalara katılma fırsatım oldu. Bir modeli büyük bir altyapıda eğitmenin ne kadar sabır ve disiplin gerektirdiğini orada gördüm.
+## İlk şirketimiz
 
-## İlk girişim
+2024'te Halide Yılmaz ile birlikte yapay zeka alanında ilk şirketimizi kurduk. 2025'in başında TÜBİTAK etkinlikleri, Türkiye'nin ulusal yüksek başarımlı hesaplama altyapısı **TRUBA** ve Avrupa düzeyindeki **EUMaster4HPC** gibi ortamlarda büyük ölçekli model eğitimi çalışmalarına katıldık.
 
-2024'te Halide Yılmaz ile birlikte Ankara'da bir yapay zeka Ar-Ge şirketini kurucu ortak olarak kurduk. Türkçe dil modelleri ve kaynak gösteren arama sistemleri üzerine ürünler geliştirdik. Bir ürünü sıfırdan çıkarmayı, ekip kurmayı, müşteriyle konuşmayı ve bir şirketin günlük işlerini yürütmeyi en çok o yıllarda öğrendim. Temmuz 2026'da bu şirketteki görevimden ayrıldım.
+Aynı yıl, hukuk yazılımları üzerine yürüttüğümüz projeyle ODTÜ Teknokent'e girdik; 2026'da bu proje yatırım aldı. Temmuz 2026'da ise projeyi başka bir şirkete sattık. Bir ürünü sıfırdan çıkarmayı, ekip kurmayı, müşteriyle konuşmayı ve bir şirketin günlük işlerini yürütmeyi en çok bu süreçte öğrendim.
 
 ## HatsonTech ve Caseon AI
 
-Ağustos 2026'da Ankara'da **HatsonTech**'i kurduk. HatsonTech'te kurumlar için yapay zeka ajanları, kaynak gösteren RAG asistanları, dil modeli ince ayarı, görüntü işleme, veri mühendisliği ile web ve mobil yazılım projeleri yürütüyoruz. Amacımız, kurumlarla kısa süreli işlerden çok uzun soluklu iş birlikleri kurmak.
+Ağustos 2026'da ana şirketimiz **HatsonTech**'i Ankara'da kurduk. HatsonTech'te kurumlar için yapay zeka ajanları, kaynak gösteren RAG asistanları, dil modeli ince ayarı, görüntü işleme, veri mühendisliği ile web ve mobil yazılım projeleri yürütüyoruz. Amacımız, kurumlarla kısa süreli işlerden çok uzun soluklu iş birlikleri kurmak.
 
-Yine 2026'da, hukuk teknolojisine odaklanan ayrı bir şirket olarak **Caseon AI**'ı kurduk. Caseon'da avukatların durum tespiti (due diligence) ve sözleşme inceleme işlerine yardımcı olan bir yazılım geliştiriyoruz. Sistemin verdiği her cevap, dayandığı belge paragrafıyla birlikte gösteriliyor ve son kontrol her zaman avukatta kalıyor.
+Yine 2026'da, sözleşme analizi için ayrı bir şirket olarak **Caseon AI**'ı kurduk. Caseon'da avukatların durum tespiti (due diligence) ve sözleşme inceleme işlerine yardımcı olan bir yazılım geliştiriyoruz. Sistemin verdiği her cevap, dayandığı belge paragrafıyla birlikte gösteriliyor ve son kontrol her zaman avukatta kalıyor.
 
-Bugün zamanımı bu iki şirketin büyümesine, ürünlerine ve ekiplerine ayırıyorum.
+2024'ten bu yana, önceki çalışmalarımızla birlikte çevre, hukuk, yazılım ve yapay zeka alanlarında teknolojik ürünler geliştiriyoruz. Bugün zamanımı bu iki şirketin büyümesine, ürünlerine ve ekiplerine ayırıyorum.
 
 ## Önemsediğim birkaç şey
 
