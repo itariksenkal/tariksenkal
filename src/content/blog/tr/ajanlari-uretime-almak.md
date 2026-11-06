@@ -7,7 +7,7 @@ category: "Ajanlar"
 tags: ["Ajanlar", "Yapay Zeka"]
 translation: "agents-in-production"
 heroImage:
-  src: "../../../assets/blog/bimg-04.jpg"
+  src: "../../../assets/blog/covers/ajanlari-uretime-almak.jpg"
   alt: "Yapay Zekâ Ajanlarını Üretime Almak: Demo Çalışıyor, Peki Sistem?"
 ---
 

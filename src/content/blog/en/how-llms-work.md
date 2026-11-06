@@ -7,7 +7,7 @@ category: "LLM"
 tags: ["LLM", "AI"]
 translation: "llm-nasil-calisir"
 heroImage:
-  src: "../../../assets/blog/bimg-11.jpg"
+  src: "../../../assets/blog/covers/how-llms-work.jpg"
   alt: "How Do Large Language Models (LLMs) Work? An Intuitive Guide to the Transformer Architecture"
 ---
 

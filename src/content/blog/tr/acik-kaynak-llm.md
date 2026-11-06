@@ -7,7 +7,7 @@ category: "Ekosistem"
 tags: ["Ekosistem", "Yapay Zeka"]
 translation: "open-source-llms"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/acik-kaynak-llm.jpg"
   alt: "Açık Kaynak LLM'ler: Llama, Mistral, Qwen ve Gemma'ya Pratik Bir Bakış"
 ---
 

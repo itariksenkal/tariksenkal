@@ -7,7 +7,7 @@ category: "Tools"
 tags: ["Tools", "AI"]
 translation: "ajanlar-arasi-protokol-a2a"
 heroImage:
-  src: "../../../assets/blog/bimg-15.jpg"
+  src: "../../../assets/blog/covers/a2a-agent-interoperability.jpg"
   alt: "A2A: How Agents Talk to Each Other — and Why It Isn't MCP's Rival"
 ---
 

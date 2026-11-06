@@ -7,7 +7,7 @@ category: "Agents"
 tags: ["Agents", "AI"]
 translation: "ajan-degerlendirmesi"
 heroImage:
-  src: "../../../assets/blog/bimg-17.jpg"
+  src: "../../../assets/blog/covers/agent-evaluation.jpg"
   alt: "Agent Evaluation: How Do You Measure a Multi-Step System?"
 ---
 

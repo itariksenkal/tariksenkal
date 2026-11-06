@@ -1,44 +1,52 @@
 ---
 title: "HatsonTech nasıl ortaya çıktı?"
-description: "HatsonTech nasıl ortaya çıktı? 2024'te Ankara ODTÜ Teknokent'te kurulan Türkçe yapay zeka girişiminin doğuş hikâyesi: hangi sorundan yola çıkıldı, neden kendi ürünlerini geliştiriyor?"
+description: "HatsonTech, Ağustos 2026'da Ankara'da kurulan bir yazılım ve yapay zeka şirketi. Nasıl başladığını, ne yaptığını ve hukuk teknolojisine odaklanan Caseon AI ile ilişkisini kısaca anlatıyoruz."
 publishDate: "2026-08-09T23:04:00+03:00"
+updatedDate: "2026-11-06T18:00:00+03:00"
 lang: tr
 category: "Şirket"
-tags: ["Şirket", "HatsonTech", "Girişim Hikâyesi", "Türkçe NLP"]
+tags: ["Şirket", "HatsonTech", "Caseon AI", "Girişimcilik"]
 translation: "what-is-hatsontech"
 heroImage:
-  src: "../../../assets/blog/hero-hatsontech.jpg"
-  alt: "HatsonTech — yapay zeka Ar-Ge ekibi"
+  src: "../../../assets/blog/covers/hatsontech-nedir.jpg"
+  alt: "HatsonTech"
 ---
 
-**HatsonTech** basit bir soruyla başladı: _Neden Türkçe konuşan biri, ana dilinde gerçekten güçlü ve güvenilir bir yapay zekaya kolayca erişemiyor?_
+HatsonTech'in hikâyesi aslında oldukça sade: yıllardır birlikte çalışan iki kurucu, edindikleri deneyimi yeni bir şirket çatısı altında sürdürmeye karar verdi.
 
-> “En iyi modeller İngilizce için yapılmıştı. Biz de Türkçe için yapılmasına karar verdik.”
+## Nereden geldik?
 
-## Bir sorunla başladı
+İsmail Tarık Şenkal ve Halide Yılmaz olarak 2024'ten bu yana yapay zeka ürünleri üzerinde birlikte çalışıyoruz. Bu süreçte Ankara'da kurucu ortağı olduğumuz bir yapay zeka Ar-Ge şirketinde Türkçe dil modelleri, kaynak gösteren arama sistemleri ve büyük ölçekli model eğitimi üzerine ürünler geliştirdik. Ürün geliştirmeyi, ekip kurmayı ve bir şirketi ayakta tutmanın ne demek olduğunu da en çok orada öğrendik.
 
-Yapay zekanın yükselişini yakından izliyorduk. Ama ne zaman Türkçe bir metinle —özellikle bir hukuk metniyle— karşılaşsalar, en güçlü modeller bile tökezliyordu: yanlış terim, uydurma kaynak, bağlamı kaçıran cevaplar. Çünkü bu modeller ağırlıklı olarak İngilizce'ye göre tasarlanmıştı. Türkçe'nin eklemeli yapısı, kendine özgü söz dizimi ve alan terminolojisi (hukuk, kamu…) çoğu zaman göz ardı ediliyordu.
+Temmuz 2026'da o şirketteki görevlerimizden ayrıldık. Ağustos 2026'da ise Ankara'da **Hatson Teknoloji Ltd. Şti.**'yi, yani HatsonTech'i kurduk.
 
-Bu, küçük bir eksiklik değildi; Türkçe konuşan milyonlarca insan için sessiz bir dezavantajdı. HatsonTech'in çıkış noktası tam olarak burasıydı.
+## Ne yapıyoruz?
 
-## Araştırmadan ürüne
+HatsonTech bir yazılım ve yapay zeka şirketi. Kurumlarla şu alanlarda çalışıyoruz:
 
-Yola bir laboratuvar merakıyla çıktık. Büyük dil modellerini (LLM) Türkçe'ye nasıl öğretebileceğimizi araştırdık; TÜBİTAK etkinlikleri, ulusal hesaplama altyapısı **TRUBA** ve **EUMaster4HPC** gibi ortamlarda modelleri büyük altyapılarda eğitmeyi ve üretime almayı deneyimledik. Prototipler büyüdükçe bir şey netleşti: asıl değer bir makale ya da demo değil, insanların her gün açtığı bir **ürün**dü.
+-   **Yapay zeka ajanları:** İş sistemlerine bağlanan, önemli adımlarda insan onayı bekleyen iş akışları.
+-   **RAG ve kurumsal arama:** Şirket belgeleri üzerinde, cevabın hangi kaynaktan geldiğini gösteren asistanlar.
+-   **Dil modeli ince ayarı:** Türkçe'ye ve belirli bir alana uyarlanmış modeller.
+-   **Görüntü işleme:** Kalite kontrol, OCR ve belge analizi.
+-   **Veri mühendisliği:** Veri hatları, veri ambarları ve veri kalitesi.
+-   **Web ve mobil yazılım:** Paneller, API'ler, iOS ve Android uygulamaları ve bulut altyapısı.
+-   **Kurum içi kurulum:** Verisini dışarı çıkaramayan kurumlar için kendi sunucularında çalışan çözümler.
 
-## 2024: İki kurucu, bir şirket
+## Neye dikkat ediyoruz?
 
-2024 yılında, Ankara **ODTÜ Teknokent**'te Hatson Teknoloji A.Ş.'yi kurduk — iki kurucu ortak: **İsmail Tarık Şenkal** ve **Halide Yılmaz**. Şirketin pusulasını tek bir cümleye sığdırdık: _“Veriden zekâya, araştırmadan ürüne.”_
+Bir şirket olarak birkaç basit ilkeye bağlı kalmaya çalışıyoruz:
 
-<div class="callout"><strong>Ne yapıyor?</strong> HatsonTech özel yazılım, web ve mobil platformlar, bulut sistemleri ve yapay zeka ürünleri geliştiriyor; hukuk teknolojisi bu ürünlerin önemli odaklarından biri.</div>
+-   **Önce problemi anlamak.** Her iş yapay zeka gerektirmiyor. Basit bir otomasyon yetecekse bunu açıkça söylemeyi tercih ediyoruz.
+-   **Başarıyı baştan konuşmak.** Neyin "iyi" sayılacağını işe başlamadan müşterimizle birlikte yazıyor, sonucu gerçek örneklerle ölçüyoruz.
+-   **Gizliliği baştan düşünmek.** Hangi verinin nereye gittiği ve KVKK yükümlülükleri projenin ilk haftasında netleşsin istiyoruz.
+-   **Küçük başlayıp birlikte büyümek.** Dar kapsamlı bir pilotla başlıyor, işe yaradıkça kapsamı adım adım genişletiyoruz. Teslimattan sonra da bakım ve geliştirmede yanında olmayı önemsiyoruz.
 
-## Neden hizmet değil, ürün?
+## Caseon AI ile ilişkisi
 
-Pek çok teknoloji şirketi başkaları için iş yapar. Biz farklı bir yol seçtik: **kendi ürünlerimizi** inşa etmek. Çünkü Türkçe yapay zeka sorununu gerçekten çözmek, bir projeyi teslim edip çekilmekle değil; bir ürünü yıllarca sahiplenip geliştirmekle olur.
+2026'da, hukuk teknolojisine odaklanan ayrı bir şirket olarak **Caseon AI**'ı (Caseon Teknoloji A.Ş.) da kurduk. Caseon tek bir alana odaklanıyor: hukuk yazılımı. Avukatların durum tespiti (due diligence) ve sözleşme inceleme işlerinde belgeler arasında daha rahat çalışabilmesi için bir çalışma alanı geliştiriyoruz. Sistem, inceleme sorularını proje belgelerine dayanarak yanıtlıyor; avukat her cevabı kaynak paragrafıyla karşılaştırıyor, gerekirse düzeltiyor ve kararını kaydediyor. Son söz her zaman avukatta.
 
-## İlk odak: hukuk
-
-Bu fikrin ilk odak alanı hukuk oldu: avukatlar ve hukuk birimleri için içtihat araması, belge analizi ve akıllı hukuki asistan çözümleri. Arkasında ise Türkçe hukuk diline göre eğittiğimiz kendi hukuki dil modelimiz ve cevapları gerçek belgelere bağlayan [RAG](/posts/rag-nedir-nasil-kurulur/) mimarisi var.
+Kısacası HatsonTech farklı sektörlerden kurumların yazılım ve yapay zeka ihtiyaçlarıyla, Caseon AI ise hukuk dünyasına yönelik tek bir ürünle ilgileniyor. Caseon hâlâ geliştirme aşamasında; ayrıntılara [caseon.ai](https://caseon.ai/) üzerinden ulaşabilirsiniz.
 
 ---
 
-HatsonTech kısacası bir “şirket kuralım” hevesiyle değil, çözülmesi gereken gerçek bir sorunla doğdu. Daha teknik tarafı için [büyük dil modeli nedir](/posts/llm-nasil-calisir/) ve [neden Türkçe yapay zeka](/posts/token-ve-embedding/) yazılarına göz atabilirsiniz.
+Bu blogdaki yazıların çoğu, bu işleri yaparken karşılaştığımız soruların notları. Teknik tarafı merak ederseniz [RAG](/posts/rag-nedir-nasil-kurulur/) ve [dil modelleri](/posts/llm-nasil-calisir/) üzerine yazılarla başlayabilirsiniz. HatsonTech hakkında daha fazlası için: [hatsontech.com](https://hatsontech.com/).

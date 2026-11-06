@@ -7,7 +7,7 @@ category: "Security"
 tags: ["Security", "AI"]
 translation: "prompt-injection-guvenlik"
 heroImage:
-  src: "../../../assets/blog/bimg-05.jpg"
+  src: "../../../assets/blog/covers/prompt-injection-jailbreaks.jpg"
   alt: "Prompt Injection and Jailbreaks: The Foundations of AI Security"
 ---
 

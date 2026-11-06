@@ -7,7 +7,7 @@ category: "Ürün"
 tags: ["Ürün", "Yapay Zeka"]
 translation: "generative-engine-optimization"
 heroImage:
-  src: "../../../assets/blog/bimg-19.jpg"
+  src: "../../../assets/blog/covers/uretken-arama-motoru-optimizasyonu.jpg"
   alt: "GEO: Üretken Arama Motorlarında Kaynak Gösterilmek"
 ---
 

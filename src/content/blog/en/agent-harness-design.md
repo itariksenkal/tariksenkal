@@ -7,7 +7,7 @@ category: "Architecture"
 tags: ["Architecture", "AI"]
 translation: "ajan-kosum-mimarisi"
 heroImage:
-  src: "../../../assets/blog/bimg-05.jpg"
+  src: "../../../assets/blog/covers/agent-harness-design.jpg"
   alt: "Agent Harness Design: Generator–Evaluator and Context Anxiety"
 ---
 

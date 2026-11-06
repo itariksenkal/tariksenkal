@@ -7,7 +7,7 @@ category: "Agents"
 tags: ["Agents", "AI"]
 translation: "bilgisayar-kullanan-ajanlar"
 heroImage:
-  src: "../../../assets/blog/bimg-01.jpg"
+  src: "../../../assets/blog/covers/computer-use-agents.jpg"
   alt: "Computer-Use Agents: The 60-Point Gap Between Demo and Production"
 ---
 

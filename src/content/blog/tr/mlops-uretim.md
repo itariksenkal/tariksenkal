@@ -7,7 +7,7 @@ category: "MLOps"
 tags: ["MLOps", "Yapay Zeka"]
 translation: "mlops-ai-to-production"
 heroImage:
-  src: "../../../assets/blog/bimg-20.jpg"
+  src: "../../../assets/blog/covers/mlops-uretim.jpg"
   alt: "Bir Yapay Zeka Modelini Üretime Almak (MLOps): Demodan Gerçek Ürüne"
 ---
 

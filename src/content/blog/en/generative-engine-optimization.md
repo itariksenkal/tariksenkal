@@ -7,7 +7,7 @@ category: "Product"
 tags: ["Product", "AI"]
 translation: "uretken-arama-motoru-optimizasyonu"
 heroImage:
-  src: "../../../assets/blog/bimg-19.jpg"
+  src: "../../../assets/blog/covers/generative-engine-optimization.jpg"
   alt: "GEO: Getting Cited by Generative Search Engines"
 ---
 

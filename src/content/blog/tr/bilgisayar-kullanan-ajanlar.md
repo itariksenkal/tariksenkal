@@ -7,7 +7,7 @@ category: "Ajanlar"
 tags: ["Ajanlar", "Yapay Zeka"]
 translation: "computer-use-agents"
 heroImage:
-  src: "../../../assets/blog/bimg-01.jpg"
+  src: "../../../assets/blog/covers/bilgisayar-kullanan-ajanlar.jpg"
   alt: "Bilgisayar Kullanan Ajanlar: Demo ile Üretim Arasındaki 60 Puanlık Uçurum"
 ---
 

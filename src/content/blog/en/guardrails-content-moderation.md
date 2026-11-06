@@ -7,7 +7,7 @@ category: "Safety"
 tags: ["Safety", "AI"]
 translation: "guardrails-icerik-denetimi"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/guardrails-content-moderation.jpg"
   alt: "Guardrails: Constraining AI Output in Production"
 ---
 

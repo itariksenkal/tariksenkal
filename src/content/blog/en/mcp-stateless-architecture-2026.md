@@ -7,7 +7,7 @@ category: "Tools"
 tags: ["Tools", "AI"]
 translation: "mcp-durumsuz-mimari-2026"
 heroImage:
-  src: "../../../assets/blog/bimg-12.jpg"
+  src: "../../../assets/blog/covers/mcp-stateless-architecture-2026.jpg"
   alt: "MCP 2026: Why the Protocol Went Stateless, and What Your Server Must Change"
 ---
 

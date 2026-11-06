@@ -32,7 +32,7 @@ const jsonLd = {
   image: new URL('/og-card.jpg', site.url).href,
   jobTitle: p.role,
   email: `mailto:${site.email}`,
-  worksFor: { '@type': 'Organization', name: site.company.legal, url: site.company.url },
+  worksFor: site.companies.map((c) => ({ '@type': 'Organization', name: c.legal, url: c.url })),
   sameAs: site.socials.map((x) => x.href)
 }
 ---
@@ -162,37 +162,35 @@ const jsonLd = {
         </div>
       </section>
 
-      {/* ===== Process + now ===== */}
+      {/* ===== Companies + now ===== */}
       <section class='reveal'>
-        <h2 class='section-title'>{p.sections.process}</h2>
-        <p class='mt-2 text-muted-foreground'>{p.process.title}</p>
-        <ol class='mt-6 grid gap-3 sm:grid-cols-3'>
+        <h2 class='section-title'>{p.sections.ventures}</h2>
+        <p class='mt-2 text-muted-foreground'>{p.ventures.title}</p>
+        <ul class='mt-6 grid gap-3 sm:grid-cols-2'>
           {
-            p.process.steps.map((x, i) => (
-              <li class='surface spotlight hoverable p-5'>
-                <span class='step-num'>{String(i + 1).padStart(2, '0')}</span>
-                <h3 class='mt-3 text-lg font-medium'>{x.title}</h3>
-                <p class='mt-1 text-sm text-muted-foreground'>{x.text}</p>
+            p.ventures.items.map((x) => (
+              <li class='surface spotlight hoverable flex flex-col p-5'>
+                <div class='flex items-center gap-3'>
+                  <span class='icon-tile'><Glyph name='building' class='size-5' /></span>
+                  <div>
+                    <h3 class='text-lg font-medium leading-tight'>{x.name}</h3>
+                    <p class='text-xs text-muted-foreground'>{x.legal} · {x.since}</p>
+                  </div>
+                </div>
+                <p class='mt-4 text-sm font-medium text-primary'>{x.tag}</p>
+                <p class='mt-1 flex-1 text-sm text-muted-foreground'>{x.text}</p>
+                <a href={x.url} target='_blank' rel='noopener' class='chip mt-4 self-start'>
+                  {new URL(x.url).host}
+                  <Glyph name='arrow-up-right' class='size-3.5' />
+                </a>
               </li>
             ))
           }
-        </ol>
-        <div class='mt-4 flex flex-col gap-3 rounded-2xl border border-dashed p-4 text-sm sm:flex-row sm:items-center sm:justify-between'>
-          <p class='flex items-start gap-3 text-muted-foreground'>
-            <span class='live-dot mt-1.5 shrink-0'></span>
-            <span>{p.now}</span>
-          </p>
-          <a
-            href={site.company.url}
-            target='_blank'
-            rel='noopener'
-            class='chip shrink-0 self-start sm:self-auto'
-          >
-            <Glyph name='building' class='size-4' />
-            {new URL(site.company.url).host}
-            <Glyph name='arrow-up-right' class='size-3.5' />
-          </a>
-        </div>
+        </ul>
+        <p class='mt-4 flex items-start gap-3 rounded-2xl border border-dashed p-4 text-sm text-muted-foreground'>
+          <span class='live-dot mt-1.5 shrink-0'></span>
+          <span>{p.now}</span>
+        </p>
       </section>
 
       {/* ===== Writing ===== */}

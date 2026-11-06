@@ -7,7 +7,7 @@ category: "Ajanlar"
 tags: ["Ajanlar", "Yapay Zeka"]
 translation: "multi-agent-cost-reality"
 heroImage:
-  src: "../../../assets/blog/bimg-07.jpg"
+  src: "../../../assets/blog/covers/coklu-ajan-maliyet-gercegi.jpg"
   alt: "Çoklu Ajan Sistemleri: 15 Kat Token, %90 Kazanç — Hangisi Sizin Durumunuz?"
 ---
 

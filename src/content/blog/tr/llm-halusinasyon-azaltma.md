@@ -7,7 +7,7 @@ category: "Güvenilirlik"
 tags: ["Güvenilirlik", "Yapay Zeka"]
 translation: "reducing-llm-hallucinations"
 heroImage:
-  src: "../../../assets/blog/bimg-17.jpg"
+  src: "../../../assets/blog/covers/llm-halusinasyon-azaltma.jpg"
   alt: "LLM Halüsinasyonları: Neden Olur ve Nasıl Azaltılır?"
 ---
 

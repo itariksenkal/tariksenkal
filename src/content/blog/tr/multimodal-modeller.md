@@ -7,7 +7,7 @@ category: "Çok Modlu"
 tags: ["Çok Modlu", "Yapay Zeka"]
 translation: "multimodal-models"
 heroImage:
-  src: "../../../assets/blog/bimg-01.jpg"
+  src: "../../../assets/blog/covers/multimodal-modeller.jpg"
   alt: "Çok Modlu (Multimodal) Modeller: Görüntü, Metin ve Sesi Birlikte İşleyen Yapay Zekâ Nasıl Çalışır?"
 ---
 

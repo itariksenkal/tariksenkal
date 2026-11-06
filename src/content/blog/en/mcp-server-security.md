@@ -7,7 +7,7 @@ category: "Security"
 tags: ["Security", "AI"]
 translation: "mcp-sunucu-guvenligi"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/mcp-server-security.jpg"
   alt: "MCP Server Security: When the Tool Description Is the Attack"
 ---
 

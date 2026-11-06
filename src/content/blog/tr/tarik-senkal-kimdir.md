@@ -1,49 +1,51 @@
 ---
 title: "İsmail Tarık Şenkal kimdir?"
-description: "İsmail Tarık Şenkal kimdir? Hatson Teknoloji A.Ş.'nin kurucu ortağı, Türkçe yapay zeka, büyük dil modelleri ve hukuk teknolojileri üzerine çalışan geliştirici ve girişimcinin hikâyesi."
+description: "İsmail Tarık Şenkal; HatsonTech ve Caseon AI'ın kurucu ortaklarından bir girişimci. Lisansını Hacettepe Üniversitesi'nde, yüksek lisansını ODTÜ'de yaptı; yapay zeka ve yazılım alanında şirketler kuruyor."
 publishDate: "2026-08-09T23:05:00+03:00"
+updatedDate: "2026-11-06T18:00:00+03:00"
 lang: tr
 category: "Profil"
-tags: ["Profil", "Girişimcilik", "Yapay Zeka", "HatsonTech"]
+tags: ["Profil", "Girişimcilik", "HatsonTech", "Caseon AI"]
 translation: "who-is-tarik-senkal"
 heroImage:
   src: "../../../assets/blog/tariksenkal.jpeg"
   alt: "İsmail Tarık Şenkal"
 ---
 
-İsmail Tarık Şenkal, kısaca **Tarık Şenkal**; yapay zekanın gündelik hayatta gerçekten işe yaramasını dert edinen bir geliştirici ve girişimci. Bugün, kurucu ortağı olduğu **Hatson Teknoloji A.Ş.** çatısı altında, Türkçe'ye odaklanan yapay zeka ürünleri geliştiriyor.
-
-> “Yapay zekayı bir sunum slaytı değil, insanların her gün açtığı bir ürün hâline getirmek istiyorum.”
+Merhaba, ben **İsmail Tarık Şenkal**, kısaca Tarık. Yapay zeka ve yazılım alanında şirketler kuruyorum; bugün **HatsonTech** ve **Caseon AI**'ın kurucu ortaklarındanım. Bu yazıda kendimi ve bugüne kadarki yolculuğumu kısaca anlatmak istedim.
 
 ## Kısaca
 
--   **Kim:** Yapay zeka geliştiricisi ve girişimci.
--   **Ne yapar:** Büyük dil modelleri (LLM), doğal dil işleme ve RAG mimarileriyle ürün geliştirir.
--   **Nerede:** Ankara, ODTÜ Teknokent.
--   **Şirket:** Hatson Teknoloji A.Ş. — kurucu ortak.
+-   **Eğitim:** Lisans, Hacettepe Üniversitesi; yüksek lisans, ODTÜ.
+-   **Şirketler:** HatsonTech (Hatson Teknoloji Ltd. Şti.) ve Caseon AI (Caseon Teknoloji A.Ş.), kurucu ortak.
+-   **İlgi alanları:** Büyük dil modelleri, doğal dil işleme, RAG, hukuk teknolojisi ve girişimcilik.
+-   **Nerede:** Ankara.
 
-## Teknolojiden girişimciliğe
+## Okul yılları
 
-Tarık Şenkal'ın hikâyesi, çoğu teknoloji kurucusununki gibi bir merakla başlıyor: bilgisayarların dili gerçekten anlayıp anlayamayacağı sorusuyla. Yazılım ve yapay zeka alanındaki ilgisini zamanla doğal dil işleme (NLP) üzerine yoğunlaştırdı — yani makinelerin metni okuması, anlaması ve üretmesi meselesi.
+Lisansımı Hacettepe Üniversitesi'nde tamamladım, yüksek lisansımı ise ODTÜ'de yaptım. Bu yıllarda bilgisayarların dili nasıl işlediği sorusu ilgimi çekmeye başladı ve zamanla yapay zekaya, özellikle de doğal dil işlemeye yöneldim.
 
-Bu ilgi, onu büyük ölçekli yapay zeka çalışmalarının içine taşıdı. TÜBİTAK etkinlikleri, Türkiye'nin ulusal yüksek başarımlı hesaplama altyapısı **TRUBA** ve Avrupa düzeyindeki **EUMaster4HPC** gibi ortamlarda, modellerin büyük altyapılarda nasıl eğitildiğini ve üretime alındığını deneyimledi. Bu dönem, ileride kuracağı şirketin teknik DNA'sını belirledi.
+Aynı dönemde TÜBİTAK etkinlikleri, Türkiye'nin ulusal yüksek başarımlı hesaplama altyapısı **TRUBA** ve Avrupa düzeyindeki **EUMaster4HPC** gibi ortamlarda büyük ölçekli model eğitimi üzerine çalışmalara katılma fırsatım oldu. Bir modeli büyük bir altyapıda eğitmenin ne kadar sabır ve disiplin gerektirdiğini orada gördüm.
 
-<div class="callout"><strong>Neden önemli?</strong> Büyük dil modellerini eğitmek ucuz ya da kolay değildir; ciddi bir hesaplama altyapısı ve mühendislik disiplini ister. Tarık Şenkal'ın bu altyapılarla erken tanışması, HatsonTech'in “kendi modelini eğiten” bir şirket olmasının temelini attı.</div>
+## İlk girişim
 
-## HatsonTech'i kurmak
+2024'te Halide Yılmaz ile birlikte Ankara'da bir yapay zeka Ar-Ge şirketini kurucu ortak olarak kurduk. Türkçe dil modelleri ve kaynak gösteren arama sistemleri üzerine ürünler geliştirdik. Bir ürünü sıfırdan çıkarmayı, ekip kurmayı, müşteriyle konuşmayı ve bir şirketin günlük işlerini yürütmeyi en çok o yıllarda öğrendim. Temmuz 2026'da bu şirketteki görevimden ayrıldım.
 
-2024 yılında, Ankara ODTÜ Teknokent'te **Hatson Teknoloji A.Ş.**'yi kurucu ortak olarak hayata geçirdi. Şirketin çıkış noktası nettir: Türkçe'yi gerçekten anlayan, güvenilir ve işe yarayan yapay zeka ürünleri üretmek. HatsonTech bir “danışmanlık” evi değil; **kendi ürünlerini** inşa eden bir Ar-Ge şirketi.
+## HatsonTech ve Caseon AI
 
-Bu vizyonun ilk odak alanı hukuk oldu: avukatlar ve hukuk birimleri için içtihat araması, belge analizi ve akıllı hukuki asistan çözümleri. Bunların arkasında ise HatsonTech'in Türkçe hukuk diline göre ince ayar yapılmış kendi hukuki dil modeli yer alıyor.
+Ağustos 2026'da Ankara'da **HatsonTech**'i kurduk. HatsonTech'te kurumlar için yapay zeka ajanları, kaynak gösteren RAG asistanları, dil modeli ince ayarı, görüntü işleme, veri mühendisliği ile web ve mobil yazılım projeleri yürütüyoruz. Amacımız, kurumlarla kısa süreli işlerden çok uzun soluklu iş birlikleri kurmak.
 
-## Neye inanıyor?
+Yine 2026'da, hukuk teknolojisine odaklanan ayrı bir şirket olarak **Caseon AI**'ı kurduk. Caseon'da avukatların durum tespiti (due diligence) ve sözleşme inceleme işlerine yardımcı olan bir yazılım geliştiriyoruz. Sistemin verdiği her cevap, dayandığı belge paragrafıyla birlikte gösteriliyor ve son kontrol her zaman avukatta kalıyor.
 
-Tarık Şenkal'ın çalışmalarını yönlendiren birkaç temel fikir var:
+Bugün zamanımı bu iki şirketin büyümesine, ürünlerine ve ekiplerine ayırıyorum.
 
--   **Türkçe hak ettiği yapay zekayı bekliyor.** Güçlü modellerin çoğu İngilizce'ye göre tasarlanır; Türkçe konuşan herkesin ana dilinde aynı kaliteye erişmesi gerekir.
--   **Doğruluk her şeyden önemli.** Özellikle hukuk gibi alanlarda “uydurmayan”, cevaplarını gerçek belgelere dayandıran sistemler şart. Bu yüzden [RAG](/posts/rag-nedir-nasil-kurulur/) mimarisi işin merkezinde.
--   **Araştırma ürüne dönüşmeli.** Bir makale ya da prototip değerlidir; ama asıl değer, onu binlerce kişinin kullandığı bir ürüne çevirmektir.
+## Önemsediğim birkaç şey
+
+-   **Ekip.** Bu yazıda adı geçen her işin arkasında birlikte çalıştığım insanların emeği var.
+-   **Kaynağını göstermek.** Bir sistemin cevabı, nereden geldiği görülebildiğinde daha anlamlı oluyor; özellikle hukuk gibi alanlarda bu bir tercih değil, gereklilik.
+-   **Uzun vadeli düşünmek.** Bir şirketi büyütmek de bir ürünü olgunlaştırmak da zaman alıyor; acele etmeden, sağlam adımlarla ilerlemeyi tercih ediyoruz.
+-   **Öğrendikçe yazmak.** Bu blog biraz da kendime aldığım notlar. Bir yanlışım olursa düzeltilmekten memnuniyet duyarım.
 
 ---
 
-Özetle: İsmail Tarık Şenkal, Türkçe yapay zekanın laboratuvardan çıkıp gerçek hayata inmesi için çalışan bir kurucu. Daha derinine inmek isterseniz, [HatsonTech'in ne olduğunu](/posts/hatsontech-nedir/) ya da [büyük dil modellerinin nasıl çalıştığını](/posts/llm-nasil-calisir/) anlatan yazılarla devam edebilirsiniz.
+Şirketlerimizin nasıl ortaya çıktığını [HatsonTech nasıl ortaya çıktı?](/posts/hatsontech-nedir/) yazısında anlattık. Bir proje ya da iş birliği hakkında konuşmak isterseniz bana [e-postayla](mailto:itarik.senkal@hatsontech.com) ulaşabilirsiniz.

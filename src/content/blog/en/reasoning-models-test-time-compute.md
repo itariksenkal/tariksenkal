@@ -7,7 +7,7 @@ category: "Models"
 tags: ["Models", "AI"]
 translation: "akil-yuruten-modeller"
 heroImage:
-  src: "../../../assets/blog/bimg-15.jpg"
+  src: "../../../assets/blog/covers/reasoning-models-test-time-compute.jpg"
   alt: "Reasoning Models and Test-Time Compute: Buying Time to Think"
 ---
 

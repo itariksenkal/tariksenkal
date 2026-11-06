@@ -7,7 +7,7 @@ category: "Ajanlar"
 tags: ["Ajanlar", "Yapay Zeka"]
 translation: "agent-memory-systems"
 heroImage:
-  src: "../../../assets/blog/bimg-06.jpg"
+  src: "../../../assets/blog/covers/ajan-bellek-sistemleri.jpg"
   alt: "Ajan Bellek Sistemleri: Bağlam Penceresi Dışında Ne Saklarsınız?"
 ---
 

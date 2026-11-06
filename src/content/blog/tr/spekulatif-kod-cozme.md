@@ -7,7 +7,7 @@ category: "Altyapı"
 tags: ["Altyapı", "Yapay Zeka"]
 translation: "speculative-decoding"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/spekulatif-kod-cozme.jpg"
   alt: "Spekülatif Kod Çözme: Aynı Modelden Nasıl Daha Hızlı Token Alınır?"
 ---
 

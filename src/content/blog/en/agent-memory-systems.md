@@ -7,7 +7,7 @@ category: "Agents"
 tags: ["Agents", "AI"]
 translation: "ajan-bellek-sistemleri"
 heroImage:
-  src: "../../../assets/blog/bimg-06.jpg"
+  src: "../../../assets/blog/covers/agent-memory-systems.jpg"
   alt: "Agent Memory Systems: What Lives Outside the Context Window"
 ---
 

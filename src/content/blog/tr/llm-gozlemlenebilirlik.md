@@ -7,7 +7,7 @@ category: "Gözlemlenebilirlik"
 tags: ["Gözlemlenebilirlik", "Yapay Zeka"]
 translation: "llm-observability"
 heroImage:
-  src: "../../../assets/blog/bimg-09.jpg"
+  src: "../../../assets/blog/covers/llm-gozlemlenebilirlik.jpg"
   alt: "LLM Gözlemlenebilirliği: İzleme, Loglama ve Değerlendirme Döngülerine Pratik Bir Bakış"
 ---
 

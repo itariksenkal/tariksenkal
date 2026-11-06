@@ -7,7 +7,7 @@ category: "Cost"
 tags: ["Cost", "AI"]
 translation: "kurumsal-llm-butcesi"
 heroImage:
-  src: "../../../assets/blog/bimg-20.jpg"
+  src: "../../../assets/blog/covers/enterprise-llm-budgeting.jpg"
   alt: "Enterprise LLM Budgeting: Token Overhead, FX Risk and the Real Unit Cost"
 ---
 

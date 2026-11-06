@@ -7,7 +7,7 @@ category: "Agents"
 tags: ["Agents", "AI"]
 translation: "otonom-ajan-mimarileri"
 heroImage:
-  src: "../../../assets/blog/bimg-12.jpg"
+  src: "../../../assets/blog/covers/autonomous-agent-architectures.jpg"
   alt: "Autonomous Agent Architectures: Plan-and-Execute, Agent Fleets and the Cost Reality"
 ---
 

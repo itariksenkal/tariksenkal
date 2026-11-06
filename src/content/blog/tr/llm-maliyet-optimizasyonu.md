@@ -7,7 +7,7 @@ category: "Maliyet"
 tags: ["Maliyet", "Yapay Zeka"]
 translation: "llm-cost-optimization"
 heroImage:
-  src: "../../../assets/blog/bimg-07.jpg"
+  src: "../../../assets/blog/covers/llm-maliyet-optimizasyonu.jpg"
   alt: "LLM Maliyet Optimizasyonu: Token, Önbellekleme, Model Seçimi ve RAG ile Faturayı Düşürmek"
 ---
 

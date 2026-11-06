@@ -7,7 +7,7 @@ category: "Alignment"
 tags: ["Alignment", "AI"]
 translation: "rlhf-nedir"
 heroImage:
-  src: "../../../assets/blog/bimg-08.jpg"
+  src: "../../../assets/blog/covers/rlhf-model-alignment.jpg"
   alt: "RLHF and Model Alignment: Helpful and Safe Models, the Reward Model, and DPO"
 ---
 

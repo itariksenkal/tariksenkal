@@ -7,7 +7,7 @@ category: "Verimlilik"
 tags: ["Verimlilik", "Yapay Zeka"]
 translation: "quantization-in-production"
 heroImage:
-  src: "../../../assets/blog/bimg-19.jpg"
+  src: "../../../assets/blog/covers/uretimde-kuantizasyon.jpg"
   alt: "Üretimde Kuantizasyon: FP8, NVFP4 ve Türkçe'de Kalite Kaybı"
 ---
 

@@ -7,7 +7,7 @@ category: "Üretken"
 tags: ["Üretken", "Yapay Zeka"]
 translation: "diffusion-models-image-generation"
 heroImage:
-  src: "../../../assets/blog/bimg-02.jpg"
+  src: "../../../assets/blog/covers/difuzyon-modelleri.jpg"
   alt: "Difüzyon Modelleri ve Görüntü Üretimi: Gürültüden Görüntüye"
 ---
 

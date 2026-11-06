@@ -58,7 +58,8 @@ def cover(slug: str, category: str, out: Path, lang: str = "en") -> None:
     seed = int(hashlib.sha1(slug.encode()).hexdigest(), 16)
     rnd = lambda k: ((seed >> (k * 7)) % 1000) / 1000  # deterministic 0..1 values
     key = category.casefold().replace("i̇", "i")
-    hue = HUES.get(key, 220) + (rnd(1) - 0.5) * 16
+    base_hue = HUES.get(key, int(hashlib.sha1(key.encode()).hexdigest(), 16) % 360)
+    hue = base_hue + (rnd(1) - 0.5) * 16
 
     img = Image.new("RGBA", (W, H), hsl(hue, 0.35, 0.07))
     # diagonal gradient

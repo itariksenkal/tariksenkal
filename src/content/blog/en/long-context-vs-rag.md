@@ -7,7 +7,7 @@ category: "Architecture"
 tags: ["Architecture", "AI"]
 translation: "uzun-baglam-mi-rag-mi"
 heroImage:
-  src: "../../../assets/blog/bimg-02.jpg"
+  src: "../../../assets/blog/covers/long-context-vs-rag.jpg"
   alt: "With a 1M-Token Window, Do You Still Need RAG?"
 ---
 

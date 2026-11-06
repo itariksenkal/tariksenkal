@@ -7,7 +7,7 @@ category: "Architecture"
 tags: ["Architecture", "AI"]
 translation: "baglam-muhendisligi"
 heroImage:
-  src: "../../../assets/blog/bimg-11.jpg"
+  src: "../../../assets/blog/covers/context-engineering.jpg"
   alt: "Context Engineering: The Discipline That Replaced Prompt Engineering"
 ---
 

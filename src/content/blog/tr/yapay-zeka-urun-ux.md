@@ -7,7 +7,7 @@ category: "Ürün"
 tags: ["Ürün", "Yapay Zeka"]
 translation: "ai-product-ux"
 heroImage:
-  src: "../../../assets/blog/bimg-10.jpg"
+  src: "../../../assets/blog/covers/yapay-zeka-urun-ux.jpg"
   alt: "Yapay Zeka Ürünlerinde Kullanıcı Deneyimi (AI UX): Belirsizlikten Güvene"
 ---
 

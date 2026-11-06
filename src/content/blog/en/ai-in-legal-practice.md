@@ -7,7 +7,7 @@ category: "Applications"
 tags: ["Applications", "AI"]
 translation: "hukukta-yapay-zeka"
 heroImage:
-  src: "../../../assets/blog/bimg-20.jpg"
+  src: "../../../assets/blog/covers/ai-in-legal-practice.jpg"
   alt: "AI in Legal Practice: Why a System Without Citations Is Useless"
 ---
 

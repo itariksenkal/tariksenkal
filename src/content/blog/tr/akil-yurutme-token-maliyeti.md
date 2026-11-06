@@ -7,7 +7,7 @@ category: "Maliyet"
 tags: ["Maliyet", "Yapay Zeka"]
 translation: "reasoning-token-economics"
 heroImage:
-  src: "../../../assets/blog/bimg-16.jpg"
+  src: "../../../assets/blog/covers/akil-yurutme-token-maliyeti.jpg"
   alt: "Düşünme Bütçesinden Çaba Seviyesine: Akıl Yürütmenin Faturası"
 ---
 

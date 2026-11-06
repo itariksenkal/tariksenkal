@@ -7,7 +7,7 @@ category: "Pratik"
 tags: ["Pratik", "Yapay Zeka"]
 translation: "prompt-engineering-techniques"
 heroImage:
-  src: "../../../assets/blog/bimg-15.jpg"
+  src: "../../../assets/blog/covers/prompt-muhendisligi.jpg"
   alt: "Prompt Mühendisliği: Pratik Teknikler ve Gerçek Örnekler"
 ---
 

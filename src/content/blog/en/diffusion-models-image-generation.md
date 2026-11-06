@@ -7,7 +7,7 @@ category: "Generative"
 tags: ["Generative", "AI"]
 translation: "difuzyon-modelleri"
 heroImage:
-  src: "../../../assets/blog/bimg-02.jpg"
+  src: "../../../assets/blog/covers/diffusion-models-image-generation.jpg"
   alt: "Diffusion Models and Image Generation: From Noise to Image"
 ---
 

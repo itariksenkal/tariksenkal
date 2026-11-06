@@ -1,44 +1,52 @@
 ---
 title: "How did HatsonTech come about?"
-description: "How did HatsonTech come about? The origin story of a Turkish AI startup founded in 2024 at ODTÜ Teknokent in Ankara: what problem it set out to solve, and why it builds its own products."
+description: "HatsonTech is a software and AI company founded in Ankara in August 2026. A short account of how it started, what it does, and how it relates to Caseon AI, our legal-technology company."
 publishDate: "2026-08-09T23:04:00+03:00"
+updatedDate: "2026-11-06T18:00:00+03:00"
 lang: en
 category: "Company"
-tags: ["Company", "AI", "Legal Tech"]
+tags: ["Company", "HatsonTech", "Caseon AI", "Entrepreneurship"]
 translation: "hatsontech-nedir"
 heroImage:
-  src: "../../../assets/blog/hero-hatsontech.jpg"
-  alt: "How did HatsonTech come about?"
+  src: "../../../assets/blog/covers/what-is-hatsontech.jpg"
+  alt: "HatsonTech"
 ---
 
-**HatsonTech** began with a simple question: _Why can't a Turkish speaker easily access an AI that is truly powerful and trustworthy in their own language?_
+HatsonTech's story is a fairly simple one: two co-founders who had worked together for years decided to carry their experience forward under a new company.
 
-> “The best models were built for English. So we decided to build one for Turkish.”
+## Where we came from
 
-## It started with a problem
+As İsmail Tarık Şenkal and Halide Yılmaz, we have been working on AI products together since 2024. During that time we built products around Turkish language models, source-citing search systems and large-scale model training at an AI R&D company we co-founded in Ankara. It is also where we learned the most about building products, building a team and what it takes to keep a company going.
 
-We were following the rise of AI closely. But whenever they encountered Turkish text—especially a legal text—even the most powerful models stumbled: wrong terminology, fabricated sources, answers that missed the context. That's because these models were designed primarily around English. Turkish's agglutinative structure, its distinctive syntax and domain terminology (law, public administration…) were often overlooked.
+In July 2026 we left our roles at that company. In August 2026 we founded **Hatson Teknoloji Ltd. Şti.**, HatsonTech, in Ankara.
 
-This was no minor shortcoming; it was a silent disadvantage for millions of Turkish speakers. That is exactly where HatsonTech's starting point lay.
+## What we do
 
-## From research to product
+HatsonTech is a software and AI company. We work with organisations in these areas:
 
-We set out with a lab's curiosity. We researched how we could teach large language models (LLMs) Turkish, and gained hands-on experience training and deploying models on large-scale infrastructure through TÜBİTAK events, the national computing infrastructure **TRUBA** and programs such as **EUMaster4HPC**. As the prototypes grew, one thing became clear: the real value wasn't a paper or a demo, but a **product** people open every day.
+-   **AI agents:** workflows that connect to business systems and wait for human approval at important steps.
+-   **RAG and enterprise search:** assistants over company documents that show which source each answer comes from.
+-   **Language-model fine-tuning:** models adapted to Turkish and to a specific domain.
+-   **Computer vision:** quality control, OCR and document analysis.
+-   **Data engineering:** data pipelines, data warehouses and data quality.
+-   **Web and mobile software:** dashboards, APIs, iOS and Android apps, and cloud infrastructure.
+-   **On-premise deployment:** solutions that run on the organisation's own servers when data cannot leave the building.
 
-## 2024: Two founders, one company
+## What we pay attention to
 
-In 2024, we founded Hatson Teknoloji A.Ş. at **ODTÜ Teknokent** in Ankara — with two co-founders: **İsmail Tarık Şenkal** and **Halide Yılmaz**. We distilled the company's compass into a single sentence: _“From data to intelligence, from research to product.”_
+As a company, we try to stick to a few simple principles:
 
-<div class="callout"><strong>What it does:</strong> HatsonTech builds custom software, web and mobile platforms, cloud systems and AI products; legal technology is one of its main focus areas.</div>
+-   **Understand the problem first.** Not every job needs AI. If a simple automation will do, we would rather say so.
+-   **Agree on success up front.** Before starting, we write down with the customer what counts as "good", and we measure the result on real examples.
+-   **Think about privacy from day one.** Which data goes where, and what KVKK/GDPR require, should be clear in the first week of a project.
+-   **Start small and grow together.** We begin with a narrow pilot and widen the scope step by step as it proves useful. We also want to stay around after delivery for maintenance and further development.
 
-## Why a product, not a service?
+## How it relates to Caseon AI
 
-Many technology companies do work for others. We chose a different path: building **our own products**. Because truly solving the Turkish AI problem doesn't happen by delivering a project and walking away; it happens by owning and developing a product for years.
+In 2026 we also founded **Caseon AI** (Caseon Teknoloji A.Ş.) as a separate company focused on legal technology. Caseon concentrates on one thing: legal software. We are building a workspace that helps lawyers move through documents more easily in due diligence and contract review. The system answers review questions based on the project documents; the lawyer compares each answer with its source paragraph, corrects it if needed and records the decision. The final word always stays with the lawyer.
 
-## The first focus: law
-
-The first focus area of this idea was law: solutions that bring together case-law search, document analysis and a smart legal assistant for lawyers and legal departments. Behind them sits our own legal language model, which we trained for the Turkish legal language, and a [RAG](/en/posts/what-is-rag-how-to-build/) architecture that grounds answers in real documents.
+In short, HatsonTech works on the software and AI needs of organisations across sectors, while Caseon AI focuses on a single product for the legal world. Caseon is still in development; you can find more at [caseon.ai](https://caseon.ai/en/).
 
 ---
 
-In short, HatsonTech was born not out of an urge to “let's start a company,” but out of a real problem that needed solving. For the more technical side, you can take a look at our articles on [what a large language model is](/en/posts/how-llms-work/) and [why Turkish AI](/en/posts/tokens-embeddings/).
+Most of the posts on this blog are notes on questions we ran into while doing this work. If you are curious about the technical side, the posts on [RAG](/en/posts/what-is-rag-how-to-build/) and [language models](/en/posts/how-llms-work/) are a good place to start. For more about HatsonTech: [hatsontech.com](https://hatsontech.com/).

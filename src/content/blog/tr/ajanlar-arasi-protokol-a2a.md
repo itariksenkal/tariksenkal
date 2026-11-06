@@ -7,7 +7,7 @@ category: "Araçlar"
 tags: ["Araçlar", "Yapay Zeka"]
 translation: "a2a-agent-interoperability"
 heroImage:
-  src: "../../../assets/blog/bimg-15.jpg"
+  src: "../../../assets/blog/covers/ajanlar-arasi-protokol-a2a.jpg"
   alt: "A2A: Ajanlar Birbiriyle Nasıl Konuşur? (MCP'nin Rakibi Değil, Tamamlayıcısı)"
 ---
 

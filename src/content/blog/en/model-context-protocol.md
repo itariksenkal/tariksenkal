@@ -7,7 +7,7 @@ category: "Tooling"
 tags: ["Tooling", "AI"]
 translation: "mcp-model-baglam-protokolu"
 heroImage:
-  src: "../../../assets/blog/bimg-16.jpg"
+  src: "../../../assets/blog/covers/model-context-protocol.jpg"
   alt: "MCP (Model Context Protocol): A Common Language for AI Tooling"
 ---
 

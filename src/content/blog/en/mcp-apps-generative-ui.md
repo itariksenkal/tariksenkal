@@ -7,7 +7,7 @@ category: "Product"
 tags: ["Product", "AI"]
 translation: "mcp-apps-sohbet-icinde-arayuz"
 heroImage:
-  src: "../../../assets/blog/bimg-14.jpg"
+  src: "../../../assets/blog/covers/mcp-apps-generative-ui.jpg"
   alt: "MCP Apps: Interactive UI Inside the Conversation"
 ---
 

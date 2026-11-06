@@ -7,7 +7,7 @@ category: "Güvenlik"
 tags: ["Güvenlik", "Yapay Zeka"]
 translation: "prompt-injection-jailbreaks"
 heroImage:
-  src: "../../../assets/blog/bimg-05.jpg"
+  src: "../../../assets/blog/covers/prompt-injection-guvenlik.jpg"
   alt: "Prompt Injection ve Jailbreak: Yapay Zeka Güvenliğinin Temelleri"
 ---
 

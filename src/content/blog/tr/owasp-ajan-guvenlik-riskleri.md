@@ -7,7 +7,7 @@ category: "Güvenlik"
 tags: ["Güvenlik", "Yapay Zeka"]
 translation: "owasp-agentic-top-10"
 heroImage:
-  src: "../../../assets/blog/bimg-09.jpg"
+  src: "../../../assets/blog/covers/owasp-ajan-guvenlik-riskleri.jpg"
   alt: "OWASP Ajan Güvenliği İlk 10: ASI01'den ASI10'a Somut Karşılıklar"
 ---
 

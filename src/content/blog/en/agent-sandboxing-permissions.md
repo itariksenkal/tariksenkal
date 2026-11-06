@@ -7,7 +7,7 @@ category: "Security"
 tags: ["Security", "AI"]
 translation: "ajan-izolasyonu-ve-yetki"
 heroImage:
-  src: "../../../assets/blog/bimg-10.jpg"
+  src: "../../../assets/blog/covers/agent-sandboxing-permissions.jpg"
   alt: "Agent Sandboxing and Permissions: Avoiding the Lethal Trifecta"
 ---
 

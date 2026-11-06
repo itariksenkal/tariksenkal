@@ -7,7 +7,7 @@ category: "Modeller"
 tags: ["Modeller", "Yapay Zeka"]
 translation: "reasoning-models-test-time-compute"
 heroImage:
-  src: "../../../assets/blog/bimg-15.jpg"
+  src: "../../../assets/blog/covers/akil-yuruten-modeller.jpg"
   alt: "Akıl Yürüten Modeller ve Test Zamanı Hesaplama: Düşünmek İçin Zaman Satın Almak"
 ---
 

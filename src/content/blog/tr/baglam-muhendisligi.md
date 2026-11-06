@@ -7,7 +7,7 @@ category: "Mimari"
 tags: ["Mimari", "Yapay Zeka"]
 translation: "context-engineering"
 heroImage:
-  src: "../../../assets/blog/bimg-11.jpg"
+  src: "../../../assets/blog/covers/baglam-muhendisligi.jpg"
   alt: "Bağlam Mühendisliği: Prompt Mühendisliğinin Yerini Alan Disiplin"
 ---
 

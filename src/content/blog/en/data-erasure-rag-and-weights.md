@@ -7,7 +7,7 @@ category: "Applications"
 tags: ["Applications", "AI"]
 translation: "kvkk-llm-veri-silme"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/data-erasure-rag-and-weights.jpg"
   alt: "Erasing Personal Data From a RAG Index — and From Fine-Tuned Weights"
 ---
 

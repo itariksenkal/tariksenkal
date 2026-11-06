@@ -7,7 +7,7 @@ category: "Altyapı"
 tags: ["Altyapı", "Yapay Zeka"]
 translation: "vector-databases-guide"
 heroImage:
-  src: "../../../assets/blog/bimg-14.jpg"
+  src: "../../../assets/blog/covers/vektor-veritabanlari.jpg"
   alt: "Vektör Veritabanları Rehberi: Benzerlik Araması, HNSW ve FAISS / pgvector / Qdrant Karşılaştırması"
 ---
 

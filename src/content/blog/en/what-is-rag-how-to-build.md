@@ -7,7 +7,7 @@ category: "RAG"
 tags: ["RAG", "AI"]
 translation: "rag-nedir-nasil-kurulur"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/what-is-rag-how-to-build.jpg"
   alt: "What Is RAG and How to Build It End to End: A Practical Architecture Guide"
 ---
 

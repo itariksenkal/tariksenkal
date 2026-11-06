@@ -7,7 +7,7 @@ category: "Güvenlik"
 tags: ["Güvenlik", "Yapay Zeka"]
 translation: "prompt-injection-defense-by-design"
 heroImage:
-  src: "../../../assets/blog/bimg-11.jpg"
+  src: "../../../assets/blog/covers/prompt-injection-tasarimla-savunma.jpg"
   alt: "Prompt Injection'ı Tasarımla Çözmek: CaMeL, Çift Model ve Yetenek Tabanlı Savunma"
 ---
 

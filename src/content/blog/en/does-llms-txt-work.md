@@ -7,7 +7,7 @@ category: "Product"
 tags: ["Product", "AI"]
 translation: "llms-txt-ise-yariyor-mu"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/does-llms-txt-work.jpg"
   alt: "Does llms.txt Actually Work? What the Data Says, and What v2 Changed"
 ---
 

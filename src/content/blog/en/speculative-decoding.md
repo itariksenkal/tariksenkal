@@ -7,7 +7,7 @@ category: "Infrastructure"
 tags: ["Infrastructure", "AI"]
 translation: "spekulatif-kod-cozme"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/speculative-decoding.jpg"
   alt: "Speculative Decoding: Getting Faster Tokens From the Same Model"
 ---
 

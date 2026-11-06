@@ -7,7 +7,7 @@ category: "Cost"
 tags: ["Cost", "AI"]
 translation: "llm-maliyet-optimizasyonu"
 heroImage:
-  src: "../../../assets/blog/bimg-07.jpg"
+  src: "../../../assets/blog/covers/llm-cost-optimization.jpg"
   alt: "LLM Cost Optimization: Cutting the Bill with Tokens, Caching, Model Choice, and RAG"
 ---
 

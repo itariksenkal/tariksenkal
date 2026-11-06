@@ -7,7 +7,7 @@ category: "Ölçme"
 tags: ["Ölçme", "Yapay Zeka"]
 translation: "llm-evaluation"
 heroImage:
-  src: "../../../assets/blog/bimg-19.jpg"
+  src: "../../../assets/blog/covers/llm-degerlendirme.jpg"
   alt: "LLM'leri Nasıl Değerlendiririz? Otomatik Ölçütler, LLM-as-Judge ve RAG Sadakati"
 ---
 

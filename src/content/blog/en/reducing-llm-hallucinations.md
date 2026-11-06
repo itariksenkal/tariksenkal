@@ -7,7 +7,7 @@ category: "Reliability"
 tags: ["Reliability", "AI"]
 translation: "llm-halusinasyon-azaltma"
 heroImage:
-  src: "../../../assets/blog/bimg-17.jpg"
+  src: "../../../assets/blog/covers/reducing-llm-hallucinations.jpg"
   alt: "LLM Hallucinations: Why They Happen and How to Reduce Them"
 ---
 

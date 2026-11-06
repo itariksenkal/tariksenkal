@@ -7,7 +7,7 @@ category: "Cost"
 tags: ["Cost", "AI"]
 translation: "onek-onbellekleme-ekonomisi"
 heroImage:
-  src: "../../../assets/blog/bimg-17.jpg"
+  src: "../../../assets/blog/covers/prefix-caching-economics.jpg"
   alt: "Prefix Caching Economics: When Does the Cache Actually Pay?"
 ---
 

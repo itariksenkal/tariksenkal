@@ -7,7 +7,7 @@ category: "Ürün"
 tags: ["Ürün", "Yapay Zeka"]
 translation: "does-llms-txt-work"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/llms-txt-ise-yariyor-mu.jpg"
   alt: "llms.txt İşe Yarıyor mu? Verilerin Söylediği ve v2'nin Getirdikleri"
 ---
 

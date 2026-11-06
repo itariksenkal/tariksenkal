@@ -7,7 +7,7 @@ category: "Security"
 tags: ["Security", "AI"]
 translation: "prompt-injection-tasarimla-savunma"
 heroImage:
-  src: "../../../assets/blog/bimg-11.jpg"
+  src: "../../../assets/blog/covers/prompt-injection-defense-by-design.jpg"
   alt: "Defeating Prompt Injection by Design: CaMeL and Capability-Based Defence"
 ---
 

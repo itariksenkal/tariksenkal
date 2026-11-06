@@ -7,7 +7,7 @@ category: "Infrastructure"
 tags: ["Infrastructure", "AI"]
 translation: "vektor-veritabanlari"
 heroImage:
-  src: "../../../assets/blog/bimg-14.jpg"
+  src: "../../../assets/blog/covers/vector-databases-guide.jpg"
   alt: "Vector Databases Guide: Similarity Search, HNSW, and FAISS / pgvector / Qdrant Compared"
 ---
 

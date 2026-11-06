@@ -1,49 +1,51 @@
 ---
 title: "Who is İsmail Tarık Şenkal?"
-description: "Who is İsmail Tarık Şenkal? The story of the co-founder of Hatson Teknoloji A.Ş. — a developer and entrepreneur working on Turkish artificial intelligence, large language models, and legal technologies."
+description: "İsmail Tarık Şenkal is an entrepreneur and one of the co-founders of HatsonTech and Caseon AI. He studied at Hacettepe University, did his master's at METU, and builds companies in AI and software."
 publishDate: "2026-08-09T23:05:00+03:00"
+updatedDate: "2026-11-06T18:00:00+03:00"
 lang: en
 category: "Profile"
-tags: ["Profile", "AI", "Legal Tech"]
+tags: ["Profile", "Entrepreneurship", "HatsonTech", "Caseon AI"]
 translation: "tarik-senkal-kimdir"
 heroImage:
   src: "../../../assets/blog/tariksenkal.jpeg"
-  alt: "Who is İsmail Tarık Şenkal?"
+  alt: "İsmail Tarık Şenkal"
 ---
 
-İsmail Tarık Şenkal, or simply **Tarık Şenkal**, is a developer and entrepreneur determined to make artificial intelligence genuinely useful in everyday life. Today, under the roof of **Hatson Teknoloji A.Ş.**, where he is a co-founder, he develops AI products focused on Turkish.
-
-> “I want to turn AI from a presentation slide into a product people open every single day.”
+Hello, I'm **İsmail Tarık Şenkal**, Tarık for short. I build companies in AI and software, and today I'm one of the co-founders of **HatsonTech** and **Caseon AI**. In this post I wanted to briefly introduce myself and the road so far.
 
 ## In brief
 
--   **Who:** AI developer and entrepreneur.
--   **What he does:** Builds products with large language models (LLMs), natural language processing, and RAG architectures.
--   **Where:** Ankara, METU Technopolis (ODTÜ Teknokent).
--   **Company:** Hatson Teknoloji A.Ş. — co-founder.
+-   **Education:** Bachelor's, Hacettepe University; master's, METU.
+-   **Companies:** HatsonTech (Hatson Teknoloji Ltd. Şti.) and Caseon AI (Caseon Teknoloji A.Ş.), co-founder.
+-   **Interests:** Large language models, natural language processing, RAG, legal technology and entrepreneurship.
+-   **Based in:** Ankara.
 
-## From tech to entrepreneurship
+## University years
 
-Like that of most technology founders, Tarık Şenkal's story begins with a single curiosity: the question of whether computers can truly understand language. Over time, he focused his interest in software and artificial intelligence on natural language processing (NLP) — that is, the challenge of getting machines to read, understand, and produce text.
+I completed my bachelor's degree at Hacettepe University and did my master's at METU. During those years I became curious about how computers process language, and gradually turned towards AI, and natural language processing in particular.
 
-That interest carried him into large-scale AI work. Through TÜBİTAK events, Turkey's national high-performance computing infrastructure **TRUBA**, and European-level programs such as **EUMaster4HPC**, he gained hands-on experience in how models are trained and put into production on large infrastructures. This period shaped the technical DNA of the company he would later found.
+In the same period I had the chance to take part in large-scale model training work through TÜBİTAK events, Türkiye's national high-performance computing infrastructure **TRUBA**, and the European **EUMaster4HPC** programme. That is where I saw how much patience and discipline it takes to train a model on large infrastructure.
 
-<div class="callout"><strong>Why does it matter?</strong> Training large language models is neither cheap nor easy; it demands serious computing infrastructure and engineering discipline. Tarık Şenkal's early exposure to these infrastructures laid the foundation for HatsonTech becoming a company that “trains its own model.”</div>
+## A first startup
 
-## Founding HatsonTech
+In 2024, Halide Yılmaz and I co-founded an AI R&D company in Ankara. We built products around Turkish language models and source-citing search systems. Those years taught me the most about shipping a product from scratch, building a team, talking with customers and running a company day to day. In July 2026 I left my role at that company.
 
-In 2024, he launched **Hatson Teknoloji A.Ş.** as a co-founder at METU Technopolis in Ankara. The company's starting point is clear: to build AI products that genuinely understand Turkish and that are reliable and useful. HatsonTech is not a “consultancy” shop; it is an R&D company that builds **its own products**.
+## HatsonTech and Caseon AI
 
-The first focus area of this vision was law: solutions that bring together case-law search, document analysis, and a smart legal assistant for lawyers and legal departments. Behind them lies HatsonTech's own legal language model, fine-tuned for Turkish legal language.
+In August 2026 we founded **HatsonTech** in Ankara. At HatsonTech we run projects for organisations on AI agents, source-citing RAG assistants, language-model fine-tuning, computer vision, data engineering, and web and mobile software. Our aim is to build long-term partnerships with organisations rather than one-off jobs.
 
-## What does he believe?
+Also in 2026, we founded **Caseon AI** as a separate company focused on legal technology. At Caseon we are building software that helps lawyers with due diligence and contract review. Every answer the system gives is shown with the document paragraph it relies on, and the final check always stays with the lawyer.
 
-A few core ideas guide Tarık Şenkal's work:
+Today I spend my time on the growth, products and teams of these two companies.
 
--   **Turkish deserves the AI it has been waiting for.** Most powerful models are designed around English; everyone who speaks Turkish should have access to the same quality in their native language.
--   **Accuracy matters above all else.** Especially in fields like law, systems that don't “make things up” and that ground their answers in real documents are essential. That is why [RAG](/en/posts/what-is-rag-how-to-build/) architecture sits at the heart of the work.
--   **Research should become a product.** A paper or a prototype is valuable; but the real value lies in turning it into a product used by thousands of people.
+## A few things I care about
+
+-   **The team.** Every piece of work mentioned here is the effort of the people I work with.
+-   **Showing the source.** An answer means more when you can see where it came from; in fields like law, this is a requirement rather than a preference.
+-   **Thinking long term.** Growing a company and maturing a product both take time; we would rather move in steady, solid steps.
+-   **Writing as I learn.** This blog is partly notes to myself. If I get something wrong, I'm glad to be corrected.
 
 ---
 
-In short: İsmail Tarık Şenkal is a founder working to bring Turkish AI out of the lab and into real life. If you'd like to dig deeper, you can continue with the articles on [what HatsonTech is](/en/posts/what-is-hatsontech/) or on [how large language models work](/en/posts/how-llms-work/).
+We describe how our companies started in [How did HatsonTech come about?](/en/posts/what-is-hatsontech/). If you'd like to talk about a project or a partnership, you can reach me by [email](mailto:itarik.senkal@hatsontech.com).

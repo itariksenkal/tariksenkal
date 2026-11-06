@@ -7,7 +7,7 @@ category: "Hizalama"
 tags: ["Hizalama", "Yapay Zeka"]
 translation: "rlhf-model-alignment"
 heroImage:
-  src: "../../../assets/blog/bimg-08.jpg"
+  src: "../../../assets/blog/covers/rlhf-nedir.jpg"
   alt: "RLHF ve Model Hizalama: Yardımsever ve Güvenli Modeller, Ödül Modeli ve DPO"
 ---
 

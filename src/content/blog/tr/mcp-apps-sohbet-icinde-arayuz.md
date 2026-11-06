@@ -7,7 +7,7 @@ category: "Ürün"
 tags: ["Ürün", "Yapay Zeka"]
 translation: "mcp-apps-generative-ui"
 heroImage:
-  src: "../../../assets/blog/bimg-14.jpg"
+  src: "../../../assets/blog/covers/mcp-apps-sohbet-icinde-arayuz.jpg"
   alt: "MCP Apps: Sohbetin İçinde Çalışan Arayüzler"
 ---
 

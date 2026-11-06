@@ -7,7 +7,7 @@ category: "Agents"
 tags: ["Agents", "AI"]
 translation: "ajanlari-uretime-almak"
 heroImage:
-  src: "../../../assets/blog/bimg-04.jpg"
+  src: "../../../assets/blog/covers/agents-in-production.jpg"
   alt: "Taking AI Agents to Production: The Demo Works — Does the System?"
 ---
 

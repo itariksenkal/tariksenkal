@@ -7,7 +7,7 @@ category: "Architecture"
 tags: ["Architecture", "AI"]
 translation: "baglam-sikistirma-ve-sifirlama"
 heroImage:
-  src: "../../../assets/blog/bimg-08.jpg"
+  src: "../../../assets/blog/covers/context-compaction-and-reset.jpg"
   alt: "Compaction or Reset? Managing Context in Long Agent Sessions"
 ---
 

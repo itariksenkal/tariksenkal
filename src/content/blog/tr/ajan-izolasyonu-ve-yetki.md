@@ -7,7 +7,7 @@ category: "Güvenlik"
 tags: ["Güvenlik", "Yapay Zeka"]
 translation: "agent-sandboxing-permissions"
 heroImage:
-  src: "../../../assets/blog/bimg-10.jpg"
+  src: "../../../assets/blog/covers/ajan-izolasyonu-ve-yetki.jpg"
   alt: "Ajan İzolasyonu ve Yetkilendirme: Ölümcül Üçlüden Kaçınmak"
 ---
 

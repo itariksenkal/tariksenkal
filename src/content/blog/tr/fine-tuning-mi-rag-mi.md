@@ -7,7 +7,7 @@ category: "Karar"
 tags: ["Karar", "Yapay Zeka"]
 translation: "fine-tuning-vs-rag-vs-prompt"
 heroImage:
-  src: "../../../assets/blog/bimg-16.jpg"
+  src: "../../../assets/blog/covers/fine-tuning-mi-rag-mi.jpg"
   alt: "Fine-tuning mi, RAG mi, Prompt mu? Hangisini Ne Zaman Kullanmalı"
 ---
 

@@ -7,7 +7,7 @@ category: "Integration"
 tags: ["Integration", "AI"]
 translation: "fonksiyon-cagirma"
 heroImage:
-  src: "../../../assets/blog/bimg-06.jpg"
+  src: "../../../assets/blog/covers/function-calling-structured-output.jpg"
   alt: "Function Calling and Structured Output: Turning the Model into a Reliable Component"
 ---
 

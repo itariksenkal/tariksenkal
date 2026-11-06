@@ -7,7 +7,7 @@ category: "Mimari"
 tags: ["Mimari", "Yapay Zeka"]
 translation: "long-context-vs-rag"
 heroImage:
-  src: "../../../assets/blog/bimg-02.jpg"
+  src: "../../../assets/blog/covers/uzun-baglam-mi-rag-mi.jpg"
   alt: "1 Milyon Token Bağlam Varken RAG'a Hâlâ Gerek Var mı? (2026)"
 ---
 

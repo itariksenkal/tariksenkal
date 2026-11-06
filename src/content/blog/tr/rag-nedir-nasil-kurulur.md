@@ -7,7 +7,7 @@ category: "RAG"
 tags: ["RAG", "Yapay Zeka"]
 translation: "what-is-rag-how-to-build"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/rag-nedir-nasil-kurulur.jpg"
   alt: "RAG Nedir ve Uçtan Uca Nasıl Kurulur? Pratik Bir Mimari Rehber"
 ---
 

@@ -7,7 +7,7 @@ category: "Gözlemlenebilirlik"
 tags: ["Gözlemlenebilirlik", "Yapay Zeka"]
 translation: "opentelemetry-genai-tracing"
 heroImage:
-  src: "../../../assets/blog/bimg-08.jpg"
+  src: "../../../assets/blog/covers/opentelemetry-genai-izleme.jpg"
   alt: "OpenTelemetry GenAI: Ajan İzlerini Standart Bir Şemayla Toplamak"
 ---
 

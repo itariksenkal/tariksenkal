@@ -52,7 +52,7 @@ const jsonLd = {
     '@type': 'Person',
     name: site.name,
     url: new URL(paths.home(lang), site.url).href,
-    worksFor: { '@type': 'Organization', name: site.company.legal, url: site.company.url }
+    worksFor: site.companies.map((c) => ({ '@type': 'Organization', name: c.legal, url: c.url }))
   },
   publisher: { '@type': 'Person', name: site.name, url: site.url }
 }

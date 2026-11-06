@@ -7,7 +7,7 @@ category: "Uygulama"
 tags: ["Uygulama", "Yapay Zeka"]
 translation: "data-erasure-rag-and-weights"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/kvkk-llm-veri-silme.jpg"
   alt: "KVKK ve LLM: Bir Kişisel Veriyi RAG İndeksinden ve Ağırlıklardan Nasıl Silersiniz?"
 ---
 

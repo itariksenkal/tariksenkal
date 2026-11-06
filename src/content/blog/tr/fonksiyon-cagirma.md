@@ -7,7 +7,7 @@ category: "Entegrasyon"
 tags: ["Entegrasyon", "Yapay Zeka"]
 translation: "function-calling-structured-output"
 heroImage:
-  src: "../../../assets/blog/bimg-06.jpg"
+  src: "../../../assets/blog/covers/fonksiyon-cagirma.jpg"
   alt: "Fonksiyon Çağırma ve Yapılandırılmış Çıktı: Modeli Güvenilir Bir Bileşene Dönüştürmek"
 ---
 

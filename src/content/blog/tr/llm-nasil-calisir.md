@@ -7,7 +7,7 @@ category: "LLM"
 tags: ["LLM", "Yapay Zeka"]
 translation: "how-llms-work"
 heroImage:
-  src: "../../../assets/blog/bimg-11.jpg"
+  src: "../../../assets/blog/covers/llm-nasil-calisir.jpg"
   alt: "Büyük Dil Modelleri (LLM) Nasıl Çalışır? Transformer Mimarisinin Sezgisel Anlatımı"
 ---
 

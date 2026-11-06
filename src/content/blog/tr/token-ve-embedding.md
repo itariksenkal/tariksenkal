@@ -7,7 +7,7 @@ category: "Temeller"
 tags: ["Temeller", "Yapay Zeka"]
 translation: "tokens-embeddings"
 heroImage:
-  src: "../../../assets/blog/bimg-12.jpg"
+  src: "../../../assets/blog/covers/token-ve-embedding.jpg"
   alt: "Token ve Embedding: Bir Dil Modeli Metni Nasıl \"Görür\"?"
 ---
 
@@ -72,7 +72,7 @@ Sonuç olarak metnin yolculuğu şudur: _metin → token'lar → token ID'leri �
 
 Embedding uzayının en güzel yanı, anlamların geometriye dönüşmesidir. Benzer anlamlı kelimeler birbirine yakın oturur; farklı anlamdakiler uzaklaşır. İki vektörün ne kadar "aynı yöne baktığını" ölçmek için genellikle **kosinüs benzerliği** kullanılır.
 
-Klasik örnek şudur: "kral" vektöründen "erkek" yönünü çıkarıp "kadın" yönünü eklediğinizde, vardığınız nokta şaşırtıcı biçimde "kraliçe" vektörüne yakın çıkar. Yani anlam ilişkileri, uzaydaki yönlere karşılık gelir. Bu, embedding'lerin "kelimeleri ezberlemek" değil, "kelimeler arasındaki ilişkileri öğrenmek" anlamına geldiğinin en somut kanıtıdır.
+Bu yakınlık yalnızca benzer kelimelerle sınırlı kalmaz; kelimeler arasındaki ilişkiler de uzayda belirli yönlere karşılık gelebilir. Örneğin "Ankara" vektöründen "Türkiye"yi çıkarıp "Fransa"yı eklediğinizde, vardığınız nokta çoğu zaman "Paris" vektörünün yakınına düşer. Bu tür aritmetik her model ve her kelime için kusursuz işlemez; ama embedding'lerin kelimeleri tek tek ezberlemekten çok, aralarındaki ilişkileri yakaladığını sezgisel olarak gösterir.
 
 > "Embedding uzayında yakınlık, anlamca yakınlıktır. Mesafe, anlamı görünür kılan harita olur."
 

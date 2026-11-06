@@ -7,7 +7,7 @@ category: "Güvenlik"
 tags: ["Güvenlik", "Yapay Zeka"]
 translation: "guardrails-content-moderation"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/guardrails-icerik-denetimi.jpg"
   alt: "Guardrails: Yapay Zekâ Çıktısını Üretimde Sınırlamak"
 ---
 

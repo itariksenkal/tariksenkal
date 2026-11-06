@@ -7,7 +7,7 @@ category: "Multimodal"
 tags: ["Multimodal", "AI"]
 translation: "multimodal-modeller"
 heroImage:
-  src: "../../../assets/blog/bimg-01.jpg"
+  src: "../../../assets/blog/covers/multimodal-models.jpg"
   alt: "Multimodal Models: How Does AI That Processes Image, Text, and Audio Together Actually Work?"
 ---
 

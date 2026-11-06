@@ -7,7 +7,7 @@ category: "Maliyet"
 tags: ["Maliyet", "Yapay Zeka"]
 translation: "enterprise-llm-budgeting"
 heroImage:
-  src: "../../../assets/blog/bimg-20.jpg"
+  src: "../../../assets/blog/covers/kurumsal-llm-butcesi.jpg"
   alt: "Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet"
 ---
 

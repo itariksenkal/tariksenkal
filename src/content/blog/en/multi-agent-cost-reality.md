@@ -7,7 +7,7 @@ category: "Agents"
 tags: ["Agents", "AI"]
 translation: "coklu-ajan-maliyet-gercegi"
 heroImage:
-  src: "../../../assets/blog/bimg-07.jpg"
+  src: "../../../assets/blog/covers/multi-agent-cost-reality.jpg"
   alt: "Multi-Agent Systems: 15× the Tokens, 90% Better — Which One Is You?"
 ---
 

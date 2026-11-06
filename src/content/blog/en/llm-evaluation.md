@@ -7,7 +7,7 @@ category: "Evaluation"
 tags: ["Evaluation", "AI"]
 translation: "llm-degerlendirme"
 heroImage:
-  src: "../../../assets/blog/bimg-19.jpg"
+  src: "../../../assets/blog/covers/llm-evaluation.jpg"
   alt: "How Do We Evaluate LLMs? Automatic Metrics, LLM-as-Judge and RAG Faithfulness"
 ---
 

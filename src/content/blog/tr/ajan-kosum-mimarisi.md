@@ -7,7 +7,7 @@ category: "Mimari"
 tags: ["Mimari", "Yapay Zeka"]
 translation: "agent-harness-design"
 heroImage:
-  src: "../../../assets/blog/bimg-05.jpg"
+  src: "../../../assets/blog/covers/ajan-kosum-mimarisi.jpg"
   alt: "Ajan Koşum Mimarisi: Üretici-Değerlendirici Deseni ve Bağlam Kaygısı"
 ---
 

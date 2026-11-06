@@ -7,7 +7,7 @@ category: "Fundamentals"
 tags: ["Fundamentals", "AI"]
 translation: "token-ve-embedding"
 heroImage:
-  src: "../../../assets/blog/bimg-12.jpg"
+  src: "../../../assets/blog/covers/tokens-embeddings.jpg"
   alt: "Tokens and Embeddings: How Does a Language Model \"See\" Text?"
 ---
 
@@ -72,7 +72,7 @@ So the journey of text is: _text → tokens → token IDs → embedding vectors_
 
 The most beautiful property of the embedding space is that meanings turn into geometry. Words with similar meanings sit close together; those with different meanings drift apart. To measure how much two vectors "point in the same direction," **cosine similarity** is typically used.
 
-The classic example: if you take the "king" vector, subtract the "male" direction, and add the "female" direction, the point you arrive at turns out to be surprisingly close to the "queen" vector. In other words, relationships of meaning correspond to directions in the space. This is the most concrete proof that embeddings are not about "memorizing words" but about "learning the relationships between words."
+This closeness is not limited to similar words; relationships between words can also correspond to directions in the space. For example, if you take the "Ankara" vector, subtract "Türkiye" and add "France", the point you reach often lands near the "Paris" vector. Arithmetic like this does not work perfectly for every model or every word, but it gives a good intuition that embeddings capture relationships between words rather than memorising them one by one.
 
 > "In the embedding space, closeness is closeness in meaning. Distance becomes the map that makes meaning visible."
 

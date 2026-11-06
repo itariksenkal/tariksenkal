@@ -7,7 +7,7 @@ category: "Efficiency"
 tags: ["Efficiency", "AI"]
 translation: "model-damitma"
 heroImage:
-  src: "../../../assets/blog/bimg-03.jpg"
+  src: "../../../assets/blog/covers/knowledge-distillation.jpg"
   alt: "Knowledge Distillation and Small Models: Transferring Knowledge from a Large Teacher to a Small Student"
 ---
 

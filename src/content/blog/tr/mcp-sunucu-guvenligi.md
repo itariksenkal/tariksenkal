@@ -7,7 +7,7 @@ category: "Güvenlik"
 tags: ["Güvenlik", "Yapay Zeka"]
 translation: "mcp-server-security"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/mcp-sunucu-guvenligi.jpg"
   alt: "MCP Sunucu Güvenliği: Araç Açıklamasına Gizlenen Talimatlar"
 ---
 

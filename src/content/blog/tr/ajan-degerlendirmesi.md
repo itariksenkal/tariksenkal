@@ -7,7 +7,7 @@ category: "Ajanlar"
 tags: ["Ajanlar", "Yapay Zeka"]
 translation: "agent-evaluation"
 heroImage:
-  src: "../../../assets/blog/bimg-17.jpg"
+  src: "../../../assets/blog/covers/ajan-degerlendirmesi.jpg"
   alt: "Ajan Değerlendirmesi: Çok Adımlı Sistemleri Nasıl Ölçersiniz?"
 ---
 

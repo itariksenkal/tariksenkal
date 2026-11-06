@@ -1,16 +1,17 @@
 # İsmail Tarık Şenkal
 
-> Hatson Teknoloji A.Ş. kurucu ortağı ve yapay zeka geliştiricisi; Türkçe odaklı yapay zeka ürünleri üzerine çalışır. — Co-founder of HatsonTech and an AI developer building Turkish-focused AI products.
+> HatsonTech ve Caseon AI kurucu ortağı; Hacettepe Üniversitesi mezunu, yüksek lisansını ODTÜ'de yaptı. — Co-founder of HatsonTech and Caseon AI; studied at Hacettepe University, master's at METU.
 
 Bu site İsmail Tarık Şenkal'ın kişisel blogudur; büyük dil modelleri (LLM), RAG, vektör veritabanları, prompt mühendisliği ve MLOps gibi uygulamalı yapay zeka konularını Türkçe ve İngilizce ele alır. — Personal site of İsmail Tarık Şenkal, covering applied AI — LLMs, RAG, vector databases, prompt engineering and MLOps — in Turkish and English.
 
-Hatson Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı yapay zeka Ar-Ge şirketi.
+HatsonTech (Hatson Teknoloji Ltd. Şti.) — Ağustos 2026'da Ankara'da kurulan yazılım ve yapay zeka şirketi. — Software and AI company founded in Ankara in August 2026: https://hatsontech.com/
+Caseon AI (Caseon Teknoloji A.Ş.) — 2026'da kurulan, avukatlar için durum tespiti ve sözleşme inceleme yazılımı geliştiren hukuk teknolojisi şirketi. — Legal-technology company building due diligence and contract review software: https://caseon.ai/
 
 ## Hakkında / Background
-- [İsmail Tarık Şenkal kimdir?](https://tariksenkal.com/posts/tarik-senkal-kimdir/): İsmail Tarık Şenkal kimdir? Hatson Teknoloji A.Ş.'nin kurucu ortağı, Türkçe yapay zeka, büyük dil modelleri ve hukuk teknolojileri üzerine çalışan geliştirici ve girişimcinin hikâyesi.
-- [HatsonTech nasıl ortaya çıktı?](https://tariksenkal.com/posts/hatsontech-nedir/): HatsonTech nasıl ortaya çıktı? 2024'te Ankara ODTÜ Teknokent'te kurulan Türkçe yapay zeka girişiminin doğuş hikâyesi: hangi sorundan yola çıkıldı, neden kendi ürünlerini geliştiriyor?
-- [Who is İsmail Tarık Şenkal?](https://tariksenkal.com/en/posts/who-is-tarik-senkal/): Who is İsmail Tarık Şenkal? The story of the co-founder of Hatson Teknoloji A.Ş. — a developer and entrepreneur working on Turkish artificial intelligence, large language models, and legal technologies.
-- [How did HatsonTech come about?](https://tariksenkal.com/en/posts/what-is-hatsontech/): How did HatsonTech come about? The origin story of a Turkish AI startup founded in 2024 at ODTÜ Teknokent in Ankara: what problem it set out to solve, and why it builds its own products.
+- [İsmail Tarık Şenkal kimdir?](https://tariksenkal.com/posts/tarik-senkal-kimdir/): İsmail Tarık Şenkal; HatsonTech ve Caseon AI'ın kurucu ortaklarından bir girişimci. Lisansını Hacettepe Üniversitesi'nde, yüksek lisansını ODTÜ'de yaptı; yapay zeka ve yazılım alanında şirketler kuruyor.
+- [HatsonTech nasıl ortaya çıktı?](https://tariksenkal.com/posts/hatsontech-nedir/): HatsonTech, Ağustos 2026'da Ankara'da kurulan bir yazılım ve yapay zeka şirketi. Nasıl başladığını, ne yaptığını ve hukuk teknolojisine odaklanan Caseon AI ile ilişkisini kısaca anlatıyoruz.
+- [Who is İsmail Tarık Şenkal?](https://tariksenkal.com/en/posts/who-is-tarik-senkal/): İsmail Tarık Şenkal is an entrepreneur and one of the co-founders of HatsonTech and Caseon AI. He studied at Hacettepe University, did his master's at METU, and builds companies in AI and software.
+- [How did HatsonTech come about?](https://tariksenkal.com/en/posts/what-is-hatsontech/): HatsonTech is a software and AI company founded in Ankara in August 2026. A short account of how it started, what it does, and how it relates to Caseon AI, our legal-technology company.
 
 ## Yazılar — Türkçe
 - [Çoklu Ajan Sistemleri: 15 Kat Token, %90 Kazanç — Hangisi Sizin Durumunuz?](https://tariksenkal.com/posts/coklu-ajan-maliyet-gercegi/): Çoklu ajan mimarisi ne zaman kazanır, ne zaman para yakar? İki birincil kaynağın uzlaştırılması, token çarpanı, hata modları ve somut bir karar tablosu.

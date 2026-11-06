@@ -7,7 +7,7 @@ category: "Mimari"
 tags: ["Mimari", "Yapay Zeka"]
 translation: "context-compaction-and-reset"
 heroImage:
-  src: "../../../assets/blog/bimg-08.jpg"
+  src: "../../../assets/blog/covers/baglam-sikistirma-ve-sifirlama.jpg"
   alt: "Bağlam Sıkıştırma mı, Sıfırlama mı? Uzun Ajan Oturumlarında Ne Yapmalı"
 ---
 

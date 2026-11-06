@@ -7,7 +7,7 @@ category: "Models"
 tags: ["Models", "AI"]
 translation: "kucuk-dil-modelleri"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/small-language-models.jpg"
   alt: "Small Language Models: When Smaller Beats Bigger"
 ---
 

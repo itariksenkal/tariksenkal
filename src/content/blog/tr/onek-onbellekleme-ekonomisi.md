@@ -7,7 +7,7 @@ category: "Maliyet"
 tags: ["Maliyet", "Yapay Zeka"]
 translation: "prefix-caching-economics"
 heroImage:
-  src: "../../../assets/blog/bimg-17.jpg"
+  src: "../../../assets/blog/covers/onek-onbellekleme-ekonomisi.jpg"
   alt: "Önek Önbellekleme Ekonomisi: Cache Ne Zaman Kâra Geçer?"
 ---
 

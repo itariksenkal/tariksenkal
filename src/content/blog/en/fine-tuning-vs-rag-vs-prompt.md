@@ -7,7 +7,7 @@ category: "Decision"
 tags: ["Decision", "AI"]
 translation: "fine-tuning-mi-rag-mi"
 heroImage:
-  src: "../../../assets/blog/bimg-16.jpg"
+  src: "../../../assets/blog/covers/fine-tuning-vs-rag-vs-prompt.jpg"
   alt: "Fine-tuning, RAG, or Prompt? When to Use Each Approach"
 ---
 

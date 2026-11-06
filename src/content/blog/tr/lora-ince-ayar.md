@@ -7,7 +7,7 @@ category: "İnce Ayar"
 tags: ["İnce Ayar", "Yapay Zeka"]
 translation: "lora-peft-fine-tuning"
 heroImage:
-  src: "../../../assets/blog/bimg-04.jpg"
+  src: "../../../assets/blog/covers/lora-ince-ayar.jpg"
   alt: "LoRA ve Verimli İnce Ayar (PEFT): Tüm Modeli Eğitmeden Uyarlama"
 ---
 

@@ -7,7 +7,7 @@ category: "Araçlar"
 tags: ["Araçlar", "Yapay Zeka"]
 translation: "mcp-stateless-architecture-2026"
 heroImage:
-  src: "../../../assets/blog/bimg-12.jpg"
+  src: "../../../assets/blog/covers/mcp-durumsuz-mimari-2026.jpg"
   alt: "MCP 2026: Protokol Neden Durumsuz Hâle Geldi ve Sunucunuz Ne Yapmalı?"
 ---
 

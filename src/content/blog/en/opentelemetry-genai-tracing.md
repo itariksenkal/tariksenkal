@@ -7,7 +7,7 @@ category: "Observability"
 tags: ["Observability", "AI"]
 translation: "opentelemetry-genai-izleme"
 heroImage:
-  src: "../../../assets/blog/bimg-08.jpg"
+  src: "../../../assets/blog/covers/opentelemetry-genai-tracing.jpg"
   alt: "OpenTelemetry GenAI: Tracing Agents on a Standard Schema"
 ---
 

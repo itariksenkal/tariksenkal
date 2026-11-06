@@ -7,7 +7,7 @@ category: "Models"
 tags: ["Models", "AI"]
 translation: "turkce-dil-modelleri-2026"
 heroImage:
-  src: "../../../assets/blog/bimg-03.jpg"
+  src: "../../../assets/blog/covers/turkish-language-models-2026.jpg"
   alt: "Turkish Language Models in 2026: A Verified Landscape"
 ---
 

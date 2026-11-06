@@ -7,7 +7,7 @@ category: "Verimlilik"
 tags: ["Verimlilik", "Yapay Zeka"]
 translation: "knowledge-distillation"
 heroImage:
-  src: "../../../assets/blog/bimg-03.jpg"
+  src: "../../../assets/blog/covers/model-damitma.jpg"
   alt: "Model Damıtma ve Küçük Modeller: Büyük Öğretmenden Küçük Öğrenciye Bilgi Aktarımı"
 ---
 

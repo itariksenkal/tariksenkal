@@ -7,7 +7,7 @@ category: "Fine-tuning"
 tags: ["Fine-tuning", "AI"]
 translation: "lora-ince-ayar"
 heroImage:
-  src: "../../../assets/blog/bimg-04.jpg"
+  src: "../../../assets/blog/covers/lora-peft-fine-tuning.jpg"
   alt: "LoRA and Efficient Fine-Tuning (PEFT): Adapting a Model Without Training the Whole Thing"
 ---
 

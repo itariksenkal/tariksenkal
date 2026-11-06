@@ -7,7 +7,7 @@ category: "MLOps"
 tags: ["MLOps", "AI"]
 translation: "mlops-uretim"
 heroImage:
-  src: "../../../assets/blog/bimg-20.jpg"
+  src: "../../../assets/blog/covers/mlops-ai-to-production.jpg"
   alt: "Taking an AI Model to Production (MLOps): From Demo to Real Product"
 ---
 

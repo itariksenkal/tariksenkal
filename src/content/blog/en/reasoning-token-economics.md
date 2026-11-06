@@ -7,7 +7,7 @@ category: "Cost"
 tags: ["Cost", "AI"]
 translation: "akil-yurutme-token-maliyeti"
 heroImage:
-  src: "../../../assets/blog/bimg-16.jpg"
+  src: "../../../assets/blog/covers/reasoning-token-economics.jpg"
   alt: "From Thinking Budgets to Effort Levels: What Reasoning Actually Costs"
 ---
 

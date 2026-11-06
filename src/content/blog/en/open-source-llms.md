@@ -7,7 +7,7 @@ category: "Ecosystem"
 tags: ["Ecosystem", "AI"]
 translation: "acik-kaynak-llm"
 heroImage:
-  src: "../../../assets/blog/bimg-18.jpg"
+  src: "../../../assets/blog/covers/open-source-llms.jpg"
   alt: "Open-Source LLMs: A Practical Look at Llama, Mistral, Qwen and Gemma"
 ---
 

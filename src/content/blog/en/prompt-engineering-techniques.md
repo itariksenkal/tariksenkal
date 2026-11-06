@@ -7,7 +7,7 @@ category: "Practice"
 tags: ["Practice", "AI"]
 translation: "prompt-muhendisligi"
 heroImage:
-  src: "../../../assets/blog/bimg-15.jpg"
+  src: "../../../assets/blog/covers/prompt-engineering-techniques.jpg"
   alt: "Prompt Engineering: Practical Techniques with Real Examples"
 ---
 

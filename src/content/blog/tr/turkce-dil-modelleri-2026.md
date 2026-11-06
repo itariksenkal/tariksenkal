@@ -7,7 +7,7 @@ category: "Ekosistem"
 tags: ["Ekosistem", "Yapay Zeka"]
 translation: "turkish-language-models-2026"
 heroImage:
-  src: "../../../assets/blog/bimg-03.jpg"
+  src: "../../../assets/blog/covers/turkce-dil-modelleri-2026.jpg"
   alt: "Türkçe Dil Modelleri 2026: Doğrulanmış Bir Manzara (ve Uydurulmuş Olanlar)"
 ---
 

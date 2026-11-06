@@ -7,7 +7,7 @@ category: "Uygulama"
 tags: ["Uygulama", "Yapay Zeka"]
 translation: "ai-in-legal-practice"
 heroImage:
-  src: "../../../assets/blog/bimg-20.jpg"
+  src: "../../../assets/blog/covers/hukukta-yapay-zeka.jpg"
   alt: "Hukukta Yapay Zekâ: Neden Kaynak Göstermeyen Sistem İşe Yaramaz"
 ---
 

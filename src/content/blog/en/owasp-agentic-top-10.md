@@ -7,7 +7,7 @@ category: "Security"
 tags: ["Security", "AI"]
 translation: "owasp-ajan-guvenlik-riskleri"
 heroImage:
-  src: "../../../assets/blog/bimg-09.jpg"
+  src: "../../../assets/blog/covers/owasp-agentic-top-10.jpg"
   alt: "OWASP Agentic Top 10: What ASI01–ASI10 Mean in Code"
 ---
 

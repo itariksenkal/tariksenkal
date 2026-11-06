@@ -7,7 +7,7 @@ category: "Ajanlar"
 tags: ["Ajanlar", "Yapay Zeka"]
 translation: "autonomous-agent-architectures"
 heroImage:
-  src: "../../../assets/blog/bimg-12.jpg"
+  src: "../../../assets/blog/covers/otonom-ajan-mimarileri.jpg"
   alt: "Otonom Ajan Mimarileri: Planla-Uygula, Ajan Filoları ve Maliyet Gerçeği"
 ---
 

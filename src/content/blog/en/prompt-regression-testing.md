@@ -7,7 +7,7 @@ category: "Evaluation"
 tags: ["Evaluation", "AI"]
 translation: "prompt-regresyon-testleri"
 heroImage:
-  src: "../../../assets/blog/bimg-03.jpg"
+  src: "../../../assets/blog/covers/prompt-regression-testing.jpg"
   alt: "Prompt Regression Testing: Putting Evals in CI"
 ---
 

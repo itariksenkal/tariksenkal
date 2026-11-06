@@ -7,7 +7,7 @@ category: "Modeller"
 tags: ["Modeller", "Yapay Zeka"]
 translation: "small-language-models"
 heroImage:
-  src: "../../../assets/blog/bimg-13.jpg"
+  src: "../../../assets/blog/covers/kucuk-dil-modelleri.jpg"
   alt: "Küçük Dil Modelleri (SLM): Ne Zaman Büyük Modelden İyidir?"
 ---
 

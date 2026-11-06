@@ -7,7 +7,7 @@ category: "Ölçme"
 tags: ["Ölçme", "Yapay Zeka"]
 translation: "prompt-regression-testing"
 heroImage:
-  src: "../../../assets/blog/bimg-03.jpg"
+  src: "../../../assets/blog/covers/prompt-regresyon-testleri.jpg"
   alt: "Prompt Regresyon Testleri: Değerlendirmeyi CI'a Sokmak"
 ---
 

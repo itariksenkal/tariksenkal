@@ -7,7 +7,7 @@ category: "Architecture"
 tags: ["Architecture", "AI"]
 translation: "model-yonlendirme-kademeleme"
 heroImage:
-  src: "../../../assets/blog/bimg-14.jpg"
+  src: "../../../assets/blog/covers/model-routing-cascades.jpg"
   alt: "Model Routing and Cascades: Stop Sending Every Task to the Same Model"
 ---
 

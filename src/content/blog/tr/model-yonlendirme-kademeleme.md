@@ -7,7 +7,7 @@ category: "Mimari"
 tags: ["Mimari", "Yapay Zeka"]
 translation: "model-routing-cascades"
 heroImage:
-  src: "../../../assets/blog/bimg-14.jpg"
+  src: "../../../assets/blog/covers/model-yonlendirme-kademeleme.jpg"
   alt: "Model Yönlendirme ve Kademeleme: Her İşe Aynı Modeli Vermeyin"
 ---
 

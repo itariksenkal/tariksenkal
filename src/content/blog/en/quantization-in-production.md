@@ -7,7 +7,7 @@ category: "Efficiency"
 tags: ["Efficiency", "AI"]
 translation: "uretimde-kuantizasyon"
 heroImage:
-  src: "../../../assets/blog/bimg-19.jpg"
+  src: "../../../assets/blog/covers/quantization-in-production.jpg"
   alt: "Quantization in Production: FP8, NVFP4, and Where Quality Actually Drops"
 ---
 

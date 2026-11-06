@@ -7,7 +7,7 @@ category: "Observability"
 tags: ["Observability", "AI"]
 translation: "llm-gozlemlenebilirlik"
 heroImage:
-  src: "../../../assets/blog/bimg-09.jpg"
+  src: "../../../assets/blog/covers/llm-observability.jpg"
   alt: "LLM Observability: A Practical Look at Tracing, Logging, and Evaluation Loops"
 ---
 

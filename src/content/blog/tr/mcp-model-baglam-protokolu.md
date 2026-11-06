@@ -7,7 +7,7 @@ category: "Araçlar"
 tags: ["Araçlar", "Yapay Zeka"]
 translation: "model-context-protocol"
 heroImage:
-  src: "../../../assets/blog/bimg-16.jpg"
+  src: "../../../assets/blog/covers/mcp-model-baglam-protokolu.jpg"
   alt: "MCP (Model Context Protocol): Yapay Zekâ Araçları İçin Ortak Dil"
 ---
 

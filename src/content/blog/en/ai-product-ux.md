@@ -7,7 +7,7 @@ category: "Product"
 tags: ["Product", "AI"]
 translation: "yapay-zeka-urun-ux"
 heroImage:
-  src: "../../../assets/blog/bimg-10.jpg"
+  src: "../../../assets/blog/covers/ai-product-ux.jpg"
   alt: "User Experience in AI Products (AI UX): From Uncertainty to Trust"
 ---
 
