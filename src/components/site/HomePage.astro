@@ -4,10 +4,12 @@ import { Image } from 'astro:assets'
 import avatar from '@/assets/avatar.jpeg'
 import portrait from '@/assets/portrait.jpeg'
 import { profile, site } from '@/data/profile'
+import { publications } from '@/data/publications'
 import { categoryCounts, getPosts, paths, postUrl, t, type Lang } from '@/i18n'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Glyph from './Glyph.astro'
 import PostCard from './PostCard.astro'
+import Publications from './Publications.astro'
 
 interface Props {
   lang: Lang
@@ -192,6 +194,8 @@ const jsonLd = {
           <span>{p.now}</span>
         </p>
       </section>
+
+      {publications && <Publications {lang} data={publications} />}
 
       {/* ===== Writing ===== */}
       <section class='reveal'>

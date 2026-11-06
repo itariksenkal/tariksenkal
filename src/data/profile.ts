@@ -20,6 +20,7 @@ export const site = {
       href: 'https://www.linkedin.com/in/tar%C4%B1k-%C5%9Fenkal-776b98257'
     },
     { label: 'GitHub', icon: 'github', href: 'https://github.com/itariksenkal' },
+    { label: 'Scholar', icon: 'book', href: 'https://scholar.google.com/citations?user=Isrnt0cAAAAJ&hl=tr' },
     { label: 'X', icon: 'x', href: 'https://x.com/hatsontech' }
   ],
   companies: [
