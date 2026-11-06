@@ -1,0 +1,437 @@
+/* ===== Site layer on top of astro-pure ===== */
+
+/* Accent: tie the theme's primary to the site blue */
+:root {
+  --primary: 224 76% 52%;
+  --accent-soft: 224 90% 96%;
+}
+.dark {
+  --primary: 221 92% 78%;
+  --accent-soft: 224 40% 16%;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+::selection {
+  background: hsl(var(--primary) / 0.2);
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.6rem;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Soft highlight at the top of every page */
+#highlight-gradient {
+  background:
+    radial-gradient(60% 55% at 15% 0%, color-mix(in srgb, var(--hl) 22%, transparent), transparent 70%),
+    radial-gradient(45% 45% at 90% 5%, color-mix(in srgb, var(--hl) 12%, transparent), transparent 70%);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+.dark #highlight-gradient {
+  opacity: 0.75;
+}
+
+/* Reading progress */
+#reading-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, hsl(var(--primary) / 0.6), hsl(var(--primary)));
+  transition: transform 0.08s linear;
+}
+
+/* Dotted grid used behind the hero */
+.dot-grid {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.09) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 72%);
+}
+
+/* Avatar ring */
+.avatar-ring {
+  position: relative;
+  border-radius: 9999px;
+  padding: 4px;
+  background: conic-gradient(
+    from 180deg,
+    hsl(var(--primary) / 0.15),
+    hsl(var(--primary) / 0.9),
+    hsl(var(--primary) / 0.15),
+    hsl(var(--primary) / 0.5),
+    hsl(var(--primary) / 0.15)
+  );
+  animation: ring-spin 12s linear infinite;
+}
+.avatar-ring > * {
+  animation: ring-spin 12s linear infinite reverse;
+}
+@keyframes ring-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avatar-ring,
+  .avatar-ring > * {
+    animation: none;
+  }
+}
+
+/* Live dot */
+.live-dot {
+  position: relative;
+  display: inline-flex;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.live-dot::before,
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #22c55e;
+}
+.live-dot::before {
+  animation: ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.7;
+}
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Generic surface card */
+.surface {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  border-radius: 1rem;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+a.surface:hover,
+.surface.hoverable:hover {
+  border-color: hsl(var(--primary) / 0.45);
+  background: hsl(var(--muted));
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -18px hsl(var(--primary) / 0.55);
+}
+
+/* Spotlight that follows the cursor on cards */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    hsl(var(--primary) / 0.1),
+    transparent 60%
+  );
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Pills / chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 9999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--background));
+  transition:
+    color 0.15s,
+    background-color 0.15s,
+    border-color 0.15s;
+  white-space: nowrap;
+}
+a.chip:hover,
+button.chip:hover {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary) / 0.4);
+}
+.chip[aria-pressed='true'],
+.chip.is-active {
+  color: hsl(var(--background));
+  background: hsl(var(--foreground));
+  border-color: hsl(var(--foreground));
+}
+.chip .count {
+  font-size: 0.72rem;
+  opacity: 0.65;
+}
+
+/* Section heading (astro-pure style with a small accent) */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.section-title::before {
+  content: '';
+  width: 0.35rem;
+  height: 1.15rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary));
+}
+
+/* Cover image on cards */
+.cover {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: hsl(var(--muted));
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+a:hover .cover img {
+  transform: scale(1.04);
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  margin-inline-start: 0.4rem;
+  border-inline-start: 1px dashed hsl(var(--border));
+}
+.timeline > li {
+  position: relative;
+  padding-inline-start: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+.timeline > li:last-child {
+  padding-bottom: 0;
+}
+.timeline > li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: calc(-0.4rem - 0.5px);
+  top: 0.35rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 9999px;
+  background: hsl(var(--background));
+  border: 2px solid hsl(var(--primary) / 0.7);
+}
+.timeline > li:last-child::before {
+  background: hsl(var(--primary));
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.18);
+}
+
+/* Steps (process) */
+.step-num {
+  display: inline-flex;
+  width: 1.75rem;
+  height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  background: hsl(var(--accent-soft));
+}
+
+/* Icon tile */
+.icon-tile {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  color: hsl(var(--primary));
+  background: hsl(var(--accent-soft));
+  border: 1px solid hsl(var(--primary) / 0.15);
+}
+
+/* Hidden by the blog filter */
+[data-hidden='true'] {
+  display: none !important;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== Post content blocks migrated from the old site ===== */
+.prose > p:first-of-type {
+  font-size: 1.08em;
+  color: hsl(var(--foreground) / 0.88);
+}
+.prose .callout {
+  position: relative;
+  margin: 1.6em 0;
+  padding: 1em 1.2em 1em 1.3em;
+  border: 1px solid hsl(var(--primary) / 0.25);
+  border-inline-start: 3px solid hsl(var(--primary));
+  border-radius: 0.75rem;
+  background: hsl(var(--accent-soft));
+  color: hsl(var(--foreground) / 0.9);
+}
+.prose .callout strong {
+  color: hsl(var(--primary));
+}
+.prose .takeaways {
+  margin: 2em 0;
+  padding: 1.2em 1.4em;
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  background: hsl(var(--muted));
+}
+.prose .takeaways h4 {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--primary));
+}
+.prose .takeaways ul {
+  margin-bottom: 0;
+}
+.prose .takeaways li::marker {
+  color: hsl(var(--primary));
+}
+.prose .faq {
+  margin: 2em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.prose details {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.85rem;
+  background: hsl(var(--background));
+  padding: 0 1.1em;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+.prose details[open] {
+  background: hsl(var(--muted));
+  border-color: hsl(var(--primary) / 0.3);
+}
+.prose details summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.85em 1.8em 0.85em 0;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  position: relative;
+}
+.prose details summary::-webkit-details-marker {
+  display: none;
+}
+.prose details summary::after {
+  content: '+';
+  position: absolute;
+  inset-inline-end: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  color: hsl(var(--muted-foreground));
+  transition: transform 0.2s;
+}
+.prose details[open] summary::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+.prose details > p {
+  margin-top: 0;
+  padding-bottom: 0.9em;
+}
+.prose table {
+  width: 100%;
+}
+.prose .yes {
+  color: #16a34a;
+  font-weight: 600;
+}
+.prose .no {
+  color: #dc2626;
+  font-weight: 600;
+}
+.prose hr {
+  margin: 2.5em auto;
+  width: 30%;
+}
+
+/* TOC highlight helpers (astro-pure classes) */
+.highlight {
+  color: hsl(var(--primary)) !important;
+}
+.highlight-bg {
+  background-color: hsl(var(--primary)) !important;
+}
+
+.chip[data-extra='true'] {
+  display: none;
+}

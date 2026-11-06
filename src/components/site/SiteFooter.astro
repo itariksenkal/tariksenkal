@@ -1,0 +1,71 @@
+---
+import { profile, site } from '@/data/profile'
+import { paths, t, type Lang } from '@/i18n'
+import Glyph from './Glyph.astro'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const s = t(lang)
+const p = profile[lang]
+const year = new Date().getFullYear()
+---
+
+<footer class='mx-auto mb-6 mt-20 w-full'>
+  <div class='border-t pt-8'>
+    <div class='flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between'>
+      <div class='max-w-sm'>
+        <a href={paths.home(lang)} class='text-base font-medium text-foreground'>{site.name}</a>
+        <p class='mt-1.5 text-sm text-muted-foreground'>{p.role}</p>
+      </div>
+
+      <div class='grid grid-cols-2 gap-x-12 gap-y-2 text-sm'>
+        <a class='footer-link' href={paths.blog(lang)}>{s.nav.blog}</a>
+        <a class='footer-link' href={`mailto:${site.email}`}>{s.email}</a>
+        <a class='footer-link' href={paths.tags(lang)}>{s.nav.tags}</a>
+        <a class='footer-link' href={paths.rss(lang)}>{s.rss}</a>
+        <a class='footer-link' href={paths.search(lang)}>{s.nav.search}</a>
+        <a class='footer-link' href={paths.privacy(lang)}>{s.privacy}</a>
+      </div>
+    </div>
+
+    <div class='mt-8 flex items-center justify-between gap-4 text-sm text-muted-foreground max-sm:flex-col-reverse'>
+      <span>© {year} {site.name} · {s.rights}</span>
+      <div class='flex items-center gap-x-1'>
+        {
+          site.socials.map(({ label, href, icon }) => (
+            <a
+              {href}
+              rel='me noopener'
+              target='_blank'
+              class='rounded-lg p-2 transition-colors hover:bg-muted hover:text-foreground'
+              title={label}
+            >
+              <span class='sr-only'>{label}</span>
+              <Glyph name={icon} class='size-[18px]' />
+            </a>
+          ))
+        }
+        <a
+          href={`mailto:${site.email}`}
+          class='rounded-lg p-2 transition-colors hover:bg-muted hover:text-foreground'
+          title={s.email}
+        >
+          <span class='sr-only'>{s.email}</span>
+          <Glyph name='mail' class='size-[18px]' />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-link {
+    color: hsl(var(--muted-foreground) / 1);
+    transition: color 0.15s;
+  }
+  .footer-link:hover {
+    color: hsl(var(--foreground) / 1);
+  }
+</style>

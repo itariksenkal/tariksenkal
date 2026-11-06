@@ -1,0 +1,63 @@
+---
+import { categoryCounts, getPosts, paths, t, tagCounts, type Lang } from '@/i18n'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Glyph from './Glyph.astro'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const s = t(lang)
+const other: Lang = lang === 'tr' ? 'en' : 'tr'
+const posts = await getPosts(lang)
+const tags = tagCounts(posts)
+const max = Math.max(...tags.map(([, n]) => n))
+const cats = categoryCounts(posts)
+---
+
+<BaseLayout {lang} altHref={paths.tags(other)} meta={{ title: s.tagsTitle, description: s.tagsDesc }}>
+  <main>
+    <header id='content-header' class='animate'>
+      <h1 class='text-3xl font-medium'>{s.tagsTitle}</h1>
+      <p class='mt-3 text-muted-foreground'>{s.tagsDesc} · {tags.length}</p>
+    </header>
+    <div id='content' class='animate mt-10 flex flex-col gap-12'>
+      <ul class='flex flex-wrap gap-2.5'>
+        {
+          tags.map(([tag, n]) => (
+            <li>
+              <a
+                class='chip'
+                href={paths.tag(lang, tag)}
+                style={`font-size:${(0.8 + (n / max) * 0.35).toFixed(3)}rem`}
+              >
+                <Glyph name='hash' class='size-3.5' />
+                {tag}
+                <span class='count'>{n}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <section>
+        <h2 class='section-title'>{s.filterBy}</h2>
+        <ul class='mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3'>
+          {
+            cats.map(([name, n]) => (
+              <li>
+                <a
+                  href={`${paths.blog(lang)}?c=${encodeURIComponent(name)}`}
+                  class='surface flex items-center justify-between px-4 py-3'
+                >
+                  <span class='font-medium'>{name}</span>
+                  <span class='text-sm text-muted-foreground'>{s.postsCount(n)}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

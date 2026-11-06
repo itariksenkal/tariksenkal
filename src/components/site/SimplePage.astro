@@ -1,0 +1,41 @@
+---
+import { formatDate, paths, t, type Lang } from '@/i18n'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { integ } from '@/site-config'
+import Glyph from './Glyph.astro'
+
+interface Props {
+  lang: Lang
+  title: string
+  description: string
+  altHref?: string
+  updatedDate?: Date
+}
+const { lang, title, description, altHref, updatedDate } = Astro.props
+const s = t(lang)
+---
+
+<BaseLayout {lang} {altHref} meta={{ title, description }}>
+  <a
+    href={paths.home(lang)}
+    class='group inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground'
+  >
+    <Glyph name='arrow-left' class='size-4' />
+    {s.nav.home}
+  </a>
+  <main class='mx-auto mt-8 max-w-3xl'>
+    <header id='content-header' class='animate'>
+      <h1 class='text-3xl font-medium'>{title}</h1>
+      {
+        updatedDate && (
+          <p class='mt-3 text-sm text-muted-foreground'>
+            {s.updated}: {formatDate(updatedDate, lang)}
+          </p>
+        )
+      }
+    </header>
+    <div id='content' class:list={['animate mt-8 max-w-none', integ.typography?.class]}>
+      <slot />
+    </div>
+  </main>
+</BaseLayout>

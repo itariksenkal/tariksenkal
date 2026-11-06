@@ -1,0 +1,24 @@
+---
+import Glyph from '@/components/site/Glyph.astro'
+import { paths, t } from '@/i18n'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const tr = t('tr')
+const en = t('en')
+---
+
+<BaseLayout lang='tr' meta={{ title: '404', description: tr.notFoundText }}>
+  <main class='flex flex-col items-center py-16 text-center'>
+    <p class='text-7xl font-medium text-primary sm:text-8xl'>404</p>
+    <h1 class='mt-6 text-2xl font-medium'>{tr.notFoundTitle}</h1>
+    <p class='mt-2 text-muted-foreground'>{tr.notFoundText}</p>
+    <p class='mt-1 text-sm text-muted-foreground' lang='en'>{en.notFoundTitle}. {en.notFoundText}</p>
+    <div class='mt-8 flex flex-wrap justify-center gap-3'>
+      <a href={paths.home('tr')} class='inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:text-background hover:opacity-85'>
+        <Glyph name='arrow-left' class='size-4' />{tr.goHome}
+      </a>
+      <a href={paths.blog('tr')} class='inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium hover:bg-muted'>{tr.nav.blog}</a>
+      <a href={paths.home('en')} lang='en' class='inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium hover:bg-muted'>English</a>
+    </div>
+  </main>
+</BaseLayout>

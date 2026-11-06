@@ -1,0 +1,36 @@
+---
+import { paths, t, type Lang, type Post } from '@/i18n'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Glyph from './Glyph.astro'
+import PostCard from './PostCard.astro'
+
+interface Props {
+  lang: Lang
+  tag: string
+  posts: Post[]
+}
+const { lang, tag, posts } = Astro.props
+const s = t(lang)
+---
+
+<BaseLayout {lang} meta={{ title: s.tagTitle(tag), description: `${s.tagTitle(tag)} · ${s.postsCount(posts.length)}` }}>
+  <a
+    href={paths.tags(lang)}
+    class='group inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground'
+  >
+    <Glyph name='arrow-left' class='size-4' />
+    {s.tagsTitle}
+  </a>
+  <main class='mt-8'>
+    <header id='content-header' class='animate'>
+      <h1 class='flex items-center gap-2 text-3xl font-medium'>
+        <Glyph name='hash' class='size-7 text-primary' />
+        {tag}
+      </h1>
+      <p class='mt-3 text-muted-foreground'>{s.postsCount(posts.length)}</p>
+    </header>
+    <ul id='content' class='animate mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      {posts.map((post, i) => <PostCard {post} eager={i < 3} />)}
+    </ul>
+  </main>
+</BaseLayout>

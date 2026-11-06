@@ -1,120 +1,106 @@
-# tariksenkal.com — İsmail Tarık Şenkal · Kişisel Blog & Portföy
+# tariksenkal.com
 
-Modern, açık/koyu temalı, tek sayfa + blog yapısında **statik** bir kişisel site.
-İsmail Tarık Şenkal'ı (Hatson Teknoloji A.Ş. kurucu ortağı) tanıtmak ve yapay zeka /
-Türkçe NLP üzerine yazılar yayımlamak için tasarlandı.
+İsmail Tarık Şenkal'ın kişisel sitesi ve blogu. [Astro](https://astro.build) ile yazılmıştır ve
+[Astro Theme Pure](https://github.com/cworld1/astro-theme-pure) (Apache-2.0) temel alınarak
+iki dilli (TR/EN) olacak şekilde genişletilmiştir.
 
-> **Slogan:** *Veriden zekâya, araştırmadan ürüne.*
-
----
-
-## ⚡ Hızlı başlangıç
-
-Kurulum gerektirmez — saf HTML/CSS/JS. Yerelde görmek için:
+## Çalıştırma
 
 ```bash
-# Klasörün içinde
-python -m http.server 8000
-# Tarayıcı: http://localhost:8000
+npm install
+npm run dev       # http://localhost:4321 (arama yalnızca derlenmiş sitede çalışır)
+npm run build     # tip kontrolü + statik çıktı (dist/)
+npm run preview   # derlenmiş siteyi yerelde aç
 ```
 
-Ya da `index.html` dosyasına çift tıklayın. (Bağlantıların düzgün çalışması için yerel sunucu önerilir.)
+## Nerede ne var?
 
+| Ne | Dosya |
+|---|---|
+| Kişisel bilgiler, biyografi, zaman çizelgesi, sosyal linkler (TR+EN) | `src/data/profile.ts` |
+| Arayüz metinleri ve URL yapısı | `src/i18n.ts` |
+| Yazılar | `src/content/blog/tr/*.md`, `src/content/blog/en/*.md` |
+| Yazı kapak görselleri | `src/assets/blog/` |
+| Gizlilik sayfası | `src/content/pages/{tr,en}/privacy.md` |
+| Profil fotoğrafı | `src/assets/avatar.jpeg` (kare), `src/assets/portrait.jpeg` |
+| Renk, kart ve yazı içi blok stilleri | `src/assets/styles/site.css` |
+| Sayfa bileşenleri | `src/components/site/` |
+
+## Yeni yazı eklemek
+
+`src/content/blog/tr/yeni-yazi.md` oluşturun (dosya adı URL olur: `/posts/yeni-yazi/`):
+
+```md
+---
+title: "Başlık"
+description: "Bir-iki cümlelik özet (arama sonuçlarında görünür)."
+publishDate: "2026-11-20T10:00:00+03:00"
+lang: tr
+category: "RAG"
+tags: ["RAG", "Yapay Zeka"]
+translation: "new-post"        # varsa İngilizce karşılığının dosya adı
+heroImage:
+  src: "../../../assets/blog/kapak.jpg"
+  alt: "Görsel açıklaması"
 ---
 
-## 📁 Yapı
-
-```
-tariksenkal/
-├── index.html                 # Ana sayfa (hero, kimdir, ne yapıyor, uzmanlık, yazılar, yolculuk, iletişim)
-├── blog.html                  # Tüm yazıların listesi
-├── 404.html                   # Özel hata sayfası
-├── posts/                     # Blog yazıları
-│   ├── tarik-senkal-kimdir.html
-│   ├── hatsontech-nedir.html
-│   ├── buyuk-dil-modeli-nedir.html
-│   ├── rag-nedir.html
-│   └── turkce-yapay-zeka.html
-├── css/style.css              # Tüm stiller + tema sistemi
-├── js/main.js                 # Tema, mobil menü, scroll-reveal, okuma çubuğu
-├── CNAME                      # tariksenkal.com (GitHub Pages için)
-├── robots.txt · sitemap.xml   # SEO
-└── README.md
-```
-
----
-
-## 🎨 Tasarım
-
-- **Tema:** Açık / koyu mod (sağ üstteki ☀️/🌙 düğmesi). Tercih `localStorage`'a kaydedilir, sistem tercihini de algılar.
-- **Renkler:** Site yeşili (`#7CB342`) ana aksan. Tüm renkler `css/style.css` içindeki `:root` ve `[data-theme="dark"]` bloklarında.
-- **Tipografi:** Başlıklar **Sora**, gövde **Inter**, makale metni editöryel his için **Newsreader** (serif).
-- **Hareket:** Scroll ile beliren `reveal` animasyonları, okuma ilerleme çubuğu, yumuşak geçişler. `prefers-reduced-motion` desteklenir.
-
-Renkleri değiştirmek için:
-
-```css
-:root {
-  --brand-600: #7CB342;   /* ana yeşil */
-  --accent:    #1976D2;   /* ikincil aksan */
-}
+Yazı metni (Markdown)...
 ```
 
----
+İngilizce karşılığı `src/content/blog/en/new-post.md` olur ve `translation` alanında Türkçe dosya adını gösterir.
+Yazı içinde şu hazır bloklar kullanılabilir:
 
-## ✍️ İçeriği düzenleme
+```html
+<div class="callout"><strong>İpucu:</strong> ...</div>
+<div class="takeaways"><h4>Öne çıkanlar</h4><ul><li>...</li></ul></div>
+<div class="faq"><details><summary>Soru?</summary><p>Cevap.</p></details></div>
+```
 
-- **Yazı metinleri:** Doğrudan `posts/*.html` içindeki `<div class="prose">…</div>` bloklarını düzenleyin.
-- **Yeni yazı eklemek:** Mevcut bir yazıyı kopyalayın, içeriği değiştirin; ardından kartını hem `blog.html` hem de
-  `index.html` "Yazılar" bölümüne ekleyin ve `sitemap.xml`'e satır ekleyin.
-- **Menü / footer:** Her sayfada tekrarlanır (statik site). Bir bağlantıyı değiştirirken tüm sayfalarda güncelleyin.
-- **Kart görseli:** Yazı kapakları CSS gradyanıdır (`thumb`, `article-hero` + `v2…v5` varyantları). İsterseniz `<img>` ile değiştirin.
+## URL'ler
 
-### 📸 Profil fotoğrafı eklemek
-Ana sayfadaki hero kartında `TŞ` baş harfleri yer alıyor. Gerçek fotoğraf için `index.html` içindeki
-`<div class="portrait">…</div>` bloğundaki `.ph-ring` ve başlık kısmını bir `<img>` ile değiştirebilirsiniz.
-Aynı şekilde makalelerdeki `.ava` (yazar avatarı) baş harf yerine küçük bir resimle değiştirilebilir.
+| Sayfa | TR | EN |
+|---|---|---|
+| Ana sayfa | `/` | `/en/` |
+| Yazılar | `/blog/` | `/en/blog/` |
+| Yazı | `/posts/<slug>/` | `/en/posts/<slug>/` |
+| Etiketler | `/etiketler/` | `/en/tags/` |
+| Arama | `/ara/` | `/en/search/` |
+| Gizlilik | `/gizlilik/` | `/en/privacy/` |
+| RSS | `/rss.xml` | `/en/rss.xml` |
 
----
+Eski statik sitedeki tüm URL'ler korunmuştur.
 
-## ⚠️ İçerik notu (önemli)
+## Günlük yazı yayını
 
-Bu sitedeki **biyografik anlatım örnek/şablon niteliğindedir** ve doğrulanmış kamu kayıtlarına dayanan kısımlarla
-(HatsonTech kurucu ortaklığı, 2024 kuruluşu, ODTÜ Teknokent, NLP/LLM odağı) birlikte yazılmıştır.
-Eğitim geçmişi, tarihler ve kişisel detayları yayına almadan önce **gözden geçirip kişiselleştirin**. Özellikle:
+Zamanlanmış yazılar `queue/tr/` ve `queue/en/` klasörlerinde bekler. Her yazının `publishDate` alanı yayın saatidir
+(TR ve EN eşi aynı tarihi taşır). Kapak görselleri baştan `src/assets/blog/covers/` içindedir.
 
-- `posts/tarik-senkal-kimdir.html` — eğitim/kariyer ayrıntıları
-- `index.html` → "Yolculuk" zaman çizelgesi
-- Sosyal bağlantılar: şu an **HatsonTech kurumsal** hesaplarına bağlı (LinkedIn/X/GitHub).
-  Varsa **kişisel profillerinizle** değiştirin.
-
----
-
-## 🚀 Yayına alma (GitHub Pages örneği)
+`.github/workflows/publish-scheduled.yml` her sabah **09:17 (İstanbul)** çalışır:
+`scripts/publish-due.mjs` vakti gelen dosyaları `src/content/blog/` altına taşır, site derlenerek kontrol edilir,
+değişiklik commit + push edilir. Push'tan sonra Cloudflare siteyi yeniden yayınlar.
 
 ```bash
-git init
-git add .
-git commit -m "tariksenkal.com kişisel blog"
-git branch -M main
-git remote add origin https://github.com/<kullanici>/tariksenkal.git
-git push -u origin main
+node scripts/publish-due.mjs --list     # kuyruğu ve yayın tarihlerini göster
+node scripts/publish-due.mjs            # vakti gelenleri şimdi yayınla
+python scripts/make-covers.py           # eksik kapak görsellerini üret (Pillow gerekir)
 ```
 
-Ardından repo → **Settings → Pages → Branch: main / root**. `CNAME` dosyası `tariksenkal.com`
-için ayarlı; alan adı DNS kayıtlarını (A / CNAME) GitHub Pages'e yönlendirmeniz yeterli.
-Netlify veya Vercel'e de klasörü sürükleyip bırakarak yayınlayabilirsiniz.
+Yeni yazı eklemek için dosyayı `queue/<dil>/` içine koyup `publishDate` verin, `make-covers.py` ile kapağını üretip commit'leyin.
+Hemen yayınlamak için doğrudan `src/content/blog/<dil>/` içine koymanız yeterli.
+GitHub'da **Actions → Publish scheduled post → Run workflow** ile iş akışı elle de tetiklenebilir.
 
----
+## Yayın (Cloudflare)
 
-## ✅ Özellikler
+Site, HatsonTech ile aynı şekilde **Cloudflare Workers + Git entegrasyonu (Workers Builds)** ile yayınlanır.
+`wrangler.jsonc` yalnızca statik `dist/` klasörünü sunar (Worker kodu yok).
 
-- Tamamen responsive (mobil/tablet/masaüstü)
-- Açık + koyu tema
-- SEO: meta etiketler, Open Graph, `Person`/`Article` yapısal verisi (JSON-LD), sitemap, robots
-- Erişilebilirlik: anlamsal HTML, klavye ile gezinme, `aria-label`'lar
-- Bağımlılık yok (Bootstrap/jQuery gerektirmez) — yalnızca Google Fonts CDN
+| Ayar | Değer |
+| --- | --- |
+| Repo | `itariksenkal/tariksenkal` |
+| Production branch | `main` |
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Node sürümü | `NODE_VERSION` = `24` |
+| Alan adı | `tariksenkal.com` (+ `www.tariksenkal.com` → 301 yönlendirme) |
 
----
-
-© 2024–2026 İsmail Tarık Şenkal · Hatson Teknoloji A.Ş. · Ankara, ODTÜ Teknokent 🌿
+`main`'e gelen her push (günlük yayın commit'leri dahil) otomatik olarak yayına çıkar.

@@ -1,0 +1,19 @@
+---
+import { getEntry, render } from 'astro:content'
+
+import SimplePage from '@/components/site/SimplePage.astro'
+
+const entry = await getEntry('pages', 'en/privacy')
+if (!entry) throw new Error('missing privacy page (en)')
+const { Content } = await render(entry)
+---
+
+<SimplePage
+  lang='en'
+  title={entry.data.title}
+  description={entry.data.description}
+  updatedDate={entry.data.updatedDate}
+  altHref='/gizlilik/'
+>
+  <Content />
+</SimplePage>

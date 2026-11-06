@@ -1,0 +1,317 @@
+---
+import { Image } from 'astro:assets'
+
+import avatar from '@/assets/avatar.jpeg'
+import portrait from '@/assets/portrait.jpeg'
+import { profile, site } from '@/data/profile'
+import { categoryCounts, getPosts, paths, postUrl, t, type Lang } from '@/i18n'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Glyph from './Glyph.astro'
+import PostCard from './PostCard.astro'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const s = t(lang)
+const p = profile[lang]
+const other: Lang = lang === 'tr' ? 'en' : 'tr'
+
+const posts = await getPosts(lang)
+const featured = posts.find((x) => x.data.featured) ?? posts[0]
+const rest = posts.filter((x) => x.id !== featured?.id)
+const grid = rest.slice(0, 6)
+const list = rest.slice(6, 12)
+const topics = categoryCounts(posts).slice(0, 8)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: new URL(paths.home(lang), site.url).href,
+  image: new URL('/og-card.jpg', site.url).href,
+  jobTitle: p.role,
+  email: `mailto:${site.email}`,
+  worksFor: { '@type': 'Organization', name: site.company.legal, url: site.company.url },
+  sameAs: site.socials.map((x) => x.href)
+}
+---
+
+<BaseLayout
+  {lang}
+  altHref={paths.home(other)}
+  meta={{ title: p.metaTitle, description: p.metaDescription, rawTitle: true, jsonLd }}
+>
+  <main class='flex w-full flex-col items-center'>
+    {/* ===== Hero ===== */}
+    <section class='animate relative mb-16 flex w-full flex-col items-center gap-y-7 pt-2 text-center' id='content-header'>
+      <div class='dot-grid pointer-events-none absolute inset-x-0 -top-10 h-[22rem]' aria-hidden='true'></div>
+
+      <div class='avatar-ring relative'>
+        <Image
+          src={avatar}
+          alt={site.name}
+          width={224}
+          height={224}
+          class='size-28 rounded-full border-4 border-background object-cover sm:size-32'
+          loading='eager'
+          fetchpriority='high'
+        />
+      </div>
+
+      <div class='relative flex flex-col items-center gap-y-3'>
+        <h1 class='text-3xl font-medium sm:text-4xl'>{site.name}</h1>
+        <p class='text-muted-foreground'>{p.role}</p>
+        <div class='mt-1 flex flex-wrap justify-center gap-2'>
+          <span class='chip'><Glyph name='pin' class='size-4' />{site.location[lang]}</span>
+          {
+            site.socials.map((x) => (
+              <a class='chip' href={x.href} target='_blank' rel='me noopener'>
+                <Glyph name={x.icon} class='size-4' />
+                {x.label}
+              </a>
+            ))
+          }
+          <a class='chip' href={`mailto:${site.email}`}><Glyph name='mail' class='size-4' />{s.email}</a>
+        </div>
+      </div>
+
+      {
+        featured && (
+          <a
+            href={postUrl(featured)}
+            class='relative flex max-w-full items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
+          >
+            <span class='live-dot shrink-0' />
+            <span class='shrink-0 font-medium text-foreground'>{p.status}</span>
+            <span class='truncate text-muted-foreground'>{featured.data.title}</span>
+            <Glyph name='arrow' class='size-4 shrink-0 text-muted-foreground' />
+          </a>
+        )
+      }
+
+      <div class='relative mt-2 max-w-2xl'>
+        <p class='text-sm font-medium text-primary'>{p.eyebrow}</p>
+        <p class='mt-3 text-balance text-2xl font-medium leading-snug sm:text-[1.75rem]'>{p.headline}</p>
+        <p class='mx-auto mt-4 max-w-xl text-muted-foreground'>{p.intro}</p>
+      </div>
+
+      <div class='relative flex flex-wrap justify-center gap-3'>
+        <a
+          href={paths.blog(lang)}
+          class='inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85 hover:text-background'
+        >
+          {s.allPosts}
+          <Glyph name='arrow' class='size-4' />
+        </a>
+        <a
+          href='#contact'
+          class='inline-flex items-center gap-2 rounded-full border bg-background px-5 py-2.5 text-sm font-medium transition-colors hover:bg-muted'
+        >
+          <Glyph name='mail' class='size-4' />
+          {p.sections.contact}
+        </a>
+      </div>
+
+      <dl class='relative mt-4 grid w-full max-w-2xl grid-cols-3 gap-3'>
+        {
+          [{ value: String(posts.length), label: s.postsCount(posts.length).replace(/^\d+\s*/, '') }, ...p.stats.slice(0, 2)].map(
+            (x) => (
+              <div class='surface px-3 py-4'>
+                <dt class='sr-only'>{x.label}</dt>
+                <dd class='text-xl font-medium sm:text-2xl'>{x.value}</dd>
+                <dd class='mt-0.5 text-xs text-muted-foreground'>{x.label}</dd>
+              </div>
+            )
+          )
+        }
+      </dl>
+    </section>
+
+    <div id='content' class='animate flex w-full flex-col gap-y-20 md:w-4/5 lg:w-5/6'>
+      {/* ===== About ===== */}
+      <section id='about' class='reveal scroll-mt-24'>
+        <h2 class='section-title'>{p.sections.about}</h2>
+        <div class='mt-6 grid gap-6 md:grid-cols-[1fr_15rem]'>
+          <div class='flex flex-col gap-5'>
+            <p class='text-lg leading-relaxed'>{p.about.lead}</p>
+            <div class='grid gap-3 sm:grid-cols-3'>
+              {
+                p.about.points.map((x) => (
+                  <div class='surface p-4'>
+                    <h3 class='font-medium'>{x.title}</h3>
+                    <p class='mt-1.5 text-sm text-muted-foreground'>{x.text}</p>
+                  </div>
+                ))
+              }
+            </div>
+            <div class='flex flex-wrap gap-2'>
+              {p.focus.map((f) => <span class='chip'>{f}</span>)}
+            </div>
+          </div>
+          <figure class='surface relative hidden overflow-hidden p-2 md:block'>
+            <Image
+              src={portrait}
+              alt={site.name}
+              widths={[320, 480]}
+              sizes='240px'
+              class='h-full max-h-[22rem] w-full rounded-xl object-cover'
+              style='object-position:65% 30%'
+            />
+          </figure>
+        </div>
+      </section>
+
+      {/* ===== Process + now ===== */}
+      <section class='reveal'>
+        <h2 class='section-title'>{p.sections.process}</h2>
+        <p class='mt-2 text-muted-foreground'>{p.process.title}</p>
+        <ol class='mt-6 grid gap-3 sm:grid-cols-3'>
+          {
+            p.process.steps.map((x, i) => (
+              <li class='surface spotlight hoverable p-5'>
+                <span class='step-num'>{String(i + 1).padStart(2, '0')}</span>
+                <h3 class='mt-3 text-lg font-medium'>{x.title}</h3>
+                <p class='mt-1 text-sm text-muted-foreground'>{x.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <div class='mt-4 flex flex-col gap-3 rounded-2xl border border-dashed p-4 text-sm sm:flex-row sm:items-center sm:justify-between'>
+          <p class='flex items-start gap-3 text-muted-foreground'>
+            <span class='live-dot mt-1.5 shrink-0'></span>
+            <span>{p.now}</span>
+          </p>
+          <a
+            href={site.company.url}
+            target='_blank'
+            rel='noopener'
+            class='chip shrink-0 self-start sm:self-auto'
+          >
+            <Glyph name='building' class='size-4' />
+            {new URL(site.company.url).host}
+            <Glyph name='arrow-up-right' class='size-3.5' />
+          </a>
+        </div>
+      </section>
+
+      {/* ===== Writing ===== */}
+      <section class='reveal'>
+        <div class='flex items-end justify-between gap-4'>
+          <div>
+            <h2 class='section-title'>{p.sections.writing}</h2>
+            <p class='mt-2 text-muted-foreground'>{s.blogDesc}</p>
+          </div>
+        </div>
+
+        <div class='mt-5 flex flex-wrap gap-2'>
+          {
+            topics.map(([name, n]) => (
+              <a class='chip' href={`${paths.blog(lang)}?c=${encodeURIComponent(name)}`}>
+                {name}
+                <span class='count'>{n}</span>
+              </a>
+            ))
+          }
+        </div>
+
+        {featured && <div class='mt-6'><PostCard post={featured} variant='wide' eager /></div>}
+
+        <ul class='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+          {grid.map((post) => <PostCard {post} />)}
+        </ul>
+
+        {
+          list.length > 0 && (
+            <ul class='mt-6 flex flex-col gap-y-1'>
+              {list.map((post) => <PostCard {post} variant='row' />)}
+            </ul>
+          )
+        }
+
+        <div class='mt-6 flex justify-end'>
+          <a href={paths.blog(lang)} class='group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted'>
+            {s.allPosts} · {posts.length}
+            <Glyph name='arrow' class='size-4 transition-transform group-hover:translate-x-1' />
+          </a>
+        </div>
+      </section>
+
+      {/* ===== Expertise ===== */}
+      <section class='reveal'>
+        <h2 class='section-title'>{p.sections.expertise}</h2>
+        <ul class='mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3'>
+          {
+            p.expertise.map((x, i, arr) => (
+              <li
+                class:list={[
+                  'surface spotlight hoverable flex flex-col gap-3 p-5',
+                  // Let a lonely last card span the row
+                  i === arr.length - 1 && arr.length % 3 === 1 && 'lg:col-span-3',
+                  i === arr.length - 1 && arr.length % 2 === 1 && 'sm:col-span-2'
+                ]}
+              >
+                <span class='icon-tile'>
+                  <Glyph name={x.icon} class='size-5' />
+                </span>
+                <h3 class='font-medium'>{x.title}</h3>
+                <p class='text-sm text-muted-foreground'>{x.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      {/* ===== Journey ===== */}
+      <section class='reveal'>
+        <h2 class='section-title'>{p.sections.journey}</h2>
+        <ol class='timeline mt-8'>
+          {
+            p.timeline.map((x) => (
+              <li>
+                <span class='text-xs font-semibold uppercase tracking-wider text-primary'>{x.when}</span>
+                <h3 class='mt-1 font-medium'>{x.title}</h3>
+                <p class='mt-1 max-w-2xl text-sm text-muted-foreground'>{x.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      {/* ===== Contact ===== */}
+      <section id='contact' class='reveal scroll-mt-24'>
+        <div class='surface relative overflow-hidden px-6 py-10 text-center sm:px-12'>
+          <div class='dot-grid pointer-events-none absolute inset-0' aria-hidden='true'></div>
+          <div class='relative'>
+            <span class='icon-tile'><Glyph name='mail' class='size-5' /></span>
+            <h2 class='mt-4 text-balance text-2xl font-medium'>{p.contact.title}</h2>
+            <p class='mx-auto mt-3 max-w-lg text-muted-foreground'>{p.contact.text}</p>
+            <div class='mt-6 flex flex-wrap justify-center gap-3'>
+              <a
+                href={`mailto:${site.email}`}
+                class='inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85 hover:text-background'
+              >
+                {p.contact.cta}
+                <Glyph name='arrow-up-right' class='size-4' />
+              </a>
+              {
+                site.socials.slice(0, 2).map((x) => (
+                  <a
+                    href={x.href}
+                    target='_blank'
+                    rel='me noopener'
+                    class='inline-flex items-center gap-2 rounded-full border bg-background px-5 py-2.5 text-sm font-medium transition-colors hover:bg-muted'
+                  >
+                    <Glyph name={x.icon} class='size-4' />
+                    {x.label}
+                  </a>
+                ))
+              }
+            </div>
+            <p class='mt-5 text-sm text-muted-foreground'>{site.email}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Static site: Cloudflare Workers Builds runs `npm run build`, then `npx wrangler deploy` uploads dist/.
+  "name": "tariksenkal",
+  "compatibility_date": "2026-09-15",
+  "assets": {
+    "directory": "./dist",
+    // Serve dist/404.html with a 404 status for unknown paths.
+    "not_found_handling": "404-page",
+    // /posts/x and /posts/x/ both reach dist/posts/x/index.html; the slash form is canonical.
+    "html_handling": "auto-trailing-slash"
+  },
+  "observability": { "enabled": true }
+}

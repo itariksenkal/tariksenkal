@@ -1,0 +1,105 @@
+---
+// Pagefind search box (based on astro-pure's PFSearch) with TR/EN UI strings
+// and trailing slashes kept, matching the site's URL style.
+import '@pagefind/default-ui/css/ui.css'
+
+import type { Lang } from '@/i18n'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+
+const translations = {
+  tr: {
+    placeholder: 'Yazılarda ara…',
+    clear_search: 'Temizle',
+    load_more: 'Daha fazla sonuç',
+    search_label: 'Bu sitede ara',
+    filters_label: 'Filtreler',
+    zero_results: '[SEARCH_TERM] için sonuç bulunamadı',
+    many_results: '[SEARCH_TERM] için [COUNT] sonuç',
+    one_result: '[SEARCH_TERM] için [COUNT] sonuç',
+    alt_search: '[SEARCH_TERM] için sonuç yok. Bunun yerine [DIFFERENT_TERM] sonuçları gösteriliyor',
+    search_suggestion: '[SEARCH_TERM] için sonuç yok. Şunları deneyin:',
+    searching: '[SEARCH_TERM] aranıyor…'
+  },
+  en: {
+    placeholder: 'Search posts…',
+    clear_search: 'Clear',
+    load_more: 'Load more results',
+    search_label: 'Search this site',
+    filters_label: 'Filters',
+    zero_results: 'No results for [SEARCH_TERM]',
+    many_results: '[COUNT] results for [SEARCH_TERM]',
+    one_result: '[COUNT] result for [SEARCH_TERM]',
+    alt_search: 'No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead',
+    search_suggestion: 'No results for [SEARCH_TERM]. Try one of the following searches:',
+    searching: 'Searching for [SEARCH_TERM]…'
+  }
+}[lang]
+const devNote = lang === 'tr' ? 'Geliştirme modunda arama kapalıdır; derlenmiş sitede çalışır.' : 'Search is disabled in dev mode; it works in the built site.'
+---
+
+<site-search data-translations={JSON.stringify(translations)}>
+  <div class='my-4'>
+    {
+      import.meta.env.DEV ? (
+        <div class='w-full rounded-xl border-2 px-4 py-2 text-muted-foreground'>{devNote}</div>
+      ) : (
+        <div id='site-search' />
+      )
+    }
+  </div>
+</site-search>
+
+<script>
+  class SiteSearch extends HTMLElement {
+    connectedCallback() {
+      const translations = JSON.parse(this.dataset.translations || '{}')
+      const onIdle = window.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1))
+      onIdle(async () => {
+        if (!document.getElementById('site-search')) return
+        // @ts-expect-error — Missing types for @pagefind/default-ui package.
+        const { PagefindUI } = await import('@pagefind/default-ui')
+        const ui = new PagefindUI({
+          element: '#site-search',
+          bundlePath: '/pagefind/',
+          showImages: false,
+          showSubResults: true,
+          resetStyles: false,
+          translations
+        })
+        // Allow ?q= deep links
+        const q = new URL(location.href).searchParams.get('q')
+        if (q) ui.triggerSearch(q)
+        setTimeout(() => (document.querySelector('#site-search input') as HTMLInputElement | null)?.focus(), 50)
+      })
+    }
+  }
+  customElements.define('site-search', SiteSearch)
+</script>
+
+<style>
+  #site-search {
+    --pagefind-ui-scale: 0.85;
+    --pagefind-ui-primary: hsl(var(--primary) / 1);
+    --pagefind-ui-text: hsl(var(--foreground) / 1);
+    --pagefind-ui-background: hsl(var(--muted) / 1);
+    --pagefind-ui-border: hsl(var(--border) / 1);
+    --pagefind-ui-tag: hsl(var(--muted-foreground) / 1);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 0.9rem;
+    --pagefind-ui-image-border-radius: 0.9rem;
+    --pagefind-ui-font: inherit;
+  }
+  #site-search :global(mark) {
+    background: hsl(var(--primary) / 0.18);
+    color: inherit;
+    border-radius: 0.2rem;
+    padding: 0 0.1rem;
+  }
+  #site-search :global(.pagefind-ui__result-link) {
+    color: hsl(var(--foreground) / 1);
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import { ThemeProvider } from 'astro-pure/components/basic'
+import BaseHead, { type Alternate } from '@/components/BaseHead.astro'
+import SiteFooter from '@/components/site/SiteFooter.astro'
+import SiteHeader from '@/components/site/SiteHeader.astro'
+import { site } from '@/data/profile'
+import { t, type Lang } from '@/i18n'
+
+import '@/assets/styles/global.css'
+import '@/assets/styles/app.css'
+import '@/assets/styles/site.css'
+
+export interface Meta {
+  title: string
+  description: string
+  ogImage?: string
+  articleDate?: string
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  rawTitle?: boolean
+}
+
+interface Props {
+  meta: Meta
+  lang: Lang
+  /** Same page in the other language */
+  altHref?: string
+  highlightColor?: string
+  /** Show the reading progress bar (posts) */
+  progress?: boolean
+}
+
+const { meta, lang, altHref, highlightColor = site.accent, progress = false } = Astro.props
+const s = t(lang)
+const other: Lang = lang === 'tr' ? 'en' : 'tr'
+const alternates: Alternate[] = altHref
+  ? [
+      { lang, href: Astro.url.pathname },
+      { lang: other, href: altHref }
+    ]
+  : []
+---
+
+<html lang={s.htmlLang}>
+  <head>
+    <BaseHead {...meta} {lang} {alternates} />
+    <ThemeProvider />
+  </head>
+
+  <body class='flex justify-center bg-background text-foreground'>
+    <a href='#main' class='skip-link'>{s.skip}</a>
+    {progress && <div id='reading-progress' aria-hidden='true'></div>}
+    <div
+      id='highlight-gradient'
+      class='pointer-events-none absolute start-0 top-0 z-0 h-[70vh] w-full'
+      style={`--hl:${highlightColor}`}
+      aria-hidden='true'
+    >
+    </div>
+    <div id='main-container' class='relative w-full max-w-[70rem] min-h-[100dvh] flex flex-col justify-between'>
+      <SiteHeader {lang} {altHref} />
+      <div id='main' class='flex-1 w-full'>
+        <slot />
+      </div>
+      <SiteFooter {lang} />
+    </div>
+
+    <script>
+      // Cursor spotlight on cards
+      document.addEventListener(
+        'pointermove',
+        (e) => {
+          const el = (e.target as HTMLElement | null)?.closest?.('.spotlight') as HTMLElement | null
+          if (!el) return
+          const r = el.getBoundingClientRect()
+          el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+          el.style.setProperty('--my', `${e.clientY - r.top}px`)
+        },
+        { passive: true }
+      )
+      // Reveal sections when they scroll into view
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add('is-visible')
+              io.unobserve(en.target)
+            }
+          }),
+        { rootMargin: '0px 0px -8% 0px' }
+      )
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
+    </script>
+
+    {
+      progress && (
+        <script>
+          const bar = document.getElementById('reading-progress')
+          const article = document.getElementById('content')
+          const update = () => {
+            if (!bar || !article) return
+            const rect = article.getBoundingClientRect()
+            const total = article.offsetHeight - window.innerHeight
+            const done = Math.min(1, Math.max(0, -rect.top / (total || 1)))
+            bar.style.transform = `scaleX(${done})`
+          }
+          window.addEventListener('scroll', update, { passive: true })
+          window.addEventListener('resize', update)
+          update()
+        </script>
+      )
+    }
+
+    <style>
+      #main-container {
+        padding-top: env(safe-area-inset-top);
+        padding-left: calc(1rem + env(safe-area-inset-left));
+        padding-right: calc(1rem + env(safe-area-inset-right));
+      }
+      @media (min-width: 640px) {
+        #main-container {
+          padding-left: calc(1.75rem + env(safe-area-inset-left));
+          padding-right: calc(1.75rem + env(safe-area-inset-right));
+        }
+      }
+      @media (min-width: 1024px) {
+        #main-container {
+          padding-left: calc(2.5rem + env(safe-area-inset-left));
+          padding-right: calc(2.5rem + env(safe-area-inset-right));
+        }
+      }
+    </style>
+  </body>
+</html>

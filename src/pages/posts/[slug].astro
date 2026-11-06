@@ -1,0 +1,36 @@
+---
+import { render } from 'astro:content'
+
+import { getPosts, paths, postSlug, type Post } from '@/i18n'
+import PostLayout from '@/layouts/PostLayout.astro'
+
+export async function getStaticPaths() {
+  const posts = await getPosts('tr')
+  const others = await getPosts('en')
+  const otherSlugs = new Set(others.map(postSlug))
+  return posts.map((post) => ({
+    params: { slug: postSlug(post) },
+    props: {
+      post,
+      posts,
+      altHref:
+        post.data.translation && otherSlugs.has(post.data.translation)
+          ? paths.post('en', post.data.translation)
+          : undefined
+    }
+  }))
+}
+
+interface Props {
+  post: Post
+  posts: Post[]
+  altHref?: string
+}
+
+const { post, posts, altHref } = Astro.props
+const { Content, headings } = await render(post)
+---
+
+<PostLayout {post} {posts} {headings} {altHref}>
+  <Content />
+</PostLayout>

@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets'
+
+import { formatDate, postUrl, readingMinutes, slugify, t, type Post } from '@/i18n'
+import Glyph from './Glyph.astro'
+
+interface Props {
+  post: Post
+  /** "card" = cover image card, "row" = compact astro-pure style row, "wide" = large horizontal */
+  variant?: 'card' | 'row' | 'wide'
+  eager?: boolean
+}
+const { post, variant = 'card', eager = false } = Astro.props
+const { data } = post
+const s = t(data.lang)
+const minutes = readingMinutes(post.body)
+const href = postUrl(post)
+const filterKey = data.category ? slugify(data.category) : ''
+---
+
+{
+  variant === 'row' ? (
+    <li class='post-row' data-category={filterKey}>
+      <a
+        href={href}
+        class='group flex w-full flex-col gap-1 rounded-2xl border border-transparent px-4 py-2.5 transition-colors hover:border-border hover:bg-muted sm:flex-row sm:items-center sm:gap-4'
+        data-astro-prefetch
+      >
+        <time class='min-w-[7.5rem] text-xs text-muted-foreground' datetime={data.publishDate.toISOString()}>
+          {formatDate(data.publishDate, data.lang, { month: 'short' })}
+        </time>
+        <span class='flex-grow transition-colors group-hover:text-primary'>{data.title}</span>
+        <span class='hidden shrink-0 text-xs text-muted-foreground sm:inline'>{s.minShort(minutes)}</span>
+        <Glyph
+          name='arrow'
+          class='hidden size-4 shrink-0 -translate-x-1 text-muted-foreground opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100 sm:block'
+        />
+      </a>
+    </li>
+  ) : variant === 'wide' ? (
+    <a href={href} class='surface spotlight group grid gap-5 p-3 sm:grid-cols-[1.15fr_1fr] sm:p-4' data-astro-prefetch>
+      {data.heroImage && (
+        <div class='cover'>
+          <Image
+            src={data.heroImage.src}
+            alt={data.heroImage.alt ?? data.title}
+            widths={[480, 720, 960]}
+            sizes='(min-width: 768px) 560px, 100vw'
+            loading={eager ? 'eager' : 'lazy'}
+          />
+        </div>
+      )}
+      <div class='flex flex-col justify-center gap-3 px-1 pb-2 sm:px-2'>
+        <div class='flex flex-wrap items-center gap-2 text-xs text-muted-foreground'>
+          {data.category && <span class='chip !py-0.5 !text-xs'>{data.category}</span>}
+          <span class='flex items-center gap-1'>
+            <Glyph name='clock' class='size-3.5' />
+            {s.minRead(minutes)}
+          </span>
+        </div>
+        <h3 class='text-xl font-medium leading-snug transition-colors group-hover:text-primary sm:text-2xl'>
+          {data.title}
+        </h3>
+        <p class='line-clamp-3 text-sm text-muted-foreground'>{data.description}</p>
+        <span class='mt-1 flex items-center gap-1.5 text-sm font-medium text-primary'>
+          {s.readMore}
+          <Glyph name='arrow' class='size-4 transition-transform group-hover:translate-x-1' />
+        </span>
+      </div>
+    </a>
+  ) : (
+    <li class='post-card flex' data-category={filterKey}>
+      <a href={href} class='surface spotlight group flex w-full flex-col gap-3 p-3' data-astro-prefetch>
+        {data.heroImage && (
+          <div class='cover'>
+            <Image
+              src={data.heroImage.src}
+              alt={data.heroImage.alt ?? data.title}
+              widths={[360, 540, 720]}
+              sizes='(min-width: 1024px) 340px, (min-width: 640px) 45vw, 100vw'
+              loading={eager ? 'eager' : 'lazy'}
+            />
+          </div>
+        )}
+        <div class='flex flex-1 flex-col gap-2 px-1.5 pb-1.5'>
+          <div class='flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground'>
+            {data.category && <span class='font-medium text-primary'>{data.category}</span>}
+            <span class='flex items-center gap-1'>
+              <Glyph name='clock' class='size-3.5' />
+              {s.minShort(minutes)}
+            </span>
+          </div>
+          <h3 class='font-medium leading-snug transition-colors group-hover:text-primary'>{data.title}</h3>
+          <p class='line-clamp-2 text-sm text-muted-foreground'>{data.description}</p>
+        </div>
+      </a>
+    </li>
+  )
+}

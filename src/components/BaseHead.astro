@@ -1,0 +1,84 @@
+---
+import { Font } from 'astro:assets'
+
+import { site } from '@/data/profile'
+import { paths, t, type Lang } from '@/i18n'
+
+export interface Alternate {
+  lang: Lang
+  href: string
+}
+
+interface Props {
+  title: string
+  description: string
+  lang: Lang
+  ogImage?: string
+  articleDate?: string
+  alternates?: Alternate[]
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  /** Use title as-is instead of "title · site" */
+  rawTitle?: boolean
+}
+
+const { title, description, lang, ogImage, articleDate, alternates = [], jsonLd, rawTitle } = Astro.props
+const s = t(lang)
+const pageTitle = rawTitle ? title : `${title} · ${site.shortName}`
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const socialImageURL = new URL(ogImage ?? '/og-card.jpg', Astro.site).href
+const trAlt = alternates.find((a) => a.lang === 'tr')
+---
+
+<meta charset='utf-8' />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
+<title>{pageTitle}</title>
+<meta name='description' content={description} />
+<meta name='author' content={site.name} />
+<link rel='canonical' href={canonicalURL} />
+
+{/* Language alternates */}
+{alternates.map((a) => <link rel='alternate' hreflang={a.lang} href={new URL(a.href, Astro.site)} />)}
+{trAlt && <link rel='alternate' hreflang='x-default' href={new URL(trAlt.href, Astro.site)} />}
+
+{/* Icons */}
+<link rel='icon' href='/favicon.ico' sizes='32x32' />
+<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+<link rel='icon' type='image/png' href='/favicon-192.png' sizes='192x192' />
+<link rel='apple-touch-icon' href='/apple-touch-icon.png' />
+<meta name='theme-color' content='#ffffff' media='(prefers-color-scheme: light)' />
+<meta name='theme-color' content='#0b0d12' media='(prefers-color-scheme: dark)' />
+<meta name='color-scheme' content='light dark' />
+
+{/* Font */}
+<Font cssVariable='--font-satoshi' preload={[{ subset: 'latin', style: 'normal' }]} />
+<style>
+  body {
+    font-family: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  }
+</style>
+
+{/* Open Graph */}
+<meta property='og:type' content={articleDate ? 'article' : 'website'} />
+<meta property='og:title' content={title} />
+<meta property='og:description' content={description} />
+<meta property='og:url' content={canonicalURL} />
+<meta property='og:site_name' content={site.name} />
+<meta property='og:locale' content={s.ogLocale} />
+<meta property='og:image' content={socialImageURL} />
+{
+  articleDate && (
+    <>
+      <meta property='article:author' content={site.name} />
+      <meta property='article:published_time' content={articleDate} />
+    </>
+  )
+}
+<meta name='twitter:card' content='summary_large_image' />
+<meta name='twitter:title' content={title} />
+<meta name='twitter:description' content={description} />
+<meta name='twitter:image' content={socialImageURL} />
+
+<link rel='sitemap' href='/sitemap-index.xml' />
+<link rel='alternate' type='application/rss+xml' title={`${site.shortName} (${lang.toUpperCase()})`} href={new URL(paths.rss(lang), Astro.site)} />
+
+{jsonLd && <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />}

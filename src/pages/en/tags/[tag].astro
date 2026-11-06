@@ -1,0 +1,20 @@
+---
+import TagPage from '@/components/site/TagPage.astro'
+import { getPosts, slugify, tagCounts, type Post } from '@/i18n'
+
+export async function getStaticPaths() {
+  const posts = await getPosts('en')
+  return tagCounts(posts).map(([tag]) => ({
+    params: { tag: slugify(tag) },
+    props: { tag, posts: posts.filter((p) => p.data.tags.includes(tag)) }
+  }))
+}
+
+interface Props {
+  tag: string
+  posts: Post[]
+}
+const { tag, posts } = Astro.props
+---
+
+<TagPage lang='en' {tag} {posts} />
