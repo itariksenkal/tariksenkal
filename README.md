@@ -91,16 +91,12 @@ GitHub'da **Actions → Publish scheduled post → Run workflow** ile iş akış
 
 ## Yayın (Cloudflare)
 
-Site, HatsonTech ile aynı şekilde **Cloudflare Workers + Git entegrasyonu (Workers Builds)** ile yayınlanır.
-`wrangler.jsonc` yalnızca statik `dist/` klasörünü sunar (Worker kodu yok).
+Site **Cloudflare Workers** üzerinde statik olarak yayınlanır (`wrangler.jsonc`, Worker kodu yok).
+Alan adları `wrangler.jsonc` içindeki `routes` ile bağlıdır; DNS kayıtlarını ve sertifikaları Cloudflare yönetir.
 
-| Ayar | Değer |
-| --- | --- |
-| Repo | `itariksenkal/tariksenkal` |
-| Production branch | `main` |
-| Build command | `npm run build` |
-| Deploy command | `npx wrangler deploy` |
-| Node sürümü | `NODE_VERSION` = `24` |
-| Alan adı | `tariksenkal.com` (+ `www.tariksenkal.com` → 301 yönlendirme) |
+- `.github/workflows/deploy.yml`: `main`'e her push'ta derleyip `npx wrangler deploy` ile yayınlar.
+- `.github/workflows/publish-scheduled.yml`: günlük yazıyı yayınladıktan sonra aynı şekilde deploy eder.
+- İkisi de repo secret'ı **`CLOUDFLARE_API_TOKEN`** ister (Cloudflare → My Profile → API Tokens →
+  “Edit Cloudflare Workers” şablonu). Hesap kimliği `wrangler.jsonc` içindedir.
 
-`main`'e gelen her push (günlük yayın commit'leri dahil) otomatik olarak yayına çıkar.
+Elle yayın: `npm run build && npx wrangler deploy` (önce `npx wrangler login`).

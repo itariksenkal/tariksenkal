@@ -1,8 +1,8 @@
 name: Publish scheduled post
 
 # Every morning at 09:17 Istanbul time, move the posts whose publishDate has passed from queue/ into
-# src/content/blog/, check that the site still builds, then commit and push. Cloudflare Workers Builds
-# deploys every push to main, so the new post goes live a few minutes later.
+# src/content/blog/, check that the site still builds, commit and push, then deploy to Cloudflare.
+# (Pushes made with GITHUB_TOKEN don't trigger other workflows, so deploying happens here.)
 on:
   schedule:
     - cron: '17 6 * * *' # 09:17 Europe/Istanbul
@@ -22,6 +22,8 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,3 +48,6 @@ jobs:
           git add -A queue src/content/blog
           git commit -m "Publish scheduled post for $(date +%F): $TITLES"
           git push
+      - name: Deploy to Cloudflare
+        if: steps.queue.outputs.published == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy

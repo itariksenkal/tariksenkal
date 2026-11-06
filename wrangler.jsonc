@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  // Static site: Cloudflare Workers Builds runs `npm run build`, then `npx wrangler deploy` uploads dist/.
+  // Static site: `npm run build`, then `npx wrangler deploy` uploads dist/ (done by .github/workflows/*.yml).
   "name": "tariksenkal",
+  "account_id": "e07cc95a4bfeeedf91d01a3e9f03bc0d",
   "compatibility_date": "2026-09-15",
   "assets": {
     "directory": "./dist",
@@ -10,5 +11,10 @@
     // /posts/x and /posts/x/ both reach dist/posts/x/index.html; the slash form is canonical.
     "html_handling": "auto-trailing-slash"
   },
+  // Custom domains: Cloudflare creates the DNS records and certificates for these.
+  "routes": [
+    { "pattern": "tariksenkal.com", "custom_domain": true },
+    { "pattern": "www.tariksenkal.com", "custom_domain": true }
+  ],
   "observability": { "enabled": true }
 }
