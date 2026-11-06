@@ -1,10 +1,10 @@
 # İsmail Tarık Şenkal
 
-> Hatson Teknoloji A.Ş. kurucu ortağı ve yapay zeka geliştiricisi; Türkçe odaklı yapay zeka ürünleri, özellikle Caseon hukuk teknolojisi platformu üzerine çalışır. — Co-founder of HatsonTech and an AI developer building Turkish-focused AI products, notably the Caseon legal-tech platform.
+> Hatson Teknoloji A.Ş. kurucu ortağı ve yapay zeka geliştiricisi; Türkçe odaklı yapay zeka ürünleri üzerine çalışır. — Co-founder of HatsonTech and an AI developer building Turkish-focused AI products.
 
 Bu site İsmail Tarık Şenkal'ın kişisel blogudur; büyük dil modelleri (LLM), RAG, vektör veritabanları, prompt mühendisliği ve MLOps gibi uygulamalı yapay zeka konularını Türkçe ve İngilizce ele alır. — Personal site of İsmail Tarık Şenkal, covering applied AI — LLMs, RAG, vector databases, prompt engineering and MLOps — in Turkish and English.
 
-Hatson Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı yapay zeka Ar-Ge şirketi; amiral ürün Caseon (yapay zeka destekli hukuk teknolojisi platformu).
+Hatson Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı yapay zeka Ar-Ge şirketi.
 
 ## Hakkında / Background
 - [İsmail Tarık Şenkal kimdir?](https://tariksenkal.com/posts/tarik-senkal-kimdir/): İsmail Tarık Şenkal kimdir? Hatson Teknoloji A.Ş.'nin kurucu ortağı, Türkçe yapay zeka, büyük dil modelleri ve hukuk teknolojileri üzerine çalışan geliştirici ve girişimcinin hikâyesi.
@@ -133,7 +133,6 @@ Hatson Teknoloji A.Ş. — Ankara, ODTÜ Teknokent merkezli, Türkçe odaklı ya
 - [GitHub](https://github.com/itariksenkal)
 - [E-posta / Email](mailto:itarik.senkal@hatsontech.com)
 - [HatsonTech](https://hatsontech.com)
-- [Caseon](https://caseon.ai)
 
 ## Optional
 - [Gizlilik Politikası (TR)](https://tariksenkal.com/gizlilik/)

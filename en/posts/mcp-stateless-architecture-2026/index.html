@@ -6,10 +6,10 @@
 <meta name="description" content="The 2026-07-28 MCP revision removed sessions, the Mcp-Session-Id header and the initialize handshake. MRTR, server/discover and a concrete migration plan." />
 <link rel="canonical" href="https://tariksenkal.com/en/posts/mcp-stateless-architecture-2026/" /><link rel="alternate" hreflang="tr" href="https://tariksenkal.com/posts/mcp-durumsuz-mimari-2026/" /><meta name="theme-color" content="#3B6BF6" />
 <meta property="og:type" content="article" /><meta property="og:title" content="MCP 2026: Why the Protocol Went Stateless, and What Your Server Must Change" /><meta property="og:description" content="The 2026-07-28 MCP revision removed sessions, the Mcp-Session-Id header and the initialize handshake. MRTR, server/discover and a concrete migration plan." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-12.jpg" />
-<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
-  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="icon" href="/favicon.ico?v=20261106" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261106" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20261106" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261106" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 <script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
@@ -49,7 +49,7 @@
 <div class="progress"></div>
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <a class="brand" href="../../" aria-label="Home"><span>Tarık Şenkal</span></a>
       <div class="nav-links" id="navLinks">
         <a href="../../#about">About</a>
         <a href="../../#what-i-do">What I Do</a>
@@ -118,7 +118,7 @@ Mcp-Name: search_contracts
     "_meta": {
       "io.modelcontextprotocol/protocolVersion": "2026-07-28",
       "io.modelcontextprotocol/clientCapabilities": {},
-      "io.modelcontextprotocol/clientInfo": { "name": "caseon", "version": "3.1.0" }
+      "io.modelcontextprotocol/clientInfo": { "name": "example-client", "version": "3.1.0" }
     }
   }
 }</code></pre>
@@ -134,7 +134,7 @@ Mcp-Name: search_contracts
     "protocolVersions": ["2026-07-28", "2025-11-25"],
     "capabilities": { "tools": {}, "resources": {} },
     "_meta": {
-      "io.modelcontextprotocol/serverInfo": { "name": "caseon-mcp", "version": "1.4.0" }
+      "io.modelcontextprotocol/serverInfo": { "name": "legal-search-mcp", "version": "1.4.0" }
     }
   }
 }</code></pre>
@@ -208,7 +208,7 @@ Mcp-Name: search_contracts
 <p>In short, MCP stopped being a session protocol and became an ordinary request-response protocol, which makes running your server in production markedly easier. If you want the fundamentals first, the <a href="../model-context-protocol/">introduction to MCP</a> is still a valid starting point; how tools are described to a model is covered in <a href="../function-calling-structured-output/">function calling</a>, and the loop that actually calls those tools is covered in <a href="../autonomous-agent-architectures/">autonomous agent architectures</a>.</p>
     </div>
     <div class="article-tags"><span class="tag">Tools</span><span class="tag">AI</span></div>
-    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech and Caseon.</p></div></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Co-Founder</div><p>A developer and entrepreneur working on Turkish-focused AI products — the name behind HatsonTech.</p></div></div>
     <div class="post-nav"><a href="../context-engineering/"><div class="dir">← Previous</div><div class="ttl">Context Engineering: The Discipline That Replaced Prompt Engineering</div></a><a class="next" href="../computer-use-agents/"><div class="dir">Next →</div><div class="ttl">Computer-Use Agents: The 60-Point Gap Between Demo and Production</div></a></div>
   </div>
 </article>

@@ -8,7 +8,7 @@
    1. Tema Değişkenleri (Design Tokens)
    -------------------------------------------------------------------------- */
 :root {
-  /* Marka — Caseon paleti (mürekkep + mavi aksan) */
+  /* Marka paleti (mürekkep + mavi aksan) */
   --brand:        #3B6BF6;
   --brand-600:    #3B6BF6;
   --brand-500:    #5C86F8;
@@ -16,7 +16,7 @@
   --brand-700:    #2A4FC9;
   --brand-ink:    #1A1D26;
 
-  /* İkincil aksan — Caseon altın */
+  /* İkincil aksan — altın */
   --accent:       #C9A969;
 
   /* Açık tema yüzeyleri */
@@ -180,8 +180,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav.scrolled { border-bottom-color: var(--border); background: color-mix(in srgb, var(--bg) 88%, transparent); }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; }
-/* Marka logosu: Caseon lockup (451x141). Kare kırpma YOK — en/boy oranı korunur.
-   Açık temada siyah, koyu temada beyaz sürüm gösterilir. */
 .brand img { width: 28px; height: 28px; border-radius: 0; display: block; }
 .brand .logo-dark { display: none; }
 [data-theme="dark"] .brand .logo-light { display: none; }

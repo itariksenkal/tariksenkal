@@ -37,7 +37,6 @@ tariksenkal/
 │   └── turkce-yapay-zeka.html
 ├── css/style.css              # Tüm stiller + tema sistemi
 ├── js/main.js                 # Tema, mobil menü, scroll-reveal, okuma çubuğu
-├── image/caseon-lockup-black.svg  # Marka logosu (açık tema; koyu tema için -white)
 ├── CNAME                      # tariksenkal.com (GitHub Pages için)
 ├── robots.txt · sitemap.xml   # SEO
 └── README.md
@@ -81,7 +80,7 @@ Aynı şekilde makalelerdeki `.ava` (yazar avatarı) baş harf yerine küçük b
 ## ⚠️ İçerik notu (önemli)
 
 Bu sitedeki **biyografik anlatım örnek/şablon niteliğindedir** ve doğrulanmış kamu kayıtlarına dayanan kısımlarla
-(HatsonTech kurucu ortaklığı, 2024 kuruluşu, ODTÜ Teknokent, Caseon, NLP/LLM odağı) birlikte yazılmıştır.
+(HatsonTech kurucu ortaklığı, 2024 kuruluşu, ODTÜ Teknokent, NLP/LLM odağı) birlikte yazılmıştır.
 Eğitim geçmişi, tarihler ve kişisel detayları yayına almadan önce **gözden geçirip kişiselleştirin**. Özellikle:
 
 - `posts/tarik-senkal-kimdir.html` — eğitim/kariyer ayrıntıları

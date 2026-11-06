@@ -6,10 +6,10 @@
 <meta name="description" content="Türkçe metnin token maliyetini ölçtük, üstüne kur riskini ve önbellek ekonomisini koyduk: API mi kendi sunucun mu sorusunun TL cinsinden çalışan cevabı." />
 <link rel="canonical" href="https://tariksenkal.com/posts/kurumsal-llm-butcesi/" /><link rel="alternate" hreflang="en" href="https://tariksenkal.com/en/posts/enterprise-llm-budgeting/" /><meta name="theme-color" content="#3B6BF6" />
 <meta property="og:type" content="article" /><meta property="og:title" content="Kurumsal LLM Bütçesi: Token Vergisi, Kur Riski ve TL Cinsinden Gerçek Maliyet" /><meta property="og:description" content="Türkçe metnin token maliyetini ölçtük, üstüne kur riskini ve önbellek ekonomisini koyduk: API mi kendi sunucun mu sorusunun TL cinsinden çalışan cevabı." /><meta property="og:image" content="https://tariksenkal.com/image/bimg-20.jpg" />
-<link rel="icon" href="/favicon.ico?v=20260809" sizes="32x32" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260809" />
-  <link rel="icon" type="image/png" href="/favicon-192.png?v=20260809" sizes="192x192" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260809" />
+<link rel="icon" href="/favicon.ico?v=20261106" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261106" />
+  <link rel="icon" type="image/png" href="/favicon-192.png?v=20261106" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261106" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 <script>(function(){try{var k="ts-theme",t=localStorage.getItem(k),m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(m?"dark":"light"));}catch(e){}})();</script>
@@ -49,7 +49,7 @@
 <div class="progress"></div>
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="../../" aria-label="Home"><img class="logo-light" src="../../image/caseon-mark-light.svg" alt="Caseon" width="28" height="28" /><img class="logo-dark" src="../../image/caseon-mark-dark.svg" alt="Caseon" width="28" height="28" /><span>Tarık Şenkal</span></a>
+      <a class="brand" href="../../" aria-label="Home"><span>Tarık Şenkal</span></a>
       <div class="nav-links" id="navLinks">
         <a href="../../#hakkinda">Kimdir</a>
         <a href="../../#ne-yapiyor">Ne Yapıyor</a>
@@ -191,7 +191,7 @@ def aylik_maliyet_tl(fiyat: Fiyat, istek: int, girdi_tok: int, cikti_tok: int,
 <p>Bütçe, tahmin edilebilir hâle geldiğinde bir engel olmaktan çıkar. Maliyeti düşüren kaldıraçların tamamı için <a href="../llm-maliyet-optimizasyonu/">LLM maliyet optimizasyonu</a>, her işi doğru modele göndermenin mimarisi için <a href="../model-yonlendirme-kademeleme/">model yönlendirme ve kademeleme</a>, ve ucuz tarafın ne kadar iş gördüğünü anlamak için <a href="../kucuk-dil-modelleri/">küçük dil modelleri</a> yazılarına bakabilirsiniz.</p>
     </div>
     <div class="article-tags"><span class="tag">Maliyet</span><span class="tag">Yapay Zeka</span></div>
-    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech ve Caseon'un arkasındaki isim.</p></div></div>
+    <div class="author-box"><span class="ava">TŞ</span><div><h4>İsmail Tarık Şenkal</h4><div class="role">Hatson Teknoloji A.Ş. · Kurucu Ortak</div><p>Türkçe odaklı yapay zeka ürünleri üzerine çalışan bir geliştirici ve girişimci. HatsonTech'in arkasındaki isim.</p></div></div>
     <div class="post-nav"><a href="../mcp-sunucu-guvenligi/"><div class="dir">← Önceki</div><div class="ttl">MCP Sunucu Güvenliği: Araç Açıklamasına Gizlenen Talimatlar</div></a><a class="next" href="../ajanlari-uretime-almak/"><div class="dir">Sıradaki →</div><div class="ttl">Yapay Zekâ Ajanlarını Üretime Almak: Demo Çalışıyor, Peki Sistem?</div></a></div>
   </div>
 </article>
