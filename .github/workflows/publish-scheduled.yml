@@ -49,5 +49,9 @@ jobs:
           git commit -m "Publish scheduled post for $(date +%F): $TITLES"
           git push
       - name: Deploy to Cloudflare
+        id: deploy
         if: steps.queue.outputs.published == 'true' && env.CLOUDFLARE_API_TOKEN != ''
         run: npx wrangler deploy
+      - name: Notify search engines (IndexNow)
+        if: steps.deploy.outcome == 'success'
+        run: node scripts/indexnow.mjs

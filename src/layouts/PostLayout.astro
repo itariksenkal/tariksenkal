@@ -35,34 +35,56 @@ const older = idx < posts.length - 1 ? posts[idx + 1] : undefined
 const related = relatedPosts(post, posts, 3)
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
 const ogImage = data.heroImage ? data.heroImage.src.src : undefined
-const articleDate = (data.updatedDate ?? data.publishDate).toISOString()
+const published = data.publishDate.toISOString()
+const modified = (data.updatedDate ?? data.publishDate).toISOString()
+const heroURL = data.heroImage ? new URL(data.heroImage.src.src, site.url).href : new URL('/og-card.jpg', site.url).href
+const homeURL = new URL(paths.home(lang), site.url).href
+const blogURL = new URL(paths.blog(lang), site.url).href
+const words = (post.body ?? '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: data.title,
-  description: data.description,
-  inLanguage: lang,
-  datePublished: data.publishDate.toISOString(),
-  dateModified: articleDate,
-  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-  url,
-  keywords: data.tags.join(', '),
-  author: {
-    '@type': 'Person',
-    name: site.name,
-    url: new URL(paths.home(lang), site.url).href,
-    worksFor: site.companies.map((c) => ({ '@type': 'Organization', name: c.legal, url: c.url }))
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: data.title,
+    description: data.description,
+    image: [heroURL],
+    inLanguage: lang,
+    datePublished: published,
+    dateModified: modified,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+    articleSection: data.category,
+    keywords: data.tags.join(', '),
+    wordCount: words,
+    isPartOf: { '@type': 'Blog', name: `${site.name} — ${s.nav.blog}`, url: blogURL },
+    author: {
+      '@type': 'Person',
+      name: site.name,
+      url: homeURL,
+      image: new URL('/og-card.jpg', site.url).href,
+      sameAs: site.socials.map((x) => x.href),
+      worksFor: site.companies.map((c) => ({ '@type': 'Organization', name: c.legal, url: c.url }))
+    },
+    publisher: { '@type': 'Person', name: site.name, url: site.url }
   },
-  publisher: { '@type': 'Person', name: site.name, url: site.url }
-}
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: site.shortName, item: homeURL },
+      { '@type': 'ListItem', position: 2, name: s.nav.blog, item: blogURL },
+      { '@type': 'ListItem', position: 3, name: data.title, item: url }
+    ]
+  }
+]
 ---
 
 <BaseLayout
   {lang}
   {altHref}
   progress
-  meta={{ title: data.title, description: data.description, ogImage, articleDate, jsonLd }}
+  meta={{ title: data.title, description: data.description, ogImage, articleDate: published, modifiedDate: modified, jsonLd }}
 >
   <a
     href={paths.blog(lang)}

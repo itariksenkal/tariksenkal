@@ -26,16 +26,46 @@ const grid = rest.slice(0, 6)
 const list = rest.slice(6, 12)
 const topics = categoryCounts(posts).slice(0, 8)
 
+const homeURL = new URL(paths.home(lang), site.url).href
+const personId = `${site.url}/#person`
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: site.name,
-  url: new URL(paths.home(lang), site.url).href,
-  image: new URL('/og-card.jpg', site.url).href,
-  jobTitle: p.role,
-  email: `mailto:${site.email}`,
-  worksFor: site.companies.map((c) => ({ '@type': 'Organization', name: c.legal, url: c.url })),
-  sameAs: site.socials.map((x) => x.href)
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      url: homeURL,
+      name: site.name,
+      description: p.metaDescription,
+      inLanguage: lang,
+      publisher: { '@id': personId }
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': `${homeURL}#profile`,
+      url: homeURL,
+      name: p.metaTitle,
+      inLanguage: lang,
+      isPartOf: { '@id': `${site.url}/#website` },
+      mainEntity: { '@id': personId }
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: site.name,
+      alternateName: site.shortName,
+      url: homeURL,
+      image: new URL('/og-card.jpg', site.url).href,
+      jobTitle: p.role,
+      description: p.metaDescription,
+      email: `mailto:${site.email}`,
+      address: { '@type': 'PostalAddress', addressLocality: 'Ankara', addressCountry: 'TR' },
+      alumniOf: site.alumni.map((x) => ({ '@type': 'CollegeOrUniversity', name: x.name, url: x.url })),
+      worksFor: site.companies.map((c) => ({ '@type': 'Organization', name: c.legal, alternateName: c.name, url: c.url })),
+      knowsAbout: [...p.focus, ...p.expertise.map((x) => x.title)],
+      sameAs: site.socials.map((x) => x.href)
+    }
+  ]
 }
 ---
 

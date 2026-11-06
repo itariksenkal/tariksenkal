@@ -28,8 +28,12 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Deploy
+        id: deploy
         if: env.CLOUDFLARE_API_TOKEN != ''
         run: npx wrangler deploy
+      - name: Notify search engines (IndexNow)
+        if: steps.deploy.outcome == 'success'
+        run: node scripts/indexnow.mjs
       - name: Token missing
         if: env.CLOUDFLARE_API_TOKEN == ''
         run: echo "::warning::CLOUDFLARE_API_TOKEN secret is not set; the site was built but not deployed."

@@ -100,3 +100,15 @@ Alan adları `wrangler.jsonc` içindeki `routes` ile bağlıdır; DNS kayıtlar�
   “Edit Cloudflare Workers” şablonu). Hesap kimliği `wrangler.jsonc` içindedir.
 
 Elle yayın: `npm run build && npx wrangler deploy` (önce `npx wrangler login`).
+
+## SEO / GEO
+
+Her derlemede içerikten otomatik üretilir — elle düzenlemeye gerek yok, kuyruktan yayınlanan yazılar da kendiliğinden eklenir:
+
+- `/sitemap.xml` (`src/pages/sitemap.xml.ts`): tüm sayfalar ve yazılar; lastmod, TR↔EN hreflang ve kapak görseliyle.
+- `/llms.txt` ve `/llms-full.txt` (`src/pages/llms*.txt.ts`): yapay zeka araçları için site özeti ve tüm yazıların tam metni.
+- `public/robots.txt`: tüm arama ve yapay zeka botlarına açık; sitemap ve llms.txt adresleri burada.
+- JSON-LD: ana sayfada WebSite + ProfilePage + Person, yazılarda BlogPosting + BreadcrumbList.
+- IndexNow (`scripts/indexnow.mjs`, anahtar `public/<anahtar>.txt`): her yayından sonra değişen adresleri Bing/Yandex'e (ve Copilot/ChatGPT aramasına) bildirir. Hepsini göndermek için: `node scripts/indexnow.mjs --all`.
+
+Google için: Search Console'da `tariksenkal.com` alan adı mülkünü ekleyin (DNS Cloudflare'de olduğu için doğrulama tek tıkla yapılır) ve `https://tariksenkal.com/sitemap.xml` adresini gönderin.

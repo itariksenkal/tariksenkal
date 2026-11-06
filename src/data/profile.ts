@@ -23,6 +23,10 @@ export const site = {
     { label: 'Scholar', icon: 'book', href: 'https://scholar.google.com/citations?user=Isrnt0cAAAAJ&hl=tr' },
     { label: 'X', icon: 'x', href: 'https://x.com/hatsontech' }
   ],
+  alumni: [
+    { name: 'Hacettepe Üniversitesi', url: 'https://www.hacettepe.edu.tr/' },
+    { name: 'Orta Doğu Teknik Üniversitesi (ODTÜ)', url: 'https://www.metu.edu.tr/' }
+  ],
   companies: [
     { name: 'HatsonTech', legal: 'Hatson Teknoloji Ltd. Şti.', url: 'https://hatsontech.com/' },
     { name: 'Caseon AI', legal: 'Caseon Teknoloji A.Ş.', url: 'https://caseon.ai/' }

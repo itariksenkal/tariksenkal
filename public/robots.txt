@@ -118,5 +118,8 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-# Site haritasi
+# Site haritasi (her derlemede icerikten otomatik uretilir)
+Sitemap: https://tariksenkal.com/sitemap.xml
 Sitemap: https://tariksenkal.com/sitemap-index.xml
+
+# LLM rehberi: https://tariksenkal.com/llms.txt  (tam metin: https://tariksenkal.com/llms-full.txt)
